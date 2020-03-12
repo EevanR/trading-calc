@@ -1,11 +1,13 @@
 import React from 'react';
+import Form from './components/Form'
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        
-      </header>
+      <h2>Trading Position Calculator</h2>
+      <div className="main">
+        <Form />
+      </div>
     </div>
   );
 }

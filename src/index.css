@@ -6,9 +6,38 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #282c34;
+  color: whitesmoke;
+  padding: 5%;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.ui.form .field>label {
+  display: block;
+  margin: 0 0 .28571429rem 0;
+  color: white;
+  font-size: .92857143em;
+  font-weight: 700;
+  text-transform: none;
+}
+
+
+#risk {
+  color: red;
+}
+
+#color {
+  color: blanchedalmond;
+}
+
+#green {
+  color: rgb(3, 179, 3);
+  letter-spacing: 0.5px;
+}
+
+.ui.form .fields .field {
+  margin-bottom: 10px;
 }
