@@ -1,29 +1,69 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Plays from './Plays'
 
-const Form = props => {
+const Form = () => {
   const [answer, setAnswer] = useState(null)
-  const [target, setTarget] = useState(null)
+  const [targetPrice, setTargetPrice] = useState(null)
+  const [stopPrice, setStopPrice] = useState(null)
   const [stop, setStop] = useState(null)
+  const [ticker, setTicker] = useState(null)
+  const [stockPrice, setStockPrice] = useState(null)
+  const [good, setGood] = useState(false)
+  const [count, setCount] = useState(0)
 
   const submit = (e) => {
     e.preventDefault();
     let bp = parseFloat(e.target.bp.value)
     let risk = parseFloat(e.target.risk.value)
     let stop = parseFloat(e.target.stop.value)
-    let price = parseFloat(e.target.price.value)
+    let stockPrice = parseFloat(e.target.price.value)
+    let ticker = e.target.ticker.value
 
     let maxShares = Math.floor(risk / stop)
-    let bpMax = Math.floor(bp / price)
+    let bpMax = Math.floor(bp / stockPrice)
+
+    setTargetPrice((stockPrice + stop).toFixed(2))
+    setStopPrice((stockPrice - stop).toFixed(2))
 
     if (bpMax < maxShares) {
       setAnswer(`${bpMax} Shares`)
+      setStop(stop)
+      setTicker(ticker)
+      setStockPrice(stockPrice)
+      setGood(true)
     } else {
       setAnswer(`${maxShares} Shares`)
+      setStop(stop)
+      setTicker(ticker)
+      setStockPrice(stockPrice)
+      setGood(true)
     }
-
-    setTarget(`$${price + stop}`)
-    setStop(`$${price - stop}`)
   }
+
+  const setStorage = () => {
+    const input = {
+      ticker: ticker, 
+      stockPrice: stockPrice, 
+      shares: answer, 
+      tp: targetPrice, 
+      sp: stopPrice, 
+      stop: stop
+    }
+    let tickers = []
+    if (sessionStorage.getItem('tickers')) {
+      tickers = JSON.parse(sessionStorage.getItem('tickers'))
+    }
+    tickers.push(input)
+    sessionStorage.setItem('tickers', JSON.stringify(tickers))
+    setGood(false)
+    setCount(count + 1)
+  }
+
+  useEffect(() => {
+    if (good === true ) {
+      setStorage()
+    }
+  }, [good])
   
   return (
     <>
@@ -38,6 +78,15 @@ const Form = props => {
                 placeholder="$"
                 name="bp"
                 id="bp"
+              />
+            </div>
+            <div className="field">
+              <label>$Ticker</label>
+              <input
+                required
+                type="text"
+                name="ticker"
+                id="ticker"
               />
             </div>
             <div className="field">
@@ -66,7 +115,7 @@ const Form = props => {
                 type="text"
                 required
                 placeholder="$"
-                value={10}
+                defaultValue={10}
                 name="risk"
                 id="risk"
               />
@@ -77,8 +126,9 @@ const Form = props => {
       </div>
       <h3>Position Size: <span id="color"> {answer}</span></h3>
 
-      <h3 id="green">Target: {target}</h3>
-      <h3 id="risk">Stop: {stop}</h3>
+      <h3 id="green">Target: {targetPrice}</h3>
+      <h3 id="risk">Stop: {stopPrice}</h3>
+      <Plays count={count} />
     </>
   );
 };

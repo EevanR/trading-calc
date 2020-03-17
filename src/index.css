@@ -24,6 +24,9 @@ code {
   text-transform: none;
 }
 
+input {
+  text-transform: uppercase;
+}
 
 #risk {
   color: red;
@@ -40,4 +43,28 @@ code {
 
 .ui.form .fields .field {
   margin-bottom: 10px;
+}
+
+.tickers {
+  margin: 0 0 .625rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(8.375rem,1fr));
+  grid-gap: .825rem;
+  flex-wrap: wrap;
+  padding-left: 0;
+}
+
+.ticker {
+  text-align: center;
+  background-color: white;
+  padding: 13px 0;
+  margin: 0 0;
+  color: black;
+}
+
+.titles {
+  text-align: center;
+  padding: 13px 0;
+  margin: 0 0;
+  color: white;
 }
