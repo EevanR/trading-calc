@@ -26,13 +26,13 @@ const Form = () => {
     setStopPrice((stockPrice - stop).toFixed(2))
 
     if (bpMax < maxShares) {
-      setAnswer(`${bpMax} Shares`)
+      setAnswer(bpMax)
       setStop(stop)
       setTicker(ticker)
       setStockPrice(stockPrice)
       setGood(true)
     } else {
-      setAnswer(`${maxShares} Shares`)
+      setAnswer(maxShares)
       setStop(stop)
       setTicker(ticker)
       setStockPrice(stockPrice)
@@ -53,7 +53,7 @@ const Form = () => {
     if (sessionStorage.getItem('tickers')) {
       tickers = JSON.parse(sessionStorage.getItem('tickers'))
     }
-    tickers.push(input)
+    tickers.push([Math.floor(Math.random() * 1000), input])
     sessionStorage.setItem('tickers', JSON.stringify(tickers))
     setGood(false)
     setCount(count + 1)
@@ -90,7 +90,7 @@ const Form = () => {
               />
             </div>
             <div className="field">
-              <label>Stock Price</label>
+              <label>Entry</label>
               <input
                 required
                 type="text"
@@ -100,7 +100,7 @@ const Form = () => {
               />
             </div>
             <div className="field">
-              <label id="risk">Stop</label>
+              <label id="risk">Stop $</label>
               <input
                 type="text"
                 required
@@ -110,7 +110,7 @@ const Form = () => {
               />
             </div>
             <div className="field">
-              <label id="risk">Risk</label>
+              <label id="risk">Risk $</label>
               <input
                 type="text"
                 required

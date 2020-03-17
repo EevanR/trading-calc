@@ -48,18 +48,19 @@ input {
 .tickers {
   margin: 0 0 .625rem;
   display: grid;
-  grid-template-columns: repeat(auto-fill,minmax(8.375rem,1fr));
+  grid-template-columns: repeat(auto-fill,minmax(8rem,1fr));
   grid-gap: .825rem;
   flex-wrap: wrap;
   padding-left: 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid white;
 }
 
 .ticker {
   text-align: center;
-  background-color: white;
   padding: 13px 0;
   margin: 0 0;
-  color: black;
+  color: white;
 }
 
 .titles {
@@ -67,4 +68,17 @@ input {
   padding: 13px 0;
   margin: 0 0;
   color: white;
+}
+
+#red {
+  color: red;
+}
+
+#green {
+  color: green;
+}
+
+#delete {
+  cursor: pointer;
+  color: red;
 }
