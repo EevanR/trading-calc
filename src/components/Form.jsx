@@ -16,14 +16,16 @@ const Form = () => {
     let bp = parseFloat(e.target.bp.value)
     let risk = parseFloat(e.target.risk.value)
     let stop = parseFloat(e.target.stop.value)
-    let stockPrice = (parseFloat(e.target.price.value) + 0.05).toFixed(2)
+    let stockPrice = (parseFloat(e.target.price.value) + 0.05)
     let ticker = e.target.ticker.value
 
     let maxShares = Math.floor(risk / stop)
     let bpMax = Math.floor(bp / stockPrice)
 
-    setTargetPrice(stockPrice + stop)
-    setStopPrice(stockPrice - stop)
+    let pt = stockPrice + stop
+    let sp = stockPrice - stop
+    setTargetPrice(pt.toFixed(2))
+    setStopPrice(sp.toFixed(2))
 
     if (bpMax < maxShares) {
       setAnswer(bpMax)
@@ -124,12 +126,15 @@ const Form = () => {
           <button id='calculate'>Calculate</button>
         </form>
       </div>
-      <h3>Entry: {stockPrice}</h3>    
-      <h3>Position Size: <span id="color"> {answer}</span></h3>
-
-      <h3 id="green">Target: {targetPrice}</h3>
-      <h3 id="risk">Stop: {stopPrice}</h3>
-      <Plays count={count} />
+      { count > 0 && (
+      <>
+        <h3>Entry: {stockPrice.toFixed(2)}</h3>    
+        <h3>Position Size: <span id="color"> {answer}</span></h3>
+        <h3 id="green">Target: {targetPrice}</h3>
+        <h3 id="risk">Stop: {stopPrice}</h3>
+        <Plays count={count} />
+      </>
+      )}
     </>
   );
 };

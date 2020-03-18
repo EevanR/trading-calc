@@ -26,7 +26,7 @@ const Plays = props => {
   }, [props.count])
 
   return (
-    <>
+    <div className="plays">
       <h2>Plays</h2>
       <div className="tickers">
         <h4 className="titles">Ticker</h4>
@@ -45,7 +45,7 @@ const Plays = props => {
           <>
             <div className="tickers">
               <p className="ticker">${name.toUpperCase()}</p>
-              <p className="ticker">$ {entry}</p>
+              <p className="ticker">$ {entry.toFixed(2)}</p>
               <p className="ticker">{ticker[1].shares}</p>
               <p id="green" className="ticker">{ticker[1].tp}</p>
               <p id="red" className="ticker">{ticker[1].sp}</p>
@@ -56,7 +56,7 @@ const Plays = props => {
           )
         })
       )}
-    </>
+    </div>
   );
 }
 
