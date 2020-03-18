@@ -38,13 +38,14 @@ const Plays = props => {
         <h4 id="red" className="titles">Delete</h4>
       </div>
       { tickers !== null && (
-        tickers.map(ticker => {
+        tickers.reverse().map(ticker => {
           let name = ticker[1].ticker
+          let entry = ticker[1].stockPrice
           return (
           <>
             <div className="tickers">
               <p className="ticker">${name.toUpperCase()}</p>
-              <p className="ticker">$ {ticker[1].stockPrice}</p>
+              <p className="ticker">$ {entry}</p>
               <p className="ticker">{ticker[1].shares}</p>
               <p id="green" className="ticker">{ticker[1].tp}</p>
               <p id="red" className="ticker">{ticker[1].sp}</p>
