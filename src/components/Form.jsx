@@ -15,8 +15,8 @@ const Form = () => {
     e.preventDefault();
     let bp = parseFloat(e.target.bp.value)
     let risk = parseFloat(e.target.risk.value)
-    let stop = parseFloat(e.target.stop.value)
-    let stockPrice = (parseFloat(e.target.price.value) + 0.05)
+    let stop = parseFloat(e.target.price.value - e.target.stop.value)
+    let stockPrice = parseFloat(e.target.price.value)
     let ticker = e.target.ticker.value
 
     let maxShares = Math.floor(risk / stop)
@@ -29,13 +29,13 @@ const Form = () => {
 
     if (bpMax < maxShares) {
       setAnswer(bpMax)
-      setStop(stop)
+      setStop(stop.toFixed(2))
       setTicker(ticker)
       setStockPrice(stockPrice)
       setGood(true)
     } else {
       setAnswer(maxShares)
-      setStop(stop)
+      setStop(stop.toFixed(2))
       setTicker(ticker)
       setStockPrice(stockPrice)
       setGood(true)
@@ -92,7 +92,7 @@ const Form = () => {
               />
             </div>
             <div className="field">
-              <label>Line</label>
+              <label>Upper Line</label>
               <input
                 required
                 type="text"
@@ -102,7 +102,7 @@ const Form = () => {
               />
             </div>
             <div className="field">
-              <label id="risk">Stop $</label>
+              <label id="risk">Stop Price</label>
               <input
                 type="text"
                 required
