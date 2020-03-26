@@ -36,6 +36,7 @@ const Plays = props => {
         <h4 id="red" className="titles">Stop Price</h4>
         <h4 className="titles">Stop $</h4>
         <h4 id="red" className="titles">Delete</h4>
+        <h4 className="titles">Save</h4>
       </div>
       { tickers !== null && (
         tickers.reverse().map(ticker => {
