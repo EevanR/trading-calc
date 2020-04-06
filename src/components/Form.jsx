@@ -4,6 +4,8 @@ import Plays from './Plays'
 const Form = () => {
   const [answer, setAnswer] = useState(null)
   const [targetPrice, setTargetPrice] = useState(null)
+  const [targetPrice2, setTargetPrice2] = useState(null)
+  const [targetPrice3, setTargetPrice3] = useState(null)
   const [stopPrice, setStopPrice] = useState(null)
   const [stop, setStop] = useState(null)
   const [ticker, setTicker] = useState(null)
@@ -23,8 +25,12 @@ const Form = () => {
     let bpMax = Math.floor(bp / stockPrice)
 
     let pt = stockPrice + stop
+    let pt2 = stockPrice + stop + stop
+    let pt3 = stockPrice + stop*3
     let sp = stockPrice - stop
     setTargetPrice(pt.toFixed(2))
+    setTargetPrice2(pt2.toFixed(2))
+    setTargetPrice3(pt3.toFixed(2))
     setStopPrice(sp.toFixed(2))
 
     if (bpMax < maxShares) {
@@ -117,7 +123,7 @@ const Form = () => {
                 type="text"
                 required
                 placeholder="$"
-                defaultValue={10}
+                defaultValue={7}
                 name="risk"
                 id="risk"
               />
@@ -130,7 +136,9 @@ const Form = () => {
       <>
         <h3>Entry: {stockPrice.toFixed(2)}</h3>    
         <h3>Position Size: <span id="color"> {answer}</span></h3>
-        <h3 id="green">Target: {targetPrice}</h3>
+        <h3>
+          1st Target: <span id="green">{targetPrice}</span>, 2nd Target: <span id="green">{targetPrice2}</span>, 3rd Target: <span id="green">{targetPrice3}</span>, 
+        </h3>
         <h3 id="risk">Stop: {stopPrice}</h3>
         <Plays count={count} />
       </>
