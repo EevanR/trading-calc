@@ -42,7 +42,6 @@ const Plays = props => {
       </div>
       { tickers !== null && (
         tickers.reverse().map(ticker => {
-          debugger
           let name = ticker[1].ticker
           let entry = ticker[1].stockPrice
           return (

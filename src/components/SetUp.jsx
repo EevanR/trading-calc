@@ -6,28 +6,71 @@ const SetUp = props => {
   const [chooseSetUp, setChooseSetUp] = useState("")
 
   const setups = [
-    { key: 1, value: 5, text: "Line Bounce"},
-    { key: 2, value: 4, text: "Red Green Dip"},
-    { key: 3, value: 4, text: "Pinbar"},
-    { key: 4, value: 3, text: "High Point Squeeze"}
+    { key: 1, value: 1, text: "Line Bounce"},
+    { key: 2, value: 2, text: "Red Green Dip"},
+    { key: 3, value: 3, text: "Pinbar"},
+    { key: 4, value: 4, text: "High Point Squeeze"}
+  ]
+
+  let lineBounce = [
+    {id: 1, label: "Inside candle", checked: false},
+    {id: 2, label: "VWAP reject", checked: false},
+    {id: 3, label: "Within 0.02c offset", checked: false},
+    {id: 4, label: "First time bounce", checked: false},
+    {id: 5, label: "Above 1min200EMA Line Chart", checked: false}
+  ]
+
+  let redGreenDip = [
+    {id: 1, label: "Off line", checked: false},
+    {id: 2, label: "No prior VWAP reject", checked: false},
+    {id: 3, label: "Within 0.02c offset", checked: false},
+    {id: 4, label: "Green inside candle", checked: false}
+  ]
+
+  let pinbar = [
+    {id: 1, label: "Off line", checked: false},
+    {id: 2, label: "No prior VWAP reject", checked: false},
+    {id: 3, label: "Within 0.02c offset", checked: false},
+    {id: 4, label: "Green inside candle", checked: false}
+  ]
+
+  let highPoint = [
+    {id: 1, label: "Off line", checked: false},
+    {id: 2, label: "No prior VWAP reject", checked: false},
+    {id: 3, label: "Within 0.02c offset", checked: false},
+    {id: 4, label: "Green inside candle", checked: false}
   ]
 
   const onChangeHandler = (event, data) => {
-    props.setSetUp(event.target.innerText)
-    props.setPrereq(data)
+    props.setSetUp(event)
+    props.setCheckList([])
+    if (event === "Line Bounce") {
+      props.setPrereq(lineBounce.length)
+      setChooseSetUp(lineBounce)
+    } else if (event === "Red Green Dip") {
+      props.setPrereq(redGreenDip.length)
+      setChooseSetUp(redGreenDip) 
+    } else if (event === "Pinbar") {
+      props.setPrereq(pinbar.length)
+      setChooseSetUp(pinbar) 
+    } else {
+      props.setPrereq(highPoint.length)
+      setChooseSetUp(highPoint)
+    }
   }
 
-  const onClickHandler = data => {
-    if (props.checkList.includes(data)) {
+  const onClickHandler = (id, label, checked) => {
+    chooseSetUp[id-1].checked === false ? chooseSetUp[id-1].checked = true : chooseSetUp[id-1].checked = false
+    if (props.checkList.includes(label)) {
       let newArray = []
       props.checkList.forEach(item => {
-        if (item !== data) {
+        if (item !== label) {
           newArray.push(item)
         }
       })
       props.setCheckList(newArray)
     } else {
-      props.setCheckList([...props.checkList, data])
+      props.setCheckList([...props.checkList, label])
     }
   }
 
@@ -36,53 +79,23 @@ const SetUp = props => {
   }, [props.setUp]);
 
   let setUp;
-  switch (true) {
-    case props.setUp === "Line Bounce":
-      setUp = (
-        <>
-          <h2>Line Bounce <span id="italic"> Pre-reqs</span></h2>
-          <Checkbox onClick={() => onClickHandler("inside")} label='Inside candle' />
-          <Checkbox onClick={() => onClickHandler("vwap")} label='VWAP reject' />
-          <Checkbox onClick={() => onClickHandler("offset")} label='With in 0.02c offeset' />
-          <Checkbox onClick={() => onClickHandler("first")} label='First time bounce' />
-          <Checkbox onClick={() => onClickHandler("EMA")} label='Above 1min200 EMA Line Chart' />
-        </>
-      )
-      break;
-    case props.setUp === "Red Green Dip":
-      setUp = (
-        <>
-          <h2>Red Green Dip <span id="italic"> Pre-reqs</span></h2>
-          <Checkbox onClick={() => onClickHandler("line")} label='Off of line' />
-          <Checkbox onClick={() => onClickHandler("offset")} label='Within 0.02c offset' />
-          <Checkbox onClick={() => onClickHandler("vwap")} label='No prior VWAP reject' />
-          <Checkbox onClick={() => onClickHandler("inside")} label='Green inside candle' />
-        </>
-      )
-      break;
-    case props.setUp === "Pinbar":
-      setUp = (
-        <>
-          <h2>Pinbar <span id="italic"> Pre-reqs</span></h2>
-          <Checkbox onClick={() => onClickHandler("wick")} label='Wick down through' />
-          <Checkbox onClick={() => onClickHandler("low")} label='Wick is lowest point of swing low' />
-          <Checkbox onClick={() => onClickHandler("vwap")} label='VWAP reject prior' />
-          <Checkbox onClick={() => onClickHandler("EMA")} label='Above 1min200 EMA Line Chart' />
-        </>
-      )
-      break;
-    case props.setUp === "High Point Squeeze":
-      setUp = (
-        <>
-          <h2>High Point Squeeze <span id="italic"> Pre-reqs</span></h2>
-          <Checkbox onClick={() => onClickHandler("vol")} label='Vol at trigger' />
-          <Checkbox onClick={() => onClickHandler("vwap")} label='VWAP reject prior' />
-          <Checkbox onClick={() => onClickHandler("offset")} label='Within 0.02c offset' />
-        </>
-      )
-      break;
-    default:
-      break;
+  if (props.setUp !== "") {
+    setUp = (
+      <>
+        <h2>{props.setUp} <span id="italic"> Pre-reqs</span></h2>
+        {chooseSetUp.map(checkbox => {
+          return (
+            <>
+              <Checkbox onClick={() => onClickHandler(checkbox.id, checkbox.label, checkbox.checked)} 
+                id={checkbox.id} 
+                label={checkbox.label} 
+                checked={checkbox.checked} 
+              />
+            </>
+          )
+        })}
+      </>
+    )
   }
 
   return (
@@ -95,7 +108,7 @@ const SetUp = props => {
             fluid
             options={setups}
             onChange={(event, data) => {
-              onChangeHandler(event, data.value);
+              onChangeHandler(event.target.innerText, data.value);
             }}
           />
         </div>
