@@ -12,6 +12,12 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         checkList: action.payload
       };
+    case "SET_SETUP":
+      debugger
+      return {
+        ...state,
+        setUp: action.payload
+      };
     default:
       return {
         ...state

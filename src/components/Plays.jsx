@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 const Plays = props => {
   const [tickers, setTickers] = useState(null)
+
   const getTickers = () => {
     let storage = JSON.parse(sessionStorage.getItem('tickers'))
     setTickers(storage)
@@ -36,10 +37,12 @@ const Plays = props => {
         <h4 id="red" className="titles">Stop Price</h4>
         <h4 className="titles">Stop $</h4>
         <h4 id="red" className="titles">Delete</h4>
-        <h4 className="titles">Save</h4>
+        <h4 className="titles">Targets</h4>
+        <h4 className="titles">Setup</h4>
       </div>
       { tickers !== null && (
         tickers.reverse().map(ticker => {
+          debugger
           let name = ticker[1].ticker
           let entry = ticker[1].stockPrice
           return (
@@ -52,6 +55,8 @@ const Plays = props => {
               <p id="red" className="ticker">{ticker[1].sp}</p>
               <p className="ticker">{ticker[1].stop}</p>
               <a onClick={() => deleteItem(ticker[0])}><h4 id="delete" className="ticker">X</h4></a>
+              <p className="ticker">{ticker[1].targets[0]}, {ticker[1].targets[1]}, {ticker[1].targets[2]}</p>
+              <p className="ticker">{ticker[1].setup}</p>
             </div>
           </>
           )

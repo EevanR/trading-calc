@@ -17,7 +17,6 @@ const Form = props => {
 
   const submit = (e) => {
     e.preventDefault();
-    debugger
     if (props.preReq === props.checkList.length) {
       let bp = parseFloat(e.target.bp.value)
       let risk = parseFloat(e.target.risk.value)
@@ -62,7 +61,9 @@ const Form = props => {
       shares: answer, 
       tp: targetPrice, 
       sp: stopPrice, 
-      stop: stop
+      stop: stop,
+      targets: [targetPrice, targetPrice2, targetPrice3],
+      setup: props.setUp
     }
     let tickers = []
     if (sessionStorage.getItem('tickers')) {
@@ -143,12 +144,20 @@ const Form = props => {
       </div>
       { count > 0 && (
       <>
-        <h3>Entry: {stockPrice.toFixed(2)}</h3>    
-        <h3>Position Size: <span id="color"> {answer}</span></h3>
-        <h3>
-          1st Target: <span id="green">{targetPrice}</span>, 2nd Target: <span id="green">{targetPrice2}</span>, 3rd Target: <span id="green">{targetPrice3}</span>, 
-        </h3>
-        <h3 id="risk">Stop: {stopPrice}</h3>
+        <div className="info">
+          <div>
+            <h2 className="result-heading" >Details</h2>
+            <h3>Entry: {stockPrice.toFixed(2)}</h3>    
+            <h3>Position Size: <span id="color"> {answer}</span></h3>
+            <h3 id="risk">Stop: {stopPrice}</h3>
+          </div>
+          <div>
+            <h2 className="result-heading" >Targets</h2>
+            <h3>1R Target: <span id="green"> ${targetPrice}</span></h3>
+            <h3>2R Target: <span id="green"> ${targetPrice2}</span></h3>
+            <h3>3R Target: <span id="green"> ${targetPrice3}</span></h3>
+          </div>
+        </div>
         <Plays count={count} />
       </>
       )}
@@ -159,7 +168,8 @@ const Form = props => {
 const mapStateToProps = state => {
   return {
     preReq: state.preReq,
-    checkList: state.checkList
+    checkList: state.checkList,
+    setUp: state.setUp
   };
 };
 

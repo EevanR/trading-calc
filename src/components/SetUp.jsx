@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Checkbox, Dropdown } from 'semantic-ui-react'
 import { connect } from "react-redux";
 
 const SetUp = props => {
   const [chooseSetUp, setChooseSetUp] = useState("")
-  const [checkList, setCheckList] = useState([])
 
   const setups = [
     { key: 1, value: 5, text: "Line Bounce"},
@@ -14,7 +13,7 @@ const SetUp = props => {
   ]
 
   const onChangeHandler = (event, data) => {
-    setChooseSetUp(event.target.innerText)
+    props.setSetUp(event.target.innerText)
     props.setPrereq(data)
   }
 
@@ -32,9 +31,13 @@ const SetUp = props => {
     }
   }
 
+  useEffect(() => {
+    
+  }, [props.setUp]);
+
   let setUp;
   switch (true) {
-    case chooseSetUp === "Line Bounce":
+    case props.setUp === "Line Bounce":
       setUp = (
         <>
           <h2>Line Bounce <span id="italic"> Pre-reqs</span></h2>
@@ -46,7 +49,7 @@ const SetUp = props => {
         </>
       )
       break;
-    case chooseSetUp === "Red Green Dip":
+    case props.setUp === "Red Green Dip":
       setUp = (
         <>
           <h2>Red Green Dip <span id="italic"> Pre-reqs</span></h2>
@@ -57,7 +60,7 @@ const SetUp = props => {
         </>
       )
       break;
-    case chooseSetUp === "Pinbar":
+    case props.setUp === "Pinbar":
       setUp = (
         <>
           <h2>Pinbar <span id="italic"> Pre-reqs</span></h2>
@@ -68,7 +71,7 @@ const SetUp = props => {
         </>
       )
       break;
-    case chooseSetUp === "High Point Squeeze":
+    case props.setUp === "High Point Squeeze":
       setUp = (
         <>
           <h2>High Point Squeeze <span id="italic"> Pre-reqs</span></h2>
@@ -107,7 +110,8 @@ const SetUp = props => {
 const mapStateToProps = state => {
   return {
     preReq: state.preReq,
-    checkList: state.checkList
+    checkList: state.checkList,
+    setUp: state.setUp
   };
 };
 
@@ -118,6 +122,9 @@ const mapDispatchToProps = dispatch => {
     },
     setCheckList: array => {
       dispatch({ type: "SET_CHECKLIST", payload: array });
+    },
+    setSetUp: string => {
+      dispatch({ type: "SET_SETUP", payload: string });
     }
   };
 };

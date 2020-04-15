@@ -1,5 +1,6 @@
 const initialState = {
   preReq: null,
-  checkList: []
+  checkList: [],
+  setUp: ""
 };
 export default initialState;
