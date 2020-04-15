@@ -86,3 +86,32 @@ input {
   cursor: pointer;
   color: red;
 }
+
+.ui.fluid.dropdown {
+  width: 150px;
+}
+
+.ui.checkbox label {
+  color: white;
+  margin-right: 50px;
+}
+
+.setups {
+  margin-bottom: 10px;
+}
+
+.setups-inner {
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  grid-template-rows: 60px;
+}
+
+.ui.fluid.dropdown>.dropdown.icon {
+  margin-top: 5px;
+}
+
+#italic {
+  font-style: italic;
+  font-size: 16px;
+  font-weight: 100;
+}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Plays from './Plays'
+import SetUp from './SetUp'
 
 const Form = () => {
   const [answer, setAnswer] = useState(null)
@@ -129,6 +130,8 @@ const Form = () => {
               />
             </div>
           </div>
+          <SetUp />
+          <br/>
           <button id='calculate'>Calculate</button>
         </form>
       </div>
