@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Checkbox, Dropdown } from 'semantic-ui-react'
+import { connect } from "react-redux";
 
-const SetUp = () => {
+const SetUp = props => {
   const [chooseSetUp, setChooseSetUp] = useState("")
-  const [preReq, setPreReq] = useState(0)
   const [checkList, setCheckList] = useState([])
 
   const setups = [
@@ -15,20 +15,20 @@ const SetUp = () => {
 
   const onChangeHandler = (event, data) => {
     setChooseSetUp(event.target.innerText)
-    setPreReq(data)
+    props.setPrereq(data)
   }
 
   const onClickHandler = data => {
-    if (checkList.includes(data)) {
+    if (props.checkList.includes(data)) {
       let newArray = []
-      checkList.forEach(item => {
+      props.checkList.forEach(item => {
         if (item !== data) {
           newArray.push(item)
         }
       })
-      setCheckList(newArray)
+      props.setCheckList(newArray)
     } else {
-      setCheckList([...checkList, data])
+      props.setCheckList([...props.checkList, data])
     }
   }
 
@@ -104,4 +104,22 @@ const SetUp = () => {
   )
 }
 
-export default SetUp;
+const mapStateToProps = state => {
+  return {
+    preReq: state.preReq,
+    checkList: state.checkList
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setPrereq: data => {
+      dispatch({ type: "SET_PREREQ", payload: data });
+    },
+    setCheckList: array => {
+      dispatch({ type: "SET_CHECKLIST", payload: array });
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SetUp);

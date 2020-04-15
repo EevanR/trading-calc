@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Plays from './Plays'
 import SetUp from './SetUp'
+import { connect } from "react-redux";
 
-const Form = () => {
+const Form = props => {
   const [answer, setAnswer] = useState(null)
   const [targetPrice, setTargetPrice] = useState(null)
   const [targetPrice2, setTargetPrice2] = useState(null)
@@ -16,36 +17,41 @@ const Form = () => {
 
   const submit = (e) => {
     e.preventDefault();
-    let bp = parseFloat(e.target.bp.value)
-    let risk = parseFloat(e.target.risk.value)
-    let stop = parseFloat(e.target.price.value - e.target.stop.value)
-    let stockPrice = parseFloat(e.target.price.value)
-    let ticker = e.target.ticker.value
+    debugger
+    if (props.preReq === props.checkList.length) {
+      let bp = parseFloat(e.target.bp.value)
+      let risk = parseFloat(e.target.risk.value)
+      let stop = parseFloat(e.target.price.value - e.target.stop.value)
+      let stockPrice = parseFloat(e.target.price.value)
+      let ticker = e.target.ticker.value
 
-    let maxShares = Math.floor(risk / stop)
-    let bpMax = Math.floor(bp / stockPrice)
+      let maxShares = Math.floor(risk / stop)
+      let bpMax = Math.floor(bp / stockPrice)
 
-    let pt = stockPrice + stop
-    let pt2 = stockPrice + stop + stop
-    let pt3 = stockPrice + stop*3
-    let sp = stockPrice - stop
-    setTargetPrice(pt.toFixed(2))
-    setTargetPrice2(pt2.toFixed(2))
-    setTargetPrice3(pt3.toFixed(2))
-    setStopPrice(sp.toFixed(2))
+      let pt = stockPrice + stop
+      let pt2 = stockPrice + stop + stop
+      let pt3 = stockPrice + stop*3
+      let sp = stockPrice - stop
+      setTargetPrice(pt.toFixed(2))
+      setTargetPrice2(pt2.toFixed(2))
+      setTargetPrice3(pt3.toFixed(2))
+      setStopPrice(sp.toFixed(2))
 
-    if (bpMax < maxShares) {
-      setAnswer(bpMax)
-      setStop(stop.toFixed(2))
-      setTicker(ticker)
-      setStockPrice(stockPrice)
-      setGood(true)
+      if (bpMax < maxShares) {
+        setAnswer(bpMax)
+        setStop(stop.toFixed(2))
+        setTicker(ticker)
+        setStockPrice(stockPrice)
+        setGood(true)
+      } else {
+        setAnswer(maxShares)
+        setStop(stop.toFixed(2))
+        setTicker(ticker)
+        setStockPrice(stockPrice)
+        setGood(true)
+      }
     } else {
-      setAnswer(maxShares)
-      setStop(stop.toFixed(2))
-      setTicker(ticker)
-      setStockPrice(stockPrice)
-      setGood(true)
+      alert("Trade doesn't meet requirements!!!")
     }
   }
 
@@ -150,4 +156,22 @@ const Form = () => {
   );
 };
 
-export default Form;
+const mapStateToProps = state => {
+  return {
+    preReq: state.preReq,
+    checkList: state.checkList
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setPrereq: data => {
+      dispatch({ type: "SET_PREREQ", payload: data });
+    },
+    setCheckList: array => {
+      dispatch({ type: "SET_CHECKLIST", payload: array });
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
