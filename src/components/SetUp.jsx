@@ -28,17 +28,18 @@ const SetUp = props => {
   ]
 
   let pinbar = [
-    {id: 1, label: "Off line", checked: false},
-    {id: 2, label: "No prior VWAP reject", checked: false},
-    {id: 3, label: "Within 0.02c offset", checked: false},
-    {id: 4, label: "Green inside candle", checked: false}
+    {id: 1, label: "Wick down through", checked: false},
+    {id: 2, label: "Wick lowest point of swing low", checked: false},
+    {id: 3, label: "VWAP reject prior", checked: false},
+    {id: 4, label: "First time bounce", checked: false},
+    {id: 5, label: "Above 1min200EMA Line Chart", checked: false}
   ]
 
   let highPoint = [
-    {id: 1, label: "Off line", checked: false},
-    {id: 2, label: "No prior VWAP reject", checked: false},
+    {id: 1, label: "Vol at trigger", checked: false},
+    {id: 2, label: "VWAP reject prior", checked: false},
     {id: 3, label: "Within 0.02c offset", checked: false},
-    {id: 4, label: "Green inside candle", checked: false}
+    {id: 4, label: "Stop low of breakout candle", checked: false}
   ]
 
   const onChangeHandler = (event, data) => {
