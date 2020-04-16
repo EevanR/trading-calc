@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { sendTrade } from "../modules/trades"
 
 const Plays = props => {
   const [tickers, setTickers] = useState(null)
@@ -21,7 +22,7 @@ const Plays = props => {
     getTickers()
   }
 
-  const saveTrade = (e) => {
+  const saveTrade = async (e) => {
     e.preventDefault();
     let id = saveTradeId
     let trade;
@@ -32,6 +33,12 @@ const Plays = props => {
       }
     })
     trade.push(e.target.profit.value)
+    let response = await sendTrade(id, trade);
+    if (response.status === 200) {
+      
+    } else {
+
+    }
   }
 
   useEffect(() => {
