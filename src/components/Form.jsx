@@ -66,7 +66,6 @@ const Form = props => {
       setup: props.setUp,
       date: new Date().toLocaleString('en-US', { timeZone: 'America/New_York' })
     }
-    debugger
     let tickers = []
     if (sessionStorage.getItem('tickers')) {
       tickers = JSON.parse(sessionStorage.getItem('tickers'))

@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 
 const Plays = props => {
   const [tickers, setTickers] = useState(null)
+  const [saveTradeId, setSaveTradeId] = useState(null)
 
   const getTickers = () => {
     let storage = JSON.parse(sessionStorage.getItem('tickers'))
-    setTickers(storage)
+    setTickers(storage.reverse())
   }
 
   const deleteItem = (e) => {
@@ -18,6 +19,20 @@ const Plays = props => {
     })
     sessionStorage.setItem('tickers', JSON.stringify(tickers))
     getTickers()
+  }
+
+  const saveTrade = (e) => {
+    e.preventDefault();
+    let id = saveTradeId
+    let trade;
+    let storage = JSON.parse(sessionStorage.getItem('tickers'))
+    storage.forEach(item => {
+      if (item[0] === id) {
+        trade = item
+      }
+    })
+    trade.push(e.target.profit.value)
+    debugger
   }
 
   useEffect(() => {
@@ -41,7 +56,7 @@ const Plays = props => {
         <h4 className="titles">Gross Profit</h4>
       </div>
       { tickers !== null && (
-        tickers.reverse().map(ticker => {
+        tickers.map(ticker => {
           let name = ticker[1].ticker
           let entry = ticker[1].stockPrice
           return (
@@ -55,7 +70,10 @@ const Plays = props => {
               <p className="ticker">{ticker[1].stop}</p>
               <a onClick={() => deleteItem(ticker[0])}><h4 id="delete" className="ticker">X</h4></a>
               <p className="ticker">{ticker[1].setup}</p>
-              <input type="text"/>
+              <form onSubmit={saveTrade} onClick={() => setSaveTradeId(ticker[0])}>
+                <input required type='number' placeholder="$" name="profit" id="profit"/>
+                <button id='save-trade'>Save</button>
+              </form>
             </div>
           </>
           )
