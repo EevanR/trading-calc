@@ -32,7 +32,6 @@ const Plays = props => {
       }
     })
     trade.push(e.target.profit.value)
-    debugger
   }
 
   useEffect(() => {
