@@ -63,8 +63,10 @@ const Form = props => {
       sp: stopPrice, 
       stop: stop,
       targets: [targetPrice, targetPrice2, targetPrice3],
-      setup: props.setUp
+      setup: props.setUp,
+      date: new Date().toLocaleString('en-US', { timeZone: 'America/New_York' })
     }
+    debugger
     let tickers = []
     if (sessionStorage.getItem('tickers')) {
       tickers = JSON.parse(sessionStorage.getItem('tickers'))

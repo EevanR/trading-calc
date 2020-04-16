@@ -37,8 +37,8 @@ const Plays = props => {
         <h4 id="red" className="titles">Stop Price</h4>
         <h4 className="titles">Stop $</h4>
         <h4 id="red" className="titles">Delete</h4>
-        <h4 className="titles">Targets</h4>
         <h4 className="titles">Setup</h4>
+        <h4 className="titles">Gross Profit</h4>
       </div>
       { tickers !== null && (
         tickers.reverse().map(ticker => {
@@ -50,12 +50,12 @@ const Plays = props => {
               <p className="ticker">${name.toUpperCase()}</p>
               <p className="ticker">$ {entry.toFixed(2)}</p>
               <p className="ticker">{ticker[1].shares}</p>
-              <p id="green" className="ticker">{ticker[1].tp}</p>
+              <p id="green" className="ticker">{ticker[1].targets[0]}, {ticker[1].targets[1]}, {ticker[1].targets[2]}</p>
               <p id="red" className="ticker">{ticker[1].sp}</p>
               <p className="ticker">{ticker[1].stop}</p>
               <a onClick={() => deleteItem(ticker[0])}><h4 id="delete" className="ticker">X</h4></a>
-              <p className="ticker">{ticker[1].targets[0]}, {ticker[1].targets[1]}, {ticker[1].targets[2]}</p>
               <p className="ticker">{ticker[1].setup}</p>
+              <input type="text"/>
             </div>
           </>
           )
