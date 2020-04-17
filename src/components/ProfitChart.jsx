@@ -30,8 +30,16 @@ const ProfitChart = props => {
       }
       dailyProfits.push(total)
     })
+
+    let cumProfits = []
+    let totalProfit = 0
+    for (let i=0; i<dailyProfits.length; i++) {
+      
+      totalProfit += dailyProfits[i]
+      cumProfits.push(totalProfit)
+    }
     setDate(dates)
-    setProfit(dailyProfits)
+    setProfit(cumProfits)
   }
 
 
@@ -78,6 +86,7 @@ const ProfitChart = props => {
   useEffect(() => {
     const getSavedTrades = async () => {
       let response = await getTrades();
+      debugger
       if (response.status === 200) {
         props.setSavedTrades(response.data)
       } else {
