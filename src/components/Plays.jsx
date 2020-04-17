@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { sendTrade } from "../modules/trades"
+import { sendTrade } from "../modules/trades";
 
 const Plays = props => {
   const [tickers, setTickers] = useState(null)

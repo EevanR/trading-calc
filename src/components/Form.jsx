@@ -85,7 +85,7 @@ const Form = props => {
   return (
     <>
       <div className="ui form">
-        <form onSubmit={submit}>
+        <form id="main-form" onSubmit={submit}>
           <div className="fields">
             <div className="field">
               <label>Buying Power</label>

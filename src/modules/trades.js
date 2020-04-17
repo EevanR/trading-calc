@@ -22,4 +22,12 @@ const sendTrade = async (id, trade) => {
   }
 }
 
-export { sendTrade }
+const getTrades = async () => {
+  try {
+    const response = await axios.get("/trades")
+    return response
+  } catch (error) {
+    return error.response;
+  }
+}
+export { sendTrade, getTrades }
