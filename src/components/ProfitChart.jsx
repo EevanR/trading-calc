@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { getTrades } from "../modules/trades"
-import { Doughnut, Line, HorizontalBar } from 'react-chartjs-2';
+import { Doughnut, Line, HorizontalBar, Pie } from 'react-chartjs-2';
 
 const ProfitChart = props => {
   const [profit, setProfit] = useState([])
@@ -43,6 +43,7 @@ const ProfitChart = props => {
   let setups = []
   let setupGains = []
   let setupLosses = []
+  let setupCount = []
   if (trades !== []) {
     for (let i=0; i<trades.length; i++) {
       if (!setups.includes(trades[i][3])) {
@@ -52,16 +53,20 @@ const ProfitChart = props => {
 
     let gain = 0
     let losses = 0
+    let count = 0
     setups.map(item => {
       for (let i=0; i<trades.length; i++) {
         if (trades[i][3] === item) {
           trades[i][1] > 0 ? gain += 1 : losses += 1
+          count += 1
         }
       }
       setupGains.push(gain)
       setupLosses.push(losses)
+      setupCount.push(count)
       gain = 0
       losses = 0
+      count = 0
     })
   }
 
@@ -128,6 +133,24 @@ const ProfitChart = props => {
     ]
   };
 
+  const pieData = {
+    labels: setups,
+    datasets: [
+      {
+        label: 'Successes',
+        fill: true,
+        backgroundColor: [
+          'rgba(75,192,192,0.4)',
+          'rgba(255, 255, 0, 0.8)',
+          'rgba(233, 133, 93, 0.719)'
+        ],
+        borderColor: 'rgba(75,192,192,1)',
+        hoverBackgroundColor: 'rgba(75,192,192)',
+        data: setupCount
+      }
+    ]
+  };
+
   useEffect(() => {
     const getSavedTrades = async () => {
       let response = await getTrades();
@@ -159,14 +182,29 @@ const ProfitChart = props => {
         />
       </div>
       <h2>Setup Tracking</h2>
-      <h4>Win vs Loss / Setup</h4>
-      <div style={{width: "50%"}}> 
-        <HorizontalBar
-          data = {barData}
-          options = {lineOptions}
-          height={500}
-          options={{ maintainAspectRatio: false }}
-        />
+      <div className="setup-graphs">
+        <div>
+          <h4>Win vs Loss / Setup</h4>
+          <div> 
+            <HorizontalBar
+              data = {barData}
+              options = {lineOptions}
+              height={500}
+              options={{ maintainAspectRatio: false }}
+            />
+          </div>
+        </div>
+        <div>
+          <h4>Setup Frequency</h4>
+          <div> 
+            <Pie
+              data = {pieData}
+              options = {lineOptions}
+              height={400}
+              options={{ maintainAspectRatio: false }}
+            />
+          </div>
+        </div>
       </div>
     </>
   )

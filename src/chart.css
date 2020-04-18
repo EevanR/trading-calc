@@ -1,3 +1,11 @@
 stuff {
-  color: rgb(233, 133, 93);
+  color: rgba(255, 255, 0, 0.466);
+}
+
+.setup-graphs {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 600px;
+  grid-column-gap: 50px;
 }
