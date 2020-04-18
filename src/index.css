@@ -37,6 +37,17 @@ input {
   color: red;
 }
 
+.risk {
+  color: red;
+  border: 1px solid red;
+  padding: 8px 70px;
+  border-radius: 5px;
+}
+
+#risk-block {
+  margin-left: 20px;
+}
+
 #color {
   color: blanchedalmond;
 }

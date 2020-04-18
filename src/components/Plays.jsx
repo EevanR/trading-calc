@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { sendTrade } from "../modules/trades";
+import { connect } from "react-redux";
 
 const Plays = props => {
   const [tickers, setTickers] = useState(null)
@@ -35,7 +36,10 @@ const Plays = props => {
     trade.push(e.target.profit.value)
     let response = await sendTrade(id, trade);
     if (response.status === 200) {
-      
+      props.setMessage("Trade Saved")
+      setTimeout(() => {
+        props.setMessage("")
+      }, 2000);
     } else {
 
     }
@@ -45,7 +49,7 @@ const Plays = props => {
     if (props.count > 0) {
       getTickers()
     }
-  }, [props.count])
+  }, [props.count, props.message])
 
   return (
     <div className="plays">
@@ -89,4 +93,21 @@ const Plays = props => {
   );
 }
 
-export default Plays;
+const mapStateToProps = state => {
+  return {
+    count: state.count
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setCount: data => {
+      dispatch({ type: "SET_COUNT", payload: data });
+    },
+    setMessage: string => {
+      dispatch({ type: "SET_MESSAGE", payload: string })
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Plays);

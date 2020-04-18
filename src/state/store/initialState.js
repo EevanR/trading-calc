@@ -3,6 +3,7 @@ const initialState = {
   checkList: [],
   setUp: "",
   savedTrades: null,
-  message: ""
+  message: "",
+  count: null
 };
 export default initialState;

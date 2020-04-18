@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { getTrades } from "../modules/trades"
-import { Doughnut, Line, HorizontalBar, Pie } from 'react-chartjs-2';
+import { Line, HorizontalBar, Pie } from 'react-chartjs-2';
 
 const ProfitChart = props => {
   const [profit, setProfit] = useState([])
@@ -141,8 +141,9 @@ const ProfitChart = props => {
         fill: true,
         backgroundColor: [
           'rgba(75,192,192,0.4)',
-          'rgba(255, 255, 0, 0.8)',
-          'rgba(233, 133, 93, 0.719)'
+          'rgba(255, 015, 0, 0.8)',
+          'rgba(233, 133, 93, 0.719)',
+          'rgba(100, 133, 93, 0.719)'
         ],
         borderColor: 'rgba(75,192,192,1)',
         hoverBackgroundColor: 'rgba(75,192,192)',
@@ -150,6 +151,16 @@ const ProfitChart = props => {
       }
     ]
   };
+
+  const pieOptions = {
+    maintainAspectRatio: false,
+    legend: {
+      position: 'top',
+      labels: {
+        // boxWidth: 10
+      }
+    }
+  }
 
   useEffect(() => {
     const getSavedTrades = async () => {
@@ -161,7 +172,11 @@ const ProfitChart = props => {
       }
     }
     getSavedTrades()
-  }, [])
+    
+    if (props.message !== "") {
+      getSavedTrades()
+    }
+  }, [props.message])
 
   useEffect(() => {
     if (props.savedTrades !== null) {
@@ -196,12 +211,11 @@ const ProfitChart = props => {
         </div>
         <div>
           <h4>Setup Frequency</h4>
-          <div> 
+          <div style={{marginTop: '50px'}}> 
             <Pie
               data = {pieData}
-              options = {lineOptions}
+              options = {pieOptions}
               height={400}
-              options={{ maintainAspectRatio: false }}
             />
           </div>
         </div>
@@ -212,7 +226,8 @@ const ProfitChart = props => {
 
 const mapStateToProps = state => {
   return {
-    savedTrades: state.savedTrades
+    savedTrades: state.savedTrades,
+    message: state.message
   };
 };
 

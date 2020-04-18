@@ -27,6 +27,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         message: action.payload
       };
+    case "SET_COUNT":
+      return {
+        ...state,
+        count: action.payload
+      };
     default:
       return {
         ...state
