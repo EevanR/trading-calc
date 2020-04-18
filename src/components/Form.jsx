@@ -13,13 +13,13 @@ const Form = props => {
   const [ticker, setTicker] = useState(null)
   const [stockPrice, setStockPrice] = useState(null)
   const [good, setGood] = useState(false)
-  const [count, setCount] = useState(0)
+  const [riskDollar, setRisk] = useState(0)
 
   const submit = (e) => {
     e.preventDefault();
     if (props.preReq === props.checkList.length) {
       let bp = parseFloat(e.target.bp.value)
-      let risk = parseFloat(e.target.risk.value)
+      let risk = riskDollar
       let stop = parseFloat(e.target.price.value - e.target.stop.value)
       let stockPrice = parseFloat(e.target.price.value)
       let ticker = e.target.ticker.value
@@ -73,7 +73,12 @@ const Form = props => {
     tickers.push([Math.floor(Math.random() * 1000), input])
     sessionStorage.setItem('tickers', JSON.stringify(tickers))
     setGood(false)
-    setCount(count + 1)
+    props.setCount(props.count + 1)
+  }
+
+  const onChangeHandler = (e) => {
+    let value = e.target.value*0.018
+    setRisk(value)
   }
 
   useEffect(() => {
@@ -85,7 +90,7 @@ const Form = props => {
   return (
     <>
       <div className="ui form">
-        <form onSubmit={submit}>
+        <form id="main-form" onSubmit={submit}>
           <div className="fields">
             <div className="field">
               <label>Buying Power</label>
@@ -95,6 +100,7 @@ const Form = props => {
                 placeholder="$"
                 name="bp"
                 id="bp"
+                onChange={onChangeHandler}
               />
             </div>
             <div className="field">
@@ -126,16 +132,9 @@ const Form = props => {
                 id="stop"
               />
             </div>
-            <div className="field">
+            <div id="risk-block" className="field">
               <label id="risk">Risk $</label>
-              <input
-                type="text"
-                required
-                placeholder="$"
-                defaultValue={7}
-                name="risk"
-                id="risk"
-              />
+              <p className="risk" >${riskDollar.toFixed(2)}</p>
             </div>
           </div>
           <SetUp />
@@ -143,7 +142,7 @@ const Form = props => {
           <button id='calculate'>Calculate</button>
         </form>
       </div>
-      { count > 0 && (
+      { props.count > 0 && (
       <>
         <div className="info">
           <div>
@@ -159,7 +158,7 @@ const Form = props => {
             <h3>3R Target: <span id="green"> ${targetPrice3}</span></h3>
           </div>
         </div>
-        <Plays count={count} />
+        <Plays />
       </>
       )}
     </>
@@ -170,7 +169,8 @@ const mapStateToProps = state => {
   return {
     preReq: state.preReq,
     checkList: state.checkList,
-    setUp: state.setUp
+    setUp: state.setUp,
+    count: state.count
   };
 };
 
@@ -181,6 +181,9 @@ const mapDispatchToProps = dispatch => {
     },
     setCheckList: array => {
       dispatch({ type: "SET_CHECKLIST", payload: array });
+    },
+    setCount: data => {
+      dispatch({ type: "SET_COUNT", payload: data });
     }
   };
 };

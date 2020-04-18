@@ -17,6 +17,21 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         setUp: action.payload
       };
+    case "SET_SAVEDTRADES":
+      return {
+        ...state,
+        savedTrades: action.payload
+      };
+    case "SET_MESSAGE":
+      return {
+        ...state,
+        message: action.payload
+      };
+    case "SET_COUNT":
+      return {
+        ...state,
+        count: action.payload
+      };
     default:
       return {
         ...state

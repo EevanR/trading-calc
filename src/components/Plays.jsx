@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { sendTrade } from "../modules/trades";
+import { connect } from "react-redux";
 
 const Plays = props => {
   const [tickers, setTickers] = useState(null)
@@ -21,7 +23,7 @@ const Plays = props => {
     getTickers()
   }
 
-  const saveTrade = (e) => {
+  const saveTrade = async (e) => {
     e.preventDefault();
     let id = saveTradeId
     let trade;
@@ -32,14 +34,22 @@ const Plays = props => {
       }
     })
     trade.push(e.target.profit.value)
-    debugger
+    let response = await sendTrade(id, trade);
+    if (response.status === 200) {
+      props.setMessage("Trade Saved")
+      setTimeout(() => {
+        props.setMessage("")
+      }, 2000);
+    } else {
+
+    }
   }
 
   useEffect(() => {
     if (props.count > 0) {
       getTickers()
     }
-  }, [props.count])
+  }, [props.count, props.message])
 
   return (
     <div className="plays">
@@ -55,32 +65,51 @@ const Plays = props => {
         <h4 className="titles">Setup</h4>
         <h4 className="titles">Gross Profit</h4>
       </div>
-      { tickers !== null && (
-        tickers.map(ticker => {
-          let name = ticker[1].ticker
-          let entry = ticker[1].stockPrice
-          return (
-          <>
-            <div className="tickers">
-              <p className="ticker">${name.toUpperCase()}</p>
-              <p className="ticker">$ {entry.toFixed(2)}</p>
-              <p className="ticker">{ticker[1].shares}</p>
-              <p id="green" className="ticker">{ticker[1].targets[0]}, {ticker[1].targets[1]}, {ticker[1].targets[2]}</p>
-              <p id="red" className="ticker">{ticker[1].sp}</p>
-              <p className="ticker">{ticker[1].stop}</p>
-              <a onClick={() => deleteItem(ticker[0])}><h4 id="delete" className="ticker">X</h4></a>
-              <p className="ticker">{ticker[1].setup}</p>
-              <form onSubmit={saveTrade} onClick={() => setSaveTradeId(ticker[0])}>
-                <input required type='number' placeholder="$" name="profit" id="profit"/>
-                <button id='save-trade'>Save</button>
-              </form>
-            </div>
-          </>
-          )
-        })
-      )}
+      <div className="results">
+        { tickers !== null && (
+          tickers.map(ticker => {
+            let name = ticker[1].ticker
+            let entry = ticker[1].stockPrice
+            return (
+            <>
+              <div className="tickers">
+                <p className="ticker">${name.toUpperCase()}</p>
+                <p className="ticker">$ {entry.toFixed(2)}</p>
+                <p className="ticker">{ticker[1].shares}</p>
+                <p id="green" className="ticker">{ticker[1].targets[0]}, {ticker[1].targets[1]}, {ticker[1].targets[2]}</p>
+                <p id="red" className="ticker">{ticker[1].sp}</p>
+                <p className="ticker">{ticker[1].stop}</p>
+                <a onClick={() => deleteItem(ticker[0])}><h4 id="delete" className="ticker">X</h4></a>
+                <p className="ticker">{ticker[1].setup}</p>
+                <form onSubmit={saveTrade} onClick={() => setSaveTradeId(ticker[0])}>
+                  <input required type='number' placeholder="$" name="profit" id="profit"/>
+                  <button id='save-trade'>Save</button>
+                </form>
+              </div>
+            </>
+            )
+          })
+        )}
+      </div>
     </div>
   );
 }
 
-export default Plays;
+const mapStateToProps = state => {
+  return {
+    count: state.count
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setCount: data => {
+      dispatch({ type: "SET_COUNT", payload: data });
+    },
+    setMessage: string => {
+      dispatch({ type: "SET_MESSAGE", payload: string })
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Plays);
