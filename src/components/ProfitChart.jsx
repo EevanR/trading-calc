@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { getTrades } from "../modules/trades"
-import { Doughnut, Line } from 'react-chartjs-2';
+import { Doughnut, Line, HorizontalBar } from 'react-chartjs-2';
 
 const ProfitChart = props => {
   const [profit, setProfit] = useState([])
   const [date, setDate] = useState([])
+  const [trades, setTrades] = useState([])
 
   const setDates = () => {
     let dates = []
@@ -15,11 +16,10 @@ const ProfitChart = props => {
           dates.push(date)
         }
     })
-    
     let trades = props.savedTrades.map(item => 
-      [item.ticker, item.profit, item.date.substring(0, item.date.indexOf(","))]
+      [item.ticker, item.profit, item.date.substring(0, item.date.indexOf(",")), item.setup]
     )
-
+    setTrades(trades)
     let dailyProfits = []
     dates.map(date => {
       let total = 0
@@ -30,11 +30,9 @@ const ProfitChart = props => {
       }
       dailyProfits.push(total)
     })
-
     let cumProfits = []
     let totalProfit = 0
     for (let i=0; i<dailyProfits.length; i++) {
-      
       totalProfit += dailyProfits[i]
       cumProfits.push(totalProfit)
     }
@@ -42,6 +40,30 @@ const ProfitChart = props => {
     setProfit(cumProfits)
   }
 
+  let setups = []
+  let setupGains = []
+  let setupLosses = []
+  if (trades !== []) {
+    for (let i=0; i<trades.length; i++) {
+      if (!setups.includes(trades[i][3])) {
+        setups.push(trades[i][3])
+      }
+    }
+
+    let gain = 0
+    let losses = 0
+    setups.map(item => {
+      for (let i=0; i<trades.length; i++) {
+        if (trades[i][3] === item) {
+          trades[i][1] > 0 ? gain += 1 : losses += 1
+        }
+      }
+      setupGains.push(gain)
+      setupLosses.push(losses)
+      gain = 0
+      losses = 0
+    })
+  }
 
   const lineData = {
     labels: date,
@@ -83,10 +105,32 @@ const ProfitChart = props => {
     }
   }
 
+  const barData = {
+    labels: setups,
+    datasets: [
+      {
+        label: 'Successes',
+        fill: true,
+        backgroundColor: 'rgba(75,192,192,0.4)',
+        borderColor: 'rgba(75,192,192,1)',
+        hoverBackgroundColor: 'rgba(75,192,192)',
+        data: setupGains
+      },
+      {
+        label: 'Failures',
+        data: setupLosses,
+        fill: false,
+        backgroundColor: 'rgba(233, 133, 93, 0.719)',
+        borderColor: '#71B37C',
+        hoverBackgroundColor: 'rgba(233, 133, 93)',
+        hoverBorderColor: '#71B37C'
+      }
+    ]
+  };
+
   useEffect(() => {
     const getSavedTrades = async () => {
       let response = await getTrades();
-      debugger
       if (response.status === 200) {
         props.setSavedTrades(response.data)
       } else {
@@ -105,13 +149,23 @@ const ProfitChart = props => {
   return (
     <>
       <h2>Profit Chart</h2>
-      {props.savedTrades !== null && (
       <h4>Cumulative Gross Equity Growth</h4>
-      )}
       <div className="line-chart">
         <Line 
           data = {lineData}
           options = {lineOptions}
+          height={500}
+          options={{ maintainAspectRatio: false }}
+        />
+      </div>
+      <h2>Setup Tracking</h2>
+      <h4>Win vs Loss / Setup</h4>
+      <div style={{width: "50%"}}> 
+        <HorizontalBar
+          data = {barData}
+          options = {lineOptions}
+          height={500}
+          options={{ maintainAspectRatio: false }}
         />
       </div>
     </>
