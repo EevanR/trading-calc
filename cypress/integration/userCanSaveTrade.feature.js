@@ -45,10 +45,19 @@ describe("User can save trade", () => {
       status: 200
     });
 
+    cy.route({
+      method: "POST",
+      url: "http://localhost:3000/api/v1/trades",
+      response: "fixture:saved_success.json",
+      status: 200
+    });
+
     cy.get("#save-form").within(() => {
       cy.get("#profit").type("550");
       cy.get("#save-trade").click()
     })
+
+    cy.get("#success-msg").should("contain", "Trade Saved")
   });
 
 });

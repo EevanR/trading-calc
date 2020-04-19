@@ -69,7 +69,7 @@ const Plays = props => {
   return (
     <div className="plays">
       <h2>Plays</h2>
-      <h3>{props.message}</h3>
+      <h3 id="success-msg">{props.message}</h3>
       <div className="tickers">
         <h4 className="titles">Ticker</h4>
         <h3 id="bold" className="titles">Entry</h3>
