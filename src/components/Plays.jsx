@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { sendTrade } from "../modules/trades";
+import { sendTrade, getQuote, getProfile } from "../modules/trades";
 import { connect } from "react-redux";
 
 const Plays = props => {
@@ -34,12 +34,28 @@ const Plays = props => {
       }
     })
     trade.push(e.target.profit.value)
+    debugger
+    // let quote = await getQuote(trade[1].ticker)
+    // if (quote.status === 200) {
+    //   // quote.data["Global Quote"]["01. symbol"]
+    //   quote = quote.data["Global Quote"]
+    // } else {
+    //   alert(`${quote}`)
+    // }
+
+    // let profile = await getProfile(trade[1].ticker)
+    // if (profile.status === 200) {
+    //   profile = profile.data[0]
+    // } else {
+    //   alert(`${profile}`)
+    // }
+
     let response = await sendTrade(id, trade);
     if (response.status === 200) {
       props.setMessage("Trade Saved")
       setTimeout(() => {
         props.setMessage("")
-      }, 2000);
+      }, 3000);
     } else {
 
     }
@@ -54,6 +70,7 @@ const Plays = props => {
   return (
     <div className="plays">
       <h2>Plays</h2>
+      <h3>{props.message}</h3>
       <div className="tickers">
         <h4 className="titles">Ticker</h4>
         <h3 id="bold" className="titles">Entry</h3>
@@ -97,7 +114,8 @@ const Plays = props => {
 
 const mapStateToProps = state => {
   return {
-    count: state.count
+    count: state.count,
+    message: state.message
   };
 };
 
