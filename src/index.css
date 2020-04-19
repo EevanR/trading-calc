@@ -103,10 +103,6 @@ input {
   color: red;
 }
 
-#green {
-  color: green;
-}
-
 #delete {
   cursor: pointer;
   color: red;

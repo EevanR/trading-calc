@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { sendTrade } from "../modules/trades";
+import { sendTrade, getQuote, getProfile } from "../modules/trades";
 import { connect } from "react-redux";
 
 const Plays = props => {
@@ -34,14 +34,29 @@ const Plays = props => {
       }
     })
     trade.push(e.target.profit.value)
-    let response = await sendTrade(id, trade);
+    
+    let quote = await getQuote(trade[1].ticker)
+    if (quote.status === 200) {
+      quote = quote.data["Global Quote"]
+    } else {
+      alert(`${quote}`)
+    }
+
+    let profile = await getProfile(trade[1].ticker)
+    if (profile.status === 200) {
+      profile = profile.data[0]
+    } else {
+      alert(`${profile}`)
+    }
+
+    let response = await sendTrade(id, trade, quote, profile);
     if (response.status === 200) {
       props.setMessage("Trade Saved")
       setTimeout(() => {
         props.setMessage("")
-      }, 2000);
+      }, 3000);
     } else {
-
+      alert("Sorry the trade wasn't saved, we'll look into it")
     }
   }
 
@@ -54,11 +69,12 @@ const Plays = props => {
   return (
     <div className="plays">
       <h2>Plays</h2>
+      <h3 id="success-msg">{props.message}</h3>
       <div className="tickers">
         <h4 className="titles">Ticker</h4>
         <h3 id="bold" className="titles">Entry</h3>
         <h4 className="titles">Shares</h4>
-        <h4 id="green" className="titles">Target Price</h4>
+        <h4 id="green" className="titles">Target Prices</h4>
         <h4 id="red" className="titles">Stop Price</h4>
         <h4 className="titles">Stop $</h4>
         <h4 id="red" className="titles">Delete</h4>
@@ -81,7 +97,7 @@ const Plays = props => {
                 <p className="ticker">{ticker[1].stop}</p>
                 <a onClick={() => deleteItem(ticker[0])}><h4 id="delete" className="ticker">X</h4></a>
                 <p className="ticker">{ticker[1].setup}</p>
-                <form onSubmit={saveTrade} onClick={() => setSaveTradeId(ticker[0])}>
+                <form id="save-form" onSubmit={saveTrade} onClick={() => setSaveTradeId(ticker[0])}>
                   <input required type='number' placeholder="$" name="profit" id="profit"/>
                   <button id='save-trade'>Save</button>
                 </form>
@@ -97,7 +113,8 @@ const Plays = props => {
 
 const mapStateToProps = state => {
   return {
-    count: state.count
+    count: state.count,
+    message: state.message
   };
 };
 

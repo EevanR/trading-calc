@@ -1,0 +1,13 @@
+{
+  "id": 1,
+  "ticker": "opgn",
+  "entry": 2.61,
+  "shares": 13,
+  "stop": 2.1,
+  "setup": "Line Bounce",
+  "date": "4/13/2020, 10:08:09 AM",
+  "profit": 2300,
+  "trade_id": 766,
+  "created_at": "2020-04-16T19:19:35.145Z",
+  "updated_at": "2020-04-16T19:19:35.145Z"
+}
