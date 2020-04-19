@@ -34,22 +34,21 @@ const Plays = props => {
       }
     })
     trade.push(e.target.profit.value)
-    debugger
-    // let quote = await getQuote(trade[1].ticker)
-    // if (quote.status === 200) {
-    //   // quote.data["Global Quote"]["01. symbol"]
-    //   quote = quote.data["Global Quote"]
-    // } else {
-    //   alert(`${quote}`)
-    // }
+    
+    let quote = await getQuote(trade[1].ticker)
+    if (quote.status === 200) {
+      quote = quote.data["Global Quote"]
+    } else {
+      alert(`${quote}`)
+    }
 
-    // let profile = await getProfile(trade[1].ticker)
-    // if (profile.status === 200) {
-    //   profile = profile.data[0]
-    // } else {
-    //   alert(`${profile}`)
-    // }
-
+    let profile = await getProfile(trade[1].ticker)
+    if (profile.status === 200) {
+      profile = profile.data[0]
+    } else {
+      alert(`${profile}`)
+    }
+    
     let response = await sendTrade(id, trade);
     if (response.status === 200) {
       props.setMessage("Trade Saved")
