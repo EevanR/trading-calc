@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const sendTrade = async (id, trade) => {
+const sendTrade = async (id, trade, quote, profile) => {
   try {
     const response = await axios.post("/trades",
       {
@@ -12,7 +12,17 @@ const sendTrade = async (id, trade) => {
           setup: trade[1].setup,
           date: trade[1].date,
           profit: trade[2],
-          trade_id: id
+          trade_id: id,
+          open: quote["02. open"],
+          high: quote["03. high"],
+          low: quote["04. low"],
+          close: quote["05. price"],
+          vol: quote["06. volume"],
+          prevClose: quote["08. previous close"],
+          volAvg: profile["volAvg"],
+          mktCap: profile["mktCap"],
+          company: profile["companyName"],
+          industry: profile["industry"]
         }
       }
     )

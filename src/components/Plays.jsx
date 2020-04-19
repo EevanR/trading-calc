@@ -48,15 +48,15 @@ const Plays = props => {
     } else {
       alert(`${profile}`)
     }
-    
-    let response = await sendTrade(id, trade);
+
+    let response = await sendTrade(id, trade, quote, profile);
     if (response.status === 200) {
       props.setMessage("Trade Saved")
       setTimeout(() => {
         props.setMessage("")
       }, 3000);
     } else {
-
+      alert("Sorry the trade wasn't saved, we'll look into it")
     }
   }
 
@@ -74,7 +74,7 @@ const Plays = props => {
         <h4 className="titles">Ticker</h4>
         <h3 id="bold" className="titles">Entry</h3>
         <h4 className="titles">Shares</h4>
-        <h4 id="green" className="titles">Target Price</h4>
+        <h4 id="green" className="titles">Target Prices</h4>
         <h4 id="red" className="titles">Stop Price</h4>
         <h4 className="titles">Stop $</h4>
         <h4 id="red" className="titles">Delete</h4>
@@ -97,7 +97,7 @@ const Plays = props => {
                 <p className="ticker">{ticker[1].stop}</p>
                 <a onClick={() => deleteItem(ticker[0])}><h4 id="delete" className="ticker">X</h4></a>
                 <p className="ticker">{ticker[1].setup}</p>
-                <form onSubmit={saveTrade} onClick={() => setSaveTradeId(ticker[0])}>
+                <form id="save-form" onSubmit={saveTrade} onClick={() => setSaveTradeId(ticker[0])}>
                   <input required type='number' placeholder="$" name="profit" id="profit"/>
                   <button id='save-trade'>Save</button>
                 </form>
