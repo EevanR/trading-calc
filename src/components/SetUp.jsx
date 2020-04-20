@@ -8,7 +8,7 @@ const SetUp = props => {
   const setups = [
     { key: 1, value: 1, text: "Line Bounce"},
     { key: 2, value: 2, text: "Red Green Dip"},
-    { key: 3, value: 3, text: "Pinbar"},
+    { key: 3, value: 3, text: "Mid Point Squeeze"},
     { key: 4, value: 4, text: "High Point Squeeze"}
   ]
 
@@ -27,11 +27,10 @@ const SetUp = props => {
     {id: 4, label: "Green inside candle", checked: false}
   ]
 
-  let pinbar = [
-    {id: 1, label: "Wick down through", checked: false},
-    {id: 2, label: "Wick lowest point of swing low", checked: false},
-    {id: 3, label: "VWAP reject prior", checked: false},
-    {id: 4, label: "First time bounce", checked: false},
+  let midPoint = [
+    {id: 1, label: "Off line", checked: false},
+    {id: 1, label: "Vol at trigger", checked: false},
+    {id: 3, label: "Within 0.02c offset", checked: false},
     {id: 5, label: "Above 1min200EMA Line Chart", checked: false}
   ]
 
@@ -51,9 +50,9 @@ const SetUp = props => {
     } else if (event === "Red Green Dip") {
       props.setPrereq(redGreenDip.length)
       setChooseSetUp(redGreenDip) 
-    } else if (event === "Pinbar") {
-      props.setPrereq(pinbar.length)
-      setChooseSetUp(pinbar) 
+    } else if (event === "Mid Point Squeeze") {
+      props.setPrereq(midPoint.length)
+      setChooseSetUp(midPoint) 
     } else {
       props.setPrereq(highPoint.length)
       setChooseSetUp(highPoint)
