@@ -9,7 +9,8 @@ const SetUp = props => {
     { key: 1, value: 1, text: "Line Bounce"},
     { key: 2, value: 2, text: "Red Green Dip"},
     { key: 3, value: 3, text: "Pinbar"},
-    { key: 4, value: 4, text: "High Point Squeeze"}
+    { key: 4, value: 4, text: "High Point Squeeze"},
+    { key: 5, value: 5, text: "PM VWAP Reclaim"}
   ]
 
   let lineBounce = [
@@ -42,6 +43,13 @@ const SetUp = props => {
     {id: 4, label: "Stop low of breakout candle", checked: false}
   ]
 
+  let vwapReclaim = [
+    {id: 1, label: "Stock not down more than 50% of move from highs", checked: false},
+    {id: 2, label: "1min chart", checked: false},
+    {id: 3, label: "Day 1 or gap up", checked: false},
+    {id: 4, label: "B/O candle to close 0.02c higher or when happens, stop b/e or 1min200 breakdown", checked: false}
+  ]
+
   const onChangeHandler = (event, data) => {
     props.setSetUp(event)
     props.setCheckList([])
@@ -54,9 +62,12 @@ const SetUp = props => {
     } else if (event === "Pinbar") {
       props.setPrereq(pinbar.length)
       setChooseSetUp(pinbar) 
-    } else {
+    } else if (event === "High Point Squeeze") {
       props.setPrereq(highPoint.length)
       setChooseSetUp(highPoint)
+    } else {
+      props.setPrereq(vwapReclaim.length)
+      setChooseSetUp(vwapReclaim)
     }
   }
 
