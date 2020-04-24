@@ -14,4 +14,16 @@ const register = async (email, username, password, passCon) => {
   }
 }
 
-export { register }
+const signIn = async (email, password) => {
+  try {
+    const response = await axios.post("/auth/sign_in", {
+      email: email,
+      password: password
+    });
+    return response;
+  } catch (error) {
+    return error.response.data.errors[0]
+  }
+}
+
+export { register, signIn }

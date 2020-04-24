@@ -42,6 +42,7 @@ Button#submit.ui.button {
 .ui.attached:not(.message)+.ui.attached.segment:not(.top) {
   border: none;
   background-color: #282c34;
+  height: 405px;
 }
 
 #border {

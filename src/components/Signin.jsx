@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { register } from "../modules/auth";
+import { register, signIn } from "../modules/auth";
 import { Form, Button, Tab } from 'semantic-ui-react'
 import { Redirect } from 'react-router-dom';
 import { connect } from "react-redux";
@@ -19,7 +19,17 @@ const Signin = props => {
       props.setUser(response.data.data)
       setRedirect(true)
       alert(`Welcome ${response.data.data.nickname}`)
-      // response.data.data
+    } else {
+      alert(response)
+    }
+  }
+
+  const submitSignInHandler = async event => {
+    event.preventDefault();
+    let response = await signIn(event.target.email.value, event.target.password.value)
+    if (response.status === 200) {
+      props.setUser(response.data.data)
+      setRedirect(true)
     } else {
       alert(response)
     }
@@ -28,7 +38,27 @@ const Signin = props => {
   const panes = [
     { 
       menuItem: 'SignIn', render: () => (
-        <Tab.Pane>Tab 1 Content</Tab.Pane> 
+        <Tab.Pane>
+          <>
+            <div id="border">
+              <img className="sign-up-img" src="/favicon.png" alt=""/>
+              <h1>
+                TradeLogs Sign In  
+              </h1>
+            </div>
+            <div className="form">
+              <Form onSubmit={submitSignInHandler} id="signup-form">
+                <label>Email</label>
+                <br/>
+                <input name="email" type="email" id="email"></input>
+                <label>Password</label>
+                <br/>
+                <input name="password" type="password" id="password"></input>
+                <Button id="submit" type="submit" >Sign In</Button>
+              </Form>
+            </div>
+          </>
+        </Tab.Pane> 
       )
     },
     { 
