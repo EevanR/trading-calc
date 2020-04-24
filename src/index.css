@@ -29,9 +29,9 @@ code {
   text-transform: none;
 }
 
-input {
+/* input {
   text-transform: uppercase;
-}
+} */
 
 #risk {
   color: red;
