@@ -8,6 +8,7 @@ body {
   background-color: #282c34;
   color: whitesmoke;
   padding: 2%;
+  padding-left: 110px;
 }
 
 .App {
@@ -35,6 +36,10 @@ code {
 
 #risk {
   color: red;
+}
+
+#title {
+  margin-bottom: 40px;
 }
 
 .risk {

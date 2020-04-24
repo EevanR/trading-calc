@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Plays from './Plays'
 import SetUp from './SetUp'
+import Pannel from './Pannel'
 import ProfitChart from "./ProfitChart"
 import { connect } from "react-redux";
 
@@ -90,7 +91,8 @@ const Form = props => {
   
   return (
     <>
-      <h2>Trading Position Calculator <span id="user">User: {props.userAttrs.nickname}</span></h2>
+      <Pannel />
+      <h2 id="title">Trading Position Calculator </h2>
       <div className="ui form">
         <form id="main-form" onSubmit={submit}>
           <div className="fields">
