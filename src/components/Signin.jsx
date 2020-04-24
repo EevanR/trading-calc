@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { register } from "../modules/auth";
 import { Form, Button } from 'semantic-ui-react'
+import { Redirect } from 'react-router-dom';
 
 const Signin = () => {
+  const [redirect, setRedirect] = useState(false)
 
   const submitFormHandler = async event => {
     event.preventDefault();
@@ -13,6 +15,7 @@ const Signin = () => {
       event.target.passCon.value
     );
     if (response.status === 200) {
+      setRedirect(true)
       alert(`Welcome ${response.data.data.nickname}`)
       // response.data.data
     } else {
@@ -22,6 +25,7 @@ const Signin = () => {
 
   return (
     <div>
+      {redirect === true && <Redirect to='/form'/>}
       <div className="signin-box">
         <img className="sign-up-img" src="/favicon.png" alt=""/>
         <h1>
