@@ -32,6 +32,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         count: action.payload
       };
+    case "SET_USER":
+      return {
+        ...state,
+        userAttrs: action.payload
+      };
     default:
       return {
         ...state

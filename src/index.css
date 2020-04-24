@@ -154,3 +154,10 @@ h3 {
   text-decoration: underline;
   color: beige;
 }
+
+#user {
+  font-weight: 100;
+  color: red;
+  font-style: italic;
+  font-size: 18px;
+}

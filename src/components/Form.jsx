@@ -90,7 +90,7 @@ const Form = props => {
   
   return (
     <>
-      <h2>Trading Position Calculator</h2>
+      <h2>Trading Position Calculator <span id="user">User: {props.userAttrs.nickname}</span></h2>
       <div className="ui form">
         <form id="main-form" onSubmit={submit}>
           <div className="fields">
@@ -161,9 +161,9 @@ const Form = props => {
           </div>
         </div>
         <Plays />
-        <ProfitChart />
       </>
       )}
+      <ProfitChart />
     </>
   );
 };
@@ -173,7 +173,8 @@ const mapStateToProps = state => {
     preReq: state.preReq,
     checkList: state.checkList,
     setUp: state.setUp,
-    count: state.count
+    count: state.count,
+    userAttrs: state.userAttrs
   };
 };
 

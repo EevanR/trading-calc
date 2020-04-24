@@ -7,7 +7,7 @@
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   width: 350px;
-  height: 450px;
+  height: 470px;
   padding: 10px;
   text-align: center;
   background-color: #323641;
@@ -17,8 +17,8 @@
   font-family: chomsky; 
   width: 100%;
   padding-bottom: 5px;
-  border-bottom: 10px double grey;
   margin-top: 12px;
+  padding-left: 40px;
 }
 
 .form {
@@ -28,12 +28,22 @@
 }
 
 Button#submit.ui.button {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .sign-up-img {
   height: 50px;
   width: 70px;
   position: absolute;
-  left: 0;
+  left: 5px;
+  top: 15px;
+}
+
+.ui.attached:not(.message)+.ui.attached.segment:not(.top) {
+  border: none;
+  background-color: #282c34;
+}
+
+#border {
+  border-bottom: 10px double grey;
 }
