@@ -23,7 +23,10 @@ const Signin = () => {
   return (
     <div>
       <div className="signin-box">
-        <h1>Sign Up</h1>
+        <img className="sign-up-img" src="/favicon.png" alt=""/>
+        <h1>
+          TradeLogs Sign Up  
+        </h1>
         <div className="form">
           <Form onSubmit={submitFormHandler} id="signup-form">
             <label>Email</label>
