@@ -12,10 +12,25 @@ describe("User can save trade", () => {
 
   it("successfully submit new entry", () => {
     cy.visit("/");
+    cy.route({
+      method: "POST",
+      url: "http://localhost:3000/api/v1/auth/sign_in",
+      response: "fixture:login.json",
+      headers: {
+        uid: "trader@mail.com"
+      },
+      status: 200
+    });
+
+    cy.get("#signup-form").within(() => {
+      cy.get("#email").type("trader@mail.com");
+      cy.get("#password").type("password");
+      cy.get("#submit").click();
+    })
 
     cy.get("#main-form").within(() => {
       cy.get("#bp").type("15000");
-      cy.get("#ticker").type("AAPL");
+      cy.get("#ticker").type("aapl");
       cy.get("#price").type("200");
       cy.get("#stop").type("199.90");
     })

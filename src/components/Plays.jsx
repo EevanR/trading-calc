@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 const Plays = props => {
   const [tickers, setTickers] = useState(null)
   const [saveTradeId, setSaveTradeId] = useState(null)
+  const [savedTrades, setSavedTrades] = useState([])
 
   const getTickers = () => {
     let storage = JSON.parse(sessionStorage.getItem('tickers'))
@@ -27,6 +28,7 @@ const Plays = props => {
     e.preventDefault();
     let id = saveTradeId
     let trade;
+    let profit = e.target.profit.value
     let storage = JSON.parse(sessionStorage.getItem('tickers'))
     storage.forEach(item => {
       if (item[0] === id) {
@@ -51,10 +53,11 @@ const Plays = props => {
 
     let response = await sendTrade(id, trade, quote, profile);
     if (response.status === 200) {
+      setSavedTrades([...savedTrades, id])
       props.setMessage("Trade Saved")
       setTimeout(() => {
         props.setMessage("")
-      }, 3000);
+      }, 4000);
     } else {
       alert("Sorry the trade wasn't saved, we'll look into it")
     }
@@ -64,12 +67,12 @@ const Plays = props => {
     if (props.count > 0) {
       getTickers()
     }
-  }, [props.count, props.message])
+  }, [props.count, props.message, savedTrades])
 
   return (
     <div className="plays">
+      <h2 id="success-msg">{props.message}</h2>
       <h2>Plays</h2>
-      <h3 id="success-msg">{props.message}</h3>
       <div className="tickers">
         <h4 className="titles">Ticker</h4>
         <h3 id="bold" className="titles">Entry</h3>
@@ -97,10 +100,14 @@ const Plays = props => {
                 <p className="ticker">{ticker[1].stop}</p>
                 <a onClick={() => deleteItem(ticker[0])}><h4 id="delete" className="ticker">X</h4></a>
                 <p className="ticker">{ticker[1].setup}</p>
-                <form id="save-form" onSubmit={saveTrade} onClick={() => setSaveTradeId(ticker[0])}>
-                  <input required type='number' placeholder="$" name="profit" id="profit"/>
-                  <button id='save-trade'>Save</button>
-                </form>
+                {savedTrades.includes(ticker[0]) ? (
+                  <p className="ticker">Saved</p>
+                ) : (
+                  <form id="save-form" onSubmit={saveTrade} onClick={() => setSaveTradeId(ticker[0])}>
+                    <input required type='number' placeholder="$" name="profit" id="profit"/>
+                    <button id='save-trade'>Save</button>
+                  </form>
+                )}
               </div>
             </>
             )

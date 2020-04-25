@@ -79,7 +79,7 @@ const Form = props => {
   }
 
   const onChangeHandler = (e) => {
-    let value = e.target.value*0.018
+    let value = e.target.value*0.013
     setRisk(value)
   }
 

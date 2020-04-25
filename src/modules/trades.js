@@ -2,11 +2,12 @@ import axios from "axios";
 
 const sendTrade = async (id, trade, quote, profile) => {
   let headers = JSON.parse(sessionStorage.getItem("credentials"));
+  let ticker = trade[1].ticker.toUpperCase()
   try {
     const response = await axios.post("/trades",
       {
         trade: {
-          ticker: trade[1].ticker,
+          ticker: ticker,
           entry: trade[1].stockPrice,
           shares: trade[1].shares,
           stop: trade[1].sp,
