@@ -14,7 +14,7 @@ const Pannel = props => {
   const onLogout = async () => {
     let response = await logout();
     if (response.data.success === true) {
-      sessionStorage.removeItem("credentials")
+      sessionStorage.clear()
       props.setUser(null)
     } else {
       alert("SignOut failed unexpectedly")

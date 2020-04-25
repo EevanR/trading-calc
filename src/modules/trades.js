@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const sendTrade = async (id, trade, quote, profile) => {
+  let headers = JSON.parse(sessionStorage.getItem("credentials"));
   try {
     const response = await axios.post("/trades",
       {
@@ -24,6 +25,9 @@ const sendTrade = async (id, trade, quote, profile) => {
           company: profile["companyName"],
           industry: profile["industry"]
         }
+      }, 
+      {
+        headers: headers
       }
     )
     return response
@@ -33,8 +37,11 @@ const sendTrade = async (id, trade, quote, profile) => {
 }
 
 const getTrades = async () => {
+  let headers = JSON.parse(sessionStorage.getItem("credentials"));
   try {
-    const response = await axios.get("/trades")
+    const response = await axios.get("/trades", {
+      headers: headers
+    })
     return response
   } catch (error) {
     return error.response;
