@@ -10,12 +10,12 @@ const ProfitChart = props => {
 
   const setDates = () => {
     let dates = []
-    props.savedTrades.map(item => {
-      let date = item.date.substring(0, item.date.indexOf(","))
-        if (!dates.includes(date)) {
-          dates.push(date)
-        }
-    })
+    for(let i=0; i<props.savedTrades.length; i++) {
+      let date = props.savedTrades[i].date.substring(0, props.savedTrades[i].date.indexOf(","))
+      if (!dates.includes(date)) {
+        dates.push(date)
+      }
+    }
     let trades = props.savedTrades.map(item => 
       [item.ticker, item.profit, item.date.substring(0, item.date.indexOf(",")), item.setup]
     )
@@ -90,6 +90,7 @@ const ProfitChart = props => {
   };
 
   const lineOptions = {
+    maintainAspectRatio: false,
     legend: {
       labels: {
         fontColor: "white"
@@ -157,7 +158,7 @@ const ProfitChart = props => {
     legend: {
       position: 'top',
       labels: {
-        // boxWidth: 10
+        fontColor: "white"
       }
     }
   }
@@ -193,7 +194,6 @@ const ProfitChart = props => {
           data = {lineData}
           options = {lineOptions}
           height={500}
-          options={{ maintainAspectRatio: false }}
         />
       </div>
       <h2>Setup Tracking</h2>
@@ -205,7 +205,6 @@ const ProfitChart = props => {
               data = {barData}
               options = {lineOptions}
               height={500}
-              options={{ maintainAspectRatio: false }}
             />
           </div>
         </div>

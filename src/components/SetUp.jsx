@@ -3,7 +3,7 @@ import { Checkbox, Dropdown } from 'semantic-ui-react'
 import { connect } from "react-redux";
 
 const SetUp = props => {
-  const [chooseSetUp, setChooseSetUp] = useState("")
+  const [chooseSetUp, setChooseSetUp] = useState([])
 
   const setups = [
     { key: 1, value: 1, text: "Line Bounce"},
@@ -50,8 +50,12 @@ const SetUp = props => {
     {id: 4, label: "B/O candle to close 0.02c higher or when happens, stop b/e or 1min200 breakdown", checked: false}
   ]
 
-  const onChangeHandler = (event, data) => {
-    props.setSetUp(event)
+  const onChangeHandler = (event) => {
+    if (event.length < 70) {
+      props.setSetUp(event)
+    } else {
+      setChooseSetUp([])
+    }
     props.setCheckList([])
     if (event === "Line Bounce") {
       props.setPrereq(lineBounce.length)
@@ -65,9 +69,11 @@ const SetUp = props => {
     } else if (event === "High Point Squeeze") {
       props.setPrereq(highPoint.length)
       setChooseSetUp(highPoint)
-    } else {
+    } else if (event === "PM VWAP Reclaim") {
       props.setPrereq(vwapReclaim.length)
       setChooseSetUp(vwapReclaim)
+    } else {
+      return null
     }
   }
 
@@ -91,23 +97,24 @@ const SetUp = props => {
   }, [props.setUp]);
 
   let setUp;
-  if (props.setUp !== "") {
+  if (chooseSetUp !== []) {
     setUp = (
       <>
         <h2>{props.setUp} <span id="italic"> Pre-reqs</span></h2>
         {chooseSetUp.map(checkbox => {
           return (
-            <>
-              <Checkbox onClick={() => onClickHandler(checkbox.id, checkbox.label, checkbox.checked)} 
-                id={checkbox.id} 
-                label={checkbox.label} 
-                checked={checkbox.checked} 
-              />
-            </>
+            <Checkbox key={checkbox.id}
+              onClick={() => onClickHandler(checkbox.id, checkbox.label, checkbox.checked)}
+              id={checkbox.id} 
+              label={checkbox.label} 
+              checked={checkbox.checked} 
+            />
           )
         })}
       </>
     )
+  } else {
+    setUp = (<div></div>)
   }
 
   return (
@@ -119,8 +126,8 @@ const SetUp = props => {
             clearable
             fluid
             options={setups}
-            onChange={(event, data) => {
-              onChangeHandler(event.target.innerText, data.value);
+            onChange={event => {
+              onChangeHandler(event.target.innerText);
             }}
           />
         </div>

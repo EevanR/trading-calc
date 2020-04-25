@@ -42,13 +42,13 @@ const Form = props => {
         setAnswer(bpMax)
         setStop(stop.toFixed(2))
         setTicker(ticker)
-        setStockPrice(stockPrice)
+        setStockPrice(stockPrice.toFixed(2))
         setGood(true)
       } else {
         setAnswer(maxShares)
         setStop(stop.toFixed(2))
         setTicker(ticker)
-        setStockPrice(stockPrice)
+        setStockPrice(stockPrice.toFixed(2))
         setGood(true)
       }
     } else {
@@ -151,7 +151,7 @@ const Form = props => {
         <div className="info">
           <div>
             <h2 className="result-heading" >Details</h2>
-            <h3>Entry: {stockPrice.toFixed(2)}</h3>    
+            <h3>Entry: {stockPrice}</h3>    
             <h3>Position Size: <span id="color"> {answer}</span></h3>
             <h3 id="risk">Stop: {stopPrice}</h3>
           </div>

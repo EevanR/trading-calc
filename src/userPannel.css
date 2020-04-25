@@ -49,9 +49,9 @@
 }
 
 #pannel-name {
-  top: 20px;
+  top: 25px;
   position: absolute;
-  left: 26px;
+  left: 28px;
   color: red;
   font-weight: 100;
   font-style: italic;
@@ -61,7 +61,7 @@
 #border-pannel {
   border-bottom: 10px double grey;
   width: 85%;
-  margin-top: 30px;
+  margin-top: 40px;
 }
 
 #logout {

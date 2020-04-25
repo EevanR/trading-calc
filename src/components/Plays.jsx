@@ -28,7 +28,6 @@ const Plays = props => {
     e.preventDefault();
     let id = saveTradeId
     let trade;
-    let profit = e.target.profit.value
     let storage = JSON.parse(sessionStorage.getItem('tickers'))
     storage.forEach(item => {
       if (item[0] === id) {
@@ -93,12 +92,12 @@ const Plays = props => {
             <>
               <div className="tickers">
                 <p className="ticker">${name.toUpperCase()}</p>
-                <p className="ticker">$ {entry.toFixed(2)}</p>
+                <p className="ticker">$ {entry}</p>
                 <p className="ticker">{ticker[1].shares}</p>
                 <p id="green" className="ticker">{ticker[1].targets[0]}, {ticker[1].targets[1]}, {ticker[1].targets[2]}</p>
                 <p id="red" className="ticker">{ticker[1].sp}</p>
                 <p className="ticker">{ticker[1].stop}</p>
-                <a onClick={() => deleteItem(ticker[0])}><h4 id="delete" className="ticker">X</h4></a>
+                <h4 onClick={() => deleteItem(ticker[0])} id="delete" className="ticker">X</h4>
                 <p className="ticker">{ticker[1].setup}</p>
                 {savedTrades.includes(ticker[0]) ? (
                   <p className="ticker">Saved</p>
