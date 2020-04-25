@@ -8,6 +8,7 @@ const register = async (email, username, password, passCon) => {
       password_confirmation: passCon,
       nickname: username
     });
+    storeAuthCredentials(response, response.data.data.nickname);
     return response;
   } catch (error) {
     return error.response.data.errors.full_messages[0];
@@ -20,10 +21,37 @@ const signIn = async (email, password) => {
       email: email,
       password: password
     });
+    storeAuthCredentials(response, response.data.data.nickname);
     return response;
   } catch (error) {
     return error.response.data.errors[0]
   }
 }
 
-export { register, signIn }
+const storeAuthCredentials = ({ headers }, nickname) => {
+  const credentials = {
+    uid: headers["uid"],
+    nickname: nickname,
+    client: headers["client"],
+    access_token: headers["access-token"],
+    expiry: headers["expiry"],
+    token_type: "Bearer"
+  };
+  sessionStorage.setItem("credentials", JSON.stringify(credentials));
+};
+
+const logout = async () => {
+  let headers = sessionStorage.getItem("credentials");
+  headers = JSON.parse(headers);
+  let response = await axios.delete("/auth/sign_out", {
+      headers: headers
+    }
+  );
+  if (response.data.success) {
+    return response
+  } else { 
+    return response
+  }
+};
+
+export { register, signIn, logout }
