@@ -1,0 +1,50 @@
+.signin-box {
+  border: 2px solid grey;
+  border-radius: 5px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 350px;
+  height: 470px;
+  padding: 10px;
+  text-align: center;
+  background-color: #323641;
+}
+
+.signin-box h1 {
+  font-family: chomsky; 
+  width: 100%;
+  padding-bottom: 5px;
+  margin-top: 12px;
+  padding-left: 40px;
+}
+
+#signup-form {
+  width: 90%;
+  margin: auto;
+  line-height: 30px;
+}
+
+Button#submit.ui.button {
+  margin-top: 10px;
+}
+
+.sign-up-img {
+  height: 50px;
+  width: 70px;
+  position: absolute;
+  left: 5px;
+  top: 15px;
+}
+
+.ui.attached:not(.message)+.ui.attached.segment:not(.top) {
+  border: none;
+  background-color: #282c34;
+  height: 405px;
+}
+
+#border {
+  border-bottom: 10px double grey;
+}

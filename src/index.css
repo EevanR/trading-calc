@@ -8,6 +8,7 @@ body {
   background-color: #282c34;
   color: whitesmoke;
   padding: 2%;
+  padding-left: 70px;
 }
 
 .App {
@@ -29,12 +30,16 @@ code {
   text-transform: none;
 }
 
-input {
+/* input {
   text-transform: uppercase;
-}
+} */
 
 #risk {
   color: red;
+}
+
+#title {
+  margin-bottom: 40px;
 }
 
 .risk {
@@ -62,6 +67,7 @@ input {
 }
 
 .tickers {
+  text-align: center;
   margin: 0 0 .625rem;
   display: grid;
   grid-template-columns: repeat(auto-fill,minmax(9rem,1fr));
@@ -153,4 +159,22 @@ h3 {
   font-style: italic;
   text-decoration: underline;
   color: beige;
+}
+
+#user {
+  font-weight: 100;
+  color: red;
+  font-style: italic;
+  font-size: 18px;
+}
+
+#success-msg {
+  text-align: center;
+  color: white;
+  width: 100%;
+  background-color: rgb(179, 117, 3);
+}
+
+#profit {
+  width: 100px;
 }

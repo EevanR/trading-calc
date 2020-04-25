@@ -1,14 +1,18 @@
 import React from 'react';
 import Form from './components/Form'
-import ProfitChart from "./components/ProfitChart"
+import Signin from './components/Signin'
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 const App = () => {
   return (
     <div className="App">
-      <h2>Trading Position Calculator</h2>
       <div className="main">
-        <Form />
-        <ProfitChart />
+			<BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={Signin} />
+          <Route exact path="/form" component={Form} />
+        </Switch>
+      </BrowserRouter>
       </div>
     </div>
   );

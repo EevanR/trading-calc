@@ -4,6 +4,7 @@ const initialState = {
   setUp: "",
   savedTrades: null,
   message: "",
-  count: null
+  count: null,
+  userAttrs: null
 };
 export default initialState;

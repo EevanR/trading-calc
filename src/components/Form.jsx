@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Plays from './Plays'
 import SetUp from './SetUp'
+import Pannel from './Pannel'
+import ProfitChart from "./ProfitChart"
 import { connect } from "react-redux";
 
 const Form = props => {
@@ -77,7 +79,7 @@ const Form = props => {
   }
 
   const onChangeHandler = (e) => {
-    let value = e.target.value*0.018
+    let value = e.target.value*0.013
     setRisk(value)
   }
 
@@ -89,6 +91,8 @@ const Form = props => {
   
   return (
     <>
+      <Pannel />
+      <h2 id="title">Trading Position Calculator </h2>
       <div className="ui form">
         <form id="main-form" onSubmit={submit}>
           <div className="fields">
@@ -161,6 +165,7 @@ const Form = props => {
         <Plays />
       </>
       )}
+      <ProfitChart />
     </>
   );
 };
@@ -170,7 +175,8 @@ const mapStateToProps = state => {
     preReq: state.preReq,
     checkList: state.checkList,
     setUp: state.setUp,
-    count: state.count
+    count: state.count,
+    userAttrs: state.userAttrs
   };
 };
 

@@ -1,0 +1,10 @@
+{
+  "data": {
+    "id": 1,
+    "email": "trader@mail.com",
+    "provider": "email",
+    "uid": "trader@mail.com",
+    "nickname": "TraderZero",
+    "allow_password_change": false
+  }
+}

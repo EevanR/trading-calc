@@ -1,11 +1,13 @@
 import axios from "axios";
 
 const sendTrade = async (id, trade, quote, profile) => {
+  let headers = JSON.parse(sessionStorage.getItem("credentials"));
+  let ticker = trade[1].ticker.toUpperCase()
   try {
     const response = await axios.post("/trades",
       {
         trade: {
-          ticker: trade[1].ticker,
+          ticker: ticker,
           entry: trade[1].stockPrice,
           shares: trade[1].shares,
           stop: trade[1].sp,
@@ -24,6 +26,9 @@ const sendTrade = async (id, trade, quote, profile) => {
           company: profile["companyName"],
           industry: profile["industry"]
         }
+      }, 
+      {
+        headers: headers
       }
     )
     return response
@@ -33,8 +38,11 @@ const sendTrade = async (id, trade, quote, profile) => {
 }
 
 const getTrades = async () => {
+  let headers = JSON.parse(sessionStorage.getItem("credentials"));
   try {
-    const response = await axios.get("/trades")
+    const response = await axios.get("/trades", {
+      headers: headers
+    })
     return response
   } catch (error) {
     return error.response;
