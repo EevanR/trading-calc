@@ -19,7 +19,8 @@ describe("User can save trade", () => {
       headers: {
         uid: "trader@mail.com"
       },
-      status: 200
+      status: 200,
+      delay: 2000
     });
 
     cy.get("#signup-form").within(() => {

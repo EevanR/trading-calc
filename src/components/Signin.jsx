@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { register, signIn } from "../modules/auth";
-import { Form, Button, Tab } from 'semantic-ui-react'
+import { Form, Button, Tab, Dimmer, Loader } from 'semantic-ui-react'
 import { Redirect } from 'react-router-dom';
 import { connect } from "react-redux";
 
 const Signin = props => {
   const [redirect, setRedirect] = useState(false)
+  const [loader, setLoader] = useState(false)
 
   const submitFormHandler = async event => {
     event.preventDefault();
+    setLoader(true)
     let response = await register(
       event.target.email.value,
       event.target.username.value,
@@ -16,21 +18,26 @@ const Signin = props => {
       event.target.passCon.value
     );
     if (response.status === 200) {
+      setLoader(false)
       props.setUser(response.data.data)
       setRedirect(true)
       alert(`Welcome ${response.data.data.nickname}`)
     } else {
+      setLoader(false)
       alert(response)
     }
   }
 
   const submitSignInHandler = async event => {
     event.preventDefault();
+    setLoader(true)
     let response = await signIn(event.target.email.value, event.target.password.value)
     if (response.status === 200) {
+      setLoader(false)
       props.setUser(response.data.data)
       setRedirect(true)
     } else {
+      setLoader(false)
       alert(response)
     }
   }
@@ -103,6 +110,11 @@ const Signin = props => {
       {redirect === true && <Redirect to='/form'/>}
       <div className="signin-box">
         <Tab panes={panes} />
+        {loader === true && (
+          <Dimmer active>
+            <Loader />
+          </Dimmer>
+        )}
       </div>
     </div>
   )
