@@ -10,33 +10,34 @@ const Signin = props => {
 
   const submitFormHandler = async event => {
     event.preventDefault();
+    setLoader(true)
     let response = await register(
       event.target.email.value,
       event.target.username.value,
       event.target.password.value,
       event.target.passCon.value
     );
-    if (!response) {
-      setLoader(true)
+    if (response.status === 200) {
+      setLoader(false)
+      props.setUser(response.data.data)
+      setRedirect(true)
+      alert(`Welcome ${response.data.data.nickname}`)
     } else {
-      if (response.status === 200) {
-        setLoader(false)
-        props.setUser(response.data.data)
-        setRedirect(true)
-        alert(`Welcome ${response.data.data.nickname}`)
-      } else {
-        alert(response)
-      }
+      setLoader(false)
+      alert(response)
     }
   }
 
   const submitSignInHandler = async event => {
     event.preventDefault();
+    setLoader(true)
     let response = await signIn(event.target.email.value, event.target.password.value)
     if (response.status === 200) {
+      setLoader(false)
       props.setUser(response.data.data)
       setRedirect(true)
     } else {
+      setLoader(false)
       alert(response)
     }
   }
@@ -98,11 +99,6 @@ const Signin = props => {
                 <Button id="submit" type="submit" >Sign Up</Button>
               </Form>
             </div>
-            {loader === true && (
-              <Dimmer active>
-                <Loader />
-              </Dimmer>
-            )}
           </>
         </Tab.Pane> 
       )
@@ -114,6 +110,11 @@ const Signin = props => {
       {redirect === true && <Redirect to='/form'/>}
       <div className="signin-box">
         <Tab panes={panes} />
+        {loader === true && (
+          <Dimmer active>
+            <Loader />
+          </Dimmer>
+        )}
       </div>
     </div>
   )
