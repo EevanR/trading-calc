@@ -54,4 +54,22 @@ const logout = async () => {
   }
 };
 
-export { register, signIn, logout }
+const updateRisk = async (id, risk) => {
+  debugger
+  let headers = JSON.parse(sessionStorage.getItem("credentials"));
+  try {
+    const response = await axios.put(`/admin/users/${id}`,
+      {
+        risk: risk
+      }, 
+      {
+        headers: headers
+      }
+    )
+    return response
+  } catch (error) {
+    return error.response;
+  }
+}
+
+export { register, signIn, logout, updateRisk }

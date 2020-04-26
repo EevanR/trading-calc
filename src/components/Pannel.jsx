@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Icon, Button } from 'semantic-ui-react'
 import { connect } from "react-redux";
-import { logout } from "../modules/auth";
+import { logout, updateRisk } from "../modules/auth";
 import { Redirect } from 'react-router-dom';
 
 const Pannel = props => {
   const [pannel, setPannel] = useState(false)
   const [redirect, setRedirect] = useState(false)
+  const [editRisk, setEditRisk] = useState(false)
 
   const togglePannel = () => {
     pannel === false ? setPannel(true) : setPannel(false)
@@ -20,6 +21,18 @@ const Pannel = props => {
       props.setUser(null)
     } else {
       alert("SignOut failed unexpectedly")
+    }
+  }
+
+  const setRisk = async (e) => {
+    e.preventDefault();
+    let risk = e.target.risk.value/100
+    let response = await updateRisk(props.userAttrs.id, risk);
+    if (response.status === 200) {
+      props.setUser(response.data)
+      setEditRisk(false)
+    } else {
+      alert("Update Failed")
     }
   }
 
@@ -41,6 +54,20 @@ const Pannel = props => {
           <h4>Account: </h4>
           <h4>{props.userAttrs.email}</h4>
         </div>
+        <h4>Risk / trade: </h4>
+        {!editRisk ? (
+          <>
+            <h4 id="user-risk" style={{ color: "red" }}>{props.userAttrs.risk*100} %</h4>
+            <button onClick={() => setEditRisk(true)}>Edit</button>
+          </>
+        ) : (
+          <form id="risk-form" onSubmit={setRisk}>
+            <label htmlFor="">Risk</label>
+            <input required type='float' placeholder="%" name="risk" id="risk"/>
+            <button id='update-risk'>update</button>
+            <button onClick={() => setEditRisk(false)}>Cancel</button>
+          </form>
+        )}
       </div>
     </>
   )
