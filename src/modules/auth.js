@@ -55,7 +55,6 @@ const logout = async () => {
 };
 
 const updateRisk = async (id, risk) => {
-  debugger
   let headers = JSON.parse(sessionStorage.getItem("credentials"));
   try {
     const response = await axios.put(`/admin/users/${id}`,

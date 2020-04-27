@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { sendTrade, getQuote, getProfile } from "../modules/trades";
 import { connect } from "react-redux";
+import { Dimmer, Loader } from 'semantic-ui-react'
 
 const Plays = props => {
   const [tickers, setTickers] = useState(null)
   const [saveTradeId, setSaveTradeId] = useState(null)
   const [savedTrades, setSavedTrades] = useState([])
+  const [loader, setLoader] = useState(false)
 
   const getTickers = () => {
     let storage = JSON.parse(sessionStorage.getItem('tickers'))
@@ -26,6 +28,7 @@ const Plays = props => {
 
   const saveTrade = async (e) => {
     e.preventDefault();
+    setLoader(true)
     let id = saveTradeId
     let trade;
     let storage = JSON.parse(sessionStorage.getItem('tickers'))
@@ -52,12 +55,14 @@ const Plays = props => {
 
     let response = await sendTrade(id, trade, quote, profile);
     if (response.status === 200) {
+      setLoader(false)
       setSavedTrades([...savedTrades, id])
       props.setMessage("Trade Saved")
       setTimeout(() => {
         props.setMessage("")
       }, 4000);
     } else {
+      setLoader(false)
       alert("Sorry the trade wasn't saved, we'll look into it")
     }
   }
@@ -102,10 +107,17 @@ const Plays = props => {
                 {savedTrades.includes(ticker[0]) ? (
                   <p className="ticker">Saved</p>
                 ) : (
-                  <form id="save-form" onSubmit={saveTrade} onClick={() => setSaveTradeId(ticker[0])}>
-                    <input required type='number' placeholder="$" name="profit" id="profit"/>
-                    <button id='save-trade'>Save</button>
-                  </form>
+                  <>
+                    <form id="save-form" onSubmit={saveTrade} onClick={() => setSaveTradeId(ticker[0])}>
+                      <input required type='number' placeholder="$" name="profit" id="profit"/>
+                      <button id='save-trade'>Save</button>
+                    </form>
+                  </>
+                )}
+                {loader === true && (
+                  <Dimmer active>
+                    <Loader />
+                  </Dimmer>
                 )}
               </div>
             </>

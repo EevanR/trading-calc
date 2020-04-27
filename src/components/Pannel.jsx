@@ -20,6 +20,10 @@ const Pannel = props => {
       setRedirect(true)
       sessionStorage.clear()
       props.setUser(null)
+      props.setCount(0)
+      props.setPrereq(null)
+      props.setCheckList([])
+      props.setSetUp("")
     } else {
       alert("SignOut failed unexpectedly")
     }
@@ -75,7 +79,7 @@ const Pannel = props => {
         ) : (
           <form id="risk-form" onSubmit={setRisk}>
             <label htmlFor="">Risk</label>
-            <input required type='float' placeholder="%" name="risk" id="risk"/>
+            <input required type='float' placeholder="%" name="risk" id="pannel-risk"/>
             <button id='update-risk'>update</button>
             <button onClick={() => setEditRisk(false)}>Cancel</button>
           </form>
@@ -95,6 +99,18 @@ const mapDispatchToProps = dispatch => {
   return {
     setUser: data => {
       dispatch({ type: "SET_USER", payload: data });
+    },
+    setCount: data => {
+      dispatch({ type: "SET_COUNT", payload: data });
+    },
+    setPrereq: data => {
+      dispatch({ type: "SET_PREREQ", payload: data });
+    },
+    setCheckList: array => {
+      dispatch({ type: "SET_CHECKLIST", payload: array });
+    },
+    setSetUp: string => {
+      dispatch({ type: "SET_SETUP", payload: string });
     }
   }
 };
