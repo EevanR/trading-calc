@@ -89,3 +89,65 @@
 #user-risk {
   margin-top: 0;
 }
+
+#risk-elipse {
+  position: fixed;
+  margin-left: 11px;
+  margin-top: 9px;
+}
+
+#elipse {
+  border-radius: 47%;
+  height: 38px;
+  width: 40px;
+  position: absolute;
+  right: 55px;
+  margin-top: -25px;
+}
+
+#elipse:hover {
+  background-color: grey;
+  cursor: pointer;
+}
+
+.elipse-open {
+  background-color: grey;
+  -webkit-animation: slide-open 0.5s forwards;
+  animation: slide-open 0.5s forwards;
+}
+
+.elipse-close {
+  -webkit-animation: slide-close 0.5s forwards;
+  animation: slide-close 0.5s forwards;
+}
+
+@-webkit-keyframes slide-open {
+  100% { width: 110px; }
+  100% { border-radius: 15px; }
+  100% { padding-left: 30px; }
+}
+
+@keyframes slide-open {
+  100% { width: 110px; }
+  100% { border-radius: 15px; }
+  100% { padding-left: 30px; }
+}
+
+@-webkit-keyframes slide-close {
+  0% { width: 40px; }
+}
+
+@keyframes slide-close {
+  0% { width: 40px; }
+}
+
+#risk-edit {
+  margin-top: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+#risk-edit:hover {
+  color: bisque;
+} 

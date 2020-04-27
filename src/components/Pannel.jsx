@@ -8,6 +8,7 @@ const Pannel = props => {
   const [pannel, setPannel] = useState(false)
   const [redirect, setRedirect] = useState(false)
   const [editRisk, setEditRisk] = useState(false)
+  const [showMenu, setShowMenu] = useState(false)
 
   const togglePannel = () => {
     pannel === false ? setPannel(true) : setPannel(false)
@@ -36,13 +37,15 @@ const Pannel = props => {
     }
   }
 
+  const openCommentMenu = () => {
+    showMenu === false ? setShowMenu(true) : setShowMenu(false);
+  }
+
   return (
     <>
       {redirect === true && <Redirect to='/'/>}
       <div id="pannel" className={pannel ?  "pannel-in" : "pannel-out"} >
-        {props.userAttrs !== null && (
-          <h2 id="pannel-name">{props.userAttrs.nickname}</h2>
-        )}
+        <h2 id="pannel-name">{props.userAttrs.nickname}</h2>
         <div className="pannel-switch">
           <Icon onClick={() => togglePannel() } 
             color='red' 
@@ -54,11 +57,20 @@ const Pannel = props => {
           <h4>Account: </h4>
           <h4>{props.userAttrs.email}</h4>
         </div>
-        <h4>Risk / trade: </h4>
+        <h4>Risk / trade: 
+          <div id="elipse" 
+            onClick={() => openCommentMenu()} 
+            className={showMenu ? "elipse-open" : "elipse-close"}
+          >
+            {showMenu === true && (
+              <button id="risk-edit" onClick={() => setEditRisk(true)}>Edit</button>
+            )}
+            <Icon id="risk-elipse" name='ellipsis vertical' />
+          </div>
+        </h4>
         {!editRisk ? (
           <>
             <h4 id="user-risk" style={{ color: "red" }}>{props.userAttrs.risk*100} %</h4>
-            <button onClick={() => setEditRisk(true)}>Edit</button>
           </>
         ) : (
           <form id="risk-form" onSubmit={setRisk}>
