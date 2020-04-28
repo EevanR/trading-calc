@@ -109,7 +109,7 @@ const Plays = props => {
                 ) : (
                   <>
                     <form id="save-form" onSubmit={saveTrade} onClick={() => setSaveTradeId(ticker[0])}>
-                      <input required type='number' placeholder="$" name="profit" id="profit"/>
+                      <input required type='float' placeholder="$" name="profit" id="profit"/>
                       <button id='save-trade'>Save</button>
                     </form>
                   </>

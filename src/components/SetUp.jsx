@@ -44,10 +44,11 @@ const SetUp = props => {
   ]
 
   let vwapReclaim = [
-    {id: 1, label: "Stock not down more than 50% of move from highs", checked: false},
+    {id: 1, label: "In top 50% of PM range", checked: false},
     {id: 2, label: "1min chart", checked: false},
-    {id: 3, label: "Day 1 or gap up", checked: false},
-    {id: 4, label: "B/O candle to close 0.02c higher or when happens, stop b/e or 1min200 breakdown", checked: false}
+    {id: 3, label: "Day 1 or Cont Gap Up", checked: false},
+    {id: 4, label: "B/e after new high", checked: false},
+    {id: 5, label: "No DeadCat Bounce, if so HigherHigh over VWAP & HigherLow", checked: false}
   ]
 
   const onChangeHandler = (event) => {

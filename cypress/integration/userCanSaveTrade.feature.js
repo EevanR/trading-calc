@@ -20,7 +20,7 @@ describe("User can save trade", () => {
         uid: "trader@mail.com"
       },
       status: 200,
-      delay: 2000
+      delay: 1000
     });
 
     cy.get("#signup-form").within(() => {
@@ -69,7 +69,7 @@ describe("User can save trade", () => {
     });
 
     cy.get("#save-form").within(() => {
-      cy.get("#profit").type("550");
+      cy.get("#profit").type("550.5");
       cy.get("#save-trade").click()
     })
 
