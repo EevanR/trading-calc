@@ -219,3 +219,13 @@ h3 {
   grid-row-start: 1;
   grid-row-end: span 1;
 }
+
+.backtest-chart {
+  width: 1150px;
+}
+
+#testTicker {
+  width: 70px;
+  margin-right: 10px;
+  margin-left: 10px;
+}
