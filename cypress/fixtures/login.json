@@ -5,6 +5,7 @@
     "provider": "email",
     "uid": "trader@mail.com",
     "nickname": "TraderZero",
+    "risk": "0.02",
     "allow_password_change": false
   }
 }

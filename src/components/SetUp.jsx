@@ -10,7 +10,6 @@ const SetUp = props => {
     { key: 2, value: 2, text: "Red Green Dip"},
     { key: 3, value: 3, text: "Pinbar"},
     { key: 4, value: 4, text: "High Point Squeeze"},
-    { key: 5, value: 5, text: "PM VWAP Reclaim"},
     { key: 5, value: 5, text: "1min Flag"}
   ]
 
@@ -44,20 +43,13 @@ const SetUp = props => {
     {id: 4, label: "Stop low of breakout candle", checked: false}
   ]
 
-  let vwapReclaim = [
-    {id: 1, label: "In top 50% of PM range", checked: false},
-    {id: 2, label: "1min chart", checked: false},
-    {id: 3, label: "Day 1 or Cont Gap Up", checked: false},
-    {id: 4, label: "B/e after new high", checked: false},
-    {id: 5, label: "No DeadCat Bounce, if so HigherHigh over VWAP & HigherLow", checked: false}
-  ]
-
   let flag = [
     {id: 1, label: "1min chart", checked: false},
     {id: 2, label: "Above 1min200EMA", checked: false},
     {id: 3, label: "Front Side", checked: false},
     {id: 4, label: "Connect line chart highs that are real candle highs", checked: false},
-    {id: 5, label: "Stop b/e after new high", checked: false}
+    {id: 5, label: "Stop b/e after new high", checked: false},
+    {id: 6, label: "Above 1min24EMA", checked: false}
   ]
 
   const onChangeHandler = (event) => {
@@ -79,9 +71,6 @@ const SetUp = props => {
     } else if (event === "High Point Squeeze") {
       props.setPrereq(highPoint.length)
       setChooseSetUp(highPoint)
-    } else if (event === "PM VWAP Reclaim") {
-      props.setPrereq(vwapReclaim.length)
-      setChooseSetUp(vwapReclaim)
     } else if (event === "1min Flag") {
       props.setPrereq(flag.length)
       setChooseSetUp(flag)

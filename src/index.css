@@ -49,6 +49,17 @@ code {
   border-radius: 5px;
 }
 
+#bp {
+  color: darkturquoise;
+}
+
+.bp {
+  color: darkturquoise;
+  border: 1px solid darkturquoise;
+  padding: 8px 70px;
+  border-radius: 5px;
+}
+
 #risk-block {
   margin-left: 20px;
 }
@@ -147,18 +158,12 @@ code {
   margin-top: 30px;
   margin-bottom: 30px;
   display: grid;
-  grid-template-columns: 300px 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-template-rows: 150px;
 }
 
 h3 {
   margin: 10px 0;
-}
-
-.result-heading {
-  font-style: italic;
-  text-decoration: underline;
-  color: beige;
 }
 
 #user {
@@ -177,4 +182,36 @@ h3 {
 
 #profit {
   width: 100px;
+}
+
+.details {
+  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 50px 40px 50px;
+  grid-column-gap: 5px;
+  margin-right: 50px;
+}
+
+.details-heading {
+  grid-column-start: 1;
+  grid-column-end: span 4;
+  grid-row-start: 1;
+  grid-row-end: span 1;
+}
+
+.targets {
+  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 50px 40px 50px;
+  grid-column-gap: 5px;
+  margin-left: 50px;
+}
+
+.result-heading {
+  grid-column-start: 1;
+  grid-column-end: span 3;
+  grid-row-start: 1;
+  grid-row-end: span 1;
 }

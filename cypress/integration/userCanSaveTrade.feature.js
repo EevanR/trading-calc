@@ -30,7 +30,7 @@ describe("User can save trade", () => {
     })
 
     cy.get("#main-form").within(() => {
-      cy.get("#bp").type("15000");
+      cy.get("#equity").type("15000");
       cy.get("#ticker").type("aapl");
       cy.get("#price").type("200");
       cy.get("#stop").type("199.90");

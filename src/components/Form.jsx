@@ -16,18 +16,18 @@ const Form = props => {
   const [stockPrice, setStockPrice] = useState(null)
   const [good, setGood] = useState(false)
   const [riskDollar, setRisk] = useState(0)
+  const [buyPower, setBuyingPower] = useState(0)
 
   const submit = (e) => {
     e.preventDefault();
     if (props.preReq === props.checkList.length) {
-      let bp = parseFloat(e.target.bp.value)
       let risk = riskDollar
       let stop = parseFloat(e.target.price.value - e.target.stop.value)
       let stockPrice = parseFloat(e.target.price.value)
       let ticker = e.target.ticker.value
 
       let maxShares = Math.floor(risk / stop)
-      let bpMax = Math.floor(bp / stockPrice)
+      let bpMax = Math.floor(buyPower / stockPrice)
 
       let pt = stockPrice + stop
       let pt2 = stockPrice + stop + stop
@@ -81,6 +81,8 @@ const Form = props => {
   const onChangeHandler = (e) => {
     let value = e.target.value*props.userAttrs.risk
     setRisk(value)
+    let buyPower = e.target.value*4
+    setBuyingPower(buyPower)
   }
 
   useEffect(() => {
@@ -97,13 +99,13 @@ const Form = props => {
         <form id="main-form" onSubmit={submit}>
           <div className="fields">
             <div className="field">
-              <label>Buying Power</label>
+              <label>Equity</label>
               <input
                 required
                 type="text"
                 placeholder="$"
-                name="bp"
-                id="bp"
+                name="equity"
+                id="equity"
                 onChange={onChangeHandler}
               />
             </div>
@@ -140,6 +142,10 @@ const Form = props => {
               <label id="risk">Risk $</label>
               <p className="risk" >${riskDollar.toFixed(2)}</p>
             </div>
+            <div id="bp-block" className="field">
+              <label id="bp">Buying Power $</label>
+              <p className="bp" >${buyPower.toFixed(2)}</p>
+            </div>
           </div>
           <SetUp />
           <br/>
@@ -149,17 +155,25 @@ const Form = props => {
       { props.count > 0 && (
       <>
         <div className="info">
-          <div>
-            <h2 className="result-heading" >Details</h2>
-            <h3>Entry: {stockPrice}</h3>    
-            <h3>Position Size: <span id="color"> {answer}</span></h3>
-            <h3 id="risk">Stop: {stopPrice}</h3>
+          <div className="details">
+            <h2 className="details-heading" >Details</h2>
+            <h3>Entry</h3>    
+            <h3>Position Size</h3>
+            <h3 id="risk">Stop Price</h3>
+            <h3 id="risk">Stop</h3>
+            <h3>${stockPrice}</h3> 
+            <h3><span id="color"> {answer}</span></h3>
+            <h3 id="risk">${stopPrice}</h3>
+            <h3 id="risk">${stop}</h3>
           </div>
-          <div>
+          <div className="targets">
             <h2 className="result-heading" >Targets</h2>
-            <h3>1R Target: <span id="green"> ${targetPrice}</span></h3>
-            <h3>2R Target: <span id="green"> ${targetPrice2}</span></h3>
-            <h3>3R Target: <span id="green"> ${targetPrice3}</span></h3>
+            <h3>1R Target</h3>
+            <h3>2R Target</h3>
+            <h3>3R Target</h3>
+            <h3><span id="green"> ${targetPrice}</span></h3>
+            <h3><span id="green"> ${targetPrice2}</span></h3>
+            <h3><span id="green"> ${targetPrice3}</span></h3>
           </div>
         </div>
         <Plays />
