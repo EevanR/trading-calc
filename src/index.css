@@ -45,8 +45,10 @@ code {
 .risk {
   color: red;
   border: 1px solid red;
-  padding: 8px 70px;
+  padding: 8px 0px;
   border-radius: 5px;
+  width: 190px;
+  text-align: center;
 }
 
 #bp {
@@ -56,8 +58,10 @@ code {
 .bp {
   color: darkturquoise;
   border: 1px solid darkturquoise;
-  padding: 8px 70px;
+  padding: 8px 0px;
   border-radius: 5px;
+  width: 190px;
+  text-align: center;
 }
 
 #risk-block {
