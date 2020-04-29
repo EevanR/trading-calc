@@ -10,7 +10,8 @@ const SetUp = props => {
     { key: 2, value: 2, text: "Red Green Dip"},
     { key: 3, value: 3, text: "Pinbar"},
     { key: 4, value: 4, text: "High Point Squeeze"},
-    { key: 5, value: 5, text: "PM VWAP Reclaim"}
+    { key: 5, value: 5, text: "PM VWAP Reclaim"},
+    { key: 5, value: 5, text: "1min Flag"}
   ]
 
   let lineBounce = [
@@ -51,6 +52,14 @@ const SetUp = props => {
     {id: 5, label: "No DeadCat Bounce, if so HigherHigh over VWAP & HigherLow", checked: false}
   ]
 
+  let flag = [
+    {id: 1, label: "1min chart", checked: false},
+    {id: 2, label: "Above 1min200EMA", checked: false},
+    {id: 3, label: "Front Side", checked: false},
+    {id: 4, label: "Connect line chart highs that are real candle highs", checked: false},
+    {id: 5, label: "Stop b/e after new high", checked: false}
+  ]
+
   const onChangeHandler = (event) => {
     if (event.length < 70) {
       props.setSetUp(event)
@@ -73,6 +82,9 @@ const SetUp = props => {
     } else if (event === "PM VWAP Reclaim") {
       props.setPrereq(vwapReclaim.length)
       setChooseSetUp(vwapReclaim)
+    } else if (event === "1min Flag") {
+      props.setPrereq(flag.length)
+      setChooseSetUp(flag)
     } else {
       return null
     }
