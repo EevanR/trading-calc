@@ -229,3 +229,11 @@ h3 {
   margin-right: 10px;
   margin-left: 10px;
 }
+
+#backtest-red {
+  color: red;
+}
+
+#backtest-result {
+  margin-top: 20px;
+}

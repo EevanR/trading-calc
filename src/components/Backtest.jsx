@@ -7,6 +7,7 @@ const Backtest = () => {
   const [intraPrices, setIntraPrices] = useState([])
   const [intraTimes, setIntraTimes] = useState([])
   const [ticker, setTicker] = useState("")
+  const [priceAction, setPriceAction] = useState([])
 
   const runTest = async (e) => {
     e.preventDefault();
@@ -25,9 +26,38 @@ const Backtest = () => {
       }
       let prices = []
       let times = []
+      let zoneStart;
+      let zoneEnd;
+      let hour = 9
+      let sentiment = []
+      let high = 0
+      let low = 100000
+      for (let i=array.length - 1; i >= 0; i--) {
+        high = array[i][1]["4. close"] > high ? array[i][1]["4. close"] : high
+        low = array[i][1]["4. close"] < low ? array[i][1]["4. close"] : low
+      }
+      let range = high - low
       for (let i=array.length - 1; i >= 0; i--) {
         prices.push(array[i][1]["4. close"])
         times.push(array[i][0].substring(11))
+        high = array[i][1]["4. close"] > high ? array[i][1]["4. close"] : high
+        low = array[i][1]["4. close"] < low ? array[i][1]["4. close"] : low
+        if (array[i][0].substring(11, newArray[i][0].indexOf(":")) == hour) {
+          if (array[i][0].substring(11) === "09:35:00") {
+            zoneStart = parseFloat(array[i][1]["4. close"])
+          } else if (array[i][0].substring("14") === "05:00") {
+            zoneStart = parseFloat(array[i][1]["4. close"])
+          } else {
+            
+          }
+        } else {
+          zoneEnd = parseFloat(array[i][1]["4. close"])
+          let gain = zoneEnd - zoneStart
+          let gp = (gain/range)*100
+          sentiment.push([hour, gp.toFixed(2)])
+          setPriceAction(sentiment)
+          hour = hour + 1
+        }
       }
       setIntraPrices(prices)
       setIntraTimes(times)
@@ -93,6 +123,17 @@ const Backtest = () => {
           options = {lineOptions}
           height={500}
         />
+      </div>
+      <div id="backtest-result">
+        {priceAction !== [] && (
+          priceAction.map(time => {
+            return (
+              <p id={time[1] < 0 ? "backtest-red" : ""}>
+                {time[0]}:00 => {time[1]}%
+              </p>
+            )
+          })
+        )}
       </div>
     </>
   )
