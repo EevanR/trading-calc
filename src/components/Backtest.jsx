@@ -38,25 +38,29 @@ const Backtest = () => {
     }
   }
 
-  let list = [["IBM", "2020-04-29"], ["IBM", "2020-04-29"]]
+  let list = [["IBM", "2020-04-29"], ["CAPR", "2020-04-29"]]
   if (startTest === true ) {
+    let date;
     Promise.all(list.map( (ticker) => {
+      date = ticker[1]
       return getIntradayData(ticker[0])
     })).then(tickers => {
       let testCases = []
       tickers.forEach( item => {
         if (item.status === 200) { 
-          testCases.push(item.data['Time Series (5min)']) 
+          testCases.push([date, item.data]) 
         }
       })
       setTestOneData(testCases)
     })
+    setStartTest(false)
   }
 
   let testOneResults;
   if (testOneData !== []) {
     testOneResults = testOneData.map( item => {
-      let dates = Object.entries(item)
+      let name = item[1]["Meta Data"]["2. Symbol"]
+      let dates = Object.entries(item[1]["Time Series (5min)"])
       let array = []
       let zoneStart;
       let zoneEnd;
@@ -67,7 +71,8 @@ const Backtest = () => {
 
       for (let i=0; i<dates.length; i++) {
         let dateOnly = dates[i][0].substring(0, dates[i][0].indexOf(" "))
-        if (dateOnly === "2020-04-29") {
+        debugger
+        if (dateOnly === item[0]) {
           array.push(dates[i])
         }
       }
@@ -98,6 +103,7 @@ const Backtest = () => {
       
       return (
         <div id="backtest-result">
+          <h4>{name}</h4>
           {sentiment !== [] && (
             sentiment.map(time => {
               return (
@@ -172,7 +178,10 @@ const Backtest = () => {
       </div>
       <h1>Backtesting</h1>
       <button id="runTest" onClick={() => setStartTest(true)}>Run test</button>
-      {testOneResults}
+      <h3>Hourly Sentiment Results</h3>
+      <div className="testone-results">
+        {testOneResults}
+      </div>
     </>
   )
 }

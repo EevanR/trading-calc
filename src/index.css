@@ -237,3 +237,10 @@ h3 {
 #backtest-result {
   margin-top: 20px;
 }
+
+.testone-results {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-column-gap: 5px;
+}
