@@ -236,6 +236,11 @@ h3 {
 
 #backtest-result {
   margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+#backtest-result h4 {
+  text-decoration: underline;
 }
 
 .testone-results {
@@ -243,4 +248,5 @@ h3 {
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: auto;
   grid-column-gap: 5px;
+  margin-bottom: 30px;
 }

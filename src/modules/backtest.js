@@ -8,8 +8,9 @@ const getIntradayData = async ticker => {
       params: {
         function: "TIME_SERIES_INTRADAY",
         symbol: ticker,
-        interval: "5min"
-        // apikey: "39DMC4D0QYC3JCGG"
+        interval: "5min",
+        outputsize: "full",
+        apikey: "39DMC4D0QYC3JCGG"
       }
     });
     return response

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { getIntradayData } from "../modules/backtest";
 import { Line } from 'react-chartjs-2';
 
@@ -38,7 +38,14 @@ const Backtest = () => {
     }
   }
 
-  let list = [["IBM", "2020-04-29"], ["CAPR", "2020-04-29"]]
+  let list = [
+    ["YTEN", "2020-04-26"], 
+    ["UAVS", "2020-04-30"],
+    ["AVEO", "2020-04-30"],
+    ["CMRX", "2020-04-29"],
+    ["CAPR", "2020-04-29"]
+  ]
+
   if (startTest === true ) {
     let date;
     Promise.all(list.map( (ticker) => {
@@ -57,8 +64,10 @@ const Backtest = () => {
   }
 
   let testOneResults;
+  let averages = []
   if (testOneData !== []) {
     testOneResults = testOneData.map( item => {
+      debugger
       let name = item[1]["Meta Data"]["2. Symbol"]
       let dates = Object.entries(item[1]["Time Series (5min)"])
       let array = []
@@ -71,7 +80,6 @@ const Backtest = () => {
 
       for (let i=0; i<dates.length; i++) {
         let dateOnly = dates[i][0].substring(0, dates[i][0].indexOf(" "))
-        debugger
         if (dateOnly === item[0]) {
           array.push(dates[i])
         }
@@ -97,13 +105,14 @@ const Backtest = () => {
           let gain = zoneEnd - zoneStart
           let gp = (gain/range)*100
           sentiment.push([hour, gp.toFixed(2)])
+          averages.push([hour, gp.toFixed(2)])
           hour = hour + 1
         }
       }
       
       return (
         <div id="backtest-result">
-          <h4>{name}</h4>
+          <h4>{name} {item[0]}</h4>
           {sentiment !== [] && (
             sentiment.map(time => {
               return (
@@ -115,6 +124,24 @@ const Backtest = () => {
           )}
         </div>
       )
+    })
+  }
+
+  let averageResults = []
+  if (averages.length > 0) {
+    let times = [9, 10, 11, 12, 13, 14, 15]
+    times.forEach( time => {
+      let total = 0
+      let count = 0
+      for (let i=0; i<averages.length; i++) {
+        if (averages[i][0] === time) {
+          total += parseFloat(averages[i][1])
+          count++
+        }
+      }
+      averageResults.push((total/count).toFixed(2))
+      total = 0 
+      count = 0
     })
   }
 
@@ -182,6 +209,14 @@ const Backtest = () => {
       <div className="testone-results">
         {testOneResults}
       </div>
+      <h3>Overall Results</h3>
+      <h4 id={averageResults[0] < 0 ? "backtest-red" : ""}>9:30 => {averageResults[0]} %</h4>
+      <h4 id={averageResults[1] < 0 ? "backtest-red" : ""}>10:00 => {averageResults[1]} %</h4>
+      <h4 id={averageResults[2] < 0 ? "backtest-red" : ""}>11:00 => {averageResults[2]} %</h4>
+      <h4 id={averageResults[3] < 0 ? "backtest-red" : ""}>12:00 => {averageResults[3]} %</h4>
+      <h4 id={averageResults[4] < 0 ? "backtest-red" : ""}>13:00 => {averageResults[4]} %</h4>
+      <h4 id={averageResults[5] < 0 ? "backtest-red" : ""}>14:00 => {averageResults[5]} %</h4>
+      <h4 id={averageResults[6] < 0 ? "backtest-red" : ""}>15:00 => {averageResults[6]} %</h4>
     </>
   )
 }
