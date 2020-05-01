@@ -7,7 +7,8 @@ const Backtest = () => {
   const [intraPrices, setIntraPrices] = useState([])
   const [intraTimes, setIntraTimes] = useState([])
   const [ticker, setTicker] = useState("")
-  const [priceAction, setPriceAction] = useState([])
+  const [startTest, setStartTest] = useState(false)
+  const [testOneData, setTestOneData] = useState([])
 
   const runTest = async (e) => {
     e.preventDefault();
@@ -19,30 +20,66 @@ const Backtest = () => {
       let newArray = Object.entries(data)
       let array = []
       for (let i=0; i<newArray.length; i++) {
-        let item = newArray[i][0].substring(0, newArray[i][0].indexOf(" "))
-        if (item === "2020-04-29") {
+        let date = newArray[i][0].substring(0, newArray[i][0].indexOf(" "))
+        if (date === "2020-04-29") {
           array.push(newArray[i])
         }
       }
       let prices = []
       let times = []
+      for (let i=array.length - 1; i >= 0; i--) {
+        prices.push(array[i][1]["4. close"])
+        times.push(array[i][0].substring(11))
+      }
+      setIntraPrices(prices)
+      setIntraTimes(times)
+    } else {
+
+    }
+  }
+
+  let list = [["IBM", "2020-04-29"], ["IBM", "2020-04-29"]]
+  if (startTest === true ) {
+    Promise.all(list.map( (ticker) => {
+      return getIntradayData(ticker[0])
+    })).then(tickers => {
+      let testCases = []
+      tickers.forEach( item => {
+        if (item.status === 200) { 
+          testCases.push(item.data['Time Series (5min)']) 
+        }
+      })
+      setTestOneData(testCases)
+    })
+  }
+
+  let testOneResults;
+  if (testOneData !== []) {
+    testOneResults = testOneData.map( item => {
+      let dates = Object.entries(item)
+      let array = []
       let zoneStart;
       let zoneEnd;
       let hour = 9
       let sentiment = []
       let high = 0
       let low = 100000
+
+      for (let i=0; i<dates.length; i++) {
+        let dateOnly = dates[i][0].substring(0, dates[i][0].indexOf(" "))
+        if (dateOnly === "2020-04-29") {
+          array.push(dates[i])
+        }
+      }
+
       for (let i=array.length - 1; i >= 0; i--) {
         high = array[i][1]["4. close"] > high ? array[i][1]["4. close"] : high
         low = array[i][1]["4. close"] < low ? array[i][1]["4. close"] : low
       }
+
       let range = high - low
       for (let i=array.length - 1; i >= 0; i--) {
-        prices.push(array[i][1]["4. close"])
-        times.push(array[i][0].substring(11))
-        high = array[i][1]["4. close"] > high ? array[i][1]["4. close"] : high
-        low = array[i][1]["4. close"] < low ? array[i][1]["4. close"] : low
-        if (array[i][0].substring(11, newArray[i][0].indexOf(":")) == hour) {
+        if (array[i][0].substring(11, dates[i][0].indexOf(":")) == hour) {
           if (array[i][0].substring(11) === "09:35:00") {
             zoneStart = parseFloat(array[i][1]["4. close"])
           } else if (array[i][0].substring("14") === "05:00") {
@@ -55,15 +92,24 @@ const Backtest = () => {
           let gain = zoneEnd - zoneStart
           let gp = (gain/range)*100
           sentiment.push([hour, gp.toFixed(2)])
-          setPriceAction(sentiment)
           hour = hour + 1
         }
       }
-      setIntraPrices(prices)
-      setIntraTimes(times)
-    } else {
-
-    }
+      
+      return (
+        <div id="backtest-result">
+          {sentiment !== [] && (
+            sentiment.map(time => {
+              return (
+                <p id={time[1] < 0 ? "backtest-red" : ""}>
+                  {time[0]}:00 => {time[1]}%
+                </p>
+              )
+            })
+          )}
+        </div>
+      )
+    })
   }
 
   const lineData = {
@@ -110,11 +156,11 @@ const Backtest = () => {
   return (
     <>
       <div>
-        <h1>Backtesting</h1>
+        <h1>Chart</h1>
         <form onSubmit={runTest}>
           <label>Ticker</label>
           <input required type='text' name="testTicker" id="testTicker"/>
-          <button id="test" type="submit">Run test</button>
+          <button id="loadChart" type="submit">Display Chart</button>
         </form>
       </div>
       <div className="backtest-chart">
@@ -124,17 +170,9 @@ const Backtest = () => {
           height={500}
         />
       </div>
-      <div id="backtest-result">
-        {priceAction !== [] && (
-          priceAction.map(time => {
-            return (
-              <p id={time[1] < 0 ? "backtest-red" : ""}>
-                {time[0]}:00 => {time[1]}%
-              </p>
-            )
-          })
-        )}
-      </div>
+      <h1>Backtesting</h1>
+      <button id="runTest" onClick={() => setStartTest(true)}>Run test</button>
+      {testOneResults}
     </>
   )
 }
