@@ -6,13 +6,13 @@ import { Line } from 'react-chartjs-2';
 const Backtest = () => {
   const [intraPrices, setIntraPrices] = useState([])
   const [intraTimes, setIntraTimes] = useState([])
-  const [ticker, setTicker] = useState("")
+  const [chartTicker, setChartTicker] = useState("")
   const [startTest, setStartTest] = useState(false)
   const [testOneData, setTestOneData] = useState([])
 
   const runTest = async (e) => {
     e.preventDefault();
-    setTicker(e.target.testTicker.value)
+    setChartTicker(e.target.testTicker.value)
     let t = e.target.testTicker.value
     let response = await getIntradayData(t);
     if (response.status === 200) {
@@ -43,31 +43,58 @@ const Backtest = () => {
     ["UAVS", "2020-04-30"],
     ["AVEO", "2020-04-30"],
     ["CMRX", "2020-04-29"],
-    ["CAPR", "2020-04-29"]
+    ["CAPR", "2020-04-29"],
+    ["AMZN", "2020-04-26"], 
+    ["AAPL", "2020-04-30"],
+    ["GE", "2020-04-30"],
+    ["FB", "2020-04-29"],
+    ["THMO", "2020-04-29"]
   ]
 
   if (startTest === true ) {
     let date;
-    Promise.all(list.map( (ticker) => {
-      date = ticker[1]
-      return getIntradayData(ticker[0])
-    })).then(tickers => {
-      let testCases = []
-      tickers.forEach( item => {
-        if (item.status === 200) { 
-          testCases.push([date, item.data]) 
-        }
+    let listLength = list.length
+    let count = 0
+    let testCases = []
+    let start = 0
+    let end = 5
+
+    const testing = () => {
+      let batches = (listLength/5)
+      let batch = list.slice(start, end)
+      Promise.all(batch.map((ticker) => {
+        date = ticker[1]
+        return getIntradayData(ticker[0])
+      })).then(tickers => {
+        tickers.forEach( item => {
+          if (item.status === 200) { 
+            testCases.push([date, item.data]) 
+          }
+        })
+        alert("Waiting")
+        setTimeout(() => {
+          count++
+          start += 5
+          end += 5
+          if (count === batches) {
+            setStartTest(false)
+            setTestOneData(testCases)
+          } else {
+            testing()
+          }
+        }, 60000);
       })
-      setTestOneData(testCases)
-    })
-    setStartTest(false)
+    }
+
+    if (count === 0) {
+      testing()
+    }
   }
 
   let testOneResults;
   let averages = []
-  if (testOneData !== []) {
+  if (testOneData.length === list.length) {
     testOneResults = testOneData.map( item => {
-      debugger
       let name = item[1]["Meta Data"]["2. Symbol"]
       let dates = Object.entries(item[1]["Time Series (5min)"])
       let array = []
@@ -149,7 +176,7 @@ const Backtest = () => {
     labels: intraTimes,
     datasets: [
       {
-        label: ticker,
+        label: chartTicker,
         fill: true,
         lineTension: 0.1,
         backgroundColor: 'rgba(75,192,192,0.4)',
