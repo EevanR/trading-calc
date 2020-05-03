@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { getIntradayData } from "../modules/backtest";
 import { Line } from 'react-chartjs-2';
 
-
 const Backtest = () => {
   const [intraPrices, setIntraPrices] = useState([])
   const [intraTimes, setIntraTimes] = useState([])
@@ -21,7 +20,7 @@ const Backtest = () => {
       let array = []
       for (let i=0; i<newArray.length; i++) {
         let date = newArray[i][0].substring(0, newArray[i][0].indexOf(" "))
-        if (date === "2020-04-29") {
+        if (date === "2020-04-15") {
           array.push(newArray[i])
         }
       }
@@ -39,20 +38,50 @@ const Backtest = () => {
   }
 
   let list = [
-    ["YTEN", "2020-04-26"], 
-    ["UAVS", "2020-04-30"],
+    ["AMTX", "2020-05-01"], 
+    ["SPI", "2020-05-01"],
+    ["MYO", "2020-05-01"],
+    ["MDGS", "2020-05-01"],
     ["AVEO", "2020-04-30"],
+    ["UAVS", "2020-04-30"],
+    ["TRIB", "2020-04-30"],
+    ["THMO", "2020-04-30"],
+    ["SDC", "2020-04-29"],
     ["CMRX", "2020-04-29"],
-    ["CAPR", "2020-04-29"],
-    ["AMZN", "2020-04-26"], 
-    ["AAPL", "2020-04-30"],
-    ["GE", "2020-04-30"],
-    ["FB", "2020-04-29"],
-    ["THMO", "2020-04-29"]
+    ["BCRX", "2020-04-29"], 
+    ["AMC", "2020-04-29"],
+    ["AMC", "2020-04-28"],
+    ["SNDX", "2020-04-28"],
+    ["SDC", "2020-04-28"],
+    ["RTIX", "2020-04-28"], 
+    ["IBIO", "2020-04-28"],
+    ["CREX", "2020-04-28"],
+    ["AVDL", "2020-04-27"],
+    ["YTEN", "2020-04-27"],
+    ["VXRT", "2020-04-27"], 
+    ["NAKD", "2020-04-27"],
+    ["THMO", "2020-04-24"],
+    ["PSTI", "2020-04-24"],
+    ["OAS", "2020-04-24"],
+    ["MESO", "2020-04-24"],
+    ["MDGS", "2020-04-24"],
+    ["CPAH", "2020-04-23"],
+    ["INO", "2020-04-23"],
+    ["ENZ", "2020-04-23"],
+    ["SBOW", "2020-04-22"], 
+    ["SAEX", "2020-04-22"],
+    ["PECK", "2020-04-22"],
+    ["ATIF", "2020-04-22"],
+    ["VXRT", "2020-04-21"],
+    ["THMO", "2020-04-16"], 
+    ["CHCI", "2020-04-15"],
+    ["NURO", "2020-04-14"],
+    ["SONN", "2020-04-14"],
+    ["AIKI", "2020-04-14"]
   ]
 
   if (startTest === true ) {
-    let date;
+    let date = []
     let listLength = list.length
     let count = 0
     let testCases = []
@@ -62,16 +91,18 @@ const Backtest = () => {
     const testing = () => {
       let batches = (listLength/5)
       let batch = list.slice(start, end)
+      
       Promise.all(batch.map((ticker) => {
-        date = ticker[1]
+        date.push(ticker[1])
         return getIntradayData(ticker[0])
       })).then(tickers => {
+        let d = -1
         tickers.forEach( item => {
           if (item.status === 200) { 
-            testCases.push([date, item.data]) 
+            d += 1
+            testCases.push([date[d], item.data]) 
           }
         })
-        alert("Waiting")
         setTimeout(() => {
           count++
           start += 5
@@ -80,9 +111,11 @@ const Backtest = () => {
             setStartTest(false)
             setTestOneData(testCases)
           } else {
+            d = -1
+            date = []
             testing()
           }
-        }, 60000);
+        }, 65000);
       })
     }
 
@@ -113,17 +146,17 @@ const Backtest = () => {
       }
 
       for (let i=array.length - 1; i >= 0; i--) {
-        high = array[i][1]["4. close"] > high ? array[i][1]["4. close"] : high
-        low = array[i][1]["4. close"] < low ? array[i][1]["4. close"] : low
+        high = parseFloat(array[i][1]["2. high"]) > parseFloat(high) ? array[i][1]["2. high"] : high
+        low = parseFloat(array[i][1]["3. low"]) < parseFloat(low) ? array[i][1]["3. low"] : low
       }
 
       let range = high - low
       for (let i=array.length - 1; i >= 0; i--) {
         if (array[i][0].substring(11, dates[i][0].indexOf(":")) == hour) {
           if (array[i][0].substring(11) === "09:35:00") {
-            zoneStart = parseFloat(array[i][1]["4. close"])
+            zoneStart = parseFloat(array[i][1]["1. open"])
           } else if (array[i][0].substring("14") === "05:00") {
-            zoneStart = parseFloat(array[i][1]["4. close"])
+            zoneStart = parseFloat(array[i][1]["1. open"])
           } else {
             
           }
