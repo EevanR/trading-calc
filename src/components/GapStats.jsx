@@ -137,7 +137,8 @@ const Backtest = () => {
   return (
     <>
       <div>
-        <h1>Recent Gap Chart {chartDate} (5min)</h1>
+        <h2>Historic Gap Stats</h2>
+        <h3 style={{marginBottom: "40px"}}>Recent Gap Chart {chartDate} (5min)</h3>
         <form onSubmit={runTest}>
           <label>Ticker</label>
           <input required type='text' name="testTicker" id="testTicker"/>
@@ -151,15 +152,15 @@ const Backtest = () => {
           height={500}
         />
       </div>
-      <h1>Gap Stats {chartTicker}</h1>
+      <h3 style={{marginBottom: "20px"}}>Stats {chartTicker}</h3>
       { gapStats.length > 0 && (
-        <div>
-          <p>Gaps Above 20%: {gapStats[0]}</p>
-          <p>Avg gap: {gapStats[1]}%</p>
-          <p>Avg GapUp Spike Above Open: {gapStats[2]}%</p>
-          <p>Gap Up Closes Above Open: {gapStats[3]}</p>
-          <p>Avg % close Above Open: {gapStats[4]}%</p>
-          <p>Avg Gap Range: ${gapStats[5]}</p>
+        <div style={{marginBottom: "50px"}}>
+          <h3>Gaps Above 20%: {gapStats[0]}</h3>
+          <h3>Avg gap: {gapStats[1]}%</h3>
+          <h3>Avg GapUp Spike Above Open: {gapStats[2]}%</h3>
+          <h3>Gap Up Closes Above Open: {gapStats[3]}</h3>
+          <h3>Avg % close Above Open: {gapStats[4]}%</h3>
+          <h3>Avg Gap Range: ${gapStats[5]}</h3>
         </div>
       )}
     </>
