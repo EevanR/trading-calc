@@ -1,41 +1,10 @@
 import React, { useState } from "react";
 import { getIntradayData } from "../modules/backtest";
-import { Line } from 'react-chartjs-2';
 
-const Backtest = () => {
-  const [intraPrices, setIntraPrices] = useState([])
-  const [intraTimes, setIntraTimes] = useState([])
-  const [chartTicker, setChartTicker] = useState("")
+
+const HourlySentiment = () => {
   const [startTest, setStartTest] = useState(false)
   const [testOneData, setTestOneData] = useState([])
-
-  const runTest = async (e) => {
-    e.preventDefault();
-    setChartTicker(e.target.testTicker.value)
-    let t = e.target.testTicker.value
-    let response = await getIntradayData(t);
-    if (response.status === 200) {
-      let data = response.data['Time Series (5min)']
-      let newArray = Object.entries(data)
-      let array = []
-      for (let i=0; i<newArray.length; i++) {
-        let date = newArray[i][0].substring(0, newArray[i][0].indexOf(" "))
-        if (date === "2020-04-15") {
-          array.push(newArray[i])
-        }
-      }
-      let prices = []
-      let times = []
-      for (let i=array.length - 1; i >= 0; i--) {
-        prices.push(array[i][1]["4. close"])
-        times.push(array[i][0].substring(11))
-      }
-      setIntraPrices(prices)
-      setIntraTimes(times)
-    } else {
-
-    }
-  }
 
   let list = [
     ["AMTX", "2020-05-01"], 
@@ -205,64 +174,8 @@ const Backtest = () => {
     })
   }
 
-  const lineData = {
-    labels: intraTimes,
-    datasets: [
-      {
-        label: chartTicker,
-        fill: true,
-        lineTension: 0.1,
-        backgroundColor: 'rgba(75,192,192,0.4)',
-        borderColor: 'rgba(75,192,192,1)',
-        borderCapStyle: 'butt',
-        borderDash: [],
-        pointBorderWidth: 1,
-        pointHoverRadius: 5,
-        pointRadius: 4,
-        data: intraPrices
-      }
-    ]
-  };
-
-  const lineOptions = {
-    maintainAspectRatio: false,
-    legend: {
-      labels: {
-        fontColor: "white"
-      }
-    },
-    scales: {
-      yAxes: [{
-        ticks: {
-          fontColor: "white"
-        }
-      }],
-      xAxes: [{
-        ticks: {
-            fontColor: "white",
-            fontSize: 14,
-        }
-      }]
-    }
-  }
-
   return (
-    <>
-      <div>
-        <h1>Chart</h1>
-        <form onSubmit={runTest}>
-          <label>Ticker</label>
-          <input required type='text' name="testTicker" id="testTicker"/>
-          <button id="loadChart" type="submit">Display Chart</button>
-        </form>
-      </div>
-      <div className="backtest-chart">
-        <Line 
-          data = {lineData}
-          options = {lineOptions}
-          height={500}
-        />
-      </div>
+    <div>
       <h1>Backtesting</h1>
       <button id="runTest" onClick={() => setStartTest(true)}>Run test</button>
       <h3>Hourly Sentiment Results</h3>
@@ -277,8 +190,8 @@ const Backtest = () => {
       <h4 id={averageResults[4] < 0 ? "backtest-red" : ""}>13:00 => {averageResults[4]} %</h4>
       <h4 id={averageResults[5] < 0 ? "backtest-red" : ""}>14:00 => {averageResults[5]} %</h4>
       <h4 id={averageResults[6] < 0 ? "backtest-red" : ""}>15:00 => {averageResults[6]} %</h4>
-    </>
+    </div>
   )
 }
 
-export default Backtest;
+export default HourlySentiment
