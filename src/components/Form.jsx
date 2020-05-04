@@ -7,6 +7,7 @@ import GapStats from "./GapStats"
 import { connect } from "react-redux";
 
 const Form = props => {
+
   const [answer, setAnswer] = useState(null)
   const [targetPrice, setTargetPrice] = useState(null)
   const [targetPrice2, setTargetPrice2] = useState(null)
@@ -26,19 +27,16 @@ const Form = props => {
       let stop = parseFloat(e.target.price.value - e.target.stop.value)
       let stockPrice = parseFloat(e.target.price.value)
       let ticker = e.target.ticker.value
-
       let maxShares = Math.floor(risk / stop)
       let bpMax = Math.floor(buyPower / stockPrice)
-
-      let pt = stockPrice + stop
-      let pt2 = stockPrice + stop + stop
+      let pt = stockPrice + stop*2
+      let pt2 = stockPrice + stop*2 + stop/2
       let pt3 = stockPrice + stop*3
       let sp = stockPrice - stop
       setTargetPrice(pt.toFixed(2))
       setTargetPrice2(pt2.toFixed(2))
       setTargetPrice3(pt3.toFixed(2))
       setStopPrice(sp.toFixed(2))
-
       if (bpMax < maxShares) {
         setAnswer(bpMax)
         setStop(stop.toFixed(2))
@@ -91,7 +89,7 @@ const Form = props => {
       setStorage()
     }
   }, [good])
-  
+
   return (
     <>
       <Pannel />
@@ -169,9 +167,9 @@ const Form = props => {
           </div>
           <div className="targets">
             <h2 className="result-heading" >Targets</h2>
-            <h3>1R Target</h3>
-            <h3>2R Target</h3>
-            <h3>3R Target</h3>
+            <h3>2R Target (1/2)</h3>
+            <h3>2.5R Target (1/4)</h3>
+            <h3>3R Target (1/8)</h3>
             <h3><span id="green"> ${targetPrice}</span></h3>
             <h3><span id="green"> ${targetPrice2}</span></h3>
             <h3><span id="green"> ${targetPrice3}</span></h3>

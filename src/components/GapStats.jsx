@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { getIntradayData, getGapData } from "../modules/backtest";
 import { Line } from 'react-chartjs-2';
 
-const Backtest = () => {
+const GapStats = () => {
   const [intraPrices, setIntraPrices] = useState([])
   const [intraTimes, setIntraTimes] = useState([])
   const [chartTicker, setChartTicker] = useState("")
@@ -13,9 +13,7 @@ const Backtest = () => {
     e.preventDefault();
     setChartTicker(e.target.testTicker.value)
     let gaps = []
-
     let t = e.target.testTicker.value
-
     let response2 = await getGapData(t);
     if (response2.status === 200) {
       let data = response2.data["Time Series (Daily)"]
@@ -27,6 +25,7 @@ const Backtest = () => {
             let gapPercent = (gap/newArray[i+1][1]["4. close"])*100
             let closeBelowOpen = parseFloat(newArray[i][1]["1. open"]) > parseFloat(newArray[i][1]["4. close"]) ? "true" : "false"
             let closeAboveOpenPercent = ((newArray[i][1]["4. close"] - newArray[i][1]["1. open"])/newArray[i][1]["1. open"])*100
+            let volume = newArray[i][1]["6. volume"]
             let gapDay = [
               newArray[i][0],
               {
@@ -36,10 +35,10 @@ const Backtest = () => {
                 range: newArray[i][1]["2. high"] - newArray[i][1]["3. low"],
                 closeBelowOpen: closeBelowOpen,
                 closeAboveOpenPercent: closeAboveOpenPercent,
-                volume: newArray[i][1]["6. volume"]
+                volume: volume
               }
             ]
-            if (gapPercent > 19) gaps.push(gapDay)
+            if (gapPercent > 19 && volume > 1000000) gaps.push(gapDay)
           }
         }
       }
@@ -54,13 +53,13 @@ const Backtest = () => {
         spikes += day[1]["highFromOpen"]
         if (day[1]["closeBelowOpen"] === "false") {
           closesAboveOpenCount++
+          closesAboveOpenGain += day[1]["closeAboveOpenPercent"]
         }
-        closesAboveOpenGain += day[1]["closeAboveOpenPercent"]
         ranges += day[1]["range"]
       })
       let avgGapPercent = (gapPercents/gapCount).toFixed(2)
       let avgSpike = (spikes/gapCount).toFixed(2)
-      let closeAboveOpen = (closesAboveOpenGain/gapCount).toFixed(2)
+      let closeAboveOpen = (closesAboveOpenGain/closesAboveOpenCount).toFixed(2)
       let avgRange = (ranges/gapCount).toFixed(2)
       setGapStats([gapCount, avgGapPercent, avgSpike, closesAboveOpenCount, closeAboveOpen, avgRange])
     } else {
@@ -154,17 +153,26 @@ const Backtest = () => {
       </div>
       <h3 style={{marginBottom: "20px"}}>Stats {chartTicker}</h3>
       { gapStats.length > 0 && (
-        <div style={{marginBottom: "50px"}}>
-          <h3>Gaps Above 20%: {gapStats[0]}</h3>
-          <h3>Avg gap: {gapStats[1]}%</h3>
-          <h3>Avg GapUp Spike Above Open: {gapStats[2]}%</h3>
-          <h3>Gap Up Closes Above Open: {gapStats[3]}</h3>
-          <h3>Avg % close Above Open: {gapStats[4]}%</h3>
-          <h3>Avg Gap Range: ${gapStats[5]}</h3>
+        <div id="gap-stats">
+          <div>
+            <h4>Gaps Above 20%:</h4>
+            <h4>Avg gap:</h4>
+            <h4>Avg GapUp Spike Above Open:</h4>
+            <h4>Gap Up Closes Above Open:</h4>
+            <h4>Avg % close Above Open:</h4>
+            <h4>Avg Gapper Range (Low to High):</h4>
+          </div>
+          <div>
+            <h4> {gapStats[0]}</h4>
+            <h4> {gapStats[1]}%</h4>
+            <h4> {gapStats[2]}%</h4>
+            <h4 id={gapStats[3] < (gapStats[0]/2) ? "backtest-red" : ""}> {gapStats[3]}</h4>
+            <h4> {gapStats[4]}%</h4>
+            <h4> ${gapStats[5]}</h4>
+          </div>
         </div>
       )}
     </>
   )
 }
-
-export default Backtest;
+export default GapStats;

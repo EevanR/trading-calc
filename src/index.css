@@ -252,3 +252,12 @@ h3 {
   grid-column-gap: 5px;
   margin-bottom: 30px;
 }
+
+#gap-stats {
+  margin-bottom: 40px;
+  padding-left: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-column-gap: 5px;
+}
