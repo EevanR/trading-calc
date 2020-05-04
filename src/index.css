@@ -219,3 +219,36 @@ h3 {
   grid-row-start: 1;
   grid-row-end: span 1;
 }
+
+.backtest-chart {
+  width: 1150px;
+  margin-left: 20px;
+  margin-bottom: 40px;
+}
+
+#testTicker {
+  width: 70px;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+#backtest-red {
+  color: red;
+}
+
+#backtest-result {
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+#backtest-result h4 {
+  text-decoration: underline;
+}
+
+.testone-results {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-column-gap: 5px;
+  margin-bottom: 30px;
+}

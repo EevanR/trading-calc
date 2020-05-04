@@ -3,6 +3,7 @@ import Plays from './Plays'
 import SetUp from './SetUp'
 import Pannel from './Pannel'
 import ProfitChart from "./ProfitChart"
+import GapStats from "./GapStats"
 import { connect } from "react-redux";
 
 const Form = props => {
@@ -180,6 +181,7 @@ const Form = props => {
       </>
       )}
       <ProfitChart />
+      <GapStats />
     </>
   );
 };
