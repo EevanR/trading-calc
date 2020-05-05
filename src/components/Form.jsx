@@ -170,9 +170,9 @@ const Form = props => {
             <h3>2R Target (1/2)</h3>
             <h3>2.5R Target (1/4)</h3>
             <h3>3R Target (1/8)</h3>
-            <h3><span id="green"> ${targetPrice}</span></h3>
-            <h3><span id="green"> ${targetPrice2}</span></h3>
-            <h3><span id="green"> ${targetPrice3}</span></h3>
+            <h3 id="green">${targetPrice} <span id="targets">{Math.floor(answer/2)} shrs</span></h3>
+            <h3 id="green">${targetPrice2} <span id="targets">{Math.floor(answer/4)} shrs</span></h3>
+            <h3 id="green">${targetPrice3} <span id="targets">{Math.floor(answer/8)} shrs</span></h3>
           </div>
         </div>
         <Plays />
