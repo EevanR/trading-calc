@@ -52,6 +52,7 @@ const GapStats = () => {
       let closesAboveOpenGain = 0
       let closesBelowOpenGain = 0
       let ranges = 0
+      debugger
       gaps.forEach(day => {
         gapPercents += day[1]["gapPercent"]
         spikes += day[1]["highFromOpen"]
@@ -185,7 +186,7 @@ const GapStats = () => {
             <h4> {gapStats[0]}</h4>
             <h4> {gapStats[1]}%</h4>
             <h4> {gapStats[2]}%</h4>
-            <h4 id={gapStats[3] < (gapStats[0]/2) ? "backtest-red" : ""}> {gapStats[3]}, {gapStats[7]*100}%</h4>
+            <h4 id={gapStats[3] < (gapStats[0]/2) ? "backtest-red" : ""}> {gapStats[3]} / {(gapStats[7]*100).toFixed(2)}%</h4>
             <h4> {gapStats[4]}%</h4>
             <h4 id="backtest-red"> {gapStats[5]}%</h4>
             <h4> ${gapStats[6]}</h4>
@@ -223,10 +224,10 @@ const GapStats = () => {
                   <h4>{gapSearchShow[1][0]}</h4>
                   <h4>{gapSearchShow[1][1]}%</h4>
                   <h4>{gapSearchShow[1][2]}%</h4> 
-                  <h4>{gapSearchShow[1][3]}%</h4>
+                  <h4>{gapSearchShow[1][3]}</h4>
                   <h4>{gapSearchShow[1][4]}%</h4>
                   <h4>{gapSearchShow[1][5]}%</h4>
-                  <h4>{gapSearchShow[1][6]}</h4>
+                  <h4>${gapSearchShow[1][6]}</h4>
                 </div>
               </div>
             )}
