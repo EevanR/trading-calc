@@ -105,6 +105,8 @@ const Pannel = props => {
                 )}
               </>
             )}
+            <h4 id="pannel-title">Setup Performance:</h4>
+            <h4></h4>
           </>
         )}
       </div>

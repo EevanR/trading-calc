@@ -10,9 +10,10 @@ const SetUp = props => {
     { key: 2, value: 2, text: "Red Green Dip"},
     { key: 3, value: 3, text: "Pinbar"},
     { key: 4, value: 4, text: "High Point Squeeze"},
-    { key: 5, value: 5, text: "1min Flag"}
+    { key: 5, value: 5, text: "1min Flag"},
+    { key: 6, value: 6, text: "1min Line Bounce AM"}
   ]
-
+  
   let lineBounce = [
     {id: 1, label: "Inside candle", checked: false},
     {id: 2, label: "VWAP reject", checked: false},
@@ -52,6 +53,19 @@ const SetUp = props => {
     {id: 6, label: "Above 1min24EMA", checked: false}
   ]
 
+  let oneMinLineBounce = [
+    {id: 1, label: "1min chart", checked: false},
+    {id: 2, label: "Before 11 am", checked: false},
+    {id: 3, label: "Front Side", checked: false},
+    {id: 4, label: "3rd bounce no trade", checked: false},
+    {id: 5, label: "Wick break through < 0.03", checked: false},
+    {id: 6, label: "Wick length < 0.05", checked: false},
+    {id: 7, label: "Not at VWAP, or just under", checked: false},
+    {id: 8, label: "3rd candle must run", checked: false},
+    {id: 8, label: "Stop 0.02 under entry level", checked: false},
+    {id: 9, label: "Stop b/e after new high", checked: false}
+  ]
+
   const onChangeHandler = (event) => {
     if (event.length < 70) {
       props.setSetUp(event)
@@ -74,6 +88,9 @@ const SetUp = props => {
     } else if (event === "1min Flag") {
       props.setPrereq(flag.length)
       setChooseSetUp(flag)
+    }  else if (event === "1min Line Bounce AM") {
+      props.setPrereq(oneMinLineBounce.length)
+      setChooseSetUp(oneMinLineBounce)
     } else {
       return null
     }
