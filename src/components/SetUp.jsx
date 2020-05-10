@@ -58,11 +58,10 @@ const SetUp = props => {
     {id: 2, label: "Before 11 am", checked: false},
     {id: 3, label: "Front Side", checked: false},
     {id: 4, label: "3rd bounce no trade", checked: false},
-    {id: 5, label: "Wick break through < 0.03", checked: false},
-    {id: 6, label: "Wick length < 0.05", checked: false},
-    {id: 7, label: "Not at VWAP, or just under", checked: false},
-    {id: 8, label: "3rd candle must run", checked: false},
-    {id: 8, label: "Stop 0.02 under entry level", checked: false},
+    {id: 5, label: "Stub Wick, no Pinbar", checked: false},
+    {id: 6, label: "Not at VWAP, or just under", checked: false},
+    {id: 7, label: "3rd candle must run", checked: false},
+    {id: 8, label: "Stop 0.02 under entry price", checked: false},
     {id: 9, label: "Stop b/e after new high", checked: false}
   ]
 
