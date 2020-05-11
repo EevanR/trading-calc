@@ -7,6 +7,30 @@ const HourlySentiment = () => {
   const [testOneData, setTestOneData] = useState([])
 
   let list = [
+    ["VUZI", "2020-05-07"],
+    ["WTRH", "2020-05-07"],
+    ["WTRH", "2020-05-08"],
+    ["CARS", "2020-05-06"],
+    ["APDN", "2020-05-04"],
+    ["KLXE", "2020-05-04"],
+    ["GNPX", "2020-05-05"],
+    ["POAI", "2020-05-06"],
+    ["PIXY", "2020-05-07"],
+    ["ANIX", "2020-05-04"],
+    ["OI", "2020-05-07"],
+    ["XRF", "2020-05-06"],
+    ["DCAR", "2020-05-06"],
+    ["BMRA", "2020-05-07"],
+    ["CPSH", "2020-05-06"],
+    ["CLSK", "2020-05-05"],
+    ["MVIS", "2020-05-05"],
+    ["TTPH", "2020-05-07"],
+    ["GNUS", "2020-05-07"],
+    ["FTEK", "2020-05-08"],
+    ["MRAM", "2020-05-08"],
+    ["PSTI", "2020-05-08"],
+    ["PVAC", "2020-05-08"],
+    ["FBIO", "2020-05-08"],
     ["AMTX", "2020-05-01"], 
     ["SPI", "2020-05-01"],
     ["MYO", "2020-05-01"],
@@ -37,16 +61,16 @@ const HourlySentiment = () => {
     ["CPAH", "2020-04-23"],
     ["INO", "2020-04-23"],
     ["ENZ", "2020-04-23"],
-    ["SBOW", "2020-04-22"], 
-    ["SAEX", "2020-04-22"],
-    ["PECK", "2020-04-22"],
-    ["ATIF", "2020-04-22"],
-    ["VXRT", "2020-04-21"],
-    ["THMO", "2020-04-16"], 
-    ["CHCI", "2020-04-15"],
-    ["NURO", "2020-04-14"],
-    ["SONN", "2020-04-14"],
-    ["AIKI", "2020-04-14"]
+    ["SBOW", "2020-04-22"]
+    // ["SAEX", "2020-04-22"],
+    // ["PECK", "2020-04-22"],
+    // ["ATIF", "2020-04-22"],
+    // ["VXRT", "2020-04-21"]
+    // ["THMO", "2020-04-16"], 
+    // ["CHCI", "2020-04-15"],
+    // ["NURO", "2020-04-14"],
+    // ["SONN", "2020-04-14"],
+    // ["AIKI", "2020-04-14"]
   ]
 
   if (startTest === true ) {
@@ -126,6 +150,14 @@ const HourlySentiment = () => {
             zoneStart = parseFloat(array[i][1]["1. open"])
           } else if (array[i][0].substring("14") === "05:00") {
             zoneStart = parseFloat(array[i][1]["1. open"])
+          } else if (array[i][0].substring("14") === "30:00") {
+            zoneEnd = parseFloat(array[i][1]["4. close"])
+            let gain = zoneEnd - zoneStart
+            let gp = (gain/range)*100
+            sentiment.push([hour, gp.toFixed(2)])
+            averages.push([hour, gp.toFixed(2)])
+          } else if (array[i][0].substring("14") === "35:00") {
+            zoneStart = parseFloat(array[i][1]["1. open"])
           } else {
             
           }
@@ -133,8 +165,8 @@ const HourlySentiment = () => {
           zoneEnd = parseFloat(array[i][1]["4. close"])
           let gain = zoneEnd - zoneStart
           let gp = (gain/range)*100
-          sentiment.push([hour, gp.toFixed(2)])
-          averages.push([hour, gp.toFixed(2)])
+          sentiment.push([`${hour}:30`, gp.toFixed(2)])
+          averages.push([`${hour}:30`, gp.toFixed(2)])
           hour = hour + 1
         }
       }
@@ -146,7 +178,7 @@ const HourlySentiment = () => {
             sentiment.map(time => {
               return (
                 <p id={time[1] < 0 ? "backtest-red" : ""}>
-                  {time[0]}:00 => {time[1]}%
+                  {time[0]} => {time[1]}%
                 </p>
               )
             })
@@ -158,7 +190,7 @@ const HourlySentiment = () => {
 
   let averageResults = []
   if (averages.length > 0) {
-    let times = [9, 10, 11, 12, 13, 14, 15]
+    let times = ["9:30", 10, "10:30", 11, "11:30", 12, "12:30", 13, "13:30", 14, "14:30", 15, "15:30"]
     times.forEach( time => {
       let total = 0
       let count = 0
@@ -185,11 +217,17 @@ const HourlySentiment = () => {
       <h3>Overall Results</h3>
       <h4 id={averageResults[0] < 0 ? "backtest-red" : ""}>9:30 => {averageResults[0]} %</h4>
       <h4 id={averageResults[1] < 0 ? "backtest-red" : ""}>10:00 => {averageResults[1]} %</h4>
-      <h4 id={averageResults[2] < 0 ? "backtest-red" : ""}>11:00 => {averageResults[2]} %</h4>
-      <h4 id={averageResults[3] < 0 ? "backtest-red" : ""}>12:00 => {averageResults[3]} %</h4>
-      <h4 id={averageResults[4] < 0 ? "backtest-red" : ""}>13:00 => {averageResults[4]} %</h4>
-      <h4 id={averageResults[5] < 0 ? "backtest-red" : ""}>14:00 => {averageResults[5]} %</h4>
-      <h4 id={averageResults[6] < 0 ? "backtest-red" : ""}>15:00 => {averageResults[6]} %</h4>
+      <h4 id={averageResults[2] < 0 ? "backtest-red" : ""}>10:30 => {averageResults[2]} %</h4>
+      <h4 id={averageResults[3] < 0 ? "backtest-red" : ""}>11:00 => {averageResults[3]} %</h4>
+      <h4 id={averageResults[4] < 0 ? "backtest-red" : ""}>11:30 => {averageResults[4]} %</h4>
+      <h4 id={averageResults[5] < 0 ? "backtest-red" : ""}>12:00 => {averageResults[5]} %</h4>
+      <h4 id={averageResults[6] < 0 ? "backtest-red" : ""}>12:30 => {averageResults[6]} %</h4>
+      <h4 id={averageResults[7] < 0 ? "backtest-red" : ""}>13:00 => {averageResults[7]} %</h4>
+      <h4 id={averageResults[8] < 0 ? "backtest-red" : ""}>13:30 => {averageResults[8]} %</h4>
+      <h4 id={averageResults[9] < 0 ? "backtest-red" : ""}>14:00 => {averageResults[9]} %</h4>
+      <h4 id={averageResults[10] < 0 ? "backtest-red" : ""}>14:30 => {averageResults[10]} %</h4>
+      <h4 id={averageResults[11] < 0 ? "backtest-red" : ""}>15:00 => {averageResults[11]} %</h4>
+      <h4 id={averageResults[12] < 0 ? "backtest-red" : ""}>15:30 => {averageResults[12]} %</h4>
     </div>
   )
 }

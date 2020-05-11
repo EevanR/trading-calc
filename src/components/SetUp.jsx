@@ -55,15 +55,15 @@ const SetUp = props => {
 
   let oneMinLineBounce = [
     {id: 1, label: "1min chart", checked: false},
-    {id: 2, label: "Before 11 am", checked: false},
-    {id: 3, label: "Front Side", checked: false},
-    {id: 4, label: "3rd bounce no trade", checked: false},
-    {id: 5, label: "Wick break through < 0.03", checked: false},
-    {id: 6, label: "Wick length < 0.05", checked: false},
-    {id: 7, label: "Not at VWAP, or just under", checked: false},
-    {id: 8, label: "3rd candle must run", checked: false},
-    {id: 8, label: "Stop 0.02 under entry level", checked: false},
-    {id: 9, label: "Stop b/e after new high", checked: false}
+    {id: 2, label: "Before 9:50am", checked: false},
+    {id: 3, label: "3rd bounce no trade", checked: false},
+    {id: 4, label: "Stub Wick, no Pinbar", checked: false},
+    {id: 5, label: "Not at VWAP, or just under", checked: false},
+    {id: 6, label: "Stop 0.01c under LOD", checked: false},
+    {id: 7, label: "Stop 0.01c under chart entry price after new high", checked: false},
+    {id: 8, label: "RED OUT THE GATE", checked: false},
+    {id: 9, label: "No hold PM rotation > 90%, prior vwap rejections, Float > 100m", checked: false},
+    {id: 10, label: "HOLD - for open -> VWAP add -> Upper band fail next low break", checked: false}
   ]
 
   const onChangeHandler = (event) => {

@@ -52,7 +52,6 @@ const GapStats = () => {
       let closesAboveOpenGain = 0
       let closesBelowOpenGain = 0
       let ranges = 0
-      debugger
       gaps.forEach(day => {
         gapPercents += day[1]["gapPercent"]
         spikes += day[1]["highFromOpen"]
