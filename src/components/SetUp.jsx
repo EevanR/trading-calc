@@ -11,7 +11,8 @@ const SetUp = props => {
     { key: 3, value: 3, text: "Pinbar"},
     { key: 4, value: 4, text: "High Point Squeeze"},
     { key: 5, value: 5, text: "1min Flag"},
-    { key: 6, value: 6, text: "1min Line Bounce AM"}
+    { key: 6, value: 6, text: "1min Line Bounce AM"},
+    { key: 7, value: 7, text: "GOG Short"}
   ]
   
   let lineBounce = [
@@ -66,6 +67,13 @@ const SetUp = props => {
     {id: 10, label: "HOLD - for open -> VWAP add -> Upper band fail next low break", checked: false}
   ]
 
+  let gogShort = [
+    {id: 1, label: "PM Trend up", checked: false},
+    {id: 2, label: "Preferable float rotation", checked: false},
+    {id: 3, label: "day 1 or 20% gap", checked: false},
+    {id: 4, label: "Pull from line", checked: false}
+  ]
+
   const onChangeHandler = (event) => {
     if (event.length < 70) {
       props.setSetUp(event)
@@ -91,7 +99,10 @@ const SetUp = props => {
     }  else if (event === "1min Line Bounce AM") {
       props.setPrereq(oneMinLineBounce.length)
       setChooseSetUp(oneMinLineBounce)
-    } else {
+    }  else if (event === "GOG Short") {
+      props.setPrereq(gogShort.length)
+      setChooseSetUp(gogShort)
+    }  else {
       return null
     }
   }
