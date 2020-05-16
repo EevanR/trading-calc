@@ -18,7 +18,8 @@ const GapStats = () => {
     let gaps = []
     let t = e.target.testTicker.value
     let response2 = await getGapData(t);
-    if (response2.status === 200) {
+    debugger
+    if (response2.data["Time Series (Daily)"]) {
       let data = response2.data["Time Series (Daily)"]
       let newArray = Object.entries(data)
       for (let i=newArray.length - 1; i >= 0; i--) {
@@ -78,7 +79,7 @@ const GapStats = () => {
     }
 
     let response = await getIntradayData(t);
-    if (response.status === 200) {
+    if (response.data['Time Series (15min)']) {
       let data = response.data['Time Series (15min)']
       let newArray = Object.entries(data)
       let array = []
@@ -98,12 +99,10 @@ const GapStats = () => {
       }
       setIntraPrices(prices)
       setIntraTimes(times)
-    } else {
-
     }
 
     let response3 = await getVwapData(t);
-    if (response3.status === 200) {
+    if (response3.data['Technical Analysis: VWAP']) {
       let data = response3.data['Technical Analysis: VWAP']
       let newArray = Object.entries(data)
       let array = []
@@ -120,8 +119,6 @@ const GapStats = () => {
         prices.push(array[i][1]["VWAP"])
       }
       setVwap(prices)
-    } else {
-
     }
   }
 
@@ -222,7 +219,7 @@ const GapStats = () => {
             <h4> {gapStats[1]}%</h4>
             <h4> {gapStats[2]}%</h4>
             <h4 id={gapStats[3] < (gapStats[0]/2) ? "backtest-red" : ""}> {gapStats[3]} / {(gapStats[7]*100).toFixed(2)}%</h4>
-            <h4> {gapStats[4]}%</h4>
+            <h4> +{gapStats[4]}%</h4>
             <h4 id="backtest-red"> {gapStats[5]}%</h4>
             <h4> ${gapStats[6]}</h4>
           </div>
@@ -260,7 +257,7 @@ const GapStats = () => {
                   <h4>{gapSearchShow[1][1]}%</h4>
                   <h4>{gapSearchShow[1][2]}%</h4> 
                   <h4>{gapSearchShow[1][3]}</h4>
-                  <h4>{gapSearchShow[1][4]}%</h4>
+                  <h4>+{gapSearchShow[1][4]}%</h4>
                   <h4>{gapSearchShow[1][5]}%</h4>
                   <h4>${gapSearchShow[1][6]}</h4>
                 </div>
