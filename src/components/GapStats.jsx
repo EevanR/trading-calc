@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { getIntradayData, getGapData } from "../modules/backtest";
+import { getIntradayData, getGapData, getVwapData } from "../modules/backtest";
 import { Line } from 'react-chartjs-2';
 
 const GapStats = () => {
   const [intraPrices, setIntraPrices] = useState([])
+  const [vwap, setVwap] = useState([])
   const [intraTimes, setIntraTimes] = useState([])
   const [chartTicker, setChartTicker] = useState("")
   const [gapStats, setGapStats] = useState([])
@@ -17,7 +18,8 @@ const GapStats = () => {
     let gaps = []
     let t = e.target.testTicker.value
     let response2 = await getGapData(t);
-    if (response2.status === 200) {
+    debugger
+    if (response2.data["Time Series (Daily)"]) {
       let data = response2.data["Time Series (Daily)"]
       let newArray = Object.entries(data)
       for (let i=newArray.length - 1; i >= 0; i--) {
@@ -65,7 +67,7 @@ const GapStats = () => {
         ranges += day[1]["range"]
       })
       let avgGapPercent = (gapPercents/gapCount).toFixed(2)
-      let avgSpike = (spikes/gapCount).toFixed(2)
+      let avgSpike = ((spikes/gapCount)-100).toFixed(2)
       let closeAboveOpen = (closesAboveOpenGain/closesAboveOpenCount).toFixed(2)
       let closeBelowOpen = (closesBelowOpenGain/closesBelowOpenCount).toFixed(2)
       let avgRange = (ranges/gapCount).toFixed(2)
@@ -77,8 +79,8 @@ const GapStats = () => {
     }
 
     let response = await getIntradayData(t);
-    if (response.status === 200) {
-      let data = response.data['Time Series (5min)']
+    if (response.data['Time Series (15min)']) {
+      let data = response.data['Time Series (15min)']
       let newArray = Object.entries(data)
       let array = []
       for (let i=0; i<newArray.length; i++) {
@@ -97,8 +99,26 @@ const GapStats = () => {
       }
       setIntraPrices(prices)
       setIntraTimes(times)
-    } else {
+    }
 
+    let response3 = await getVwapData(t);
+    if (response3.data['Technical Analysis: VWAP']) {
+      let data = response3.data['Technical Analysis: VWAP']
+      let newArray = Object.entries(data)
+      let array = []
+      for (let i=0; i<newArray.length; i++) {
+        let date = newArray[i][0].substring(0, newArray[i][0].indexOf(" "))
+        let recent = gaps.length - 1
+        setChartDate(gaps[recent][0])
+        if (date === gaps[recent][0]) {
+          array.push(newArray[i])
+        }
+      }
+      let prices = []
+      for (let i=array.length - 1; i >= 0; i--) {
+        prices.push(array[i][1]["VWAP"])
+      }
+      setVwap(prices)
     }
   }
 
@@ -117,6 +137,19 @@ const GapStats = () => {
         pointHoverRadius: 5,
         pointRadius: 4,
         data: intraPrices
+      },
+      {
+        type: "line",
+        label: "VWAP",
+        fill: false,
+        lineTension: 0.1,
+        borderColor: 'rgb(207, 107, 36)',
+        borderCapStyle: 'butt',
+        borderDash: [],
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointRadius: 4,
+        data: vwap
       }
     ]
   };
@@ -186,7 +219,7 @@ const GapStats = () => {
             <h4> {gapStats[1]}%</h4>
             <h4> {gapStats[2]}%</h4>
             <h4 id={gapStats[3] < (gapStats[0]/2) ? "backtest-red" : ""}> {gapStats[3]} / {(gapStats[7]*100).toFixed(2)}%</h4>
-            <h4> {gapStats[4]}%</h4>
+            <h4> +{gapStats[4]}%</h4>
             <h4 id="backtest-red"> {gapStats[5]}%</h4>
             <h4> ${gapStats[6]}</h4>
           </div>
@@ -224,7 +257,7 @@ const GapStats = () => {
                   <h4>{gapSearchShow[1][1]}%</h4>
                   <h4>{gapSearchShow[1][2]}%</h4> 
                   <h4>{gapSearchShow[1][3]}</h4>
-                  <h4>{gapSearchShow[1][4]}%</h4>
+                  <h4>+{gapSearchShow[1][4]}%</h4>
                   <h4>{gapSearchShow[1][5]}%</h4>
                   <h4>${gapSearchShow[1][6]}</h4>
                 </div>

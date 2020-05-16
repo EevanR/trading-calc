@@ -11,7 +11,9 @@ const SetUp = props => {
     { key: 3, value: 3, text: "Pinbar"},
     { key: 4, value: 4, text: "High Point Squeeze"},
     { key: 5, value: 5, text: "1min Flag"},
-    { key: 6, value: 6, text: "1min Line Bounce AM"}
+    { key: 6, value: 6, text: "1min Line Bounce AM"},
+    { key: 7, value: 7, text: "GoG Short"},
+    { key: 8, value: 8, text: "VolumeP Short"}
   ]
   
   let lineBounce = [
@@ -60,10 +62,27 @@ const SetUp = props => {
     {id: 4, label: "Stub Wick, no Pinbar", checked: false},
     {id: 5, label: "Not at VWAP, or just under", checked: false},
     {id: 6, label: "Stop 0.01c under LOD", checked: false},
-    {id: 7, label: "Stop 0.01c under chart entry price after new high", checked: false},
+    {id: 7, label: "Stop 0.02c under chart entry price after new high", checked: false},
     {id: 8, label: "RED OUT THE GATE", checked: false},
     {id: 9, label: "No hold PM rotation > 90%, prior vwap rejections, Float > 100m", checked: false},
     {id: 10, label: "HOLD - for open -> VWAP add -> Upper band fail next low break", checked: false}
+  ]
+
+  let gogShort = [
+    {id: 1, label: "PM Trend up", checked: false},
+    {id: 2, label: "Preferable PM float rotation", checked: false},
+    {id: 3, label: "day 1 or 20% gap", checked: false},
+    {id: 4, label: "Pull from line", checked: false}
+  ]
+
+  let vpShort = [
+    {id: 1, label: "PM Trend up", checked: false},
+    {id: 2, label: "Preferable PM float rotation", checked: false},
+    {id: 3, label: "day 1 or 20% gap", checked: false},
+    {id: 4, label: "Red Out Gate", checked: false},
+    {id: 5, label: "Retest highest VP area", checked: false},
+    {id: 6, label: "Under VWAP", checked: false},
+    {id: 7, label: "Entry lower high", checked: false}
   ]
 
   const onChangeHandler = (event) => {
@@ -91,7 +110,13 @@ const SetUp = props => {
     }  else if (event === "1min Line Bounce AM") {
       props.setPrereq(oneMinLineBounce.length)
       setChooseSetUp(oneMinLineBounce)
-    } else {
+    }  else if (event === "GoG Short") {
+      props.setPrereq(gogShort.length)
+      setChooseSetUp(gogShort)
+    }  else if (event === "VolumeP Short") {
+      props.setPrereq(vpShort.length)
+      setChooseSetUp(vpShort)
+    }  else {
       return null
     }
   }
