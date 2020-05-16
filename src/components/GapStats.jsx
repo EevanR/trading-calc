@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { getIntradayData, getGapData } from "../modules/backtest";
+import { getIntradayData, getGapData, getVwapData } from "../modules/backtest";
 import { Line } from 'react-chartjs-2';
 
 const GapStats = () => {
   const [intraPrices, setIntraPrices] = useState([])
+  const [vwap, setVwap] = useState([])
   const [intraTimes, setIntraTimes] = useState([])
   const [chartTicker, setChartTicker] = useState("")
   const [gapStats, setGapStats] = useState([])
@@ -78,7 +79,7 @@ const GapStats = () => {
 
     let response = await getIntradayData(t);
     if (response.status === 200) {
-      let data = response.data['Time Series (5min)']
+      let data = response.data['Time Series (15min)']
       let newArray = Object.entries(data)
       let array = []
       for (let i=0; i<newArray.length; i++) {
@@ -100,6 +101,30 @@ const GapStats = () => {
     } else {
 
     }
+
+    let response3 = await getVwapData(t);
+    if (response3.status === 200) {
+      debugger
+      let data = response3.data['Technical Analysis: VWAP']
+      let newArray = Object.entries(data)
+      let array = []
+      for (let i=0; i<newArray.length; i++) {
+        let date = newArray[i][0].substring(0, newArray[i][0].indexOf(" "))
+        let recent = gaps.length - 1
+        setChartDate(gaps[recent][0])
+        if (date === gaps[recent][0]) {
+          array.push(newArray[i])
+        }
+      }
+      let prices = []
+      for (let i=array.length - 1; i >= 0; i--) {
+        debugger
+        prices.push(array[i][1]["VWAP"])
+      }
+      setVwap(prices)
+    } else {
+
+    }
   }
 
   const lineData = {
@@ -117,6 +142,19 @@ const GapStats = () => {
         pointHoverRadius: 5,
         pointRadius: 4,
         data: intraPrices
+      },
+      {
+        type: "line",
+        label: "VWAP",
+        fill: false,
+        lineTension: 0.1,
+        borderColor: 'rgb(207, 107, 36)',
+        borderCapStyle: 'butt',
+        borderDash: [],
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointRadius: 4,
+        data: vwap
       }
     ]
   };

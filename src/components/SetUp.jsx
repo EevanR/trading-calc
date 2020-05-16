@@ -12,7 +12,7 @@ const SetUp = props => {
     { key: 4, value: 4, text: "High Point Squeeze"},
     { key: 5, value: 5, text: "1min Flag"},
     { key: 6, value: 6, text: "1min Line Bounce AM"},
-    { key: 7, value: 7, text: "GOG Short"}
+    { key: 7, value: 7, text: "GoG Short"}
   ]
   
   let lineBounce = [
@@ -61,7 +61,7 @@ const SetUp = props => {
     {id: 4, label: "Stub Wick, no Pinbar", checked: false},
     {id: 5, label: "Not at VWAP, or just under", checked: false},
     {id: 6, label: "Stop 0.01c under LOD", checked: false},
-    {id: 7, label: "Stop 0.01c under chart entry price after new high", checked: false},
+    {id: 7, label: "Stop 0.02c under chart entry price after new high", checked: false},
     {id: 8, label: "RED OUT THE GATE", checked: false},
     {id: 9, label: "No hold PM rotation > 90%, prior vwap rejections, Float > 100m", checked: false},
     {id: 10, label: "HOLD - for open -> VWAP add -> Upper band fail next low break", checked: false}
@@ -99,7 +99,7 @@ const SetUp = props => {
     }  else if (event === "1min Line Bounce AM") {
       props.setPrereq(oneMinLineBounce.length)
       setChooseSetUp(oneMinLineBounce)
-    }  else if (event === "GOG Short") {
+    }  else if (event === "GoG Short") {
       props.setPrereq(gogShort.length)
       setChooseSetUp(gogShort)
     }  else {
