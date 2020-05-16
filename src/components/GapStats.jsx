@@ -66,7 +66,7 @@ const GapStats = () => {
         ranges += day[1]["range"]
       })
       let avgGapPercent = (gapPercents/gapCount).toFixed(2)
-      let avgSpike = (spikes/gapCount).toFixed(2)
+      let avgSpike = ((spikes/gapCount)-100).toFixed(2)
       let closeAboveOpen = (closesAboveOpenGain/closesAboveOpenCount).toFixed(2)
       let closeBelowOpen = (closesBelowOpenGain/closesBelowOpenCount).toFixed(2)
       let avgRange = (ranges/gapCount).toFixed(2)
@@ -104,7 +104,6 @@ const GapStats = () => {
 
     let response3 = await getVwapData(t);
     if (response3.status === 200) {
-      debugger
       let data = response3.data['Technical Analysis: VWAP']
       let newArray = Object.entries(data)
       let array = []
@@ -118,7 +117,6 @@ const GapStats = () => {
       }
       let prices = []
       for (let i=array.length - 1; i >= 0; i--) {
-        debugger
         prices.push(array[i][1]["VWAP"])
       }
       setVwap(prices)
