@@ -12,7 +12,8 @@ const SetUp = props => {
     { key: 4, value: 4, text: "High Point Squeeze"},
     { key: 5, value: 5, text: "1min Flag"},
     { key: 6, value: 6, text: "1min Line Bounce AM"},
-    { key: 7, value: 7, text: "GoG Short"}
+    { key: 7, value: 7, text: "GoG Short"},
+    { key: 8, value: 8, text: "VolumeP Short"}
   ]
   
   let lineBounce = [
@@ -69,9 +70,19 @@ const SetUp = props => {
 
   let gogShort = [
     {id: 1, label: "PM Trend up", checked: false},
-    {id: 2, label: "Preferable float rotation", checked: false},
+    {id: 2, label: "Preferable PM float rotation", checked: false},
     {id: 3, label: "day 1 or 20% gap", checked: false},
     {id: 4, label: "Pull from line", checked: false}
+  ]
+
+  let vpShort = [
+    {id: 1, label: "PM Trend up", checked: false},
+    {id: 2, label: "Preferable PM float rotation", checked: false},
+    {id: 3, label: "day 1 or 20% gap", checked: false},
+    {id: 4, label: "Red Out Gate", checked: false},
+    {id: 5, label: "Retest highest VP area", checked: false},
+    {id: 6, label: "Under VWAP", checked: false},
+    {id: 7, label: "Entry lower high", checked: false}
   ]
 
   const onChangeHandler = (event) => {
@@ -102,6 +113,9 @@ const SetUp = props => {
     }  else if (event === "GoG Short") {
       props.setPrereq(gogShort.length)
       setChooseSetUp(gogShort)
+    }  else if (event === "VolumeP Short") {
+      props.setPrereq(vpShort.length)
+      setChooseSetUp(vpShort)
     }  else {
       return null
     }
