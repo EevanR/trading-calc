@@ -18,7 +18,6 @@ const GapStats = () => {
     let gaps = []
     let t = e.target.testTicker.value
     let response2 = await getGapData(t);
-    debugger
     if (response2.data["Time Series (Daily)"]) {
       let data = response2.data["Time Series (Daily)"]
       let newArray = Object.entries(data)

@@ -50,6 +50,43 @@ const Pannel = props => {
     showMenu === false ? setShowMenu(true) : setShowMenu(false);
   }
 
+  let setupStats;
+  if (props.savedTrades !== null) {
+    let setups = []
+    props.savedTrades.forEach(trade => {
+      if (!setups.includes(trade['setup'])) {
+        setups.push(trade['setup'])
+      }
+    })
+    let profits = []
+    let groupedTrades = []
+    for (let i=0; i<setups.length; i++) {
+      props.savedTrades.forEach(trade => {
+        if (trade['setup'] === setups[i]) {
+          profits.push(trade['profit'])
+        }
+      })
+      groupedTrades.push([setups[i], profits])
+      profits = []
+    }
+
+    setupStats = groupedTrades.map(setup => {
+      let pos = 0
+      let neg = 0
+      setup[1].forEach(profit => {
+        return profit > 0 ? pos += profit : neg += profit
+      })
+      return (
+        <div>
+          <h5>{setup[0]}</h5>
+          <h6 id="green">Profits: {pos}</h6>
+          <h6 id="risk">Losses: {neg}</h6>
+          <h6>Ratio: {(pos/(neg*-1)).toFixed(2)}</h6>
+        </div>
+      )
+    })
+  }
+
   return (
     <>
       {redirect === true && <Redirect to='/'/>}
@@ -106,7 +143,7 @@ const Pannel = props => {
               </>
             )}
             <h4 id="pannel-title">Setup Performance:</h4>
-            <h4></h4>
+            <div className="preformance">{setupStats}</div>
           </>
         )}
       </div>

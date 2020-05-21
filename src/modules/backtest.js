@@ -13,7 +13,6 @@ const getIntradayData = async ticker => {
         apikey: "39DMC4D0QYC3JCGG"
       }
     });
-    debugger
     return response
   } catch (error) {
     return error;
