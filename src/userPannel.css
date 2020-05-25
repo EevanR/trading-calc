@@ -7,7 +7,7 @@
   background-color: #1d2026;
   z-index: 100;
   text-align: left;
-  overflow: hidden;
+  overflow: scroll;
   padding: 2%;
 }
 
@@ -22,6 +22,10 @@
   -webkit-animation: slide-left 0.5s forwards;
   animation: slide-left 0.5s forwards;
   background-color: transparent;
+}
+
+.pannel-details {
+  overflow: scroll;
 }
 
 @-webkit-keyframes slide-right {
@@ -51,7 +55,6 @@
 #pannel-name {
   top: 25px;
   position: absolute;
-  left: 28px;
   color: red;
   font-weight: 100;
   font-style: italic;
@@ -62,6 +65,13 @@
   border-bottom: 10px double grey;
   width: 85%;
   margin-top: 40px;
+}
+
+#border-pannel-single {
+  border-bottom: 1px dotted grey;
+  width: 85%;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
 }
 
 #logout {
@@ -91,18 +101,19 @@
 }
 
 #risk-elipse {
-  position: fixed;
   margin-left: 11px;
   margin-top: 9px;
+  position: absolute;
 }
 
 #elipse {
   border-radius: 47%;
   height: 38px;
   width: 40px;
-  position: absolute;
-  right: 55px;
-  margin-top: -25px;
+  float: right;
+  position: relative;
+  right: 15px;
+  margin-top: -9px;
 }
 
 #elipse:hover {
@@ -159,5 +170,21 @@
 .preformance {
   height: 50%;
   margin-bottom: 60px;
-  overflow: scroll;
+}
+
+.setup-details {
+  margin-top: 0px;
+}
+
+.setups-pannel {
+  margin-bottom: 35px;
+}
+
+#pannel::-webkit-scrollbar { 
+  display: none;
+}
+
+#pL {
+  float: right;
+  margin-right: 35px;
 }

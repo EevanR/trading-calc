@@ -34,7 +34,7 @@ const Pannel = props => {
   const setRisk = async (e) => {
     e.preventDefault();
     setLoader(true)
-    let risk = e.target.risk.value/100
+    let risk = e.target.risk.value / 100
     let response = await updateRisk(props.userAttrs.id, risk);
     if (response.status === 200) {
       setLoader(false)
@@ -60,7 +60,7 @@ const Pannel = props => {
     })
     let profits = []
     let groupedTrades = []
-    for (let i=0; i<setups.length; i++) {
+    for (let i = 0; i < setups.length; i++) {
       props.savedTrades.forEach(trade => {
         if (trade['setup'] === setups[i]) {
           profits.push(trade['profit'])
@@ -69,7 +69,6 @@ const Pannel = props => {
       groupedTrades.push([setups[i], profits])
       profits = []
     }
-
     setupStats = groupedTrades.map(setup => {
       let pos = 0
       let neg = 0
@@ -77,11 +76,11 @@ const Pannel = props => {
         return profit > 0 ? pos += profit : neg += profit
       })
       return (
-        <div>
-          <h5>{setup[0]}</h5>
-          <h6 id="green">Profits: {pos}</h6>
-          <h6 id="risk">Losses: {neg}</h6>
-          <h6>Ratio: {(pos/(neg*-1)).toFixed(2)}</h6>
+        <div className="setups-pannel">
+          <h5 id="border-pannel-single">{setup[0]}</h5>
+          <h5 className="setup-details">P/L Ratio: 
+            <span id="pL">{(pos / (neg * -1)).toFixed(2)}</span>
+          </h5>
         </div>
       )
     })
@@ -89,22 +88,21 @@ const Pannel = props => {
 
   return (
     <>
-      {redirect === true && <Redirect to='/'/>}
-      <div id="pannel" className={pannel ?  "pannel-in" : "pannel-out"} >
+      {redirect === true && <Redirect to='/' />}
+      <div id="pannel" className={pannel ? "pannel-in" : "pannel-out"} >
         {props.userAttrs === null ? (
           <h2>Not Logged In</h2>
         ) : (
           <>
             <h2 id="pannel-name">{props.userAttrs.nickname}</h2>
             <div className="pannel-switch">
-              <Icon onClick={() => togglePannel() } 
-                color='red' 
+              <Icon onClick={() => togglePannel()}
+                color='red'
                 name={pannel === false ? 'arrow alternate circle right outline' : 'arrow alternate circle left outline'} />
             </div>
-            <Button id="logout" onClick={() => onLogout()}>Logout</Button>
             <div id="border-pannel"></div>
             <div id="pannel-info">
-              { props.savedTrades !== null && (
+              {props.savedTrades !== null && (
                 <>
                   <h4 id="pannel-title">Account: </h4>
                   <h5>{props.userAttrs.email}</h5>
@@ -112,9 +110,9 @@ const Pannel = props => {
                 </>
               )}
             </div>
-            <h4 id="pannel-title">Risk / trade: 
-              <div id="elipse" 
-                onClick={() => openCommentMenu()} 
+            <h4 id="pannel-title">Risk / trade:
+            <div id="elipse"
+                onClick={() => openCommentMenu()}
                 className={showMenu ? "elipse-open" : "elipse-close"}
               >
                 {showMenu === true && (
@@ -125,25 +123,26 @@ const Pannel = props => {
             </h4>
             {!editRisk ? (
               <>
-                <h4 id="user-risk">{props.userAttrs.risk*100} %</h4>
+                <h4 id="user-risk">{props.userAttrs.risk * 100} %</h4>
               </>
             ) : (
-              <>
-                <form id="risk-form" onSubmit={setRisk}>
-                  <label htmlFor="">Risk</label>
-                  <input required type='float' placeholder="%" name="risk" id="pannel-risk"/>
-                  <button id='update-risk'>update</button>
-                  <button onClick={() => setEditRisk(false)}>Cancel</button>
-                </form>
-                {loader === true && (
-                  <Dimmer active>
-                    <Loader />
-                  </Dimmer>
-                )}
-              </>
-            )}
+                <>
+                  <form id="risk-form" onSubmit={setRisk}>
+                    <label htmlFor="">Risk</label>
+                    <input required type='float' placeholder="%" name="risk" id="pannel-risk" />
+                    <button id='update-risk'>update</button>
+                    <button onClick={() => setEditRisk(false)}>Cancel</button>
+                  </form>
+                  {loader === true && (
+                    <Dimmer active>
+                      <Loader />
+                    </Dimmer>
+                  )}
+                </>
+              )}
             <h4 id="pannel-title">Setup Performance:</h4>
             <div className="preformance">{setupStats}</div>
+            <Button onClick={() => onLogout()}>Logout</Button>
           </>
         )}
       </div>
