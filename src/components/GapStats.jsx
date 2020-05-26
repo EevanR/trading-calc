@@ -187,7 +187,7 @@ const GapStats = () => {
     <>
       <div>
         <h2>Historic Gap Stats</h2>
-        <h3 style={{marginBottom: "40px"}}>Recent Gap Chart {chartDate} (5min)</h3>
+        <h3 style={{marginBottom: "40px"}}>Recent Gap Chart {chartDate} (15min)</h3>
         <form onSubmit={runTest}>
           <label>Ticker</label>
           <input required type='text' name="testTicker" id="testTicker"/>

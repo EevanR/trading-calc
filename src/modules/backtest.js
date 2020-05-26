@@ -19,6 +19,25 @@ const getIntradayData = async ticker => {
   }
 }
 
+const getFiveMinData = async ticker => {
+  try {
+    const response = await axios({
+      method: "GET",
+      url: "https://www.alphavantage.co/query",
+      params: {
+        function: "TIME_SERIES_INTRADAY",
+        symbol: ticker,
+        interval: "5min",
+        outputsize: "full",
+        apikey: "39DMC4D0QYC3JCGG"
+      }
+    });
+    return response
+  } catch (error) {
+    return error;
+  }
+}
+
 const getGapData = async ticker => {
   try {
     const response = await axios({
@@ -55,4 +74,4 @@ const getVwapData = async ticker => {
   }
 }
 
-export { getIntradayData, getGapData, getVwapData }
+export { getIntradayData, getGapData, getVwapData, getFiveMinData }
