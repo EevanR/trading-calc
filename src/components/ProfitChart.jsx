@@ -147,7 +147,8 @@ const ProfitChart = props => {
           'rgba(100, 133, 93, 0.719)',
           'rgba(150, 133, 143, 0.7)',
           'rgba(170, 133, 53, 0.9)',
-          'rgba(210, 133, 93, 0.6)'
+          'rgba(210, 133, 93, 0.6)',
+          'rgba(310, 373, 193, 0.6)'
         ],
         borderColor: 'rgba(75,192,192,1)',
         hoverBackgroundColor: 'rgba(75,192,192)',

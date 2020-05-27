@@ -142,9 +142,9 @@ const Pannel = props => {
               )}
             <h4 id="pannel-title">Setup Performance:</h4>
             <div className="preformance">{setupStats}</div>
-            <Button onClick={() => onLogout()}>Logout</Button>
           </>
         )}
+        <Button className="logout" onClick={() => onLogout()}>Logout</Button>
       </div>
     </>
   )

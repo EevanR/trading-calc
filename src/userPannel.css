@@ -177,7 +177,7 @@
 }
 
 .setups-pannel {
-  margin-bottom: 35px;
+  padding-bottom: 35px;
 }
 
 #pannel::-webkit-scrollbar { 
@@ -187,4 +187,8 @@
 #pL {
   float: right;
   margin-right: 35px;
+}
+
+.ui.button.logout {
+  margin-top: 250px;
 }
