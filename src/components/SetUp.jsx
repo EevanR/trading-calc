@@ -8,12 +8,10 @@ const SetUp = props => {
   const setups = [
     { key: 1, value: 1, text: "Line Bounce"},
     { key: 2, value: 2, text: "Red Green Dip"},
-    { key: 3, value: 3, text: "Pinbar"},
-    { key: 4, value: 4, text: "High Point Squeeze"},
-    { key: 5, value: 5, text: "1min Flag"},
-    { key: 6, value: 6, text: "1min Line Bounce AM"},
-    { key: 7, value: 7, text: "GoG Short"},
-    { key: 8, value: 8, text: "VolumeP Short"}
+    { key: 3, value: 5, text: "1min Flag"},
+    { key: 4, value: 6, text: "1min Line Bounce AM"},
+    { key: 5, value: 7, text: "GoG Short"},
+    { key: 6, value: 8, text: "VolumeP Short"}
   ]
   
   let lineBounce = [
@@ -21,7 +19,8 @@ const SetUp = props => {
     {id: 2, label: "VWAP reject", checked: false},
     {id: 3, label: "Within 0.02c offset", checked: false},
     {id: 4, label: "First time bounce", checked: false},
-    {id: 5, label: "Above 1min200EMA Line Chart", checked: false}
+    {id: 5, label: "Above 1min200EMA Line Chart", checked: false},
+    {id: 6, label: "Not under morning LOD", checked: false}
   ]
 
   let redGreenDip = [
@@ -29,21 +28,6 @@ const SetUp = props => {
     {id: 2, label: "No prior VWAP reject", checked: false},
     {id: 3, label: "Within 0.02c offset", checked: false},
     {id: 4, label: "Green inside candle", checked: false}
-  ]
-
-  let pinbar = [
-    {id: 1, label: "Wick down through", checked: false},
-    {id: 2, label: "Wick lowest point of swing low", checked: false},
-    {id: 3, label: "VWAP reject prior", checked: false},
-    {id: 4, label: "First time bounce", checked: false},
-    {id: 5, label: "Above 1min200EMA Line Chart", checked: false}
-  ]
-
-  let highPoint = [
-    {id: 1, label: "Vol at trigger", checked: false},
-    {id: 2, label: "VWAP reject prior", checked: false},
-    {id: 3, label: "Within 0.02c offset", checked: false},
-    {id: 4, label: "Stop low of breakout candle", checked: false}
   ]
 
   let flag = [
@@ -98,12 +82,6 @@ const SetUp = props => {
     } else if (event === "Red Green Dip") {
       props.setPrereq(redGreenDip.length)
       setChooseSetUp(redGreenDip) 
-    } else if (event === "Pinbar") {
-      props.setPrereq(pinbar.length)
-      setChooseSetUp(pinbar) 
-    } else if (event === "High Point Squeeze") {
-      props.setPrereq(highPoint.length)
-      setChooseSetUp(highPoint)
     } else if (event === "1min Flag") {
       props.setPrereq(flag.length)
       setChooseSetUp(flag)
