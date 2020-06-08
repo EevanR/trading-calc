@@ -6,21 +6,10 @@ const SetUp = props => {
   const [chooseSetUp, setChooseSetUp] = useState([])
 
   const setups = [
-    { key: 1, value: 1, text: "Line Bounce"},
-    { key: 2, value: 2, text: "Red Green Dip"},
-    { key: 3, value: 5, text: "1min Flag"},
-    { key: 4, value: 6, text: "1min Line Bounce AM"},
-    { key: 5, value: 7, text: "GoG Short"},
-    { key: 6, value: 8, text: "VolumeP Short"}
-  ]
-  
-  let lineBounce = [
-    {id: 1, label: "Inside candle", checked: false},
-    {id: 2, label: "VWAP reject", checked: false},
-    {id: 3, label: "Within 0.02c offset", checked: false},
-    {id: 4, label: "First time bounce", checked: false},
-    {id: 5, label: "Above 1min200EMA Line Chart", checked: false},
-    {id: 6, label: "Not under morning LOD", checked: false}
+    { key: 1, value: 1, text: "Red Green Dip"},
+    { key: 2, value: 2, text: "1min Line Bounce AM"},
+    { key: 3, value: 3, text: "GoG Short"},
+    { key: 4, value: 4, text: "High Short"},
   ]
 
   let redGreenDip = [
@@ -30,23 +19,14 @@ const SetUp = props => {
     {id: 4, label: "Green inside candle", checked: false}
   ]
 
-  let flag = [
-    {id: 1, label: "1min chart", checked: false},
-    {id: 2, label: "Above 1min200EMA", checked: false},
-    {id: 3, label: "Front Side", checked: false},
-    {id: 4, label: "Connect line chart highs that are real candle highs", checked: false},
-    {id: 5, label: "Stop b/e after new high", checked: false},
-    {id: 6, label: "Above 1min24EMA", checked: false}
-  ]
-
   let oneMinLineBounce = [
     {id: 1, label: "1min chart", checked: false},
     {id: 2, label: "Before 9:50am", checked: false},
     {id: 3, label: "3rd bounce no trade", checked: false},
     {id: 4, label: "Stub Wick, no Pinbar", checked: false},
     {id: 5, label: "Not at VWAP, or just under", checked: false},
-    {id: 6, label: "Stop 0.01c under LOD", checked: false},
-    {id: 7, label: "Stop 0.02c under chart entry price after new high", checked: false},
+    {id: 6, label: "Stop 0.02c under LOD after new high", checked: false},
+    {id: 7, label: "Stop 0.02c under chart entry price after higher high", checked: false},
     {id: 8, label: "RED OUT THE GATE", checked: false},
     {id: 9, label: "No hold PM rotation > 90%, prior vwap rejections, Float > 100m", checked: false},
     {id: 10, label: "HOLD - for open -> VWAP add -> Upper band fail next low break", checked: false}
@@ -55,18 +35,21 @@ const SetUp = props => {
   let gogShort = [
     {id: 1, label: "PM Trend up", checked: false},
     {id: 2, label: "Preferable PM float rotation", checked: false},
-    {id: 3, label: "day 1 or 20% gap", checked: false},
-    {id: 4, label: "Pull from line", checked: false}
+    {id: 3, label: "20% Gap", checked: false},
+    {id: 4, label: "Pull from line 0.02c", checked: false},
+    {id: 5, label: "Stop b/e after LOD reject", checked: false}
   ]
 
-  let vpShort = [
-    {id: 1, label: "PM Trend up", checked: false},
-    {id: 2, label: "Preferable PM float rotation", checked: false},
-    {id: 3, label: "day 1 or 20% gap", checked: false},
-    {id: 4, label: "Red Out Gate", checked: false},
-    {id: 5, label: "Retest highest VP area", checked: false},
-    {id: 6, label: "Under VWAP", checked: false},
-    {id: 7, label: "Entry lower high", checked: false}
+  let highShort = [
+    {id: 1, label: "~20% Gap", checked: false},
+    {id: 2, label: "Before 10:00 stop b/e after VWAP", checked: false},
+    {id: 3, label: "~10:30 Stop at High", checked: false},
+    {id: 4, label: "Entry at VWAP must breakdown immidiately", checked: false},
+    {id: 5, label: "1min200EMA above VWAP stop 3min High", checked: false},
+    {id: 6, label: "Not under morning LOD", checked: false},
+    {id: 7, label: "After 10:30 require proper Vol action", checked: false},
+    {id: 8, label: "No Halt Line, No x2 top, No 2:00-3:00 when 1min200 above VWAP", checked: false},
+    {id: 9, label: "Entry stop until 1min200 touch, then stop 3min high before", checked: false}
   ]
 
   const onChangeHandler = (event) => {
@@ -76,24 +59,18 @@ const SetUp = props => {
       setChooseSetUp([])
     }
     props.setCheckList([])
-    if (event === "Line Bounce") {
-      props.setPrereq(lineBounce.length)
-      setChooseSetUp(lineBounce)
-    } else if (event === "Red Green Dip") {
+    if (event === "Red Green Dip") {
       props.setPrereq(redGreenDip.length)
       setChooseSetUp(redGreenDip) 
-    } else if (event === "1min Flag") {
-      props.setPrereq(flag.length)
-      setChooseSetUp(flag)
-    }  else if (event === "1min Line Bounce AM") {
+    } else if (event === "1min Line Bounce AM") {
       props.setPrereq(oneMinLineBounce.length)
       setChooseSetUp(oneMinLineBounce)
     }  else if (event === "GoG Short") {
       props.setPrereq(gogShort.length)
       setChooseSetUp(gogShort)
-    }  else if (event === "VolumeP Short") {
-      props.setPrereq(vpShort.length)
-      setChooseSetUp(vpShort)
+    }  else if (event === "High Short") {
+      props.setPrereq(highShort.length)
+      setChooseSetUp(highShort)
     }  else {
       return null
     }

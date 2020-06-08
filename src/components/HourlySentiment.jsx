@@ -165,7 +165,6 @@ const HourlySentiment = () => {
   let averages = []
   if (testOneData.length === list.length) {
     testOneResults = testOneData.map( item => {
-      debugger
       let name = item[1]["Meta Data"]["2. Symbol"]
       let dates = Object.entries(item[1]["Time Series (5min)"])
       let array = []
