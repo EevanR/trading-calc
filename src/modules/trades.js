@@ -75,4 +75,16 @@ const getProfile = async ticker => {
   }
 }
 
-export { sendTrade, getTrades, getQuote, getProfile }
+const deleteTrades = async () => {
+  let headers = JSON.parse(sessionStorage.getItem("credentials"));
+  try {
+    const response = await axios.delete("/trades/:id", {
+      headers: headers
+    })
+    return response
+  } catch (error) {
+    return error.response;
+  }
+}
+
+export { sendTrade, getTrades, getQuote, getProfile, deleteTrades }

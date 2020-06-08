@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Icon, Button } from 'semantic-ui-react'
 import { connect } from "react-redux";
 import { logout, updateRisk } from "../modules/auth";
+import { deleteTrades } from "../modules/trades";
 import { Redirect } from 'react-router-dom';
 import { Dimmer, Loader } from 'semantic-ui-react'
 
@@ -43,6 +44,15 @@ const Pannel = props => {
     } else {
       setLoader(false)
       alert("Update Failed")
+    }
+  }
+
+  const clearTrades = async () => {
+    let response = await deleteTrades();
+    if (response) {
+      props.resetTrades(null)
+    } else {
+      alert("Trades could not be deleted. Try again later.")
     }
   }
 
@@ -144,6 +154,7 @@ const Pannel = props => {
             <div className="preformance">{setupStats}</div>
           </>
         )}
+        <Button className="" onClick={() => clearTrades()}>Clear Trade Log</Button>
         <Button className="logout" onClick={() => onLogout()}>Logout</Button>
       </div>
     </>
@@ -173,6 +184,9 @@ const mapDispatchToProps = dispatch => {
     },
     setSetUp: string => {
       dispatch({ type: "SET_SETUP", payload: string });
+    },
+    resetTrades: string => {
+      dispatch({ type: "SET_SAVEDTRADES", payload: string });
     }
   }
 };
