@@ -51,6 +51,7 @@ const Pannel = props => {
     let response = await deleteTrades();
     if (response) {
       props.resetTrades(null)
+      alert("Trade log deleted. Sign back in for changes.")
     } else {
       alert("Trades could not be deleted. Try again later.")
     }
@@ -82,14 +83,25 @@ const Pannel = props => {
     setupStats = groupedTrades.map(setup => {
       let pos = 0
       let neg = 0
+      let win = 0
+      let loss = 0 
       setup[1].forEach(profit => {
-        return profit > 0 ? pos += profit : neg += profit
+        if (profit > 0) {
+          pos += profit
+          win += 1
+        } else {
+          neg += profit
+          loss += 1
+        } 
       })
       return (
         <div className="setups-pannel">
           <h5 id="border-pannel-single">{setup[0]}</h5>
           <h5 className="setup-details">P/L Ratio: 
             <span id="pL">{(pos / (neg * -1)).toFixed(2)}</span>
+          </h5>
+          <h5 className="setup-details">Win Percentage: 
+            <span id="pL">{((win/(win+loss))*100).toFixed(2)}%</span>
           </h5>
         </div>
       )
