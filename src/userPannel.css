@@ -196,3 +196,19 @@
 .clearTades {
   margin-top: 100px!important;
 }
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 198px 50px;
+  grid-template-rows: auto;
+  grid-column-gap: 10px;
+}
+
+#right-column {
+  text-align: right;
+  margin: 5px;
+}
+
+#left-column {
+  margin: 5px 0px;
+}

@@ -134,11 +134,25 @@ const Pannel = props => {
                 <>
                   <h4 id="pannel-title">Account: </h4>
                   <h5>{props.userAttrs.email}</h5>
-                  <h5>Trade Count: {props.savedTrades.length}</h5>
-                  <h5>Trades Won: {successTrades}</h5>
-                  <h5>Win Percentage: {((successTrades/props.savedTrades.length)*100).toFixed(2)}%</h5>
-                  <h5>Gross Profits: ${tradeWins}</h5>
-                  <h5>Gross Loss: ${tradeLoss}</h5>
+                  <h4 id="pannel-title">Stats: </h4>
+                  <div className="stats-grid">
+                    <h5 id="left-column">Trade Count: </h5>
+                    <h5 id="right-column">{props.savedTrades.length}</h5>
+                    <h5 id="left-column">Trades Won: </h5>
+                    <h5 id="right-column">{successTrades}</h5>
+                    <h5 id="left-column">Win Percentage: </h5>
+                    <h5 id="right-column">{((successTrades/props.savedTrades.length)*100).toFixed(2)}%</h5>
+                    <h5 id="left-column">Gross Profits: </h5>
+                    <h5 id="right-column">${tradeWins}</h5>
+                    <h5 id="left-column">Gross Loss: </h5>
+                    <h5 id="right-column">${tradeLoss}</h5>
+                    <h5 id="left-column">Profit/Loss: </h5>
+                    <h5 id="right-column">{(tradeWins/tradeLoss*-1).toFixed(2)}</h5>
+                    <h5 id="left-column">Average Win: </h5>
+                    <h5 id="right-column">${(tradeWins/props.savedTrades.length).toFixed(2)}</h5>
+                    <h5 id="left-column">Average Loss: </h5>
+                    <h5 id="right-column">${(tradeLoss/props.savedTrades.length).toFixed(2)}</h5>
+                  </div>
                 </>
               )}
             </div>
