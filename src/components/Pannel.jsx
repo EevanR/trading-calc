@@ -61,6 +61,9 @@ const Pannel = props => {
     showMenu === false ? setShowMenu(true) : setShowMenu(false);
   }
 
+  let successTrades = 0
+  let tradeWins = 0
+  let tradeLoss = 0
   let setupStats;
   if (props.savedTrades !== null) {
     let setups = []
@@ -89,9 +92,12 @@ const Pannel = props => {
         if (profit > 0) {
           pos += profit
           win += 1
+          successTrades += 1
+          tradeWins += profit
         } else {
           neg += profit
           loss += 1
+          tradeLoss += profit
         } 
       })
       return (
@@ -129,6 +135,10 @@ const Pannel = props => {
                   <h4 id="pannel-title">Account: </h4>
                   <h5>{props.userAttrs.email}</h5>
                   <h5>Trade Count: {props.savedTrades.length}</h5>
+                  <h5>Trades Won: {successTrades}</h5>
+                  <h5>Win Percentage: {((successTrades/props.savedTrades.length)*100).toFixed(2)}%</h5>
+                  <h5>Gross Profits: ${tradeWins}</h5>
+                  <h5>Gross Loss: ${tradeLoss}</h5>
                 </>
               )}
             </div>
@@ -164,9 +174,10 @@ const Pannel = props => {
               )}
             <h4 id="pannel-title">Setup Performance:</h4>
             <div className="preformance">{setupStats}</div>
+            <Button className="clearTades" onClick={() => clearTrades()}>Clear Trade Log</Button>
+
           </>
         )}
-        <Button className="" onClick={() => clearTrades()}>Clear Trade Log</Button>
         <Button className="logout" onClick={() => onLogout()}>Logout</Button>
       </div>
     </>
