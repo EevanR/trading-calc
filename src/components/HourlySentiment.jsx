@@ -189,7 +189,7 @@ const HourlySentiment = () => {
 
       let range = high - low
       for (let i=array.length - 1; i >= 0; i--) {
-        if (array[i][0].substring(11, dates[i][0].indexOf(":")) == hour) {
+        if (array[i][0].substring(11, dates[i][0].indexOf(":")) === hour) {
           if (array[i][0].substring(11) === "09:35:00") {
             zoneStart = parseFloat(array[i][1]["1. open"])
           } else if (array[i][0].substring("14") === "05:00") {
@@ -222,7 +222,7 @@ const HourlySentiment = () => {
             sentiment.map(time => {
               return (
                 <p id={time[1] < 0 ? "backtest-red" : ""}>
-                  {time[0]} => {time[1]}%
+                  {time[0]} = {time[1]}%
                 </p>
               )
             })
@@ -259,19 +259,19 @@ const HourlySentiment = () => {
         {testOneResults}
       </div>
       <h3>Overall Results</h3>
-      <h4 id={averageResults[0] < 0 ? "backtest-red" : ""}>9:30 => {averageResults[0]} %</h4>
-      <h4 id={averageResults[1] < 0 ? "backtest-red" : ""}>10:00 => {averageResults[1]} %</h4>
-      <h4 id={averageResults[2] < 0 ? "backtest-red" : ""}>10:30 => {averageResults[2]} %</h4>
-      <h4 id={averageResults[3] < 0 ? "backtest-red" : ""}>11:00 => {averageResults[3]} %</h4>
-      <h4 id={averageResults[4] < 0 ? "backtest-red" : ""}>11:30 => {averageResults[4]} %</h4>
-      <h4 id={averageResults[5] < 0 ? "backtest-red" : ""}>12:00 => {averageResults[5]} %</h4>
-      <h4 id={averageResults[6] < 0 ? "backtest-red" : ""}>12:30 => {averageResults[6]} %</h4>
-      <h4 id={averageResults[7] < 0 ? "backtest-red" : ""}>13:00 => {averageResults[7]} %</h4>
-      <h4 id={averageResults[8] < 0 ? "backtest-red" : ""}>13:30 => {averageResults[8]} %</h4>
-      <h4 id={averageResults[9] < 0 ? "backtest-red" : ""}>14:00 => {averageResults[9]} %</h4>
-      <h4 id={averageResults[10] < 0 ? "backtest-red" : ""}>14:30 => {averageResults[10]} %</h4>
-      <h4 id={averageResults[11] < 0 ? "backtest-red" : ""}>15:00 => {averageResults[11]} %</h4>
-      <h4 id={averageResults[12] < 0 ? "backtest-red" : ""}>15:30 => {averageResults[12]} %</h4>
+      <h4 id={averageResults[0] < 0 ? "backtest-red" : ""}>9:30 = {averageResults[0]} %</h4>
+      <h4 id={averageResults[1] < 0 ? "backtest-red" : ""}>10:00 = {averageResults[1]} %</h4>
+      <h4 id={averageResults[2] < 0 ? "backtest-red" : ""}>10:30 = {averageResults[2]} %</h4>
+      <h4 id={averageResults[3] < 0 ? "backtest-red" : ""}>11:00 = {averageResults[3]} %</h4>
+      <h4 id={averageResults[4] < 0 ? "backtest-red" : ""}>11:30 = {averageResults[4]} %</h4>
+      <h4 id={averageResults[5] < 0 ? "backtest-red" : ""}>12:00 = {averageResults[5]} %</h4>
+      <h4 id={averageResults[6] < 0 ? "backtest-red" : ""}>12:30 = {averageResults[6]} %</h4>
+      <h4 id={averageResults[7] < 0 ? "backtest-red" : ""}>13:00 = {averageResults[7]} %</h4>
+      <h4 id={averageResults[8] < 0 ? "backtest-red" : ""}>13:30 = {averageResults[8]} %</h4>
+      <h4 id={averageResults[9] < 0 ? "backtest-red" : ""}>14:00 = {averageResults[9]} %</h4>
+      <h4 id={averageResults[10] < 0 ? "backtest-red" : ""}>14:30 = {averageResults[10]} %</h4>
+      <h4 id={averageResults[11] < 0 ? "backtest-red" : ""}>15:00 = {averageResults[11]} %</h4>
+      <h4 id={averageResults[12] < 0 ? "backtest-red" : ""}>15:30 = {averageResults[12]} %</h4>
     </div>
   )
 }
