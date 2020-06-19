@@ -143,9 +143,9 @@ const Pannel = props => {
                     <h5 id="left-column">Win Percentage: </h5>
                     <h5 id="right-column">{((successTrades/props.savedTrades.length)*100).toFixed(2)}%</h5>
                     <h5 id="left-column">Gross Profits: </h5>
-                    <h5 id="right-column">${tradeWins}</h5>
-                    <h5 id="left-column">Gross Loss: </h5>
-                    <h5 id="right-column">${tradeLoss}</h5>
+                    <h5 id="right-column">${tradeWins.toFixed(2)}</h5>
+                    <h5 id="left-column">Gross Loss:</h5>
+                    <h5 id="right-column" style={{marginLeft: "-6px"}}>${tradeLoss.toFixed(2)}</h5>
                     <h5 id="left-column">Profit/Loss: </h5>
                     <h5 id="right-column">{(tradeWins/tradeLoss*-1).toFixed(2)}</h5>
                     <h5 id="left-column">Average Win: </h5>
