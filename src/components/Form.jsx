@@ -29,9 +29,9 @@ const Form = props => {
       let ticker = e.target.ticker.value
       let maxShares = Math.floor(risk / stop)
       let bpMax = Math.floor(buyPower / stockPrice)
-      let pt = stockPrice + stop*2
-      let pt2 = stockPrice + stop*2 + stop/2
-      let pt3 = stockPrice + stop*3
+      let pt = stockPrice + stop*0.5
+      let pt2 = stockPrice + stop
+      let pt3 = stockPrice + stop*2
       let sp = stockPrice - stop
       setTargetPrice(pt.toFixed(2))
       setTargetPrice2(pt2.toFixed(2))
@@ -167,12 +167,12 @@ const Form = props => {
           </div>
           <div className="targets">
             <h2 className="result-heading" >Targets</h2>
-            <h3>2R Target (1/2)</h3>
-            <h3>2.5R Target (1/4)</h3>
-            <h3>3R Target (1/8)</h3>
+            <h3>0.5R Target (1/2)</h3>
+            <h3>1R Target (1/4)</h3>
+            <h3>2R Target (1/4)</h3>
             <h3 id="green">${targetPrice} <span id="targets">{Math.floor(answer/2)} shrs</span></h3>
             <h3 id="green">${targetPrice2} <span id="targets">{Math.floor(answer/4)} shrs</span></h3>
-            <h3 id="green">${targetPrice3} <span id="targets">{Math.floor(answer/8)} shrs</span></h3>
+            <h3 id="green">${targetPrice3} <span id="targets">{Math.floor(answer/4)} shrs</span></h3>
           </div>
         </div>
         <Plays />
