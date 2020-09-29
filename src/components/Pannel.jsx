@@ -109,6 +109,12 @@ const Pannel = props => {
           <h5 className="setup-details">Win Percentage: 
             <span id="pL">{((win/(win+loss))*100).toFixed(2)}%</span>
           </h5>
+          <h5 className="setup-details">Gross Win $: 
+            <span id="pL">${pos.toFixed(2)}</span>
+          </h5>
+          <h5 className="setup-details">Gross Loss $: 
+            <span id="pL">${neg.toFixed(2)}</span>
+          </h5>
         </div>
       )
     })
