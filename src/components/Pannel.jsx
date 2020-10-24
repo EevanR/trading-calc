@@ -193,12 +193,13 @@ const Pannel = props => {
                 </>
               )}
             <h4 id="pannel-title">Setup Performance:</h4>
-            <div className="preformance">{setupStats}</div>
-            <Button className="clearTades" onClick={() => clearTrades()}>Clear Trade Log</Button>
-
+            <div className="preformance">
+              {setupStats}
+              <Button className="clearTades" onClick={() => clearTrades()}>Clear Trade Log</Button>
+              <Button className="logout" onClick={() => onLogout()}>Logout</Button>
+            </div>
           </>
         )}
-        <Button className="logout" onClick={() => onLogout()}>Logout</Button>
       </div>
     </>
   )
