@@ -115,6 +115,15 @@ const Pannel = props => {
           <h5 className="setup-details">Gross Loss $: 
             <span id="pL">${neg.toFixed(2)}</span>
           </h5>
+          <h5 className="setup-details">Avg Win $: 
+            <span id="pL">${(pos/win).toFixed(2)}</span>
+          </h5>
+          <h5 className="setup-details">Avg Loss $: 
+            <span id="pL">${(neg/loss).toFixed(2)}</span>
+          </h5>
+          <h5 className="setup-details">Gross Setup Profit $: 
+            <span id="pL">${(pos+neg).toFixed(2)}</span>
+          </h5>
         </div>
       )
     })
@@ -155,9 +164,9 @@ const Pannel = props => {
                     <h5 id="left-column">Profit/Loss: </h5>
                     <h5 id="right-column">{(tradeWins/tradeLoss*-1).toFixed(2)}</h5>
                     <h5 id="left-column">Average Win: </h5>
-                    <h5 id="right-column">${(tradeWins/props.savedTrades.length).toFixed(2)}</h5>
+                    <h5 id="right-column">${(tradeWins/successTrades).toFixed(2)}</h5>
                     <h5 id="left-column">Average Loss: </h5>
-                    <h5 id="right-column">${(tradeLoss/props.savedTrades.length).toFixed(2)}</h5>
+                    <h5 id="right-column">${(tradeLoss/(props.savedTrades.length-successTrades)).toFixed(2)}</h5>
                   </div>
                 </>
               )}
