@@ -11,6 +11,7 @@ const register = async (email, username, password, passCon) => {
     storeAuthCredentials(response, response.data.data.nickname);
     return response;
   } catch (error) {
+    debugger
     return error.response.data.errors.full_messages[0];
   }
 }
@@ -24,6 +25,7 @@ const signIn = async (email, password) => {
     storeAuthCredentials(response, response.data.data.nickname);
     return response;
   } catch (error) {
+    debugger
     return error.response.data.errors[0]
   }
 }
