@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { saveSetup } from "../modules/setup";
 
 const Setups = () => {
+  const [message, setMessage] = useState("")
 
   const submit = async (e) => {
     e.preventDefault();
@@ -20,9 +21,9 @@ const Setups = () => {
       name, reqOne, reqTwo, reqThree, reqFour, reqFive, reqSix, reqSeven, reqEight, reqNine, reqTen
     )
     if (response.status === 200) {
-      
+      setMessage(`${name} added Successfully`)
     } else {
-
+      setMessage("Unexpected error, Setup not added")
     }
   }
 
@@ -125,6 +126,7 @@ const Setups = () => {
           <button id='create-Setup'>Create Setup</button>
         </form>
       </div>
+      <h3>{message}</h3>
     </>
   )
 
