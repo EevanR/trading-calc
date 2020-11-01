@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Checkbox, Dropdown } from 'semantic-ui-react'
 import { connect } from "react-redux";
+import { getSetups } from "../modules/setup";
 
 const SetUp = props => {
   const [chooseSetUp, setChooseSetUp] = useState([])
+  const [setups, setSetups] = useState([])
 
-  const setups = [
-    { key: 1, value: 1, text: "Red Green Dip"},
-    { key: 2, value: 2, text: "1min Line Bounce AM"},
-    { key: 3, value: 3, text: "GoG Short"},
-    { key: 4, value: 4, text: "High Short"},
-  ]
+  const indexSetups = async () => {
+    let response = await getSetups()
+    if (response.status === 200) {
+      let setupsArray = []
+      response.data.forEach(item => {
+        setupsArray.push({key: 1, value: 1, text: item.name})
+      })
+      setSetups(setupsArray)
+    }
+  }
 
   let redGreenDip = [
     {id: 1, label: "Off line", checked: false},
@@ -92,7 +98,7 @@ const SetUp = props => {
   }
 
   useEffect(() => {
-    
+    indexSetups()
   }, [props.setUp]);
 
   let setUp;

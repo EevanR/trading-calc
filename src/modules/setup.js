@@ -23,12 +23,22 @@ const saveSetup = async (name, reqOne, reqTwo, reqThree, reqFour, reqFive, reqSi
         headers: headers
       }
     )
-    debugger
     return response
     } catch (error) {
-    debugger
     return error.response
   }
 }
 
-export { saveSetup }
+const getSetups = async () => {
+  let headers = JSON.parse(sessionStorage.getItem("credentials"));
+  try {
+    const response = await axios.get("/setups", {
+      headers: headers
+    })
+    return response
+  } catch (error) {
+    return error.response
+  }
+}
+
+export { saveSetup, getSetups  }
