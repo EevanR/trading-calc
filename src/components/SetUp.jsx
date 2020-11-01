@@ -39,6 +39,7 @@ const SetUp = props => {
           }
         }
         setChooseSetUp(preReqArray)
+        props.setPrereq(preReqArray.length)
       }
     })
   }
@@ -93,7 +94,12 @@ const SetUp = props => {
             fluid
             options={setupList}
             onChange={event => {
-              onChangeHandler(event.target.innerText);
+              if (event.target.innerText !== "") {
+                onChangeHandler(event.target.innerText);
+              } else {
+                props.setSetUp("")
+                setChooseSetUp([])
+              }
             }}
           />
         </div>
