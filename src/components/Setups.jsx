@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { saveSetup } from "../modules/setup";
+import { connect } from "react-redux";
 
-const Setups = () => {
+const Setups = (props) => {
   const [message, setMessage] = useState("")
 
   const submit = async (e) => {
@@ -25,6 +26,32 @@ const Setups = () => {
     } else {
       setMessage("Unexpected error, Setup not added")
     }
+  }
+
+  let savedStrategies;
+  if (props.strategies !== []) {
+    savedStrategies = props.strategies.map(strategy => {
+      let preReqArray = []
+      let preReqs;
+      for (const property in strategy) {
+        if (property[0] === "r" && strategy[property] !== "") {
+          preReqArray.push(strategy[property])
+        }
+      }
+      preReqs = preReqArray.map(req => {
+        return (
+          <p>{req}</p>
+        )
+      })
+      return (
+        <div>
+          <h4>{strategy.name}</h4>
+          {preReqs}
+        </div>
+      )
+    })
+  } else {
+    return <h4>No Saved Strategies</h4>
   }
 
   return (
@@ -127,9 +154,16 @@ const Setups = () => {
         </form>
       </div>
       <h3>{message}</h3>
+      <h2>Current Strategies</h2>
+      {savedStrategies}
     </>
   )
-
 }
 
-export default Setups
+const mapStateToProps = state => {
+  return {
+    strategies: state.strategies
+  };
+};
+
+export default connect(mapStateToProps)(Setups);

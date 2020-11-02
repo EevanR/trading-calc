@@ -5,6 +5,7 @@ const initialState = {
   savedTrades: null,
   message: "",
   count: null,
-  userAttrs: null
+  userAttrs: null,
+  strategies: []
 };
 export default initialState;

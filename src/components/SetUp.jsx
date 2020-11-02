@@ -11,6 +11,7 @@ const SetUp = props => {
   const indexSetups = async () => {
     let response = await getSetups()
     if (response.status === 200) {
+      props.setStrategies(response.data)
       let setupsNames = []
       let key = 1
       let value = 1
@@ -115,7 +116,7 @@ const mapStateToProps = state => {
   return {
     preReq: state.preReq,
     checkList: state.checkList,
-    setUp: state.setUp
+    setUp: state.setUp,
   };
 };
 
@@ -129,6 +130,9 @@ const mapDispatchToProps = dispatch => {
     },
     setSetUp: string => {
       dispatch({ type: "SET_SETUP", payload: string });
+    },
+    setStrategies: array => {
+      dispatch({ type: "SET_STRATEGIES", payload: array });
     }
   };
 };

@@ -37,6 +37,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         userAttrs: action.payload
       };
+    case "SET_STRATEGIES":
+      return {
+        ...state,
+        strategies: action.payload
+      };
     default:
       return {
         ...state
