@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { saveSetup } from "../modules/setup";
 import { connect } from "react-redux";
+import ItemsCarousel from 'react-items-carousel'
+import { Button } from "semantic-ui-react";;
 
 const Setups = (props) => {
   const [message, setMessage] = useState("")
+  const [activeItemIndex, setActiveItemIndex] = useState(0);
+  const chevronWidth = 40;
 
   const submit = async (e) => {
     e.preventDefault();
@@ -155,7 +159,23 @@ const Setups = (props) => {
       </div>
       <h3>{message}</h3>
       <h2>Current Strategies</h2>
-      {savedStrategies}
+      <div className="carousel" >
+        <ItemsCarousel
+          requestToChangeActive={setActiveItemIndex}
+          activeItemIndex={activeItemIndex}
+          numberOfCards={2.5}
+          gutter={5}
+          leftChevron={
+            <Button circular icon='angle left' />
+          }
+          rightChevron={
+            <Button circular icon='angle right'/>
+          }
+          chevronWidth={chevronWidth}
+        >
+          {savedStrategies}
+        </ItemsCarousel>
+      </div>
     </>
   )
 }
