@@ -158,7 +158,7 @@ const Setups = (props) => {
         </form>
       </div>
       <h3>{message}</h3>
-      <h2>Current Strategies</h2>
+      <h2>Saved Strategies</h2>
       <div className="carousel" >
         <ItemsCarousel
           requestToChangeActive={setActiveItemIndex}

@@ -54,7 +54,7 @@ const Signin = props => {
               </h1>
             </div>
             <div className="form">
-              <Form onSubmit={submitSignInHandler} id="signup-form">
+              <Form onSubmit={submitSignInHandler} id="signin-form">
                 <label>Email</label>
                 <br/>
                 <input name="email" type="email" id="email"></input>

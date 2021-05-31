@@ -23,7 +23,7 @@ describe("User can save trade", () => {
       delay: 1000
     });
 
-    cy.get("#signup-form").within(() => {
+    cy.get("#signin-form").within(() => {
       cy.get("#email").type("trader@mail.com");
       cy.get("#password").type("password");
       cy.get("#submit").click();
