@@ -10,9 +10,9 @@ const SetUp = props => {
 
   const indexSetups = async () => {
     let response = await getSetups()
-    if (response.status === 200) {
+    let setupsNames = []
+    if (response !== undefined && response.status === 200) {
       props.setStrategies(response.data)
-      let setupsNames = []
       let key = 1
       let value = 1
       response.data.forEach(item => {
@@ -20,6 +20,8 @@ const SetUp = props => {
       })
       setSetupList(setupsNames)
       setSetups(response.data)
+    } else {
+      setSetupList("None")
     }
   }
 
@@ -89,20 +91,22 @@ const SetUp = props => {
     <div className="setups">
       <div className="setups-inner">
         <div>
-          <Dropdown
-            placeholder="Set Up"
-            clearable
-            fluid
-            options={setupList}
-            onChange={event => {
-              if (event.target.innerText !== "") {
-                onChangeHandler(event.target.innerText);
-              } else {
-                props.setSetUp("")
-                setChooseSetUp([])
-              }
-            }}
-          />
+          {setupList === "None" ? "No Setups, Add new on strategies tab" : 
+            <Dropdown
+              placeholder= "Set Up"
+              clearable
+              fluid
+              options={setupList}
+              onChange={event => {
+                if (event.target.innerText !== "") {
+                  onChangeHandler(event.target.innerText);
+                } else {
+                  props.setSetUp("")
+                  setChooseSetUp([])
+                }
+              }}
+            />
+          }
         </div>
         <div>
           {setUp}
