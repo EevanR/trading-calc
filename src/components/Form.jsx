@@ -211,6 +211,12 @@ const Form = props => {
     <>
       <Pannel />
       <div>
+        <img className="sign-up-img" src="/favicon.png" alt=""/>
+        <h1>
+          TradeLogs 
+        </h1>
+      </div>
+      <div>
         <Tab panes={panes} />
       </div>
     </>
