@@ -4,7 +4,9 @@ import SetUp from './SetUp'
 import Pannel from './Pannel'
 import ProfitChart from "./ProfitChart"
 import GapStats from "./GapStats"
+import Setups from "./Setups"
 import { connect } from "react-redux";
+import { Tab } from 'semantic-ui-react'
 
 const Form = props => {
 
@@ -29,9 +31,9 @@ const Form = props => {
       let ticker = e.target.ticker.value
       let maxShares = Math.floor(risk / stop)
       let bpMax = Math.floor(buyPower / stockPrice)
-      let pt = stockPrice + stop*0.5
+      let pt = stockPrice + stop * 0.5
       let pt2 = stockPrice + stop
-      let pt3 = stockPrice + stop*2
+      let pt3 = stockPrice + stop * 2
       let sp = stockPrice - stop
       setTargetPrice(pt.toFixed(2))
       setTargetPrice2(pt2.toFixed(2))
@@ -57,11 +59,11 @@ const Form = props => {
 
   const setStorage = () => {
     const input = {
-      ticker: ticker, 
-      stockPrice: stockPrice, 
-      shares: answer, 
-      tp: targetPrice, 
-      sp: stopPrice, 
+      ticker: ticker,
+      stockPrice: stockPrice,
+      shares: answer,
+      tp: targetPrice,
+      sp: stopPrice,
       stop: stop,
       targets: [targetPrice, targetPrice2, targetPrice3],
       setup: props.setUp,
@@ -78,108 +80,145 @@ const Form = props => {
   }
 
   const onChangeHandler = (e) => {
-    let value = e.target.value*props.userAttrs.risk
+    let value = e.target.value * props.userAttrs.risk
     setRisk(value)
-    let buyPower = e.target.value*4
+    let buyPower = e.target.value * 4
     setBuyingPower(buyPower)
   }
 
   useEffect(() => {
-    if (good === true ) {
+    if (good === true) {
       setStorage()
     }
   }, [good])
 
+  const panes = [
+    {
+      menuItem: 'Main', render: () => (
+        <Tab.Pane>
+          <>
+            <h2 id="title">Trading Position Calculator </h2>
+            <div className="ui form">
+              <form id="main-form" onSubmit={submit}>
+                <div className="fields">
+                  <div className="field">
+                    <label>Equity</label>
+                    <input
+                      required
+                      type="text"
+                      placeholder="$"
+                      name="equity"
+                      id="equity"
+                      onChange={onChangeHandler}
+                    />
+                  </div>
+                  <div className="field">
+                    <label>$Ticker</label>
+                    <input
+                      required
+                      type="text"
+                      name="ticker"
+                      id="ticker"
+                    />
+                  </div>
+                  <div className="field">
+                    <label>Upper Line</label>
+                    <input
+                      required
+                      type="text"
+                      placeholder="$"
+                      name="price"
+                      id="price"
+                    />
+                  </div>
+                  <div className="field">
+                    <label id="risk">Stop Price</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="$"
+                      name="stop"
+                      id="stop"
+                    />
+                  </div>
+                  <div id="risk-block" className="field">
+                    <label id="risk">Risk $</label>
+                    <p className="risk" >${riskDollar.toFixed(2)}</p>
+                  </div>
+                  <div id="bp-block" className="field">
+                    <label id="bp">Buying Power $</label>
+                    <p className="bp" >${buyPower.toFixed(2)}</p>
+                  </div>
+                </div>
+                <SetUp />
+                <br />
+                <button id='calculate'>Calculate</button>
+              </form>
+            </div>
+            { props.count > 0 && (
+              <>
+                <div className="info">
+                  <div className="details">
+                    <h2 className="details-heading" >Details</h2>
+                    <h3>Entry</h3>
+                    <h3>Position Size</h3>
+                    <h3 id="risk">Stop Price</h3>
+                    <h3 id="risk">Stop</h3>
+                    <h3>${stockPrice}</h3>
+                    <h3><span id="color"> {answer}</span></h3>
+                    <h3 id="risk">${stopPrice}</h3>
+                    <h3 id="risk">${stop}</h3>
+                  </div>
+                  <div className="targets">
+                    <h2 className="result-heading" >Targets</h2>
+                    <h3>0.5R Target (1/2)</h3>
+                    <h3>1R Target (1/4)</h3>
+                    <h3>2R Target (1/4)</h3>
+                    <h3 id="green">${targetPrice} <span id="targets">{Math.floor(answer / 2)} shrs</span></h3>
+                    <h3 id="green">${targetPrice2} <span id="targets">{Math.floor(answer / 4)} shrs</span></h3>
+                    <h3 id="green">${targetPrice3} <span id="targets">{Math.floor(answer / 4)} shrs</span></h3>
+                  </div>
+                </div>
+                <Plays />
+              </>
+            )}
+            <ProfitChart />
+          </>
+        </Tab.Pane>
+      )
+    },
+    {
+      menuItem: 'Strategies', render: () => (
+        <Tab.Pane>
+          <>
+            <Setups />
+          </>
+        </Tab.Pane>
+      )
+    },
+    {
+      menuItem: 'Historic Gap Stats', render: () => (
+        <Tab.Pane>
+          <>
+            <GapStats />
+          </>
+        </Tab.Pane>
+      )
+    }
+  ]
+
   return (
     <>
       <Pannel />
-      <h2 id="title">Trading Position Calculator </h2>
-      <div className="ui form">
-        <form id="main-form" onSubmit={submit}>
-          <div className="fields">
-            <div className="field">
-              <label>Equity</label>
-              <input
-                required
-                type="text"
-                placeholder="$"
-                name="equity"
-                id="equity"
-                onChange={onChangeHandler}
-              />
-            </div>
-            <div className="field">
-              <label>$Ticker</label>
-              <input
-                required
-                type="text"
-                name="ticker"
-                id="ticker"
-              />
-            </div>
-            <div className="field">
-              <label>Upper Line</label>
-              <input
-                required
-                type="text"
-                placeholder="$"
-                name="price"
-                id="price"
-              />
-            </div>
-            <div className="field">
-              <label id="risk">Stop Price</label>
-              <input
-                type="text"
-                required
-                placeholder="$"
-                name="stop"
-                id="stop"
-              />
-            </div>
-            <div id="risk-block" className="field">
-              <label id="risk">Risk $</label>
-              <p className="risk" >${riskDollar.toFixed(2)}</p>
-            </div>
-            <div id="bp-block" className="field">
-              <label id="bp">Buying Power $</label>
-              <p className="bp" >${buyPower.toFixed(2)}</p>
-            </div>
-          </div>
-          <SetUp />
-          <br/>
-          <button id='calculate'>Calculate</button>
-        </form>
+      <div>
+        <img className="sign-up-img" src="/favicon.png" alt=""/>
+        <h1>
+          TradeLogs 
+        </h1>
       </div>
-      { props.count > 0 && (
-      <>
-        <div className="info">
-          <div className="details">
-            <h2 className="details-heading" >Details</h2>
-            <h3>Entry</h3>    
-            <h3>Position Size</h3>
-            <h3 id="risk">Stop Price</h3>
-            <h3 id="risk">Stop</h3>
-            <h3>${stockPrice}</h3> 
-            <h3><span id="color"> {answer}</span></h3>
-            <h3 id="risk">${stopPrice}</h3>
-            <h3 id="risk">${stop}</h3>
-          </div>
-          <div className="targets">
-            <h2 className="result-heading" >Targets</h2>
-            <h3>0.5R Target (1/2)</h3>
-            <h3>1R Target (1/4)</h3>
-            <h3>2R Target (1/4)</h3>
-            <h3 id="green">${targetPrice} <span id="targets">{Math.floor(answer/2)} shrs</span></h3>
-            <h3 id="green">${targetPrice2} <span id="targets">{Math.floor(answer/4)} shrs</span></h3>
-            <h3 id="green">${targetPrice3} <span id="targets">{Math.floor(answer/4)} shrs</span></h3>
-          </div>
-        </div>
-        <Plays />
-      </>
-      )}
-      <ProfitChart />
-      <GapStats />
+      <div>
+        <Tab panes={panes} />
+      </div>
     </>
   );
 };
