@@ -25,5 +25,6 @@ describe("User can log in", () => {
       cy.get("#password").type("password");
       cy.get("#submit").click();
     });
+    cy.contains("Trading Position Calculator")
   });
 });
