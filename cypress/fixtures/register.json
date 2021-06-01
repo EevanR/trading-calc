@@ -1,0 +1,14 @@
+{
+  "status": "success",
+  "data": {
+    "id": 113,
+    "provider": "email",
+    "uid": "newtrader@mail.com",
+    "allow_password_change": false,
+    "nickname": "NewTrader",
+    "email": "newtrader@mail.com",
+    "created_at": "2021-06-01T12:38:05.492Z",
+    "updated_at": "2021-06-01T12:38:05.544Z",
+    "risk": 0.01
+  }
+}

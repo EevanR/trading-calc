@@ -1,0 +1,18 @@
+{
+  "status": "error",
+  "data": {
+    "id": null,
+    "provider": "email",
+    "uid": "",
+    "allow_password_change": false,
+    "nickname": null,
+    "email": "newtrader@mail",
+    "created_at": null,
+    "updated_at": null,
+    "risk": 0.01
+  },
+  "errors": {
+    "email":["is not an email"], 
+    "full_messages": ["Email is not an email"]
+  }
+}
