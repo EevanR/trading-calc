@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { saveSetup } from "../modules/setup";
+import { saveStrategy } from "../modules/setup";
 import { connect } from "react-redux";
 import ItemsCarousel from 'react-items-carousel'
 import { Button } from "semantic-ui-react";;
@@ -22,7 +22,7 @@ const Setups = (props) => {
     let reqEight = e.target.req8.value
     let reqNine = e.target.req9.value
     let reqTen = e.target.req10.value
-    let response = await saveSetup(
+    let response = await saveStrategy(
       name, reqOne, reqTwo, reqThree, reqFour, reqFive, reqSix, reqSeven, reqEight, reqNine, reqTen
     )
     if (response.status === 200) {
@@ -60,13 +60,13 @@ const Setups = (props) => {
 
   return (
     <>
-      <h2>Setups</h2>
+      <h2>Strategies</h2>
       <div>
-        <h4>Add New Setup</h4>
+        <h4>Add New Strategy</h4>
         <form id="main-form" onSubmit={submit}>
           <div className="fields">
             <div className="field">
-              <label>Setup Name</label>
+              <label>Strategy Name</label>
               <input
                 type="text"
                 name="name"
@@ -154,10 +154,10 @@ const Setups = (props) => {
               />
             </div>
           </div>
-          <button id='create-Setup'>Create Setup</button>
+          <button id='create-strategy'>Create Strategy</button>
         </form>
       </div>
-      <h3>{message}</h3>
+      <h3 id='result-message'>{message}</h3>
       <h2>Saved Strategies</h2>
       <div className="carousel" >
         <ItemsCarousel
