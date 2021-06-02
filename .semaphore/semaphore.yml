@@ -14,26 +14,31 @@ blocks:
             - sem-version node 12
             - cache restore
             - npm install
-        - name: Yarn
-          commands:
-            - yarn install
     dependencies: []
   - name: Run tests
     task:
       jobs:
         - name: Cypress User Tests
           commands:
-            - 'yarn run cy:run'
+            - 'npm run cy:run'
         - name: React Scripts Tests
           commands:
-            - yarn run test
+            - npm run test
     dependencies:
-      - 'Block #3'
-  - name: 'Block #3'
+      - 'Cypress '
+  - name: 'Cypress '
+    dependencies:
+      - Yarn
+    task:
+      jobs:
+        - name: Install
+          commands:
+            - npm install cypress --save-dev
+  - name: Yarn
     dependencies:
       - Setup
     task:
       jobs:
-        - name: 'Job #1'
+        - name: Install
           commands:
-            - node_modules/.bin/cypress install
+            - yarn install
