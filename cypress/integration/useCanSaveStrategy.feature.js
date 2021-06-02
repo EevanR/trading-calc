@@ -24,4 +24,19 @@ describe("User can save strategy", () => {
 
     cy.get("#result-message").should("contain", "Strategy 1 added Successfully")
   })
+
+  it("can unsuccessfully save strategy", () => {
+    cy.route({
+      method: "POST",
+      url: "http://localhost:3000/api/v1/setups",
+      response: "fixture:failed_saved_strategy.json",
+      status: 422
+    })
+    cy.get("#main-form").within(() => {
+      cy.get("#name").clear();
+      cy.get("#create-strategy").click();
+    })
+
+    cy.get("#result-message").should("contain", "Name can't be blank")
+  })
 })

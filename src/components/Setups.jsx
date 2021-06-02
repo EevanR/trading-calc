@@ -28,7 +28,7 @@ const Setups = (props) => {
     if (response.status === 200) {
       setMessage(`${name} added Successfully`)
     } else {
-      setMessage("Unexpected error, Setup not added")
+      setMessage(response.data.errors[0])
     }
   }
 

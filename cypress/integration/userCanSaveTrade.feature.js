@@ -11,6 +11,12 @@ describe("User can save trade", () => {
   });
 
   it("successfully submit new entry", () => {
+    cy.route({
+      method: "GET",
+      url: "http://localhost:3000/api/v1/setups",
+      response: "fixture:index_strategies.json",
+      status: 200
+    });
     cy.login();
 
     cy.get("#main-form").within(() => {
@@ -24,10 +30,9 @@ describe("User can save trade", () => {
     cy.get('.ui > .visible > :nth-child(2)').click()
 
     cy.get(".setups-inner").within(() => {
-      cy.get(':nth-child(2) > :nth-child(2) > label').click()
-      cy.get(':nth-child(2) > :nth-child(3) > label').click()
-      cy.get(':nth-child(2) > :nth-child(4) > label').click()
-      cy.get(':nth-child(2) > :nth-child(5) > label').click()
+      cy.contains("Pre req one").click()
+      cy.contains("Pre req two").click()
+      cy.contains("Pre req 3").click()
     })
     
     cy.get("#calculate").click()
