@@ -12,12 +12,10 @@ blocks:
           commands:
             - nvm install 12
             - npm install -g npm
-            - yarn install
   - name: Unit Tests
     task:
       jobs:
         - name: Run tests
           commands:
             - npm install cypress --save-dev
-            - 'yarn run cy:run'
-            - yarn run test
+            - npm run test
