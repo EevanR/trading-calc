@@ -1,0 +1,25 @@
+version: v1.0
+name: Trading Calc
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: E2E tests
+    task:
+      jobs:
+        - name: npm ci
+          commands:
+            - nvm install 12
+            - npm install -g npm
+            - checkout
+            - cache restore npm-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json)-$(checksum basic/semaphore.yml)
+            - cache restore cypress-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json)-$(checksum basic/semaphore.yml)
+            - npm ci
+  - name: Unit Tests
+    task:
+      jobs:
+        - name: Run tests
+          commands:
+            - 'npm run cy:run'
+            - npm run test
