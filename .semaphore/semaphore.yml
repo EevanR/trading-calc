@@ -10,16 +10,12 @@ blocks:
       jobs:
         - name: npm ci
           commands:
-            - nvm install 12
-            - npm install -g npm
-            - checkout
-            - cache restore npm-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json)-$(checksum basic/semaphore.yml)
-            - cache restore cypress-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json)-$(checksum basic/semaphore.yml)
-            - npm ci
+            - yarn install
   - name: Unit Tests
     task:
       jobs:
         - name: Run tests
           commands:
-            - 'npm run cy:run'
-            - npm run test
+            - ./node_modules/.bin/cypress install
+            - 'yarn run cy:run'
+            - yarn run test
