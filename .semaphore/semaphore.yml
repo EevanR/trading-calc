@@ -36,4 +36,4 @@ blocks:
       jobs:
         - name: 'Job #1'
           commands:
-            - ./node_modules/.bin/cypress install
+            - node_modules/.bin/cypress install
