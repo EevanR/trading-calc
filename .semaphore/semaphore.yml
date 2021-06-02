@@ -20,10 +20,10 @@ blocks:
       jobs:
         - name: Cypress User Tests
           commands:
-            - 'npm run cy:run'
+            - 'yarn run cy:run'
         - name: React Scripts Tests
           commands:
-            - npm run test
+            - yarn run test
     dependencies:
       - 'Cypress '
   - name: 'Cypress '
