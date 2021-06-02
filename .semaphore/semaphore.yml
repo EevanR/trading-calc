@@ -8,19 +8,16 @@ blocks:
   - name: Setup
     task:
       jobs:
+        - name: Node.js
+          commands:
+            - checkout
+            - sem-version node 12
+            - cache restore
+            - npm install
         - name: Yarn
           commands:
             - yarn install
-    dependencies:
-      - 'Block #4'
-  - name: Cypress
-    task:
-      jobs:
-        - name: Install
-          commands:
-            - ./node_modules/.bin/cypress install
-    dependencies:
-      - Setup
+    dependencies: []
   - name: Run tests
     task:
       jobs:
@@ -31,14 +28,4 @@ blocks:
           commands:
             - yarn run test
     dependencies:
-      - Cypress
-  - name: 'Block #4'
-    dependencies: []
-    task:
-      jobs:
-        - name: Install Node
-          commands:
-            - checkout
-            - sem-version node 12
-            - cache restore
-            - npm install
+      - Setup
