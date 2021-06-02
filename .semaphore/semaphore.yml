@@ -5,15 +5,6 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 blocks:
-  - name: Node.js
-    task:
-      jobs:
-        - name: Test
-          commands:
-            - checkout
-            - sem-version node 12
-            - cache restore
-            - npm install
   - name: Setup
     task:
       jobs:
@@ -21,7 +12,7 @@ blocks:
           commands:
             - yarn install
     dependencies:
-      - Node.js
+      - 'Block #4'
   - name: Cypress
     task:
       jobs:
@@ -41,3 +32,13 @@ blocks:
             - yarn run test
     dependencies:
       - Cypress
+  - name: 'Block #4'
+    dependencies: []
+    task:
+      jobs:
+        - name: Install Node
+          commands:
+            - checkout
+            - sem-version node 12
+            - cache restore
+            - npm install
