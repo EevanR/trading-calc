@@ -5,18 +5,31 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 blocks:
+  - name: Node.js
+    task:
+      jobs:
+        - name: Test
+          commands:
+            - checkout
+            - sem-version node 12
+            - cache restore
+            - npm install
   - name: Setup
     task:
       jobs:
         - name: Yarn
           commands:
             - yarn install
+    dependencies:
+      - Node.js
   - name: Cypress
     task:
       jobs:
         - name: Install
           commands:
-            - yarn run cypress install
+            - ./node_modules/.bin/cypress install
+    dependencies:
+      - Setup
   - name: Run tests
     task:
       jobs:
@@ -26,3 +39,5 @@ blocks:
         - name: React Scripts Tests
           commands:
             - yarn run test
+    dependencies:
+      - Cypress
