@@ -1,0 +1,28 @@
+version: v1.0
+name: Trading Calc Client
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: Setup
+    task:
+      jobs:
+        - name: Yarn
+          commands:
+            - yarn install
+  - name: Cypress
+    task:
+      jobs:
+        - name: Install
+          commands:
+            - yarn add cypress --dev
+  - name: Run tests
+    task:
+      jobs:
+        - name: Cypress User Tests
+          commands:
+            - 'yarn cy:run'
+        - name: React Scripts Tests
+          commands:
+            - yarn test
