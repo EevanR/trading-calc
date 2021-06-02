@@ -16,7 +16,7 @@ blocks:
       jobs:
         - name: Install
           commands:
-            - ./node_modules/.bin/cypress install
+            - yarn add cypress --dev
   - name: Run tests
     task:
       jobs:
