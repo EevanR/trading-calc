@@ -16,13 +16,13 @@ blocks:
       jobs:
         - name: Install
           commands:
-            - yarn add cypress --dev
+            - yarn run cypress install
   - name: Run tests
     task:
       jobs:
         - name: Cypress User Tests
           commands:
-            - 'yarn cy:run'
+            - 'yarn run cy:run'
         - name: React Scripts Tests
           commands:
-            - yarn test
+            - yarn run test
