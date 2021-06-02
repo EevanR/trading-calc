@@ -12,7 +12,6 @@ blocks:
           commands:
             - nvm install 12
             - npm install -g npm
-            - npm init
             - yarn install
   - name: Unit Tests
     task:
