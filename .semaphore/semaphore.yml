@@ -16,7 +16,6 @@ blocks:
             - cache restore npm-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json)-$(checksum basic/semaphore.yml)
             - cache restore cypress-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json)-$(checksum basic/semaphore.yml)
             - npm ci
-            - 'npm run cy:verify'
             - cache store npm-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json)-$(checksum basic/semaphore.yml) ~/.npm
             - cache store cypress-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json)-$(checksum basic/semaphore.yml) ~/.cache/Cypress
   - name: Cypress
