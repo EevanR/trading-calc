@@ -78,6 +78,7 @@ const GapStats = () => {
     }
 
     let response = await getIntradayData(t);
+    debugger
     if (response.data['Time Series (15min)']) {
       let data = response.data['Time Series (15min)']
       let newArray = Object.entries(data)
@@ -232,7 +233,7 @@ const GapStats = () => {
                     onClick={() => showStats(entry[0])}
                     id="gapStatList"
                     >
-                      {entry[0] } {gapSearchShow !== null && gapSearchShow[0] === entry[0] && (<h4 style={{float: "right"}}>=></h4>)}
+                      {entry[0] } {gapSearchShow !== null && gapSearchShow[0] === entry[0] && (<h4 style={{float: "right"}}></h4>)}
                     </h4>
                   </>
                 )
