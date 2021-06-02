@@ -10,8 +10,7 @@ blocks:
       jobs:
         - name: npm ci
           commands:
-            - nvm install 12
-            - npm install -g npm
+            - nvm install 10.15.0
   - name: Unit Tests
     task:
       jobs:
