@@ -1,0 +1,17 @@
+{
+  "id": 121,
+  "name": "Strategy 1",
+  "reqOne": "Stock in play",
+  "reqTwo": "Strong relative volume",
+  "reqThree": null,
+  "reqFour": null,
+  "reqFive": null,
+  "reqSix": null,
+  "reqSeven": null,
+  "reqEight": null,
+  "reqNine": null,
+  "reqTen": null,
+  "created_at": "2021-06-01T21:13:35.517Z",
+  "updated_at": "2021-06-01T21:13:35.517Z",
+  "user_id": 114
+}

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const saveSetup = async (name, reqOne, reqTwo, reqThree, reqFour, reqFive, reqSix, reqSeven, reqEight, reqNine, reqTen) => {
+const saveStrategy = async (name, reqOne, reqTwo, reqThree, reqFour, reqFive, reqSix, reqSeven, reqEight, reqNine, reqTen) => {
   let headers = JSON.parse(sessionStorage.getItem("credentials"));
   try {
     const response = await axios.post("/setups",
@@ -41,4 +41,4 @@ const getSetups = async () => {
   }
 }
 
-export { saveSetup, getSetups  }
+export { saveStrategy, getSetups  }
