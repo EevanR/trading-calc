@@ -1,20 +1,35 @@
 version: v1.0
-name: Trading Calc
+name: TradeLogs
 agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
 blocks:
-  - name: E2E tests
+  - name: Install dependencies
     task:
+      prologue:
+        commands:
+          - checkout
+          - nvm use
+          - node --version
+          - npm --version
       jobs:
-        - name: npm ci
+        - name: client npm install and cache
           commands:
-            - nvm install 10.15.0
-  - name: Unit Tests
+            - cd src/client
+            - npm install
+  - name: Tests
     task:
+      prologue:
+        commands:
+          - checkout
+          - nvm use
+          - node --version
+          - npm --version
       jobs:
-        - name: Run tests
+        - name: Client Tests
           commands:
-            - npm install cypress --save-dev
-            - npm run test
+            - cd src/client
+            - npm install
+            - 'npm cy:run'
+            - npm test
