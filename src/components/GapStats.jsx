@@ -21,27 +21,30 @@ const GapStats = () => {
     if (response2.data["Time Series (Daily)"]) {
       let data = response2.data["Time Series (Daily)"]
       let newArray = Object.entries(data)
-      for (let i=newArray.length - 1; i >= 0; i--) {
+      for (let i=0; i >= 0; i--) {
         if (newArray[i+1] !== undefined) {
-          if (newArray[i][1]["1. open"] > newArray[i+1][1]["4. close"]) {
-            let gap = newArray[i][1]["1. open"] - newArray[i+1][1]["4. close"]
-            let gapPercent = (gap/newArray[i+1][1]["4. close"])*100
-            let closeBelowOpen = parseFloat(newArray[i][1]["1. open"]) > parseFloat(newArray[i][1]["4. close"]) ? "true" : "false"
-            let closeAboveOpenPercent = ((newArray[i][1]["4. close"] - newArray[i][1]["1. open"])/newArray[i][1]["1. open"])*100
-            let volume = newArray[i][1]["6. volume"]
+          let open = Number(newArray[i][1]["1. open"])
+          let close = Number(newArray[i+1][1]["4. close"])
+          let currentDayClose = newArray[i][1]["4. close"]
+          if (open > close) {
+            let gap = open - close
+            let gapPercent = (gap/close)*100
+            let closeBelowOpen = open > currentDayClose ? "true" : "false"
+            let closeAboveOpenPercent = ((currentDayClose - open)/open)*100
+            let volume = Number(newArray[i][1]["6. volume"])
             let gapDay = [
               newArray[i][0],
               {
                 gap: gap,
                 gapPercent: gapPercent,
-                highFromOpen: (newArray[i][1]["2. high"]/newArray[i][1]["1. open"])*100,
-                range: newArray[i][1]["2. high"] - newArray[i][1]["3. low"],
+                highFromOpen: (Number(newArray[i][1]["2. high"])/Number(newArray[i][1]["1. open"]))*100,
+                range: Number(newArray[i][1]["2. high"]) - Number(newArray[i][1]["3. low"]),
                 closeBelowOpen: closeBelowOpen,
                 closeAboveOpenPercent: closeAboveOpenPercent,
                 volume: volume
               }
             ]
-            if (gapPercent > 19 && volume > 1000000) gaps.push(gapDay)
+            if (gapPercent > 19 && volume > 900000) gaps.push(gapDay)
           }
         }
       }
@@ -78,7 +81,6 @@ const GapStats = () => {
     }
 
     let response = await getIntradayData(t);
-    debugger
     if (response.data['Time Series (15min)']) {
       let data = response.data['Time Series (15min)']
       let newArray = Object.entries(data)
