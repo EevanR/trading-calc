@@ -27,31 +27,29 @@ const GapStats = () => {
       alert("Could not find ticker")
     }
     for (let i=newArray.length-1; i >= 0; i--) {
-      if (newArray[i+1] !== undefined) {
-        let open = Number(newArray[i][1]["1. open"])
+      let open = Number(newArray[i][1]["1. open"])
+      let currentDayClose = newArray[i][1]["4. close"]
+      let highOfDay = Number(newArray[i][1]["2. high"])
+      let volume = Number(newArray[i][1]["6. volume"])
+      if (newArray[i+1] !== undefined && open > Number(newArray[i+1][1]["4. close"])) {
         let previousDayClose = Number(newArray[i+1][1]["4. close"])
-        let currentDayClose = newArray[i][1]["4. close"]
-        let highOfDay = Number(newArray[i][1]["2. high"])
-        let volume = Number(newArray[i][1]["6. volume"])
-        if (open > previousDayClose) {
-          let gap = open - previousDayClose
-          let gapPercent = (gap/previousDayClose)*100
-          let closeBelowOpen = open > currentDayClose ? "true" : "false"
-          let closeAboveOpenPercent = ((currentDayClose - open)/open)*100
-          let gapDay = [
-            newArray[i][0],
-            {
-              gap: gap,
-              gapPercent: gapPercent,
-              highFromOpen: (highOfDay/open)*100,
-              range: highOfDay - Number(newArray[i][1]["3. low"]),
-              closeBelowOpen: closeBelowOpen,
-              closeAboveOpenPercent: closeAboveOpenPercent,
-              volume: volume
-            }
-          ]
-          if (gapPercent > 19 && volume > 900000) gaps.push(gapDay)
-        }
+        let gap = open - previousDayClose
+        let gapPercent = (gap/previousDayClose)*100
+        let closeBelowOpen = open > currentDayClose ? "true" : "false"
+        let closeAboveOpenPercent = ((currentDayClose - open)/open)*100
+        let gapDay = [
+          newArray[i][0],
+          {
+            gap: gap,
+            gapPercent: gapPercent,
+            highFromOpen: (highOfDay/open)*100,
+            range: highOfDay - Number(newArray[i][1]["3. low"]),
+            closeBelowOpen: closeBelowOpen,
+            closeAboveOpenPercent: closeAboveOpenPercent,
+            volume: volume
+          }
+        ]
+        if (gapPercent > 19 && volume > 900000) gaps.push(gapDay)
       }
     }
     let gapCount = gaps.length
