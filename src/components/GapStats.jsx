@@ -18,67 +18,70 @@ const GapStats = () => {
     let gaps = []
     let t = e.target.testTicker.value
     let response2 = await getGapData(t);
+    let data;
+    let newArray;
     if (response2.data["Time Series (Daily)"]) {
-      let data = response2.data["Time Series (Daily)"]
-      let newArray = Object.entries(data)
-      for (let i=0; i >= 0; i--) {
-        if (newArray[i+1] !== undefined) {
-          let open = Number(newArray[i][1]["1. open"])
-          let close = Number(newArray[i+1][1]["4. close"])
-          let currentDayClose = newArray[i][1]["4. close"]
-          if (open > close) {
-            let gap = open - close
-            let gapPercent = (gap/close)*100
-            let closeBelowOpen = open > currentDayClose ? "true" : "false"
-            let closeAboveOpenPercent = ((currentDayClose - open)/open)*100
-            let volume = Number(newArray[i][1]["6. volume"])
-            let gapDay = [
-              newArray[i][0],
-              {
-                gap: gap,
-                gapPercent: gapPercent,
-                highFromOpen: (Number(newArray[i][1]["2. high"])/Number(newArray[i][1]["1. open"]))*100,
-                range: Number(newArray[i][1]["2. high"]) - Number(newArray[i][1]["3. low"]),
-                closeBelowOpen: closeBelowOpen,
-                closeAboveOpenPercent: closeAboveOpenPercent,
-                volume: volume
-              }
-            ]
-            if (gapPercent > 19 && volume > 900000) gaps.push(gapDay)
-          }
-        }
-      }
-      let gapCount = gaps.length
-      let gapPercents = 0
-      let spikes = 0
-      let closesAboveOpenCount = 0
-      let closesBelowOpenCount = 0
-      let closesAboveOpenGain = 0
-      let closesBelowOpenGain = 0
-      let ranges = 0
-      gaps.forEach(day => {
-        gapPercents += day[1]["gapPercent"]
-        spikes += day[1]["highFromOpen"]
-        if (day[1]["closeBelowOpen"] === "false") {
-          closesAboveOpenCount++
-          closesAboveOpenGain += day[1]["closeAboveOpenPercent"]
-        } else {
-          closesBelowOpenCount++
-          closesBelowOpenGain += day[1]["closeAboveOpenPercent"]
-        }
-        ranges += day[1]["range"]
-      })
-      let avgGapPercent = (gapPercents/gapCount).toFixed(2)
-      let avgSpike = ((spikes/gapCount)-100).toFixed(2)
-      let closeAboveOpen = (closesAboveOpenGain/closesAboveOpenCount).toFixed(2)
-      let closeBelowOpen = (closesBelowOpenGain/closesBelowOpenCount).toFixed(2)
-      let avgRange = (ranges/gapCount).toFixed(2)
-      let stats = [gapCount, avgGapPercent, avgSpike, closesAboveOpenCount, closeAboveOpen, closeBelowOpen, avgRange, (closesAboveOpenCount/gapCount)]
-      setGapStats(stats)
-      setGapSearches([...gapSearches, [t, stats]])
+      data = response2.data["Time Series (Daily)"]
+      newArray = Object.entries(data)
     } else {
       alert("Could not find ticker")
     }
+    for (let i=newArray.length-1; i >= 0; i--) {
+      if (newArray[i+1] !== undefined) {
+        let open = Number(newArray[i][1]["1. open"])
+        let previousDayClose = Number(newArray[i+1][1]["4. close"])
+        let currentDayClose = newArray[i][1]["4. close"]
+        let highOfDay = Number(newArray[i][1]["2. high"])
+        let volume = Number(newArray[i][1]["6. volume"])
+        if (open > previousDayClose) {
+          let gap = open - previousDayClose
+          let gapPercent = (gap/previousDayClose)*100
+          let closeBelowOpen = open > currentDayClose ? "true" : "false"
+          let closeAboveOpenPercent = ((currentDayClose - open)/open)*100
+          let gapDay = [
+            newArray[i][0],
+            {
+              gap: gap,
+              gapPercent: gapPercent,
+              highFromOpen: (highOfDay/open)*100,
+              range: highOfDay - Number(newArray[i][1]["3. low"]),
+              closeBelowOpen: closeBelowOpen,
+              closeAboveOpenPercent: closeAboveOpenPercent,
+              volume: volume
+            }
+          ]
+          if (gapPercent > 19 && volume > 900000) gaps.push(gapDay)
+        }
+      }
+    }
+    let gapCount = gaps.length
+    let gapPercents = 0
+    let spikes = 0
+    let closesAboveOpenCount = 0
+    let closesBelowOpenCount = 0
+    let closesAboveOpenGain = 0
+    let closesBelowOpenGain = 0
+    let ranges = 0
+    gaps.forEach(day => {
+      gapPercents += day[1]["gapPercent"]
+      spikes += day[1]["highFromOpen"]
+      if (day[1]["closeBelowOpen"] === "false") {
+        closesAboveOpenCount++
+        closesAboveOpenGain += day[1]["closeAboveOpenPercent"]
+      } else {
+        closesBelowOpenCount++
+        closesBelowOpenGain += day[1]["closeAboveOpenPercent"]
+      }
+      ranges += day[1]["range"]
+    })
+    let avgGapPercent = (gapPercents/gapCount).toFixed(2)
+    let avgSpike = ((spikes/gapCount)-100).toFixed(2)
+    let closeAboveOpen = (closesAboveOpenGain/closesAboveOpenCount).toFixed(2)
+    let closeBelowOpen = (closesBelowOpenGain/closesBelowOpenCount).toFixed(2)
+    let avgRange = (ranges/gapCount).toFixed(2)
+    let stats = [gapCount, avgGapPercent, avgSpike, closesAboveOpenCount, closeAboveOpen, closeBelowOpen, avgRange, (closesAboveOpenCount/gapCount)]
+    setGapStats(stats)
+    setGapSearches([...gapSearches, [t, stats]])
 
     let response = await getIntradayData(t);
     if (response.data['Time Series (15min)']) {
