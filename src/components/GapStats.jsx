@@ -77,52 +77,65 @@ const GapStats = () => {
     let closeAboveOpen = (closesAboveOpenGain/closesAboveOpenCount).toFixed(2)
     let closeBelowOpen = (closesBelowOpenGain/closesBelowOpenCount).toFixed(2)
     let avgRange = (ranges/gapCount).toFixed(2)
-    let stats = [gapCount, avgGapPercent, avgSpike, closesAboveOpenCount, closeAboveOpen, closeBelowOpen, avgRange, (closesAboveOpenCount/gapCount)]
+    let stats = [
+      gapCount, 
+      avgGapPercent, 
+      avgSpike, 
+      closesAboveOpenCount, 
+      closeAboveOpen, 
+      closeBelowOpen, 
+      avgRange, 
+      (closesAboveOpenCount/gapCount)
+    ]
     setGapStats(stats)
     setGapSearches([...gapSearches, [t, stats]])
 
     let response = await getIntradayData(t);
+    let intraDayData;
+    let datesArray = []
+    let array = []
     if (response.data['Time Series (15min)']) {
-      let data = response.data['Time Series (15min)']
-      let newArray = Object.entries(data)
-      let array = []
-      for (let i=0; i<newArray.length; i++) {
-        let date = newArray[i][0].substring(0, newArray[i][0].indexOf(" "))
-        let recent = gaps.length - 1
-        setChartDate(gaps[recent][0])
-        if (date === gaps[recent][0]) {
-          array.push(newArray[i])
-        }
-      }
-      let prices = []
-      let times = []
-      for (let i=array.length - 1; i >= 0; i--) {
-        prices.push(array[i][1]["4. close"])
-        times.push(array[i][0].substring(11))
-      }
-      setIntraPrices(prices)
-      setIntraTimes(times)
+      intraDayData = response.data['Time Series (15min)']
+      datesArray = Object.entries(intraDayData)
     }
+    for (let i=0; i<datesArray.length; i++) {
+      let date = datesArray[i][0].substring(0, datesArray[i][0].indexOf(" "))
+      let recent = gaps.length - 1
+      setChartDate(gaps[recent][0])
+      if (date === gaps[recent][0]) {
+        array.push(datesArray[i])
+      }
+    }
+    let prices = []
+    let times = []
+    for (let i=array.length - 1; i >= 0; i--) {
+      prices.push(array[i][1]["4. close"])
+      times.push(array[i][0].substring(11))
+    }
+    setIntraPrices(prices)
+    setIntraTimes(times)
 
     let response3 = await getVwapData(t);
+    let vwapData;
+    let vwapDates;
+    let vwapChartPoints = []
     if (response3.data['Technical Analysis: VWAP']) {
-      let data = response3.data['Technical Analysis: VWAP']
-      let newArray = Object.entries(data)
-      let array = []
-      for (let i=0; i<newArray.length; i++) {
-        let date = newArray[i][0].substring(0, newArray[i][0].indexOf(" "))
-        let recent = gaps.length - 1
-        setChartDate(gaps[recent][0])
-        if (date === gaps[recent][0]) {
-          array.push(newArray[i])
-        }
-      }
-      let prices = []
-      for (let i=array.length - 1; i >= 0; i--) {
-        prices.push(array[i][1]["VWAP"])
-      }
-      setVwap(prices)
+      vwapData = response3.data['Technical Analysis: VWAP']
+      vwapDates = Object.entries(vwapData)
     }
+    for (let i=0; i<vwapDates.length; i++) {
+      let date = vwapDates[i][0].substring(0, vwapDates[i][0].indexOf(" "))
+      let recent = gaps.length - 1
+      setChartDate(gaps[recent][0])
+      if (date === gaps[recent][0]) {
+        vwapChartPoints.push(vwapDates[i])
+      }
+    }
+    let vwapPrices = []
+    for (let i=vwapChartPoints.length - 1; i >= 0; i--) {
+      vwapPrices.push(vwapChartPoints[i][1]["VWAP"])
+    }
+    setVwap(vwapPrices)
   }
 
   const lineData = {
