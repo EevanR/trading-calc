@@ -35,5 +35,7 @@ describe("User can get gap stats", () => {
     cy.get("#loadChart").click();
 
     cy.get("#gap-stats").should("contain", "42.54%")
+    cy.get("#gap-stats").should("contain", "Gap up")
+    cy.get("#gap-stats").should("contain", "Yes")
   })
 });

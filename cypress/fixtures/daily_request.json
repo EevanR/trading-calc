@@ -7,8 +7,18 @@
     "5. Time Zone": "US/Eastern"
   },
   "Time Series (Daily)": {
+    "2021-06-03": {
+        "1. open": "18.37",
+        "2. high": "18.96",
+        "3. low": "13.78",
+        "4. close": "14.77",
+        "5. adjusted close": "14.77",
+        "6. volume": "1260831",
+        "7. dividend amount": "0.0000",
+        "8. split coefficient": "1.0"
+    },
     "2021-06-02": {
-        "1. open": "13.3417",
+        "1. open": "13.34",
         "2. high": "14.16",
         "3. low": "12.78",
         "4. close": "13.77",

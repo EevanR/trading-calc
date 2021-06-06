@@ -71,6 +71,8 @@ const GapStats = () => {
         closesBelowOpenGain += day[1]["closeAboveOpenPercent"]
       }
       ranges += day[1]["range"]
+      let gapDay2 = Date.parse(gaps[gaps.length - 1][0]) + 86400000
+      debugger
     })
     let avgGapPercent = (gapPercents/gapCount).toFixed(2)
     let avgSpike = ((spikes/gapCount)-100).toFixed(2)
