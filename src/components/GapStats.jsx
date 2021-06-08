@@ -69,6 +69,10 @@ const GapStats = () => {
     let closesAboveOpenGain = 0
     let closesBelowOpenGain = 0
     let ranges = 0
+    let day2UpCount = 0
+    let day2DownCount = 0
+    let day2AvgUp = 0
+    let day2AvgDown = 0
     gaps.forEach(day => {
       gapPercents += day[1]["gapPercent"]
       spikes += day[1]["highFromOpen"]
@@ -80,19 +84,6 @@ const GapStats = () => {
         closesBelowOpenGain += day[1]["closeAboveOpenPercent"]
       }
       ranges += day[1]["range"]
-
-      // let gapDay2 = Date.parse(gaps[gaps.length - 1][0]) + 86400000
-      // const getFormattedDate = (date) => {
-      //   let dateNotFormatted = new Date(date);
-      //   let year = dateNotFormatted.getFullYear()
-      //   let month = ('0' + (dateNotFormatted.getMonth() + 1)).slice(-2)
-      //   let day = ('0' + dateNotFormatted.getDate()).slice(-2)
-      //   return [year, month, day].join('-')
-      // }
-      // let day2 = getFormattedDate(gapDay2)
-      // let day2Values = data[day2]
-
-      debugger
     })
 
     let avgGapPercent = (gapPercents/gapCount).toFixed(2)
