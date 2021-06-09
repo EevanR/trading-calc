@@ -60,7 +60,6 @@ const GapStats = () => {
         if (gapPercent > 19 && volume > 900000) gaps.push(gapDay)
       }
     }
-    debugger
     let gapCount = gaps.length
     let gapPercents = 0
     let spikes = 0
@@ -76,6 +75,8 @@ const GapStats = () => {
     gaps.forEach(day => {
       gapPercents += day[1]["gapPercent"]
       spikes += day[1]["highFromOpen"]
+      day[1]["day2"] > 0 ? day2AvgUp += day[1]["day2"] : day2AvgDown -= day[1]["day2"]
+      day[1]["day2"] > 0 ? day2UpCount += 1 : day2DownCount -= 1
       if (day[1]["closeBelowOpen"] === "false") {
         closesAboveOpenCount++
         closesAboveOpenGain += day[1]["closeAboveOpenPercent"]
@@ -85,12 +86,14 @@ const GapStats = () => {
       }
       ranges += day[1]["range"]
     })
-
+    
     let avgGapPercent = (gapPercents/gapCount).toFixed(2)
     let avgSpike = ((spikes/gapCount)-100).toFixed(2)
     let closeAboveOpen = (closesAboveOpenGain/closesAboveOpenCount).toFixed(2)
     let closeBelowOpen = (closesBelowOpenGain/closesBelowOpenCount).toFixed(2)
     let avgRange = (ranges/gapCount).toFixed(2)
+    day2AvgUp = (day2AvgUp/day2UpCount).toFixed(2)
+    day2AvgDown = (day2AvgDown/day2AvgDown).toFixed(2)
     let stats = [
       gapCount, 
       avgGapPercent, 
@@ -99,8 +102,13 @@ const GapStats = () => {
       closeAboveOpen, 
       closeBelowOpen, 
       avgRange, 
-      (closesAboveOpenCount/gapCount)
+      (closesAboveOpenCount/gapCount),
+      day2UpCount,
+      day2DownCount,
+      day2AvgUp,
+      day2AvgDown
     ]
+    debugger
     setGapStats(stats)
     setGapSearches([...gapSearches, [t, stats]])
 
@@ -243,6 +251,10 @@ const GapStats = () => {
             <h4>Avg % close Above Open:</h4>
             <h4>Avg % close Below Open:</h4>
             <h4>Avg Gapper Range (Low to High):</h4>
+            <h4>Day 2 Gap up Count:</h4>
+            <h4>Day 2 Gap Down Count:</h4>
+            <h4>Day 2 Avg Gap up:</h4>
+            <h4>Day 2 Avg Gap Down:</h4>
           </div>
           <div>
             <h4> {gapStats[0]}</h4>
@@ -251,7 +263,11 @@ const GapStats = () => {
             <h4 id={gapStats[3] < (gapStats[0]/2) ? "backtest-red" : ""}> {gapStats[3]} / {(gapStats[7]*100).toFixed(2)}%</h4>
             <h4> +{gapStats[4]}%</h4>
             <h4 id="backtest-red"> {gapStats[5]}%</h4>
-            <h4> ${gapStats[6]}</h4>
+            <h4> {gapStats[6]}%</h4>
+            <h4> {gapStats[8]}</h4>
+            <h4> {gapStats[9]}</h4>
+            <h4>{gapStats[10]}%</h4>
+            <h4>{gapStats[11]}%</h4>
           </div>
           <div>
             {gapSearches !== [] && (
