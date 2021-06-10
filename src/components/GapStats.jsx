@@ -108,7 +108,6 @@ const GapStats = () => {
       day2AvgUp,
       day2AvgDown
     ]
-    debugger
     setGapStats(stats)
     setGapSearches([...gapSearches, [t, stats]])
 
