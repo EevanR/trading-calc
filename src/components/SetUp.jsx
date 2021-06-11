@@ -72,7 +72,6 @@ const SetUp = props => {
       <>
         <h2>{props.setUp} <span id="italic"> Pre-reqs</span></h2>
         {chooseSetUp.map(checkbox => {
-          debugger
           return (
             <Checkbox key={checkbox.id}
               onClick={() => onClickHandler(checkbox.id, checkbox.label, checkbox.checked)}

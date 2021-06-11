@@ -16,7 +16,7 @@ describe("User can get gap stats", () => {
     cy.route({
       method: "GET",
       url: "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY**",
-      response: "fixture:intraday_5_minute.json",
+      response: "fixture:intraday_15_minute.json",
       status: 200
     });
     cy.route({
@@ -25,15 +25,16 @@ describe("User can get gap stats", () => {
       response: "fixture:daily_request.json",
       status: 200
     });
-    // cy.route({
-    //   method: "GET",
-    //   url: "https://www.alphavantage.co/query?function=VWAP**",
-    //   response: "fixture:vwap.json",
-    //   status: 200
-    // });
+    cy.route({
+      method: "GET",
+      url: "https://www.alphavantage.co/query?function=VWAP**",
+      response: "fixture:vwap.json",
+      status: 200
+    });
     cy.get("#testTicker").type("AMTX");
     cy.get("#loadChart").click();
 
-    cy.get("#gap-stats").should("contain", "71.80%")
+    cy.get("#gap-stats").should("contain", "42.52%")
+    cy.get("#gap-stats").should("contain", "4.36%")
   })
 });
