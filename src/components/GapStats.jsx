@@ -263,7 +263,7 @@ const GapStats = () => {
             <h4> +{gapStats[4]}%</h4>
             <h4 id="backtest-red"> {gapStats[5]}%</h4>
             <h4> ${gapStats[6]}</h4>
-            <h4> {gapStats[8]}</h4>
+            <h4> {gapStats[8]} / {((gapStats[8]/gapStats[0])*100).toFixed(2)}%</h4>
             <h4> {gapStats[9]}</h4>
             <h4>{gapStats[10]}%</h4>
             <h4>{gapStats[11]}%</h4>
