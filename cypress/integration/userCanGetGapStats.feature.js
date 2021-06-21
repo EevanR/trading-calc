@@ -34,7 +34,7 @@ describe("User can get gap stats", () => {
     cy.get("#testTicker").type("AMTX");
     cy.get("#loadChart").click();
 
-    cy.get("#gap-stats").should("contain", "42.52%")
+    cy.get("#gap-stats").should("contain", "30.53%")
     cy.get("#gap-stats").should("contain", "4.36%")
   })
 });
