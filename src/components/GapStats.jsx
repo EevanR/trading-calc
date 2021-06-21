@@ -76,7 +76,7 @@ const GapStats = () => {
       gapPercents += day[1]["gapPercent"]
       spikes += day[1]["highFromOpen"]
       day[1]["day2"] > 0 ? day2AvgUp += day[1]["day2"] : day2AvgDown -= day[1]["day2"]
-      day[1]["day2"] > 0 ? day2UpCount += 1 : day2DownCount -= 1
+      day[1]["day2"] > 0 ? day2UpCount += 1 : day2DownCount += 1
       if (day[1]["closeBelowOpen"] === "false") {
         closesAboveOpenCount++
         closesAboveOpenGain += day[1]["closeAboveOpenPercent"]
@@ -262,7 +262,7 @@ const GapStats = () => {
             <h4 id={gapStats[3] < (gapStats[0]/2) ? "backtest-red" : ""}> {gapStats[3]} / {(gapStats[7]*100).toFixed(2)}%</h4>
             <h4> +{gapStats[4]}%</h4>
             <h4 id="backtest-red"> {gapStats[5]}%</h4>
-            <h4> {gapStats[6]}%</h4>
+            <h4> ${gapStats[6]}</h4>
             <h4> {gapStats[8]}</h4>
             <h4> {gapStats[9]}</h4>
             <h4>{gapStats[10]}%</h4>
