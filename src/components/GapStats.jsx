@@ -93,7 +93,7 @@ const GapStats = () => {
     let closeBelowOpen = (closesBelowOpenGain/closesBelowOpenCount).toFixed(2)
     let avgRange = (ranges/gapCount).toFixed(2)
     day2AvgUp = (day2AvgUp/day2UpCount).toFixed(2)
-    day2AvgDown = (day2AvgDown/day2AvgDown).toFixed(2)
+    day2AvgDown = (day2AvgDown/day2DownCount).toFixed(2)
     let stats = [
       gapCount, 
       avgGapPercent, 
@@ -110,7 +110,7 @@ const GapStats = () => {
     ]
     setGapStats(stats)
     setGapSearches([...gapSearches, [t, stats]])
-
+debugger
     let response = await getIntradayData(t);
     let intraDayData;
     let datesArray = []
