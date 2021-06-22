@@ -3,14 +3,13 @@ import { getIntradayData, getGapData, getVwapData } from "../modules/backtest";
 import { Line } from 'react-chartjs-2';
 import { connect } from "react-redux";
 
-const GapStats = () => {
+const GapStats = props => {
   const [intraPrices, setIntraPrices] = useState([])
   const [vwap, setVwap] = useState([])
   const [intraTimes, setIntraTimes] = useState([])
   const [chartTicker, setChartTicker] = useState("")
   const [gapStats, setGapStats] = useState([])
   const [chartDate, setChartDate] = useState(null)
-  const [gapSearches, setGapSearches] = useState([])
   const [gapSearchShow, setGapSearchShow] = useState(null)
 
   const runTest = async (e) => {
@@ -110,7 +109,7 @@ const GapStats = () => {
       day2AvgDown
     ]
     setGapStats(stats)
-    setGapSearches([...gapSearches, [t, stats]])
+    props.setGapSearches([...props.gapSearches, [t, stats]])
 
     let response = await getIntradayData(t);
     let intraDayData;
@@ -215,7 +214,7 @@ const GapStats = () => {
   }
 
   const showStats = (gapEntry) => {
-    gapSearches.forEach(item => {
+    props.gapSearches.forEach(item => {
       if (item[0] === gapEntry) {
         setGapSearchShow(item)
       }
@@ -274,8 +273,8 @@ const GapStats = () => {
             <h4>{gapStats[11]}%</h4>
           </div>
           <div>
-            {gapSearches !== [] && (
-              gapSearches.map(entry => {
+            {props.gapSearches !== [] && (
+              props.gapSearches.map(entry => {
                 return (
                   <>
                     <h4 
