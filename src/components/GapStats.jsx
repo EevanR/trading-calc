@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { getIntradayData, getGapData, getVwapData } from "../modules/backtest";
 import { Line } from 'react-chartjs-2';
+import { connect } from "react-redux";
 
 const GapStats = () => {
   const [intraPrices, setIntraPrices] = useState([])
@@ -221,6 +222,10 @@ const GapStats = () => {
     })
   }
 
+  useEffect(() => {
+    
+  }, [])
+
   return (
     <>
       <div>
@@ -322,4 +327,18 @@ const GapStats = () => {
     </>
   )
 }
-export default GapStats;
+
+const mapStateToProps = state => {
+  return {
+    gapSearches: state.gapSearches
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setGapSearches: data => {
+      dispatch({ type: "GAP_SEARCHES", payload: data })
+    }
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(GapStats);

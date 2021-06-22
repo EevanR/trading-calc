@@ -6,6 +6,7 @@ const initialState = {
   message: "",
   count: null,
   userAttrs: null,
-  strategies: []
+  strategies: [],
+  gapSearches: []
 };
 export default initialState;

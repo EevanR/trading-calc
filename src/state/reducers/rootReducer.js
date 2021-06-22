@@ -42,6 +42,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         strategies: action.payload
       };
+    case "GAP_SEARCHES":
+      return {
+        ...state,
+        gapSearches: action.payload
+      };
     default:
       return {
         ...state
