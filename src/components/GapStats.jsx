@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { getIntradayData, getGapData, getVwapData } from "../modules/backtest";
 import { Line } from 'react-chartjs-2';
+import { connect } from "react-redux";
 
-const GapStats = () => {
+const GapStats = props => {
   const [intraPrices, setIntraPrices] = useState([])
   const [vwap, setVwap] = useState([])
   const [intraTimes, setIntraTimes] = useState([])
   const [chartTicker, setChartTicker] = useState("")
   const [gapStats, setGapStats] = useState([])
   const [chartDate, setChartDate] = useState(null)
-  const [gapSearches, setGapSearches] = useState([])
   const [gapSearchShow, setGapSearchShow] = useState(null)
 
   const runTest = async (e) => {
@@ -109,7 +109,7 @@ const GapStats = () => {
       day2AvgDown
     ]
     setGapStats(stats)
-    setGapSearches([...gapSearches, [t, stats]])
+    props.setGapSearches([...props.gapSearches, [t, stats]])
 
     let response = await getIntradayData(t);
     let intraDayData;
@@ -214,11 +214,28 @@ const GapStats = () => {
   }
 
   const showStats = (gapEntry) => {
-    gapSearches.forEach(item => {
+    props.gapSearches.forEach(item => {
       if (item[0] === gapEntry) {
         setGapSearchShow(item)
       }
     })
+  }
+
+  let gapSearches;
+  {props.gapSearches !== [] &&
+    (gapSearches = props.gapSearches.map(entry => {
+      return (
+        <div>
+          <h4 
+          key={entry[0]} 
+          onClick={() => showStats(entry[0])}
+          id="gapStatList"
+          >
+            {entry[0] } {gapSearchShow !== null && gapSearchShow[0] === entry[0] && (<h4 style={{float: "right"}}>-&gt;</h4>)}
+          </h4>
+        </div>
+      )
+    }))
   }
 
   return (
@@ -240,8 +257,42 @@ const GapStats = () => {
         />
       </div>
       <h3 style={{marginBottom: "20px"}}>Stats {chartTicker}</h3>
-      { gapStats.length > 0 && (
         <div id="gap-stats">
+        {gapStats.length > 0 && (
+          <div className="currentShow">
+            <div>
+              <h4>Gaps Above 20%:</h4>
+              <h4>Avg gap:</h4>
+              <h4>Avg GapUp Spike Above Open:</h4>
+              <h4>Gap Up Closes Above Open:</h4>
+              <h4>Avg % close Above Open:</h4>
+              <h4>Avg % close Below Open:</h4>
+              <h4>Avg Gapper Range (Low to High):</h4>
+              <h4>Day 2 Gap up Count:</h4>
+              <h4>Day 2 Gap Down Count:</h4>
+              <h4>Day 2 Avg Gap up:</h4>
+              <h4>Day 2 Avg Gap Down:</h4>
+            </div>
+            <div>
+              <h4> {gapStats[0]}</h4>
+              <h4> {gapStats[1]}%</h4>
+              <h4> {gapStats[2]}%</h4>
+              <h4 id={gapStats[3] < (gapStats[0]/2) ? "backtest-red" : ""}> {gapStats[3]} / {(gapStats[7]*100).toFixed(2)}%</h4>
+              <h4> +{gapStats[4]}%</h4>
+              <h4 id="backtest-red"> {gapStats[5]}%</h4>
+              <h4> ${gapStats[6]}</h4>
+              <h4> {gapStats[8]} / {((gapStats[8]/gapStats[0])*100).toFixed(2)}%</h4>
+              <h4> {gapStats[9]}</h4>
+              <h4>{gapStats[10]}%</h4>
+              <h4>{gapStats[11]}%</h4>
+            </div>
+          </div>
+          )} 
+        <div className="gapShow">     
+          <div>
+            {gapSearches}
+          </div>
+          {gapSearchShow !== null && (
           <div>
             <h4>Gaps Above 20%:</h4>
             <h4>Avg gap:</h4>
@@ -255,71 +306,39 @@ const GapStats = () => {
             <h4>Day 2 Avg Gap up:</h4>
             <h4>Day 2 Avg Gap Down:</h4>
           </div>
-          <div>
-            <h4> {gapStats[0]}</h4>
-            <h4> {gapStats[1]}%</h4>
-            <h4> {gapStats[2]}%</h4>
-            <h4 id={gapStats[3] < (gapStats[0]/2) ? "backtest-red" : ""}> {gapStats[3]} / {(gapStats[7]*100).toFixed(2)}%</h4>
-            <h4> +{gapStats[4]}%</h4>
-            <h4 id="backtest-red"> {gapStats[5]}%</h4>
-            <h4> ${gapStats[6]}</h4>
-            <h4> {gapStats[8]} / {((gapStats[8]/gapStats[0])*100).toFixed(2)}%</h4>
-            <h4> {gapStats[9]}</h4>
-            <h4>{gapStats[10]}%</h4>
-            <h4>{gapStats[11]}%</h4>
-          </div>
-          <div>
-            {gapSearches !== [] && (
-              gapSearches.map(entry => {
-                return (
-                  <>
-                    <h4 
-                    key={entry[0]} 
-                    onClick={() => showStats(entry[0])}
-                    id="gapStatList"
-                    >
-                      {entry[0] } {gapSearchShow !== null && gapSearchShow[0] === entry[0] && (<h4 style={{float: "right"}}></h4>)}
-                    </h4>
-                  </>
-                )
-              })
-            )}
-          </div>
-          <div>
-            {gapSearchShow !== null && (
-              <div className="gapShow">
-                <div>
-                  <h4>Gaps Above 20%:</h4>
-                  <h4>Avg gap:</h4>
-                  <h4>Avg GapUp Spike Above Open:</h4>
-                  <h4>Gap Up Closes Above Open:</h4>
-                  <h4>Avg % close Above Open:</h4>
-                  <h4>Avg % close Below Open:</h4>
-                  <h4>Avg Gapper Range (Low to High):</h4>
-                  <h4>Day 2 Gap up Count:</h4>
-                  <h4>Day 2 Gap Down Count:</h4>
-                  <h4>Day 2 Avg Gap up:</h4>
-                  <h4>Day 2 Avg Gap Down:</h4>
-                </div>
-                <div>
-                  <h4>{gapSearchShow[1][0]}</h4>
-                  <h4>{gapSearchShow[1][1]}%</h4>
-                  <h4>{gapSearchShow[1][2]}%</h4> 
-                  <h4>{gapSearchShow[1][3]}</h4>
-                  <h4>+{gapSearchShow[1][4]}%</h4>
-                  <h4>{gapSearchShow[1][5]}%</h4>
-                  <h4>${gapSearchShow[1][6]}</h4>
-                  <h4>{gapSearchShow[1][8]}</h4>
-                  <h4>{gapSearchShow[1][9]}</h4>
-                  <h4>{gapSearchShow[1][10]}%</h4>
-                  <h4>{gapSearchShow[1][11]}%</h4>
-                </div>
-              </div>
-            )}
-          </div>
+          )}
+          {gapSearchShow !== null && (
+            <div>
+              <h4>{gapSearchShow[1][0]}</h4>
+              <h4>{gapSearchShow[1][1]}%</h4>
+              <h4>{gapSearchShow[1][2]}%</h4> 
+              <h4>{gapSearchShow[1][3]}</h4>
+              <h4>+{gapSearchShow[1][4]}%</h4>
+              <h4>{gapSearchShow[1][5]}%</h4>
+              <h4>${gapSearchShow[1][6]}</h4>
+              <h4>{gapSearchShow[1][8]}</h4>
+              <h4>{gapSearchShow[1][9]}</h4>
+              <h4>{gapSearchShow[1][10]}%</h4>
+              <h4>{gapSearchShow[1][11]}%</h4>
+            </div>
+          )}
         </div>
-      )}
+      </div> 
     </>
   )
 }
-export default GapStats;
+
+const mapStateToProps = state => {
+  return {
+    gapSearches: state.gapSearches
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setGapSearches: data => {
+      dispatch({ type: "GAP_SEARCHES", payload: data })
+    }
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(GapStats);
