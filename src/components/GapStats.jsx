@@ -11,6 +11,7 @@ const GapStats = props => {
   const [gapStats, setGapStats] = useState([])
   const [chartDate, setChartDate] = useState(null)
   const [gapSearchShow, setGapSearchShow] = useState(null)
+  // const [recentSearches, setRecentSearches] = useState([])
 
   const runTest = async (e) => {
     e.preventDefault();
@@ -221,9 +222,28 @@ const GapStats = props => {
     })
   }
 
-  useEffect(() => {
-    
-  }, [])
+  let gapSearches;
+  {props.gapSearches !== [] &&
+    (gapSearches = props.gapSearches.map(entry => {
+      return (
+        <div>
+          <h4 
+          key={entry[0]} 
+          onClick={() => showStats(entry[0])}
+          id="gapStatList"
+          >
+            {entry[0] } {gapSearchShow !== null && gapSearchShow[0] === entry[0] && (<h4 style={{float: "right"}}></h4>)}
+          </h4>
+        </div>
+      )
+    }))
+  }
+
+  // useEffect(() => {
+  //   if (props.gapSearches !== []) {
+  //     setRecentSearches(props.gapSearches)
+  //   }
+  // }, [props.gapSearches])
 
   return (
     <>
@@ -272,57 +292,43 @@ const GapStats = props => {
             <h4>{gapStats[10]}%</h4>
             <h4>{gapStats[11]}%</h4>
           </div>
-          <div>
-            {props.gapSearches !== [] && (
-              props.gapSearches.map(entry => {
-                return (
-                  <>
-                    <h4 
-                    key={entry[0]} 
-                    onClick={() => showStats(entry[0])}
-                    id="gapStatList"
-                    >
-                      {entry[0] } {gapSearchShow !== null && gapSearchShow[0] === entry[0] && (<h4 style={{float: "right"}}></h4>)}
-                    </h4>
-                  </>
-                )
-              })
-            )}
-          </div>
-          <div>
-            {gapSearchShow !== null && (
-              <div className="gapShow">
-                <div>
-                  <h4>Gaps Above 20%:</h4>
-                  <h4>Avg gap:</h4>
-                  <h4>Avg GapUp Spike Above Open:</h4>
-                  <h4>Gap Up Closes Above Open:</h4>
-                  <h4>Avg % close Above Open:</h4>
-                  <h4>Avg % close Below Open:</h4>
-                  <h4>Avg Gapper Range (Low to High):</h4>
-                  <h4>Day 2 Gap up Count:</h4>
-                  <h4>Day 2 Gap Down Count:</h4>
-                  <h4>Day 2 Avg Gap up:</h4>
-                  <h4>Day 2 Avg Gap Down:</h4>
-                </div>
-                <div>
-                  <h4>{gapSearchShow[1][0]}</h4>
-                  <h4>{gapSearchShow[1][1]}%</h4>
-                  <h4>{gapSearchShow[1][2]}%</h4> 
-                  <h4>{gapSearchShow[1][3]}</h4>
-                  <h4>+{gapSearchShow[1][4]}%</h4>
-                  <h4>{gapSearchShow[1][5]}%</h4>
-                  <h4>${gapSearchShow[1][6]}</h4>
-                  <h4>{gapSearchShow[1][8]}</h4>
-                  <h4>{gapSearchShow[1][9]}</h4>
-                  <h4>{gapSearchShow[1][10]}%</h4>
-                  <h4>{gapSearchShow[1][11]}%</h4>
-                </div>
-              </div>
-            )}
-          </div>
         </div>
       )}
+        <div>
+          {gapSearches}
+        </div>
+        <div>
+          {gapSearchShow !== null && (
+            <div className="gapShow">
+              <div>
+                <h4>Gaps Above 20%:</h4>
+                <h4>Avg gap:</h4>
+                <h4>Avg GapUp Spike Above Open:</h4>
+                <h4>Gap Up Closes Above Open:</h4>
+                <h4>Avg % close Above Open:</h4>
+                <h4>Avg % close Below Open:</h4>
+                <h4>Avg Gapper Range (Low to High):</h4>
+                <h4>Day 2 Gap up Count:</h4>
+                <h4>Day 2 Gap Down Count:</h4>
+                <h4>Day 2 Avg Gap up:</h4>
+                <h4>Day 2 Avg Gap Down:</h4>
+              </div>
+              <div>
+                <h4>{gapSearchShow[1][0]}</h4>
+                <h4>{gapSearchShow[1][1]}%</h4>
+                <h4>{gapSearchShow[1][2]}%</h4> 
+                <h4>{gapSearchShow[1][3]}</h4>
+                <h4>+{gapSearchShow[1][4]}%</h4>
+                <h4>{gapSearchShow[1][5]}%</h4>
+                <h4>${gapSearchShow[1][6]}</h4>
+                <h4>{gapSearchShow[1][8]}</h4>
+                <h4>{gapSearchShow[1][9]}</h4>
+                <h4>{gapSearchShow[1][10]}%</h4>
+                <h4>{gapSearchShow[1][11]}%</h4>
+              </div>
+            </div>
+          )}
+        </div>
     </>
   )
 }
