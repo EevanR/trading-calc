@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { getIntradayData, getGapData, getVwapData } from "../modules/backtest";
 import { Line } from 'react-chartjs-2';
 import { connect } from "react-redux";
@@ -11,7 +11,6 @@ const GapStats = props => {
   const [gapStats, setGapStats] = useState([])
   const [chartDate, setChartDate] = useState(null)
   const [gapSearchShow, setGapSearchShow] = useState(null)
-  // const [recentSearches, setRecentSearches] = useState([])
 
   const runTest = async (e) => {
     e.preventDefault();
@@ -239,12 +238,6 @@ const GapStats = props => {
     }))
   }
 
-  // useEffect(() => {
-  //   if (props.gapSearches !== []) {
-  //     setRecentSearches(props.gapSearches)
-  //   }
-  // }, [props.gapSearches])
-
   return (
     <>
       <div>
@@ -264,36 +257,37 @@ const GapStats = props => {
         />
       </div>
       <h3 style={{marginBottom: "20px"}}>Stats {chartTicker}</h3>
-      { gapStats.length > 0 && (
         <div id="gap-stats">
-          <div>
-            <h4>Gaps Above 20%:</h4>
-            <h4>Avg gap:</h4>
-            <h4>Avg GapUp Spike Above Open:</h4>
-            <h4>Gap Up Closes Above Open:</h4>
-            <h4>Avg % close Above Open:</h4>
-            <h4>Avg % close Below Open:</h4>
-            <h4>Avg Gapper Range (Low to High):</h4>
-            <h4>Day 2 Gap up Count:</h4>
-            <h4>Day 2 Gap Down Count:</h4>
-            <h4>Day 2 Avg Gap up:</h4>
-            <h4>Day 2 Avg Gap Down:</h4>
-          </div>
-          <div>
-            <h4> {gapStats[0]}</h4>
-            <h4> {gapStats[1]}%</h4>
-            <h4> {gapStats[2]}%</h4>
-            <h4 id={gapStats[3] < (gapStats[0]/2) ? "backtest-red" : ""}> {gapStats[3]} / {(gapStats[7]*100).toFixed(2)}%</h4>
-            <h4> +{gapStats[4]}%</h4>
-            <h4 id="backtest-red"> {gapStats[5]}%</h4>
-            <h4> ${gapStats[6]}</h4>
-            <h4> {gapStats[8]} / {((gapStats[8]/gapStats[0])*100).toFixed(2)}%</h4>
-            <h4> {gapStats[9]}</h4>
-            <h4>{gapStats[10]}%</h4>
-            <h4>{gapStats[11]}%</h4>
-          </div>
-        </div>
-      )}
+        {gapStats.length > 0 && (
+          <>
+            <div>
+              <h4>Gaps Above 20%:</h4>
+              <h4>Avg gap:</h4>
+              <h4>Avg GapUp Spike Above Open:</h4>
+              <h4>Gap Up Closes Above Open:</h4>
+              <h4>Avg % close Above Open:</h4>
+              <h4>Avg % close Below Open:</h4>
+              <h4>Avg Gapper Range (Low to High):</h4>
+              <h4>Day 2 Gap up Count:</h4>
+              <h4>Day 2 Gap Down Count:</h4>
+              <h4>Day 2 Avg Gap up:</h4>
+              <h4>Day 2 Avg Gap Down:</h4>
+            </div>
+            <div>
+              <h4> {gapStats[0]}</h4>
+              <h4> {gapStats[1]}%</h4>
+              <h4> {gapStats[2]}%</h4>
+              <h4 id={gapStats[3] < (gapStats[0]/2) ? "backtest-red" : ""}> {gapStats[3]} / {(gapStats[7]*100).toFixed(2)}%</h4>
+              <h4> +{gapStats[4]}%</h4>
+              <h4 id="backtest-red"> {gapStats[5]}%</h4>
+              <h4> ${gapStats[6]}</h4>
+              <h4> {gapStats[8]} / {((gapStats[8]/gapStats[0])*100).toFixed(2)}%</h4>
+              <h4> {gapStats[9]}</h4>
+              <h4>{gapStats[10]}%</h4>
+              <h4>{gapStats[11]}%</h4>
+            </div>
+          </>
+          )}      
         <div>
           {gapSearches}
         </div>
@@ -329,6 +323,7 @@ const GapStats = props => {
             </div>
           )}
         </div>
+      </div>
     </>
   )
 }
