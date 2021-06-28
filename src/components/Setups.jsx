@@ -32,6 +32,10 @@ const Setups = (props) => {
     }
   }
 
+  const deleteStrat = (key) => {
+    debugger
+  }
+
   let savedStrategies;
   if (props.strategies !== []) {
     savedStrategies = props.strategies.map(strategy => {
@@ -49,8 +53,10 @@ const Setups = (props) => {
       })
       return (
         <div>
-          <h4>{strategy.name}</h4>
+          <h4
+          >{strategy.name}</h4>
           {preReqs}
+          <button id={strategy.id} onClick={() => deleteStrat(strategy.name)}>Delete</button>
         </div>
       )
     })

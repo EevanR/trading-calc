@@ -12,6 +12,8 @@ describe("User can delete a setup", () => {
 
   it("can successfully delete a setup", () => {
     cy.login();
+
+    cy.contains("Strategies").click();
     cy.route({
       method: "DELETE",
       url: "http;//localhost:3000/api/v1/setups/",
@@ -21,5 +23,6 @@ describe("User can delete a setup", () => {
       },
       status: 200
     })
+
   })
 })
