@@ -8,6 +8,12 @@ describe("User can delete a setup", () => {
       response: "fixture:index_strategies.json",
       status: 200,
     })
+    cy.route({
+      method: "GET",
+      url: "http://localhost:3000/api/v1/trades",
+      response: "fixture:saved_trades.json",
+      status: 200
+    });
   })
 
   it("can successfully delete a setup", () => {
@@ -16,13 +22,18 @@ describe("User can delete a setup", () => {
     cy.contains("Strategies").click();
     cy.route({
       method: "DELETE",
-      url: "http;//localhost:3000/api/v1/setups/",
-      response: "",
+      url: "http://localhost:3000/api/v1/setups/**",
+      response: "fixture:delete_setup_success.json",
       headers: {
-        uid: ""
+        uid: "trader@mail.com"
       },
       status: 200
     })
 
+    cy.get("#setup1").within(() => {
+      cy.get("#1").click({force: true})
+    })
+
+    cy.get("#result-message").should("contain", "Setup Deleted")
   })
 })

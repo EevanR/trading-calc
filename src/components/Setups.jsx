@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { saveStrategy } from "../modules/setup";
+import { saveStrategy, deleteSetup } from "../modules/setup";
 import { connect } from "react-redux";
 import ItemsCarousel from 'react-items-carousel'
 import { Button } from "semantic-ui-react";;
@@ -32,8 +32,13 @@ const Setups = (props) => {
     }
   }
 
-  const deleteStrat = (key) => {
-    debugger
+  const deleteStrat = async (setupId) => {
+    let response = await deleteSetup(setupId)
+    if (response.status === 200) {
+      setMessage(`${response.data.message}`)
+    } else {
+      // alert(`${error.message}`)
+    }
   }
 
   let savedStrategies;
@@ -52,11 +57,10 @@ const Setups = (props) => {
         )
       })
       return (
-        <div>
-          <h4
-          >{strategy.name}</h4>
+        <div id={`setup${strategy.id}`}>
+          <h4>{strategy.name}</h4>
           {preReqs}
-          <button id={strategy.id} onClick={() => deleteStrat(strategy.name)}>Delete</button>
+          <button id={strategy.id} onClick={() => deleteStrat(strategy.id)}>Delete</button>
         </div>
       )
     })
