@@ -34,6 +34,6 @@ describe("User can delete a setup", () => {
       cy.get("#1").click({force: true})
     })
 
-    cy.get("#result-message").should("contain", "Setup Deleted")
+    cy.get("#result-message").should("contain", '"Strat 1" Deleted')
   })
 })

@@ -32,12 +32,12 @@ const Setups = (props) => {
     }
   }
 
-  const deleteStrat = async (setupId) => {
+  const deleteStrat = async (setupId, strategyName) => {
     let response = await deleteSetup(setupId)
     if (response.status === 200) {
-      setMessage(`${response.data.message}`)
+      setMessage(`"${strategyName}" Deleted.`)
     } else {
-      // alert(`${error.message}`)
+      setMessage(`${response.error}`)
     }
   }
 
@@ -60,7 +60,7 @@ const Setups = (props) => {
         <div id={`setup${strategy.id}`}>
           <h4>{strategy.name}</h4>
           {preReqs}
-          <button id={strategy.id} onClick={() => deleteStrat(strategy.id)}>Delete</button>
+          <button id={strategy.id} onClick={() => deleteStrat(strategy.id, strategy.name)}>Delete</button>
         </div>
       )
     })
