@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { saveStrategy, deleteSetup } from "../modules/setup";
+import { saveStrategy, deleteSetup, getSetups } from "../modules/setup";
 import { connect } from "react-redux";
 import ItemsCarousel from 'react-items-carousel'
 import { Button } from "semantic-ui-react";;
@@ -36,9 +36,18 @@ const Setups = (props) => {
     let response = await deleteSetup(setupId)
     if (response.status === 200) {
       setMessage(`"${strategyName}" Deleted.`)
+      reloadSetups()
     } else {
       setMessage(`${response.error}`)
     }
+  }
+
+  const reloadSetups = async () => {
+    let response = await getSetups()
+    if (response !== undefined && response.status === 200) {
+      debugger
+      props.setStrategies(response.data)
+    } 
   }
 
   let savedStrategies;
@@ -196,4 +205,12 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(Setups);
+const mapDispatchToProps = dispatch => {
+  return {
+    setStrategies: array => {
+      dispatch({ type: "SET_STRATEGIES", payload: array });
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Setups);
