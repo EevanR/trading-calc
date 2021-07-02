@@ -41,4 +41,16 @@ const getSetups = async () => {
   }
 }
 
-export { saveStrategy, getSetups  }
+const deleteSetup = async (setupId) => {
+  let headers = JSON.parse(sessionStorage.getItem("credentials"));
+  try {
+    const response = await axios.delete(`/setups/${setupId}`, {
+      headers: headers
+    })
+    return response
+  } catch (error) {
+    return error.response
+  }
+}
+
+export { saveStrategy, getSetups, deleteSetup }

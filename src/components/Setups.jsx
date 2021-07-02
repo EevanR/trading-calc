@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { saveStrategy } from "../modules/setup";
+import { saveStrategy, deleteSetup, getSetups } from "../modules/setup";
 import { connect } from "react-redux";
 import ItemsCarousel from 'react-items-carousel'
 import { Button } from "semantic-ui-react";;
@@ -32,6 +32,23 @@ const Setups = (props) => {
     }
   }
 
+  const deleteStrat = async (setupId, strategyName) => {
+    let response = await deleteSetup(setupId)
+    if (response.status === 200) {
+      setMessage(`"${strategyName}" Deleted.`)
+      reloadSetups()
+    } else {
+      setMessage(`${response.error}`)
+    }
+  }
+
+  const reloadSetups = async () => {
+    let response = await getSetups()
+    if (response !== undefined && response.status === 200) {
+      props.setStrategies(response.data)
+    } 
+  }
+
   let savedStrategies;
   if (props.strategies !== []) {
     savedStrategies = props.strategies.map(strategy => {
@@ -48,9 +65,10 @@ const Setups = (props) => {
         )
       })
       return (
-        <div>
+        <div id={`setup${strategy.id}`}>
           <h4>{strategy.name}</h4>
           {preReqs}
+          <button id={strategy.id} onClick={() => deleteStrat(strategy.id, strategy.name)}>Delete</button>
         </div>
       )
     })
@@ -186,4 +204,12 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(Setups);
+const mapDispatchToProps = dispatch => {
+  return {
+    setStrategies: array => {
+      dispatch({ type: "SET_STRATEGIES", payload: array });
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Setups);
