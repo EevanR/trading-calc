@@ -27,6 +27,7 @@ const Setups = (props) => {
     )
     if (response.status === 200) {
       setMessage(`${name} added Successfully`)
+      reloadSetups()
     } else {
       setMessage(response.data.errors[0])
     }
