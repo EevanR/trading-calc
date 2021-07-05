@@ -70,6 +70,7 @@ const Setups = (props) => {
           <h4>{strategy.name}</h4>
           {preReqs}
           <button id={strategy.id} onClick={() => deleteStrat(strategy.id, strategy.name)}>Delete</button>
+          <button id={`edit${strategy.id}`}>Edit</button>
         </div>
       )
     })

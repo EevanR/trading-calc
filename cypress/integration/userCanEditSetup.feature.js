@@ -14,11 +14,14 @@ describe("User can edit a setup", () => {
       response: "fixture:saved_trades.json",
       status: 200
     });
+  })
 
-    it("can successfully edit setup", () => {
-      cy.login(); 
+  it("can successfully edit setup", () => {
+    cy.login(); 
 
-      
+    cy.contains("Strategies").click();
+    cy.get("#setup1").within(() => {
+      cy.get("#edit1").click()
     })
   })
 })
