@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { saveStrategy, deleteSetup, getSetups } from "../modules/setup";
+import { saveStrategy, deleteSetup, getSetups, updateSetup } from "../modules/setup";
 import { connect } from "react-redux";
 import ItemsCarousel from 'react-items-carousel'
 import { Button } from "semantic-ui-react";;
@@ -50,6 +50,13 @@ const Setups = (props) => {
     } 
   }
 
+  const editStrat = async (setupId) => {
+    let response = await updateSetup(setupId)
+    if (response.status === 200) {
+      debugger
+    }
+  }
+
   let savedStrategies;
   if (props.strategies !== []) {
     savedStrategies = props.strategies.map(strategy => {
@@ -70,7 +77,7 @@ const Setups = (props) => {
           <h4>{strategy.name}</h4>
           {preReqs}
           <button id={strategy.id} onClick={() => deleteStrat(strategy.id, strategy.name)}>Delete</button>
-          <button id={`edit${strategy.id}`}>Edit</button>
+          <button id={`edit${strategy.id}`} onClick={() => editStrat(strategy.id, strategy.name)}>Edit</button>
         </div>
       )
     })

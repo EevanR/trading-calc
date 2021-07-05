@@ -53,4 +53,16 @@ const deleteSetup = async (setupId) => {
   }
 }
 
-export { saveStrategy, getSetups, deleteSetup }
+const updateSetup = async (setupId) => {
+  let headers = JSON.parse(sessionStorage.getItem("credentials"));
+  try {
+    const response = await axios.update(`/setups/${setupId}`, {
+      headers: headers
+    })
+    return response
+  } catch (error) {
+    return error.response
+  }
+}
+
+export { saveStrategy, getSetups, deleteSetup, updateSetup }
