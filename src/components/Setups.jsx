@@ -6,6 +6,8 @@ import { Button } from "semantic-ui-react";;
 
 const Setups = (props) => {
   const [message, setMessage] = useState("")
+  const [editStrat, setEditStrat] = useState(false)
+  const [editName, setEditName] = useState("")
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const chevronWidth = 40;
 
@@ -50,11 +52,18 @@ const Setups = (props) => {
     } 
   }
 
-  const editStrat = async (setupId) => {
+  const editSetup = async (setupId, stratName) => {
+    setEditStrat(true)
+    setEditName(stratName)
     let response = await updateSetup(setupId)
-    if (response.status === 200) {
-      debugger
-    }
+    // if (response.status === 200) {
+    //   debugger
+    // }
+  }
+
+  const cancleEdit = () => {
+    setEditStrat(false)
+    setEditName("")
   }
 
   let savedStrategies;
@@ -77,7 +86,7 @@ const Setups = (props) => {
           <h4>{strategy.name}</h4>
           {preReqs}
           <button id={strategy.id} onClick={() => deleteStrat(strategy.id, strategy.name)}>Delete</button>
-          <button id={`edit${strategy.id}`} onClick={() => editStrat(strategy.id, strategy.name)}>Edit</button>
+          <button id={`edit${strategy.id}`} onClick={() => editSetup(strategy.id, strategy.name)}>Edit</button>
         </div>
       )
     })
@@ -89,7 +98,7 @@ const Setups = (props) => {
     <>
       <h2>Strategies</h2>
       <div>
-        <h4>Add New Strategy</h4>
+        {editStrat === true ? <h4>Edit Strategy "{editName}"</h4> : <h4>Add New Strategy</h4> }
         <form id="main-form" onSubmit={submit}>
           <div className="fields">
             <div className="field">
@@ -181,8 +190,14 @@ const Setups = (props) => {
               />
             </div>
           </div>
-          <button id='create-strategy'>Create Strategy</button>
+          {editStrat === false ? 
+            <button id='create-strategy'>Create Strategy</button> :
+            <button id='edit-strategy'>Save Edit</button> }
         </form>
+        {editStrat === true && 
+          <button id='cancle-eidt'
+            onClick={() => cancleEdit()}
+          >Cancel</button>}
       </div>
       <h3 id='result-message'>{message}</h3>
       <h2>Saved Strategies</h2>
