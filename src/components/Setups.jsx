@@ -194,30 +194,35 @@ const Setups = (props) => {
             <button id='create-strategy'>Create Strategy</button> :
             <button id='edit-strategy'>Save Edit</button> }
         </form>
-        {editStrat === true && 
+        { editStrat === true && 
           <button id='cancle-eidt'
             onClick={() => cancleEdit()}
-          >Cancel</button>}
+          >Cancel</button>
+        }
       </div>
       <h3 id='result-message'>{message}</h3>
-      <h2>Saved Strategies</h2>
-      <div className="carousel" >
-        <ItemsCarousel
-          requestToChangeActive={setActiveItemIndex}
-          activeItemIndex={activeItemIndex}
-          numberOfCards={2.5}
-          gutter={5}
-          leftChevron={
-            <Button circular icon='angle left' />
-          }
-          rightChevron={
-            <Button circular icon='angle right'/>
-          }
-          chevronWidth={chevronWidth}
-        >
-          {savedStrategies}
-        </ItemsCarousel>
-      </div>
+      {editStrat === false &&
+        <>
+          <h2>Saved Strategies</h2>
+          <div className="carousel" >
+            <ItemsCarousel
+              requestToChangeActive={setActiveItemIndex}
+              activeItemIndex={activeItemIndex}
+              numberOfCards={2.5}
+              gutter={5}
+              leftChevron={
+                <Button circular icon='angle left' />
+              }
+              rightChevron={
+                <Button circular icon='angle right'/>
+              }
+              chevronWidth={chevronWidth}
+            >
+              {savedStrategies}
+            </ItemsCarousel>
+          </div>
+        </>
+      }
     </>
   )
 }
