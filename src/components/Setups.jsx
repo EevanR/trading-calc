@@ -55,11 +55,17 @@ const Setups = (props) => {
   const editSetup = async (setupId, stratName) => {
     setEditStrat(true)
     setEditName(stratName)
-    let response = await updateSetup(setupId)
-    // if (response.status === 200) {
-    //   debugger
-    // }
+    let editSetup;
+    props.strategies.forEach(setup => {
+      if (setup.name === stratName) editSetup = setup
+      debugger
+    })
   }
+
+  // let response = await updateSetup(setupId)
+  //   if (response.status === 200) {
+  //     debugger
+  //   }
 
   const cancleEdit = () => {
     setEditStrat(false)
