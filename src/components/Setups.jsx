@@ -10,6 +10,7 @@ const Setups = (props) => {
   const [editName, setEditName] = useState("")
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const chevronWidth = 40;
+  const [editReqs, setEditReqs] = useState([])
 
   const submit = async (e) => {
     e.preventDefault();
@@ -53,12 +54,18 @@ const Setups = (props) => {
   }
 
   const editSetup = async (setupId, stratName) => {
-    setEditStrat(true)
-    setEditName(stratName)
-    let editSetup;
     props.strategies.forEach(setup => {
-      if (setup.name === stratName) editSetup = setup
-      debugger
+      let editSetupReqs = []
+      if (setup.name === stratName) {
+        editSetupReqs = Object.values(setup)
+        let newArray = []
+        for (let i=1; i<editSetupReqs.length; i++) {
+          if (editSetupReqs[i][4] !== "-") newArray.push(editSetupReqs[i]);
+        }
+        setEditReqs(newArray)
+      }
+      setEditStrat(true)
+      setEditName(stratName)
     })
   }
 
@@ -113,6 +120,7 @@ const Setups = (props) => {
                 type="text"
                 name="name"
                 id="name"
+                value = {editReqs[0]}
               />
             </div>
             <div className="field">
@@ -121,6 +129,7 @@ const Setups = (props) => {
                 type="text"
                 name="req1"
                 id="req1"
+                value = {editReqs[1]}
               />
             </div>
             <div className="field">
@@ -129,6 +138,7 @@ const Setups = (props) => {
                 type="text"
                 name="req2"
                 id="req2"
+                value = {editReqs[2]}
               />
             </div>
             <div className="field">
@@ -137,6 +147,7 @@ const Setups = (props) => {
                 type="text"
                 name="req3"
                 id="req3"
+                value = {editReqs[4]}
               />
             </div>
             <div className="field">
@@ -145,6 +156,7 @@ const Setups = (props) => {
                 type="text"
                 name="req4"
                 id="req4"
+                value = {editReqs[5]}
               />
             </div>
             <div className="field">
@@ -153,6 +165,7 @@ const Setups = (props) => {
                 type="text"
                 name="req5"
                 id="req5"
+                value = {editReqs[6]}
               />
             </div>
             <div className="field">
@@ -161,6 +174,7 @@ const Setups = (props) => {
                 type="text"
                 name="req6"
                 id="req6"
+                value = {editReqs[7]}
               />
             </div>
             <div className="field">
@@ -169,6 +183,7 @@ const Setups = (props) => {
                 type="text"
                 name="req7"
                 id="req7"
+                value = {editReqs[8]}
               />
             </div>
             <div className="field">
@@ -177,6 +192,7 @@ const Setups = (props) => {
                 type="text"
                 name="req8"
                 id="req8"
+                value = {editReqs[9]}
               />
             </div>
             <div className="field">
@@ -185,6 +201,7 @@ const Setups = (props) => {
                 type="text"
                 name="req9"
                 id="req9"
+                value = {editReqs[10]}
               />
             </div>
             <div className="field">
@@ -193,6 +210,7 @@ const Setups = (props) => {
                 type="text"
                 name="req10"
                 id="req10"
+                value = {editReqs[11]}
               />
             </div>
           </div>
