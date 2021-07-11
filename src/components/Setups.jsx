@@ -54,21 +54,19 @@ const Setups = (props) => {
   }
 
   const editSetup = async (setupId, stratName) => {
-    props.strategies.forEach(setup => {
-      let editSetupReqs = []
-      if (setup.name === stratName) {
-        editSetupReqs = Object.values(setup)
-        let newArray = []
-        for (let i=1; i<editSetupReqs.length; i++) {
-          if (editSetupReqs[i][4] !== "-") newArray.push(editSetupReqs[i]);
-        }
-        setEditReqs(newArray)
-      }
-      setEditStrat(true)
-      setEditName(stratName)
-    })
+    for (let i=0; i<props.strategies.length; i++) {
+      if (props.strategies[i].name === stratName) setEditReqs(Object.values(props.strategies[i]))
+      break;
+    }
+    let valuesArray = []
+    for (let i=1; i<editReqs.length; i++) {
+      if (editReqs[i][4] !== "-") valuesArray.push(editReqs[i]);
+    }
+    setEditReqs(valuesArray)
+    setEditStrat(true)
+    setEditName(stratName)
   }
-
+  
   // let response = await updateSetup(setupId)
   //   if (response.status === 200) {
   //     debugger
