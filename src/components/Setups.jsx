@@ -59,9 +59,8 @@ const Setups = (props) => {
     for (let i=0; i<props.strategies.length; i++) {
       if (props.strategies[i].name === stratName) {
         strategy = props.strategies[i]
-        break;
+        break
       }
-      debugger
     }
     for (const property in strategy) {
       if (typeof strategy[property] === "string" && strategy[property][4] !== "-") {
