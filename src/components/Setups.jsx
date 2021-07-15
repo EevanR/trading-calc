@@ -54,15 +54,20 @@ const Setups = (props) => {
   }
 
   const editSetup = async (setupId, stratName) => {
+    setEditReqs([])
+    let strategy = {}
     for (let i=0; i<props.strategies.length; i++) {
-      if (props.strategies[i].name === stratName) setEditReqs(Object.values(props.strategies[i]))
-      break;
+      if (props.strategies[i].name === stratName) {
+        strategy = props.strategies[i]
+        break;
+      }
+      debugger
     }
-    let valuesArray = []
-    for (let i=1; i<editReqs.length; i++) {
-      if (editReqs[i][4] !== "-") valuesArray.push(editReqs[i]);
+    for (const property in strategy) {
+      if (typeof strategy[property] === "string" && strategy[property][4] !== "-") {
+        setEditReqs(editReqs => [...editReqs, strategy[property]])
+      }
     }
-    setEditReqs(valuesArray)
     setEditStrat(true)
     setEditName(stratName)
   }
