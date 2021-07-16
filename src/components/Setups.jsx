@@ -71,7 +71,7 @@ const Setups = (props) => {
     setEditStrat(true)
     setEditName(stratName)
   }
-  
+
   // let response = await updateSetup(setupId)
   //   if (response.status === 200) {
   //     debugger
@@ -80,6 +80,9 @@ const Setups = (props) => {
   const cancleEdit = () => {
     setEditStrat(false)
     setEditName("")
+    setEditReqs([])
+    for(let i=0; i < 10; i++){
+      setEditReqs(editReqs => [...editReqs, ""])}
   }
 
   let savedStrategies;
