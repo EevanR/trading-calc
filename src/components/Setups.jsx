@@ -64,6 +64,7 @@ const Setups = (props) => {
     }
     for (const property in strategy) {
       if (typeof strategy[property] === "string" && strategy[property][4] !== "-") {
+        debugger
         setEditReqs(editReqs => [...editReqs, strategy[property]])
       }
     }
@@ -149,7 +150,7 @@ const Setups = (props) => {
                 type="text"
                 name="req3"
                 id="req3"
-                value = {editReqs[4]}
+                value = {editReqs[3]}
               />
             </div>
             <div className="field">
@@ -158,7 +159,7 @@ const Setups = (props) => {
                 type="text"
                 name="req4"
                 id="req4"
-                value = {editReqs[5]}
+                value = {editReqs[4]}
               />
             </div>
             <div className="field">
@@ -167,7 +168,7 @@ const Setups = (props) => {
                 type="text"
                 name="req5"
                 id="req5"
-                value = {editReqs[6]}
+                value = {editReqs[5]}
               />
             </div>
             <div className="field">
@@ -176,7 +177,7 @@ const Setups = (props) => {
                 type="text"
                 name="req6"
                 id="req6"
-                value = {editReqs[7]}
+                value = {editReqs[6]}
               />
             </div>
             <div className="field">
@@ -185,7 +186,7 @@ const Setups = (props) => {
                 type="text"
                 name="req7"
                 id="req7"
-                value = {editReqs[8]}
+                value = {editReqs[7]}
               />
             </div>
             <div className="field">
@@ -194,7 +195,7 @@ const Setups = (props) => {
                 type="text"
                 name="req8"
                 id="req8"
-                value = {editReqs[9]}
+                value = {editReqs[8]}
               />
             </div>
             <div className="field">
@@ -203,7 +204,7 @@ const Setups = (props) => {
                 type="text"
                 name="req9"
                 id="req9"
-                value = {editReqs[10]}
+                value = {editReqs[9]}
               />
             </div>
             <div className="field">
@@ -212,7 +213,7 @@ const Setups = (props) => {
                 type="text"
                 name="req10"
                 id="req10"
-                value = {editReqs[11]}
+                value = {editReqs[10]}
               />
             </div>
           </div>
