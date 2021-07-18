@@ -7,12 +7,12 @@ import { Button } from "semantic-ui-react";;
 const Setups = (props) => {
   const [message, setMessage] = useState("")
   const [editStrat, setEditStrat] = useState(false)
-  const [editName, setEditName] = useState("")
+  const [editInfo, setEditInfo] = useState([])
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const chevronWidth = 40;
   const [editReqs, setEditReqs] = useState([])
 
-  const submit = async (e) => {
+  const submit = (e) => {
     e.preventDefault();
     let name = e.target.name.value
     let reqOne = e.target.req1.value
@@ -25,15 +25,29 @@ const Setups = (props) => {
     let reqEight = e.target.req8.value
     let reqNine = e.target.req9.value
     let reqTen = e.target.req10.value
-    let response = await saveStrategy(
-      name, reqOne, reqTwo, reqThree, reqFour, reqFive, reqSix, reqSeven, reqEight, reqNine, reqTen
-    )
-    if (response.status === 200) {
-      setMessage(`${name} added Successfully`)
-      reloadSetups()
-    } else {
-      setMessage(response.data.errors[0])
+    
+    const saveNew = async () => {
+      let response = await saveStrategy(
+        name, reqOne, reqTwo, reqThree, reqFour, reqFive, reqSix, reqSeven, reqEight, reqNine, reqTen
+      )
+      if (response.status === 200) {
+        setMessage(`${name} added Successfully`)
+        reloadSetups()
+      } else {
+        setMessage(response.data.errors[0])
+      }
     }
+
+    const update = async () => {
+      let response = await updateSetup(editInfo[1], 
+        name, reqOne, reqTwo, reqThree, reqFour, reqFive, reqSix, reqSeven, reqEight, reqNine, reqTen
+        )
+      if (response.status === 200) {
+        debugger
+      }
+    }
+
+    editStrat === false ? saveNew() : update() 
   }
 
   const deleteStrat = async (setupId, strategyName) => {
@@ -64,22 +78,16 @@ const Setups = (props) => {
     }
     for (const property in strategy) {
       if (typeof strategy[property] === "string" && strategy[property][4] !== "-") {
-        debugger
         setEditReqs(editReqs => [...editReqs, strategy[property]])
       }
     }
     setEditStrat(true)
-    setEditName(stratName)
+    setEditInfo([stratName, setupId])
   }
-
-  // let response = await updateSetup(setupId)
-  //   if (response.status === 200) {
-  //     debugger
-  //   }
 
   const cancleEdit = () => {
     setEditStrat(false)
-    setEditName("")
+    setEditInfo([""])
     setEditReqs([])
     for(let i=0; i < 10; i++){
       setEditReqs(editReqs => [...editReqs, ""])}
@@ -117,7 +125,7 @@ const Setups = (props) => {
     <>
       <h2>Strategies</h2>
       <div>
-        {editStrat === true ? <h4>Edit Strategy "{editName}"</h4> : <h4>Add New Strategy</h4> }
+        {editStrat === true ? <h4>Edit Strategy "{editInfo[0]}"</h4> : <h4>Add New Strategy</h4> }
         <form id="main-form" onSubmit={submit}>
           <div className="fields">
             <div className="field">

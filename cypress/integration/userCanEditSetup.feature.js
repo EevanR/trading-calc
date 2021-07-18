@@ -23,5 +23,8 @@ describe("User can edit a setup", () => {
     cy.get("#setup1").within(() => {
       cy.get("#edit1").click()
     })
+
+    cy.get('#req3').type("Add a new requirement")
+    cy.get("#edit-strategy").click();
   })
 })
