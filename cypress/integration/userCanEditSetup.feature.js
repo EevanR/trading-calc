@@ -18,13 +18,19 @@ describe("User can edit a setup", () => {
 
   it("can successfully edit setup", () => {
     cy.login(); 
+    cy.route({
+      method: "PUT",
+      url: "http://localhost:3000/api/v1/setups/**",
+      response: "fixture:setup_update.json",
+      status: 200
+    });
 
     cy.contains("Strategies").click();
     cy.get("#setup1").within(() => {
       cy.get("#edit1").click()
     })
 
-    cy.get('#req3').type("Add a new requirement")
+    cy.get('#req3').type("Add a new requirement");
     cy.get("#edit-strategy").click();
   })
-})
+}) 

@@ -53,12 +53,40 @@ const deleteSetup = async (setupId) => {
   }
 }
 
-const updateSetup = async (setupId) => {
+const updateSetup = async (
+  setupId, 
+  name, 
+  reqOne, 
+  reqTwo, 
+  reqThree, 
+  reqFour, 
+  reqFive, 
+  reqSix, 
+  reqSeven, 
+  reqEight, 
+  reqNine, 
+  reqTen
+  ) => {
   let headers = JSON.parse(sessionStorage.getItem("credentials"));
   try {
-    const response = await axios.update(`/setups/${setupId}`, {
-      headers: headers
-    })
+    const response = await axios.put(`/setups/${setupId}`, 
+      {
+        Params: {
+          name: name,
+          reqOne: reqOne,
+          reqTwo: reqTwo,
+          reqThree: reqThree,
+          reqFour: reqFour,
+          reqFive: reqFive,
+          reqSix: reqSix,
+          reqSeven: reqSeven,
+          reqEight: reqEight,
+          reqNine: reqNine,
+          reqTen: reqTen
+        },
+        headers: headers
+      }
+    )
     return response
   } catch (error) {
     return error.response
