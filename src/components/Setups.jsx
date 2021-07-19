@@ -43,7 +43,10 @@ const Setups = (props) => {
         name, reqOne, reqTwo, reqThree, reqFour, reqFive, reqSix, reqSeven, reqEight, reqNine, reqTen
         )
       if (response.status === 200) {
-        debugger
+        setMessage(`${name} updated Successfully`)
+        reloadSetups()
+      } else {
+        setMessage(response.data.errors[0])
       }
     }
 
@@ -63,8 +66,10 @@ const Setups = (props) => {
   const reloadSetups = async () => {
     let response = await getSetups()
     if (response !== undefined && response.status === 200) {
+      debugger
       props.setStrategies(response.data)
     } 
+    setEditStrat(false)
   }
 
   const editSetup = async (setupId, stratName) => {
