@@ -11,6 +11,7 @@ const Setups = (props) => {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const chevronWidth = 40;
   const [editReqs, setEditReqs] = useState([])
+  const [inputIndex, setInputIndex] = useState("")
 
   const submit = (e) => {
     e.preventDefault();
@@ -53,7 +54,7 @@ const Setups = (props) => {
         reqTen: reqTen
       }
       for (const [key, value] of Object.entries(reqs)) {
-        reqs[key] === "" ? reqs[key] = null : reqs[key] = reqs[key]
+        value === "" ? reqs[key] = null : reqs[key] = value
       }
       let response = await updateSetup(editInfo[1], reqs)
       if (response.status === 200) {
@@ -63,7 +64,6 @@ const Setups = (props) => {
         setMessage(response.data.errors[0])
       }
     }
-
     editStrat === false ? saveNew() : update() 
   }
 
@@ -139,6 +139,17 @@ const Setups = (props) => {
     return <h4>No Saved Strategies</h4>
   }
 
+  const clickHandler = (e) => {
+    let index = editReqs.findIndex(req => req === e.target.value);
+    setInputIndex(index)
+  }
+
+  const formFieldChangeHandler = (e) => {
+    let newArr = [...editReqs]
+    newArr[inputIndex] = e.target.value
+    setEditReqs(newArr);
+  }
+
   return (
     <>
       <h2>Strategies</h2>
@@ -152,8 +163,9 @@ const Setups = (props) => {
                 type="text"
                 name="name"
                 id="name"
-                value= {null}
-                placeholder = {editReqs[0]}
+                value = {editReqs[0]}
+                onChange= {editStrat === true && formFieldChangeHandler}
+                onClick= {editStrat === true && clickHandler}
               />
             </div>
             <div className="field">
@@ -162,7 +174,9 @@ const Setups = (props) => {
                 type="text"
                 name="req1"
                 id="req1"
-                placeholder = {editReqs[1]}
+                value = {editReqs[1]}
+                onChange= {formFieldChangeHandler}
+                onClick= {clickHandler}
               />
             </div>
             <div className="field">
@@ -171,7 +185,9 @@ const Setups = (props) => {
                 type="text"
                 name="req2"
                 id="req2"
-                placeholder = {editReqs[2]}
+                value = {editReqs[2]}
+                onChange= {formFieldChangeHandler}
+                onClick= {clickHandler}
               />
             </div>
             <div className="field">
@@ -180,7 +196,9 @@ const Setups = (props) => {
                 type="text"
                 name="req3"
                 id="req3"
-                placeholder = {editReqs[3]}
+                value = {editReqs[3]}
+                onChange= {formFieldChangeHandler}
+                onClick= {clickHandler}
               />
             </div>
             <div className="field">
@@ -189,7 +207,9 @@ const Setups = (props) => {
                 type="text"
                 name="req4"
                 id="req4"
-                placeholder = {editReqs[4]}
+                value = {editReqs[4]}
+                onChange= {formFieldChangeHandler}
+                onClick= {clickHandler}
               />
             </div>
             <div className="field">
@@ -198,7 +218,9 @@ const Setups = (props) => {
                 type="text"
                 name="req5"
                 id="req5"
-                placeholder = {editReqs[5]}
+                value = {editReqs[5]}
+                onChange= {formFieldChangeHandler}
+                onClick= {clickHandler}
               />
             </div>
             <div className="field">
@@ -207,7 +229,9 @@ const Setups = (props) => {
                 type="text"
                 name="req6"
                 id="req6"
-                placeholder = {editReqs[6]}
+                value = {editReqs[6]}
+                onChange= {formFieldChangeHandler}
+                onClick= {clickHandler}
               />
             </div>
             <div className="field">
@@ -216,7 +240,9 @@ const Setups = (props) => {
                 type="text"
                 name="req7"
                 id="req7"
-                placeholder = {editReqs[7]}
+                value = {editReqs[7]}
+                onChange= {formFieldChangeHandler}
+                onClick= {clickHandler}
               />
             </div>
             <div className="field">
@@ -225,7 +251,9 @@ const Setups = (props) => {
                 type="text"
                 name="req8"
                 id="req8"
-                placeholder = {editReqs[8]}
+                value = {editReqs[8]}
+                onChange= {formFieldChangeHandler}
+                onClick= {clickHandler}
               />
             </div>
             <div className="field">
@@ -234,7 +262,9 @@ const Setups = (props) => {
                 type="text"
                 name="req9"
                 id="req9"
-                placeholder = {editReqs[9]}
+                value = {editReqs[9]}
+                onChange= {formFieldChangeHandler}
+                onClick= {clickHandler}
               />
             </div>
             <div className="field">
@@ -243,7 +273,9 @@ const Setups = (props) => {
                 type="text"
                 name="req10"
                 id="req10"
-                placeholder = {editReqs[10]}
+                value = {editReqs[10]}
+                onChange= {formFieldChangeHandler}
+                onClick= {clickHandler}
               />
             </div>
           </div>
