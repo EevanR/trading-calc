@@ -53,9 +53,6 @@ const Setups = (props) => {
         reqNine: reqNine, 
         reqTen: reqTen
       }
-      for (const [key, value] of Object.entries(reqs)) {
-        value === "" ? reqs[key] = null : reqs[key] = value
-      }
       let response = await updateSetup(editInfo[1], reqs)
       if (response.status === 200) {
         setMessage(`${name} updated Successfully`)
@@ -164,8 +161,8 @@ const Setups = (props) => {
                 name="name"
                 id="name"
                 value = {editReqs[0]}
-                onChange= {editStrat === true && formFieldChangeHandler}
-                onClick= {editStrat === true && clickHandler}
+                onChange= {formFieldChangeHandler}
+                onClick= {clickHandler}
               />
             </div>
             <div className="field">
