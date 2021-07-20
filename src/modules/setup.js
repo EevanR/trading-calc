@@ -53,40 +53,27 @@ const deleteSetup = async (setupId) => {
   }
 }
 
-const updateSetup = async (
-  setupId, 
-  name, 
-  reqOne, 
-  reqTwo, 
-  reqThree, 
-  reqFour, 
-  reqFive, 
-  reqSix, 
-  reqSeven, 
-  reqEight, 
-  reqNine, 
-  reqTen
-  ) => {
+const updateSetup = async (setupId, reqs) => {
   let headers = JSON.parse(sessionStorage.getItem("credentials"));
   try {
-    const response = await axios.put(`/setups/${setupId}`, 
-      {
-        Params: {
-          name: name,
-          reqOne: reqOne,
-          reqTwo: reqTwo,
-          reqThree: reqThree,
-          reqFour: reqFour,
-          reqFive: reqFive,
-          reqSix: reqSix,
-          reqSeven: reqSeven,
-          reqEight: reqEight,
-          reqNine: reqNine,
-          reqTen: reqTen
-        },
-        headers: headers
+    const response = await axios({
+      headers: headers,
+      method: "PATCH",
+      url: `/setups/${setupId}`,
+      params: {
+        name: reqs["name"],
+        reqOne: reqs["reqOne"],
+        reqTwo: reqs["reqTwo"],
+        reqThree: reqs["reqThree"],
+        reqFour: reqs["reqFour"],
+        reqFive: reqs["reqFive"],
+        reqSix: reqs["reqSix"],
+        reqSeven: reqs["reqSeven"],
+        reqEight: reqs["reqEight"],
+        reqNine: reqs["reqNine"],
+        reqTen: reqs["reqTen"]
       }
-    )
+    })
     return response
   } catch (error) {
     return error.response

@@ -19,7 +19,7 @@ describe("User can edit a setup", () => {
   it("can successfully edit setup", () => {
     cy.login(); 
     cy.route({
-      method: "PUT",
+      method: "PATCH",
       url: "http://localhost:3000/api/v1/setups/**",
       response: "fixture:setup_update.json",
       status: 200

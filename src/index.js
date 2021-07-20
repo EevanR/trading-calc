@@ -15,8 +15,6 @@ axios.defaults.baseURL = "http://localhost:3000/api/v1";
 
 const store = configureStore();
 
-window.store = store
-
 ReactDOM.render(
   <Provider store={store}>
     <App />
