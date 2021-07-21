@@ -10,29 +10,29 @@ const Setups = (props) => {
   const [editInfo, setEditInfo] = useState([])
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const chevronWidth = 40;
-  const [editReqs, setEditReqs] = useState([])
-  const [inputIndex, setInputIndex] = useState("")
+  const [editReqs, setEditReqs] = useState({})
 
   const submit = (e) => {
     e.preventDefault();
     let name = e.target.name.value
-    let reqOne = e.target.req1.value
-    let reqTwo = e.target.req2.value
-    let reqThree = e.target.req3.value
-    let reqFour = e.target.req4.value
-    let reqFive = e.target.req5.value
-    let reqSix = e.target.req6.value
-    let reqSeven = e.target.req7.value
-    let reqEight = e.target.req8.value
-    let reqNine = e.target.req9.value
-    let reqTen = e.target.req10.value
+    let req1 = e.target.req1.value
+    let req2 = e.target.req2.value
+    let req3 = e.target.req3.value
+    let req4 = e.target.req4.value
+    let req5 = e.target.req5.value
+    let req6 = e.target.req6.value
+    let req7 = e.target.req7.value
+    let req8 = e.target.req8.value
+    let req9 = e.target.req9.value
+    let req10 = e.target.req10.value
     
     const saveNew = async () => {
       let response = await saveStrategy(
-        name, reqOne, reqTwo, reqThree, reqFour, reqFive, reqSix, reqSeven, reqEight, reqNine, reqTen
+        name, req1, req2, req3, req4, req5, req6, req7, req8, req9, req10
       )
       if (response.status === 200) {
         setMessage(`${name} added Successfully`)
+        clearFields()
         reloadSetups()
       } else {
         setMessage(response.data.errors[0])
@@ -42,20 +42,21 @@ const Setups = (props) => {
     const update = async () => {
       let reqs = {
         name: name, 
-        reqOne: reqOne, 
-        reqTwo: reqTwo, 
-        reqThree: reqThree, 
-        reqFour: reqFour, 
-        reqFive: reqFive, 
-        reqSix: reqSix, 
-        reqSeven: reqSeven, 
-        reqEight: reqEight, 
-        reqNine: reqNine, 
-        reqTen: reqTen
+        req1: req1, 
+        req2: req2, 
+        req3: req3, 
+        req4: req4, 
+        req5: req5, 
+        req6: req6, 
+        req7: req7, 
+        req8: req8, 
+        req9: req9, 
+        req10: req10
       }
       let response = await updateSetup(editInfo[1], reqs)
       if (response.status === 200) {
         setMessage(`${name} updated Successfully`)
+        clearFields()
         reloadSetups()
       } else {
         setMessage(response.data.errors[0])
@@ -83,29 +84,39 @@ const Setups = (props) => {
   }
 
   const editSetup = async (setupId, stratName) => {
-    setEditReqs([])
+    setEditReqs({})
     let strategy = {}
     for (let i=0; i<props.strategies.length; i++) {
       if (props.strategies[i].name === stratName) {
         strategy = props.strategies[i]
+        setEditReqs(strategy)
         break
-      }
-    }
-    for (const property in strategy) {
-      if (typeof strategy[property] === "string" && strategy[property][4] !== "-") {
-        setEditReqs(editReqs => [...editReqs, strategy[property]])
       }
     }
     setEditStrat(true)
     setEditInfo([stratName, setupId])
   }
-
+  
   const cancleEdit = () => {
     setEditStrat(false)
     setEditInfo([""])
-    setEditReqs([])
-    for(let i=0; i < 10; i++){
-      setEditReqs(editReqs => [...editReqs, null])}
+    clearFields()
+    reloadSetups()
+  }
+
+  const clearFields = () => {
+    let num = 1
+    let obj = {}
+    obj.name = ""
+    for (let i=1; i < 11; i++) {
+      obj[`req${num}`] = ""
+      num+=1
+    }
+    setEditReqs(obj)
+  }
+
+  const clickHandler = () => {
+    setEditReqs({})
   }
 
   let savedStrategies;
@@ -136,17 +147,6 @@ const Setups = (props) => {
     return <h4>No Saved Strategies</h4>
   }
 
-  const clickHandler = (e) => {
-    let index = editReqs.findIndex(req => req === e.target.value);
-    setInputIndex(index)
-  }
-
-  const formFieldChangeHandler = (e) => {
-    let newArr = [...editReqs]
-    newArr[inputIndex] = e.target.value
-    setEditReqs(newArr);
-  }
-
   return (
     <>
       <h2>Strategies</h2>
@@ -160,8 +160,7 @@ const Setups = (props) => {
                 type="text"
                 name="name"
                 id="name"
-                value = {editReqs[0]}
-                onChange= {formFieldChangeHandler}
+                value = {editReqs.name}
                 onClick= {clickHandler}
               />
             </div>
@@ -171,8 +170,7 @@ const Setups = (props) => {
                 type="text"
                 name="req1"
                 id="req1"
-                value = {editReqs[1]}
-                onChange= {formFieldChangeHandler}
+                value = {editReqs.req1}
                 onClick= {clickHandler}
               />
             </div>
@@ -182,8 +180,7 @@ const Setups = (props) => {
                 type="text"
                 name="req2"
                 id="req2"
-                value = {editReqs[2]}
-                onChange= {formFieldChangeHandler}
+                value = {editReqs.req2}
                 onClick= {clickHandler}
               />
             </div>
@@ -193,8 +190,7 @@ const Setups = (props) => {
                 type="text"
                 name="req3"
                 id="req3"
-                value = {editReqs[3]}
-                onChange= {formFieldChangeHandler}
+                value = {editReqs.req3}
                 onClick= {clickHandler}
               />
             </div>
@@ -204,8 +200,7 @@ const Setups = (props) => {
                 type="text"
                 name="req4"
                 id="req4"
-                value = {editReqs[4]}
-                onChange= {formFieldChangeHandler}
+                value = {editReqs.req4}
                 onClick= {clickHandler}
               />
             </div>
@@ -215,8 +210,7 @@ const Setups = (props) => {
                 type="text"
                 name="req5"
                 id="req5"
-                value = {editReqs[5]}
-                onChange= {formFieldChangeHandler}
+                value = {editReqs.req5}
                 onClick= {clickHandler}
               />
             </div>
@@ -226,8 +220,7 @@ const Setups = (props) => {
                 type="text"
                 name="req6"
                 id="req6"
-                value = {editReqs[6]}
-                onChange= {formFieldChangeHandler}
+                value = {editReqs.req6}
                 onClick= {clickHandler}
               />
             </div>
@@ -237,8 +230,7 @@ const Setups = (props) => {
                 type="text"
                 name="req7"
                 id="req7"
-                value = {editReqs[7]}
-                onChange= {formFieldChangeHandler}
+                value = {editReqs.req7}
                 onClick= {clickHandler}
               />
             </div>
@@ -248,8 +240,7 @@ const Setups = (props) => {
                 type="text"
                 name="req8"
                 id="req8"
-                value = {editReqs[8]}
-                onChange= {formFieldChangeHandler}
+                value = {editReqs.req8}
                 onClick= {clickHandler}
               />
             </div>
@@ -259,8 +250,7 @@ const Setups = (props) => {
                 type="text"
                 name="req9"
                 id="req9"
-                value = {editReqs[9]}
-                onChange= {formFieldChangeHandler}
+                value = {editReqs.req9}
                 onClick= {clickHandler}
               />
             </div>
@@ -270,8 +260,7 @@ const Setups = (props) => {
                 type="text"
                 name="req10"
                 id="req10"
-                value = {editReqs[10]}
-                onChange= {formFieldChangeHandler}
+                value = {editReqs.req10}
                 onClick= {clickHandler}
               />
             </div>
