@@ -4,6 +4,7 @@
     "name": "Strat 1",
     "req1": "Pre req one",
     "req2": "Pre req two",
+    "req3": "Add a new requirement",
     "created_at": "2021-05-02T18:12:19.781Z",
     "updated_at": "2021-05-02T18:12:19.781Z",
     "user_id": 1

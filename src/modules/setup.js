@@ -1,22 +1,22 @@
 import axios from "axios";
 
-const saveStrategy = async (name, reqOne, reqTwo, reqThree, reqFour, reqFive, reqSix, reqSeven, reqEight, reqNine, reqTen) => {
+const saveStrategy = async (name, req1, req2, req3, req4, req5, req6, req7, req8, req9, req10) => {
   let headers = JSON.parse(sessionStorage.getItem("credentials"));
   try {
     const response = await axios.post("/setups",
       {
         setup: {
           name: name,
-          reqOne: reqOne,
-          reqTwo: reqTwo,
-          reqThree: reqThree,
-          reqFour: reqFour,
-          reqFive: reqFive,
-          reqSix: reqSix,
-          reqSeven: reqSeven,
-          reqEight: reqEight,
-          reqNine: reqNine,
-          reqTen: reqTen
+          req1: req1,
+          req2: req2,
+          req3: req3,
+          req4: req4,
+          req5: req5,
+          req6: req6,
+          req7: req7,
+          req8: req8,
+          req9: req9,
+          req10: req10
         }
       },
       {
@@ -53,4 +53,31 @@ const deleteSetup = async (setupId) => {
   }
 }
 
-export { saveStrategy, getSetups, deleteSetup }
+const updateSetup = async (setupId, reqs) => {
+  let headers = JSON.parse(sessionStorage.getItem("credentials"));
+  try {
+    const response = await axios({
+      headers: headers,
+      method: "PATCH",
+      url: `/setups/${setupId}`,
+      params: {
+        name: reqs["name"],
+        req1: reqs["req1"],
+        req2: reqs["req2"],
+        req3: reqs["req3"],
+        req4: reqs["req4"],
+        req5: reqs["req5"],
+        req6: reqs["req6"],
+        req7: reqs["req7"],
+        req8: reqs["req8"],
+        req9: reqs["req9"],
+        req10: reqs["req10"]
+      }
+    })
+    return response
+  } catch (error) {
+    return error.response
+  }
+}
+
+export { saveStrategy, getSetups, deleteSetup, updateSetup }
