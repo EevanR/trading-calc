@@ -7,6 +7,7 @@ import GapStats from "./GapStats"
 import Setups from "./Setups"
 import { connect } from "react-redux";
 import { Tab } from 'semantic-ui-react'
+import Twitter from "./Twitter";
 
 const Form = props => {
 
@@ -183,6 +184,7 @@ const Form = props => {
               </>
             )}
             <ProfitChart />
+            <Twitter/>
           </>
         </Tab.Pane>
       )
