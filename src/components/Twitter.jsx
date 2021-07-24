@@ -3,7 +3,7 @@ import React from 'react';
 const Twitter = () => {
 
   const submit = (e) => {
-    e.preventdefault();
+    e.preventDefault();
   }
 
 
@@ -22,6 +22,7 @@ const Twitter = () => {
             id="username"
           />
         </div>
+        <button id="twitter-submit">Follow Tweets!</button>
       </form>
     </>
   )
