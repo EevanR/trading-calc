@@ -1,11 +1,17 @@
 import React from 'react';
+import { twitterRules } from '../modules/twitter';
 
 const Twitter = () => {
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
+    let response = await twitterRules()
+    if (response.status === 200) {
+      debugger
+    } else {
+      debugger
+    }
   }
-
 
   return (
     <>
