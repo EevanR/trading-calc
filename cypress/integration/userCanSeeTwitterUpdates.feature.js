@@ -19,6 +19,6 @@ describe("User can see live tweets", () => {
   it("can successfully see tweets from favorite user", () => {
     cy.login()
     cy.get("#username").type("@team3dstocks")
-    cy.get("#twitter-submit").click()
+    // cy.get("#twitter-submit").click()
   })
 })

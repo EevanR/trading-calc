@@ -1,5 +1,6 @@
 import React from 'react';
 import { twitterRules } from '../modules/twitter';
+import { Timeline, Tweet } from 'react-twitter-widgets'
 
 const Twitter = () => {
 
@@ -15,6 +16,13 @@ const Twitter = () => {
 
   return (
     <>
+      <Timeline
+        dataSource={{
+          sourceType: "profile",
+          screenName: "team3dstocks"
+        }}
+        options={{ id: "profile:team3dstocks" }}
+      />
       <h1>Twitter Feed</h1>
       <h4>Live updates from User:</h4>
       <form id="twitter-form" onSubmit={submit}>
