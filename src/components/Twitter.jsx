@@ -1,33 +1,27 @@
-import React from 'react';
-import { twitterRules } from '../modules/twitter';
-import { Timeline, Tweet } from 'react-twitter-widgets'
+import React, { useState } from 'react';
+import { sendTwitterHandle } from '../modules/twitter';
+import { Timeline } from 'react-twitter-widgets'
 
 const Twitter = () => {
+  const [twitterAccount, setTwitterAccount] = useState("")
 
   const submit = async (e) => {
     e.preventDefault();
-    let response = await twitterRules()
+    let response = await sendTwitterHandle(e.target.username.value)
     if (response.status === 200) {
-      debugger
+      setTwitterAccount(response.data.name)
     } else {
-      debugger
+      
     }
   }
 
   return (
     <>
-      <Timeline
-        dataSource={{
-          sourceType: "profile",
-          screenName: "team3dstocks"
-        }}
-        options={{ id: "profile:team3dstocks" }}
-      />
       <h1>Twitter Feed</h1>
       <h4>Live updates from User:</h4>
       <form id="twitter-form" onSubmit={submit}>
         <div>
-          <label>Username</label>
+          <label>Username: @</label>
           <input 
             required
             type="text"
@@ -38,6 +32,17 @@ const Twitter = () => {
         </div>
         <button id="twitter-submit">Follow Tweets!</button>
       </form>
+      <Timeline
+        dataSource={{
+          sourceType: "profile",
+          screenName: twitterAccount
+        }}
+        options={{ 
+          id: `profile:${twitterAccount}`, 
+          theme: "dark",
+          tweetLimit: "6"
+        }}
+      />
     </>
   )
 }
