@@ -8,17 +8,12 @@ const Twitter = () => {
   const submit = async (e) => {
     e.preventDefault();
     let response = await sendTwitterHandle(e.target.username.value)
-    if (response.status === 200) {
-      setTwitterAccount(response.data.name)
-    } else {
-      
-    }
+    response.status === 200 && setTwitterAccount(response.data.name)
   }
 
   return (
     <>
       <h1>Twitter Feed</h1>
-      <h4>Live updates from User:</h4>
       <form id="twitter-form" onSubmit={submit}>
         <div>
           <label>Username: @</label>
@@ -32,6 +27,7 @@ const Twitter = () => {
         </div>
         <button id="twitter-submit">Follow Tweets!</button>
       </form>
+      {twitterAccount !== "" && <h4>Showing {twitterAccount} timeline:</h4>}
       <Timeline
         dataSource={{
           sourceType: "profile",
