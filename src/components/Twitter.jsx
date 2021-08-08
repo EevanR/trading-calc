@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import { sendTwitterHandle } from '../modules/twitter';
+import React, { useState, useEffect } from 'react';
+import { sendTwitterHandle, getHandles } from '../modules/twitter';
 import { Timeline } from 'react-twitter-widgets'
+import { Dropdown } from 'semantic-ui-react'
 
 const Twitter = () => {
   const [twitterAccount, setTwitterAccount] = useState("")
+  const [twitterHandles, setTwitterHandles] = useState([])
 
   const submit = async (e) => {
     e.preventDefault();
@@ -11,9 +13,34 @@ const Twitter = () => {
     response.status === 200 && setTwitterAccount(response.data.name)
   }
 
+  const indexTwitterHandles = async () => {
+    let response = await getHandles()
+    if (response !== undefined && response.status === 200) {
+      setTwitterHandles()
+    } else {
+
+    }
+  }
+
+  useEffect(() => {
+    indexTwitterHandles()
+  }, [twitterAccount])
+
   return (
     <>
       <h1>Twitter Feed</h1>
+      <div>
+        <h3>Saved Accounts</h3>
+        <Dropdown
+          placeholder= "Choose"
+          clearable
+          fluid
+          options={twitterHandles}
+          // onChange={event => {
+            
+          // }}
+        />
+      </div>
       <form id="twitter-form" onSubmit={submit}>
         <div>
           <label>Username: @</label>

@@ -19,4 +19,18 @@ const sendTwitterHandle = async (name) => {
   }
 }
 
-export { sendTwitterHandle }
+const getHandles = async () => {
+  let headers = JSON.parse(sessionStorage.getItem("credentials"));
+  try {
+    const response = await axios.get("/tweets",
+    {
+      headers: headers
+    }
+    )
+    return response
+  } catch (error) {
+    return error.response
+  }
+}
+
+export { sendTwitterHandle, getHandles }

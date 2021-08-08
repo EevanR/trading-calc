@@ -2,6 +2,7 @@ describe("User can see live tweets", () => {
   beforeEach(() => {
     cy.viewport(1450,1000);
     cy.server()
+    cy.login()
     cy.route({
       method: "GET",
       url: "http://localhost:3000/api/v1/trades",
@@ -16,8 +17,7 @@ describe("User can see live tweets", () => {
     })
   })
 
-  it("can successfully see tweets from favorite user", () => {
-    cy.login()
+  it("can successfully set desired user twitter handle", () => {
     cy.route({
       method: "POST",
       url: "http://localhost:3000/api/v1/tweets",
