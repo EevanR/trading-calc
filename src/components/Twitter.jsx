@@ -62,7 +62,7 @@ const Twitter = () => {
         </div>
         <button id="twitter-submit">Submit</button>
       </form>
-      {twitterAccount !== "" && <h4>Showing {twitterAccount} timeline:</h4>}
+      {twitterAccount !== "" && <h4>Showing {twitterAccount}'s last 10 tweets:</h4>}
       <Timeline
         dataSource={{
           sourceType: "profile",

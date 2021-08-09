@@ -26,7 +26,7 @@ describe("User can see live tweets", () => {
     })
     cy.get("#username").type("team3dstocks")
     cy.get("#twitter-submit").click()
-    cy.get('body').should('include.text', 'Showing team3dstocks timeline')
+    cy.get('body').should('include.text', "Showing team3dstocks's last 10 tweets:")
   })
 
   it("user can choose twitter handle from drop down", () => {
@@ -38,5 +38,6 @@ describe("User can see live tweets", () => {
     })
     cy.get("#handle-dropdown").click()
     cy.get('.visible > .selected > .text').click()
+    cy.get('body').should('include.text', "Showing team3dstocks's last 10 tweets:")
   })
 })
