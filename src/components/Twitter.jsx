@@ -30,6 +30,14 @@ const Twitter = () => {
     setTwitterAccount(e.target.textContent)
   }
 
+  const refreshTimeline = () => {
+    let account = twitterAccount
+    setTwitterAccount("")
+    setTimeout(() => {
+      setTwitterAccount(account)
+    }, 500);
+  }
+
   useEffect(() => {
     indexTwitterHandles()
   }, [twitterAccount])
@@ -63,6 +71,7 @@ const Twitter = () => {
         <button id="twitter-submit">Submit</button>
       </form>
       {twitterAccount !== "" && <h4>Showing {twitterAccount}'s last 10 tweets:</h4>}
+      <button onClick={() => refreshTimeline() }>Refresh</button>
       <Timeline
         dataSource={{
           sourceType: "profile",
