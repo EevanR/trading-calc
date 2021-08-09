@@ -28,4 +28,15 @@ describe("User can see live tweets", () => {
     cy.get("#twitter-submit").click()
     cy.get('body').should('include.text', 'Showing team3dstocks timeline')
   })
+
+  it("user can choose twitter handle from drop down", () => {
+    cy.route({
+      method: "GET",
+      url: "http://localhost:3000/api/v1/tweets",
+      response: "fixture:index_tweets.json",
+      status: 200
+    })
+    cy.get("#handle-dropdown").click()
+    cy.get('.visible > .selected > .text').click()
+  })
 })

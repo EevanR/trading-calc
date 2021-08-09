@@ -14,12 +14,20 @@ const Twitter = () => {
   }
 
   const indexTwitterHandles = async () => {
+    let handleIndex = []
     let response = await getHandles()
     if (response !== undefined && response.status === 200) {
-      setTwitterHandles()
-    } else {
-
+      let key = 1
+      let value = 1
+      response.data.forEach(handle => {
+        handleIndex.push({key: key++, value: value++, text: handle.name})
+      })
+      setTwitterHandles(handleIndex)
     }
+  }
+
+  const onChangeHandler = (e) => {
+    setTwitterAccount(e.target.textContent)
   }
 
   useEffect(() => {
@@ -32,15 +40,15 @@ const Twitter = () => {
       <div>
         <h3>Saved Accounts</h3>
         <Dropdown
+          id="handle-dropdown"
           placeholder= "Choose"
           clearable
           fluid
           options={twitterHandles}
-          // onChange={event => {
-            
-          // }}
+          onChange={onChangeHandler}
         />
       </div>
+      <h3>Follow new account</h3>
       <form id="twitter-form" onSubmit={submit}>
         <div>
           <label>Username: @</label>
@@ -52,7 +60,7 @@ const Twitter = () => {
             id="username"
           />
         </div>
-        <button id="twitter-submit">Follow Tweets!</button>
+        <button id="twitter-submit">Submit</button>
       </form>
       {twitterAccount !== "" && <h4>Showing {twitterAccount} timeline:</h4>}
       <Timeline
