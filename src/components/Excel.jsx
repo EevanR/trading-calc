@@ -3,7 +3,6 @@ import * as XLSX from 'xlsx'
 import { connect } from "react-redux";
 
 const Excel = props => {
-  const [tradeHistory, setTradeHistory] = useState([])
 
   const readExcel = (file) => {
     const promise = new Promise((resolve, reject) => {
