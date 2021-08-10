@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as XLSX from 'xlsx'
 
 const Excel = () => {
+  const [tradeHistory, setTradeHistory] = useState([])
 
-  const readExcel = async (file) => {
+  const readExcel = (file) => {
     const promise = new Promise((resolve, reject) => {
       const fileReader = new FileReader()
       fileReader.readAsArrayBuffer(file)
@@ -27,7 +28,7 @@ const Excel = () => {
     })
 
     promise.then((d) => {
-      console.log(d)
+      setTradeHistory(d)
     })
   }
 
