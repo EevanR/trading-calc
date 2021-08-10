@@ -5,6 +5,7 @@ import Pannel from './Pannel'
 import ProfitChart from "./ProfitChart"
 import GapStats from "./GapStats"
 import Setups from "./Setups"
+import Excel from "./Excel";
 import { connect } from "react-redux";
 import { Tab } from 'semantic-ui-react'
 import Twitter from "./Twitter";
@@ -183,6 +184,7 @@ const Form = props => {
                 <Plays />
               </>
             )}
+            <Excel />
             <ProfitChart />
             <Twitter/>
           </>
