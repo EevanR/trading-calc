@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import * as XLSX from 'xlsx'
+import { connect } from "react-redux";
 
-const Excel = () => {
+const Excel = props => {
   const [tradeHistory, setTradeHistory] = useState([])
 
   const readExcel = (file) => {
@@ -28,7 +29,7 @@ const Excel = () => {
     })
 
     promise.then((d) => {
-      setTradeHistory(d)
+      props.setSavedTrades(d)
     })
   }
 
@@ -47,4 +48,18 @@ const Excel = () => {
   )
 }
 
-export default Excel
+const mapStateToProps = state => {
+  return {
+    savedTrades: state.savedTrades,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setSavedTrades: data => {
+      dispatch({ type: "SET_SAVEDTRADES", payload: data });
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Excel)
