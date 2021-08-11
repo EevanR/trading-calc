@@ -1,35 +1,56 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { getTrades } from "../modules/trades"
-import { Line, HorizontalBar, Pie } from 'react-chartjs-2';
+import { Line, Bar, Pie } from 'react-chartjs-2';
 
 const ProfitChart = props => {
   const [profit, setProfit] = useState([])
   const [date, setDate] = useState([])
-  const [trades, setTrades] = useState([])
+  const [dayGain, setDayGain] = useState([])
+
+  const setBarData = (data) => {
+    let array = []
+    for (let day in data) {
+      let avg = data[day][1].reduce((a, b) => a + b, 0)
+      avg = avg/data[day][0]
+      array.push(avg)
+    }
+    setDayGain(array)
+  }
 
   const setDates = () => {
+    let dailyPreformance = {
+      Mon: [0,[]],
+      Tue: [0,[]],
+      Wed: [0,[]],
+      Thu: [0,[]],
+      Fri: [0,[]]
+    }
+
     let dates = []
     for(let i=0; i<props.savedTrades.length; i++) {
       let date = props.savedTrades[i]["T/D"]
-      if (!dates.includes(date)) {
-        dates.push(date)
-      }
+      !dates.includes(date) && dates.push(date)
     }
+
     let dailyProfits = 0
     let cumulativeGains = []
     dates.map(date => {
       let total = 0
       for(let i=0; i<props.savedTrades.length; i++) {
-        if (props.savedTrades[i]["T/D"] === date) {
-          total += props.savedTrades[i]["Net Proceeds"]
-        }
+        props.savedTrades[i]["T/D"] === date && (total += props.savedTrades[i]["Net Proceeds"])
       }
       dailyProfits += total
       cumulativeGains.push(dailyProfits)
+
+      let dayOfWeek = new Date(date).toString().slice(0, 3)
+      for (let property in dailyPreformance) {
+        dayOfWeek === property && dailyPreformance[dayOfWeek][1].push(total) && dailyPreformance[dayOfWeek][0]++
+      }
     })
     setDate(dates)
     setProfit(cumulativeGains)
+    setBarData(dailyPreformance)
   }
 
   const lineData = {
@@ -73,28 +94,34 @@ const ProfitChart = props => {
     }
   }
 
-  // const barData = {
-  //   labels: setups,
-  //   datasets: [
-  //     {
-  //       label: 'Successes',
-  //       fill: true,
-  //       backgroundColor: 'rgba(75,192,192,0.4)',
-  //       borderColor: 'rgba(75,192,192,1)',
-  //       hoverBackgroundColor: 'rgba(75,192,192)',
-  //       data: setupGains
-  //     },
-  //     {
-  //       label: 'Failures',
-  //       data: setupLosses,
-  //       fill: false,
-  //       backgroundColor: 'rgba(233, 133, 93, 0.719)',
-  //       borderColor: '#71B37C',
-  //       hoverBackgroundColor: 'rgba(233, 133, 93)',
-  //       hoverBorderColor: '#71B37C'
-  //     }
-  //   ]
-  // };
+  const barData = {
+    labels: [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday"
+    ],
+    datasets: [
+      {
+        label: 'Avg Day Gain',
+        fill: true,
+        backgroundColor: 'rgba(75,192,192,0.4)',
+        borderColor: 'rgba(75,192,192,1)',
+        hoverBackgroundColor: 'rgba(75,192,192)',
+        data: dayGain
+      }
+      // {
+      //   label: 'Failures',
+      //   data: setupLosses,
+      //   fill: false,
+      //   backgroundColor: 'rgba(233, 133, 93, 0.719)',
+      //   borderColor: '#71B37C',
+      //   hoverBackgroundColor: 'rgba(233, 133, 93)',
+      //   hoverBorderColor: '#71B37C'
+      // }
+    ]
+  };
 
   // const pieData = {
   //   labels: setups,
@@ -162,17 +189,17 @@ const ProfitChart = props => {
           height={500}
         />
       </div>
-      <h2>Setup Tracking</h2>
+      <h2>Breakdown</h2>
       <div className="setup-graphs">
         <div>
-          <h4>Win vs Loss / Setup</h4>
-          {/* <div> 
-            <HorizontalBar
+          <h4>Daily</h4>
+          <div> 
+            <Bar
               data = {barData}
               options = {lineOptions}
               height={500}
             />
-          </div> */}
+          </div>
         </div>
         <div>
           <h4>Setup Frequency</h4>

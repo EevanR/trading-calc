@@ -6,7 +6,7 @@
     //   ]
     // )
     // setTrades(trades)
-    
+   
  // let setups = []
   // let setupGains = []
   // let setupLosses = []
