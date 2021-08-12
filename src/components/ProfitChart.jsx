@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { getTrades } from "../modules/trades"
-import { Line, Bar, Pie } from 'react-chartjs-2';
+import { Line, Bar } from 'react-chartjs-2';
+import CommissionsChart from "./CommissionsChart";
 
 const ProfitChart = props => {
   const [profit, setProfit] = useState([])
   const [date, setDate] = useState([])
   const [dayGain, setDayGain] = useState([])
+  const [commissionsTotal, setCommissionsTotal] = useState(0)
 
   const setBarData = (data) => {
     let green = []
@@ -25,7 +26,6 @@ const ProfitChart = props => {
       data[day][1].forEach(index => {
         index < 0 ? (redDay += index) && redCount++ : (greenDay += index) && greenCount++
       })
-      debugger
       posDays.push(greenDay/greenCount)
       negDays.push((redDay/redCount)*-1)
     }
@@ -42,10 +42,14 @@ const ProfitChart = props => {
     }
 
     let dates = []
+    let commissions = 0
     for(let i=0; i<props.savedTrades.length; i++) {
       let date = props.savedTrades[i]["T/D"]
       !dates.includes(date) && dates.push(date)
+      
+      commissions += (props.savedTrades[i]["Comm"] + props.savedTrades[i]["NSCC"])
     }
+    setCommissionsTotal(commissions)
 
     let dailyProfits = 0
     let cumulativeGains = []
@@ -71,7 +75,7 @@ const ProfitChart = props => {
     labels: date,
     datasets: [
       {
-        label: 'PnL CURVE',
+        label: 'PnL Curve',
         fill: true,
         lineTension: 0.1,
         backgroundColor: 'rgba(75,192,192,0.4)',
@@ -90,7 +94,8 @@ const ProfitChart = props => {
     maintainAspectRatio: false,
     legend: {
       labels: {
-        fontColor: "white"
+        fontColor: "white",
+        fontSize: 16
       }
     },
     scales: {
@@ -141,7 +146,8 @@ const ProfitChart = props => {
     maintainAspectRatio: false,
     legend: {
       labels: {
-        fontColor: "white"
+        fontColor: "white",
+        fontSize: 16
       }
     },
     scales: {
@@ -187,54 +193,33 @@ const ProfitChart = props => {
     ]
   };
 
-  // const pieData = {
-  //   labels: setups,
-  //   datasets: [
-  //     {
-  //       label: 'Successes',
-  //       fill: true,
-  //       backgroundColor: [
-  //         'rgba(75,192,192,0.4)',
-  //         'rgba(255, 015, 0, 0.8)',
-  //         'rgba(233, 133, 93, 0.719)',
-  //         'rgba(100, 133, 93, 0.719)',
-  //         'rgba(150, 133, 143, 0.7)',
-  //         'rgba(170, 133, 53, 0.9)',
-  //         'rgba(210, 133, 93, 0.6)',
-  //         'rgba(310, 373, 193, 0.6)'
-  //       ],
-  //       borderColor: 'rgba(75,192,192,1)',
-  //       hoverBackgroundColor: 'rgba(75,192,192)',
-  //       data: setupCount
-  //     }
-  //   ]
-  // };
-
-  const pieOptions = {
-    maintainAspectRatio: false,
-    legend: {
-      position: 'top',
-      labels: {
-        fontColor: "white"
+  const barThreedata = {
+    labels: [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday"
+    ],
+    datasets: [
+      {
+        label: 'Average Win',
+        fill: true,
+        backgroundColor: 'rgba(75,192,192,0.4)',
+        borderColor: 'rgba(75,192,192,1)',
+        hoverBackgroundColor: 'rgba(75,192,192)',
+        data: dayGain[2]
+      },
+      {
+        label: 'Average Loss',
+        fill: false,
+        backgroundColor: 'rgba(233, 133, 93, 0.719)',
+        borderColor: '#71B37C',
+        hoverBackgroundColor: 'rgba(233, 133, 93)',
+        data: dayGain[3]
       }
-    }
-  }
-
-  useEffect(() => {
-    const getSavedTrades = async () => {
-      let response = await getTrades();
-      if (response !== undefined && response.status === 200) {
-        props.setSavedTrades(response.data)
-      } else {
-        response === undefined ? props.setMessage("Saved Trades Unavailable") : props.setMessage(response.error)
-      }
-    }
-    getSavedTrades()
-    
-    if (props.message !== "") {
-      getSavedTrades()
-    }
-  }, [props.message])
+    ]
+  };
 
   useEffect(() => {
     if (props.savedTrades !== null) {
@@ -253,6 +238,7 @@ const ProfitChart = props => {
           height={500}
         />
       </div>
+      <CommissionsChart commissions={commissionsTotal} netProfit={profit}/>
       <h2>Breakdown</h2>
       <div className="setup-graphs">
         <div>
@@ -270,6 +256,16 @@ const ProfitChart = props => {
           <div> 
             <Bar
               data = {barTwoData}
+              options = {barOptions}
+              height={500}
+            />
+          </div>
+        </div>
+        <div>
+          <h4>Trade distribution: Day of Week</h4>
+          <div> 
+            <Bar
+              // data = {barTwoData}
               options = {barOptions}
               height={500}
             />

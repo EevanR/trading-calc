@@ -60,25 +60,24 @@
   //   ]
   // };
 
-  // const pieData = {
-  //   labels: setups,
-  //   datasets: [
-  //     {
-  //       label: 'Successes',
-  //       fill: true,
-  //       backgroundColor: [
-  //         'rgba(75,192,192,0.4)',
-  //         'rgba(255, 015, 0, 0.8)',
-  //         'rgba(233, 133, 93, 0.719)',
-  //         'rgba(100, 133, 93, 0.719)',
-  //         'rgba(150, 133, 143, 0.7)',
-  //         'rgba(170, 133, 53, 0.9)',
-  //         'rgba(210, 133, 93, 0.6)',
-  //         'rgba(310, 373, 193, 0.6)'
-  //       ],
-  //       borderColor: 'rgba(75,192,192,1)',
-  //       hoverBackgroundColor: 'rgba(75,192,192)',
-  //       data: setupCount
-  //     }
-  //   ]
-  // };
+//   useEffect(() => {
+//    const getSavedTrades = async () => {
+//      let response = await getTrades();
+//      if (response !== undefined && response.status === 200) {
+//        props.setSavedTrades(response.data)
+//      } else {
+//        response === undefined ? props.setMessage("Saved Trades Unavailable") : props.setMessage(response.error)
+//      }
+//    }
+//    getSavedTrades()
+   
+//    if (props.message !== "") {
+//      getSavedTrades()
+//    }
+//  }, [props.message])
+
+//  useEffect(() => {
+//    if (props.savedTrades !== null) {
+//      setDates()
+//    }
+//  }, [props.savedTrades])
