@@ -1,7 +1,7 @@
 import React from 'react';
-import { Bar } from 'react-chartjs-2';
+import { HorizontalBar } from 'react-chartjs-2';
 
-const DayOfWeekCharts = props => {
+const HourlyChart = props => {
 
   let dayGain = []
   if (props.barData !== null) {
@@ -79,73 +79,14 @@ const DayOfWeekCharts = props => {
     }
   }
 
-  const barTwoData = {
-    labels: [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday"
-    ],
-    datasets: [
-      {
-        label: 'Average Winning Day',
-        fill: true,
-        backgroundColor: 'rgba(75,192,192,0.4)',
-        borderColor: 'rgba(75,192,192,1)',
-        hoverBackgroundColor: 'rgba(75,192,192)',
-        data: dayGain[2]
-      },
-      {
-        label: 'Average Losing Day',
-        fill: false,
-        backgroundColor: 'rgba(233, 133, 93, 0.719)',
-        borderColor: '#71B37C',
-        hoverBackgroundColor: 'rgba(233, 133, 93)',
-        data: dayGain[3]
-      }
-    ]
-  };
-
-  const barThreedata = {
-    labels: [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday"
-    ],
-    datasets: [
-      {
-        label: 'Average PnL',
-        fill: true,
-        backgroundColor: 'rgba(75,192,192,0.4)',
-        borderColor: 'rgba(75,192,192,1)',
-        hoverBackgroundColor: 'rgba(75,192,192)',
-        data: dayGain[2]
-      }
-    ]
-  };
-
   return (
     <>
-      <h2>Breakdown</h2>
       <div className="setup-graphs">
         <div>
-          <h4>PnL Average: Day of the Week</h4>
+          <h4>Trade distribution: Hourly</h4>
           <div> 
-            <Bar
+            <HorizontalBar
               data = {barData}
-              options = {barOptions}
-              height={500}
-            />
-          </div>
-        </div>
-        <div>
-          <h4>Wins vs Loss: Day of the Week</h4>
-          <div> 
-            <Bar
-              data = {barTwoData}
               options = {barOptions}
               height={500}
             />
@@ -156,4 +97,4 @@ const DayOfWeekCharts = props => {
   )
 }
 
-export default DayOfWeekCharts
+export default HourlyChart

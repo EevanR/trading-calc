@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Line } from 'react-chartjs-2';
 import CommissionsChart from "./CommissionsChart";
 import DayOfWeekCharts from "./DayOfWeekCharts";
+import HourlyChart from "./HourlyChart";
 
 const ProfitChart = props => {
   const [profit, setProfit] = useState([])
@@ -110,6 +111,7 @@ const ProfitChart = props => {
       </div>
       <CommissionsChart commissions={commissionsTotal} netProfit={profit}/>
       <DayOfWeekCharts barData={barData} />
+      <HourlyChart />
     </>
   )
 }
