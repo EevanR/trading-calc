@@ -46,7 +46,6 @@ const ProfitChart = props => {
     })
     setDate(dates)
     setProfit(cumulativeGains)
-    debugger
     setBarData(dailyPreformance)
   }
 

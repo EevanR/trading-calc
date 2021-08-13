@@ -89,7 +89,7 @@ const DayOfWeekCharts = props => {
     ],
     datasets: [
       {
-        label: 'Average Win',
+        label: 'Average Winning Day',
         fill: true,
         backgroundColor: 'rgba(75,192,192,0.4)',
         borderColor: 'rgba(75,192,192,1)',
@@ -97,7 +97,7 @@ const DayOfWeekCharts = props => {
         data: dayGain[2]
       },
       {
-        label: 'Average Loss',
+        label: 'Average Losing Day',
         fill: false,
         backgroundColor: 'rgba(233, 133, 93, 0.719)',
         borderColor: '#71B37C',
@@ -117,20 +117,12 @@ const DayOfWeekCharts = props => {
     ],
     datasets: [
       {
-        label: 'Average Win',
+        label: 'Average PnL',
         fill: true,
         backgroundColor: 'rgba(75,192,192,0.4)',
         borderColor: 'rgba(75,192,192,1)',
         hoverBackgroundColor: 'rgba(75,192,192)',
         data: dayGain[2]
-      },
-      {
-        label: 'Average Loss',
-        fill: false,
-        backgroundColor: 'rgba(233, 133, 93, 0.719)',
-        borderColor: '#71B37C',
-        hoverBackgroundColor: 'rgba(233, 133, 93)',
-        data: dayGain[3]
       }
     ]
   };
@@ -160,7 +152,7 @@ const DayOfWeekCharts = props => {
           </div>
         </div>
         <div>
-          <h4>Trade distribution: Day of Week</h4>
+          <h4>Trade distribution: Hourly</h4>
           <div> 
             <Bar
               // data = {barTwoData}
