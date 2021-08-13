@@ -1,80 +1,59 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { getTrades } from "../modules/trades"
-import { Line, HorizontalBar, Pie } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
+import CommissionsChart from "./CommissionsChart";
+import DayOfWeekCharts from "./DayOfWeekCharts";
 
 const ProfitChart = props => {
   const [profit, setProfit] = useState([])
   const [date, setDate] = useState([])
-  const [trades, setTrades] = useState([])
+  const [commissionsTotal, setCommissionsTotal] = useState(0)
+  const [barData, setBarData] = useState(null)
 
   const setDates = () => {
-    let dates = []
-    for(let i=0; i<props.savedTrades.length; i++) {
-      let date = props.savedTrades[i].date.substring(0, props.savedTrades[i].date.indexOf(","))
-      if (!dates.includes(date)) {
-        dates.push(date)
-      }
+    let dailyPreformance = {
+      Mon: [0,[]],
+      Tue: [0,[]],
+      Wed: [0,[]],
+      Thu: [0,[]],
+      Fri: [0,[]]
     }
-    let trades = props.savedTrades.map(item => 
-      [item.ticker, item.profit, item.date.substring(0, item.date.indexOf(",")), item.setup]
-    )
-    setTrades(trades)
-    let dailyProfits = []
+
+    let dates = []
+    let commissions = 0
+    for(let i=0; i<props.savedTrades.length; i++) {
+      let date = props.savedTrades[i]["T/D"]
+      !dates.includes(date) && dates.push(date)
+      
+      commissions += (props.savedTrades[i]["Comm"] + props.savedTrades[i]["NSCC"])
+    }
+    setCommissionsTotal(commissions)
+
+    let dailyProfits = 0
+    let cumulativeGains = []
     dates.map(date => {
       let total = 0
-      for(let i=0; i<trades.length; i++) {
-        if (trades[i][2] === date) {
-          total += trades[i][1]
-        }
+      for(let i=0; i<props.savedTrades.length; i++) {
+        props.savedTrades[i]["T/D"] === date && (total += props.savedTrades[i]["Net Proceeds"])
       }
-      dailyProfits.push(total)
+      dailyProfits += total
+      cumulativeGains.push(dailyProfits)
+
+      let dayOfWeek = new Date(date).toString().slice(0, 3)
+      for (let property in dailyPreformance) {
+        dayOfWeek === property && dailyPreformance[dayOfWeek][1].push(total) && dailyPreformance[dayOfWeek][0]++
+      }
     })
-    let cumProfits = []
-    let totalProfit = 0
-    for (let i=0; i<dailyProfits.length; i++) {
-      totalProfit += dailyProfits[i]
-      cumProfits.push(totalProfit)
-    }
     setDate(dates)
-    setProfit(cumProfits)
-  }
-
-  let setups = []
-  let setupGains = []
-  let setupLosses = []
-  let setupCount = []
-  if (trades !== []) {
-    for (let i=0; i<trades.length; i++) {
-      if (!setups.includes(trades[i][3])) {
-        setups.push(trades[i][3])
-      }
-    }
-
-    let gain = 0
-    let losses = 0
-    let count = 0
-    setups.map(item => {
-      for (let i=0; i<trades.length; i++) {
-        if (trades[i][3] === item) {
-          trades[i][1] > 0 ? gain += 1 : losses += 1
-          count += 1
-        }
-      }
-      setupGains.push(gain)
-      setupLosses.push(losses)
-      setupCount.push(count)
-      gain = 0
-      losses = 0
-      count = 0
-    })
+    setProfit(cumulativeGains)
+    setBarData(dailyPreformance)
   }
 
   const lineData = {
     labels: date,
     datasets: [
       {
-        label: 'PnL CURVE',
+        label: 'PnL Curve',
         fill: true,
         lineTension: 0.1,
         backgroundColor: 'rgba(75,192,192,0.4)',
@@ -93,7 +72,8 @@ const ProfitChart = props => {
     maintainAspectRatio: false,
     legend: {
       labels: {
-        fontColor: "white"
+        fontColor: "white",
+        fontSize: 16
       }
     },
     scales: {
@@ -110,78 +90,6 @@ const ProfitChart = props => {
       }]
     }
   }
-
-  const barData = {
-    labels: setups,
-    datasets: [
-      {
-        label: 'Successes',
-        fill: true,
-        backgroundColor: 'rgba(75,192,192,0.4)',
-        borderColor: 'rgba(75,192,192,1)',
-        hoverBackgroundColor: 'rgba(75,192,192)',
-        data: setupGains
-      },
-      {
-        label: 'Failures',
-        data: setupLosses,
-        fill: false,
-        backgroundColor: 'rgba(233, 133, 93, 0.719)',
-        borderColor: '#71B37C',
-        hoverBackgroundColor: 'rgba(233, 133, 93)',
-        hoverBorderColor: '#71B37C'
-      }
-    ]
-  };
-
-  const pieData = {
-    labels: setups,
-    datasets: [
-      {
-        label: 'Successes',
-        fill: true,
-        backgroundColor: [
-          'rgba(75,192,192,0.4)',
-          'rgba(255, 015, 0, 0.8)',
-          'rgba(233, 133, 93, 0.719)',
-          'rgba(100, 133, 93, 0.719)',
-          'rgba(150, 133, 143, 0.7)',
-          'rgba(170, 133, 53, 0.9)',
-          'rgba(210, 133, 93, 0.6)',
-          'rgba(310, 373, 193, 0.6)'
-        ],
-        borderColor: 'rgba(75,192,192,1)',
-        hoverBackgroundColor: 'rgba(75,192,192)',
-        data: setupCount
-      }
-    ]
-  };
-
-  const pieOptions = {
-    maintainAspectRatio: false,
-    legend: {
-      position: 'top',
-      labels: {
-        fontColor: "white"
-      }
-    }
-  }
-
-  useEffect(() => {
-    const getSavedTrades = async () => {
-      let response = await getTrades();
-      if (response !== undefined && response.status === 200) {
-        props.setSavedTrades(response.data)
-      } else {
-        response === undefined ? props.setMessage("Saved Trades Unavailable") : props.setMessage(response.error)
-      }
-    }
-    getSavedTrades()
-    
-    if (props.message !== "") {
-      getSavedTrades()
-    }
-  }, [props.message])
 
   useEffect(() => {
     if (props.savedTrades !== null) {
@@ -200,29 +108,8 @@ const ProfitChart = props => {
           height={500}
         />
       </div>
-      <h2>Setup Tracking</h2>
-      <div className="setup-graphs">
-        <div>
-          <h4>Win vs Loss / Setup</h4>
-          <div> 
-            <HorizontalBar
-              data = {barData}
-              options = {lineOptions}
-              height={500}
-            />
-          </div>
-        </div>
-        <div>
-          <h4>Setup Frequency</h4>
-          <div style={{marginTop: '50px'}}> 
-            <Pie
-              data = {pieData}
-              options = {pieOptions}
-              height={400}
-            />
-          </div>
-        </div>
-      </div>
+      <CommissionsChart commissions={commissionsTotal} netProfit={profit}/>
+      <DayOfWeekCharts barData={barData} />
     </>
   )
 }
