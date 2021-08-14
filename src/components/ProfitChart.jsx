@@ -10,6 +10,7 @@ const ProfitChart = props => {
   const [date, setDate] = useState([])
   const [commissionsTotal, setCommissionsTotal] = useState(0)
   const [barData, setBarData] = useState(null)
+  const [groupedTrades, setGroupedTrades] = useState(null)
 
   const setDates = () => {
     let dailyPreformance = {
@@ -21,12 +22,21 @@ const ProfitChart = props => {
     }
 
     let dates = []
+    let tickerGroups = {}
     let commissions = 0
     for(let i=0; i<props.savedTrades.length; i++) {
       let date = props.savedTrades[i]["T/D"]
+      let ticker = props.savedTrades[i]["Symbol"]
       !dates.includes(date) && dates.push(date)
       
       commissions += (props.savedTrades[i]["Comm"] + props.savedTrades[i]["NSCC"])
+
+      if (tickerGroups[ticker] === undefined) {
+        tickerGroups[ticker] = []
+        tickerGroups[ticker].push(props.savedTrades[i])
+      } else {
+        tickerGroups[ticker].push(props.savedTrades[i])
+      }
     }
     setCommissionsTotal(commissions)
 
@@ -48,8 +58,9 @@ const ProfitChart = props => {
     setDate(dates)
     setProfit(cumulativeGains)
     setBarData(dailyPreformance)
+    setGroupedTrades(tickerGroups) 
   }
-
+  
   const lineData = {
     labels: date,
     datasets: [
@@ -111,7 +122,7 @@ const ProfitChart = props => {
       </div>
       <CommissionsChart commissions={commissionsTotal} netProfit={profit}/>
       <DayOfWeekCharts barData={barData} />
-      <HourlyChart />
+      <HourlyChart tickerGroups={groupedTrades}/>
     </>
   )
 }
