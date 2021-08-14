@@ -10,7 +10,7 @@ const ProfitChart = props => {
   const [date, setDate] = useState([])
   const [commissionsTotal, setCommissionsTotal] = useState(0)
   const [barData, setBarData] = useState(null)
-  const [groupedTrades, setGroupedTrades] = useState(null)
+  const [timeSegments, setTimeSegments] = useState(null)
 
   const setDates = () => {
     let dailyPreformance = {
@@ -45,11 +45,14 @@ const ProfitChart = props => {
         groups[ticker] = [0, 0, 0] //[Profit, share count, timestamp]
       }
       groups[ticker][0] += props.savedTrades[i]["Gross Proceeds"]
-      groups[ticker][2] = Number(props.savedTrades[i]["Exec Time"].toFixed(2))
+      groups[ticker][1] === 0 && (groups[ticker][2] = props.savedTrades[i]["Exec Time"])
       props.savedTrades[i]["Side"] === "B" ? groups[ticker][1] += props.savedTrades[i]["Qty"] : groups[ticker][1] -= props.savedTrades[i]["Qty"]
       
       if (groups[ticker][1] === 0) {
-        timeBlocks[`${groups[ticker][2]}`] += groups[ticker][0]
+        for(let int in timeBlocks){
+          ((Number(int) <= groups[ticker][2]) && (groups[ticker][2] < Number(int)+0.02)) && (timeBlocks[int] += groups[ticker][0])
+        }
+        groups[ticker][0] = 0
       }
     }
     setCommissionsTotal(commissions)
@@ -72,7 +75,7 @@ const ProfitChart = props => {
     setDate(dates)
     setProfit(cumulativeGains)
     setBarData(dailyPreformance)
-    setGroupedTrades(groups) 
+    setTimeSegments(timeBlocks) 
   }
   
   const lineData = {
@@ -136,7 +139,7 @@ const ProfitChart = props => {
       </div>
       <CommissionsChart commissions={commissionsTotal} netProfit={profit}/>
       <DayOfWeekCharts barData={barData} />
-      <HourlyChart groups={groupedTrades}/>
+      <HourlyChart times={timeSegments}/>
     </>
   )
 }
