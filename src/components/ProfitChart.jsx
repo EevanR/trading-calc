@@ -21,8 +21,18 @@ const ProfitChart = props => {
       Fri: [0,[]]
     }
 
+    let timeBlocks = {}
+    const timeSegments = () => {
+      let num = 0.4
+      for (let i=1; i < 14; i++) {
+        timeBlocks[`${Number(num.toFixed(2))}`] = 0
+        num+=0.02
+      }
+    }
+    timeSegments()
+
     let dates = []
-    let tickerGroups = {}
+    let groups = {}
     let commissions = 0
     for(let i=0; i<props.savedTrades.length; i++) {
       let date = props.savedTrades[i]["T/D"]
@@ -31,15 +41,19 @@ const ProfitChart = props => {
       
       commissions += (props.savedTrades[i]["Comm"] + props.savedTrades[i]["NSCC"])
 
-      if (tickerGroups[ticker] === undefined) {
-        tickerGroups[ticker] = []
-        tickerGroups[ticker].push(props.savedTrades[i])
-      } else {
-        tickerGroups[ticker].push(props.savedTrades[i])
+      if (groups[ticker] === undefined) {
+        groups[ticker] = [0, 0, 0] //[Profit, share count, timestamp]
+      }
+      groups[ticker][0] += props.savedTrades[i]["Gross Proceeds"]
+      groups[ticker][2] = Number(props.savedTrades[i]["Exec Time"].toFixed(2))
+      props.savedTrades[i]["Side"] === "B" ? groups[ticker][1] += props.savedTrades[i]["Qty"] : groups[ticker][1] -= props.savedTrades[i]["Qty"]
+      
+      if (groups[ticker][1] === 0) {
+        timeBlocks[`${groups[ticker][2]}`] += groups[ticker][0]
       }
     }
     setCommissionsTotal(commissions)
-
+    
     let dailyProfits = 0
     let cumulativeGains = []
     dates.map(date => {
@@ -58,7 +72,7 @@ const ProfitChart = props => {
     setDate(dates)
     setProfit(cumulativeGains)
     setBarData(dailyPreformance)
-    setGroupedTrades(tickerGroups) 
+    setGroupedTrades(groups) 
   }
   
   const lineData = {
@@ -122,7 +136,7 @@ const ProfitChart = props => {
       </div>
       <CommissionsChart commissions={commissionsTotal} netProfit={profit}/>
       <DayOfWeekCharts barData={barData} />
-      <HourlyChart tickerGroups={groupedTrades}/>
+      <HourlyChart groups={groupedTrades}/>
     </>
   )
 }

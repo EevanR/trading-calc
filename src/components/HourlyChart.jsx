@@ -4,24 +4,9 @@ import { connect } from "react-redux";
 
 const HourlyChart = props => {
 
-  const timeSegments = () => {
-    let num = 0.4
-    let obj = {}
-    for (let i=1; i < 14; i++) {
-      obj[`${num}`] = 0
-      num+=0.02
-    }
-    return obj
-  }
-  timeSegments()
-
   let timeAxis = []
-  if (props.savedTrades !== null) {
-    for (let i = 0; i < props.savedTrades.length; i++) {
-      let time = props.savedTrades[i]["Exec Time"]
-      // time >= 
+  if (props.groups !== null) {
       debugger
-    }
   }
 
   // time= time*1440
