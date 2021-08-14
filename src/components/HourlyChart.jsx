@@ -4,22 +4,29 @@ import { connect } from "react-redux";
 
 const HourlyChart = props => {
 
-  let timeAxis = []
-  if (props.groups !== null) {
-      debugger
+  let totals = []
+  let xAxis = []
+  if (props.times !== null) {
+    for(let int in props.times) {
+      totals.push(props.times[int])
+    }
   }
-
-  // time= time*1440
-  //     let hour = Math.floor(time/60)
-  //     let min = Math.floor(time-(hour*60))
 
   const barData = {
     labels: [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday"
+      "9:30",
+      "10:00",
+      "10:30",
+      "11:00",
+      "11:30",
+      "12:00",
+      "12:30",
+      "13:00",
+      "13:30",
+      "14:00",
+      "14:30",
+      "15:00",
+      "15:30"
     ],
     datasets: [
       {
@@ -28,7 +35,7 @@ const HourlyChart = props => {
         backgroundColor: 'rgba(75,192,192,0.4)',
         borderColor: 'rgba(75,192,192,1)',
         hoverBackgroundColor: 'rgba(75,192,192)',
-        // data: dayGain[0]
+        data: totals
       },
       {
         label: 'Daily Avg -',

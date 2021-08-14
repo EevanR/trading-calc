@@ -23,10 +23,10 @@ const ProfitChart = props => {
 
     let timeBlocks = {}
     const timeSegments = () => {
-      let num = 0.4
+      let num = 0.39584
       for (let i=1; i < 14; i++) {
-        timeBlocks[`${Number(num.toFixed(2))}`] = 0
-        num+=0.02
+        timeBlocks[`${Number(num.toFixed(5))}`] = 0
+        num+=0.02083
       }
     }
     timeSegments()
