@@ -5,14 +5,15 @@ import { connect } from "react-redux";
 const HourlyChart = props => {
 
   let totals = []
-  let xAxis = []
+  let frequency = []
   if (props.times !== null) {
     for(let int in props.times) {
-      totals.push(props.times[int])
+      totals.push(props.times[int][0])
+      frequency.push(props.times[int][1])
     }
   }
 
-  const barData = {
+  const hourlyTotals = {
     labels: [
       "9:30",
       "10:00",
@@ -36,15 +37,34 @@ const HourlyChart = props => {
         borderColor: 'rgba(75,192,192,1)',
         hoverBackgroundColor: 'rgba(75,192,192)',
         data: totals
-      },
+      }
+    ]
+  };
+
+  const hourlyFrequency = {
+    labels: [
+      "9:30",
+      "10:00",
+      "10:30",
+      "11:00",
+      "11:30",
+      "12:00",
+      "12:30",
+      "13:00",
+      "13:30",
+      "14:00",
+      "14:30",
+      "15:00",
+      "15:30"
+    ],
+    datasets: [
       {
-        label: 'Daily Avg -',
-        // data: dayGain[1],
-        fill: false,
-        backgroundColor: 'rgba(233, 133, 93, 0.719)',
-        borderColor: '#71B37C',
-        hoverBackgroundColor: 'rgba(233, 133, 93)',
-        hoverBorderColor: '#71B37C'
+        label: 'Daily Avg +',
+        fill: true,
+        backgroundColor: 'rgba(75,192,192,0.4)',
+        borderColor: 'rgba(75,192,192,1)',
+        hoverBackgroundColor: 'rgba(75,192,192)',
+        data: frequency
       }
     ]
   };
@@ -79,7 +99,17 @@ const HourlyChart = props => {
           <h4>Trade distribution: Hourly</h4>
           <div> 
             <HorizontalBar
-              data = {barData}
+              data = {hourlyTotals}
+              options = {barOptions}
+              height={500}
+            />
+          </div>
+        </div>
+        <div>
+          <h4>Trade distribution: Frequency</h4>
+          <div> 
+            <HorizontalBar
+              data = {hourlyFrequency}
               options = {barOptions}
               height={500}
             />

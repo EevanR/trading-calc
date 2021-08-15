@@ -25,7 +25,7 @@ const ProfitChart = props => {
     const timeSegments = () => {
       let num = 0.39584
       for (let i=1; i < 14; i++) {
-        timeBlocks[`${Number(num.toFixed(5))}`] = 0
+        timeBlocks[`${Number(num.toFixed(5))}`] = [0, 0]
         num+=0.02083
       }
     }
@@ -34,7 +34,7 @@ const ProfitChart = props => {
     let dates = []
     let groups = {}
     let commissions = 0
-    for(let i=0; i<props.savedTrades.length; i++) {
+    for (let i=0; i<props.savedTrades.length; i++) {
       let date = props.savedTrades[i]["T/D"]
       let ticker = props.savedTrades[i]["Symbol"]
       !dates.includes(date) && dates.push(date)
@@ -42,15 +42,16 @@ const ProfitChart = props => {
       commissions += (props.savedTrades[i]["Comm"] + props.savedTrades[i]["NSCC"])
 
       if (groups[ticker] === undefined) {
-        groups[ticker] = [0, 0, 0] //[Profit, share count, timestamp]
+        groups[ticker] = [0, 0, 0] //[Profit, share count, timestamp, trade count]
       }
       groups[ticker][0] += props.savedTrades[i]["Gross Proceeds"]
       groups[ticker][1] === 0 && (groups[ticker][2] = props.savedTrades[i]["Exec Time"])
       props.savedTrades[i]["Side"] === "B" ? groups[ticker][1] += props.savedTrades[i]["Qty"] : groups[ticker][1] -= props.savedTrades[i]["Qty"]
-      
+      debugger
       if (groups[ticker][1] === 0) {
+        debugger
         for(let int in timeBlocks){
-          ((Number(int) <= groups[ticker][2]) && (groups[ticker][2] < Number(int)+0.02)) && (timeBlocks[int] += groups[ticker][0])
+          ((Number(int) <= groups[ticker][2]) && (groups[ticker][2] < Number(int)+0.02)) && (timeBlocks[int][0] += groups[ticker][0]) && (timeBlocks[int][1]++)
         }
         groups[ticker][0] = 0
       }
