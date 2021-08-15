@@ -13,27 +13,27 @@ const HourlyChart = props => {
     }
   }
 
+  const timeIntervals = [
+    "8:00",
+    "9:00",
+    "10:00",
+    "11:00",
+    "12:00",
+    "13:00",
+    "14:00",
+    "15:00",
+    "16:00"
+  ]
+
+  const colours = totals.map((value) => value < 0 ? 'rgba(233, 133, 93, 0.719)' : 'rgba(75,192,192,0.4)');
+
   const hourlyTotals = {
-    labels: [
-      "9:30",
-      "10:00",
-      "10:30",
-      "11:00",
-      "11:30",
-      "12:00",
-      "12:30",
-      "13:00",
-      "13:30",
-      "14:00",
-      "14:30",
-      "15:00",
-      "15:30"
-    ],
+    labels: timeIntervals,
     datasets: [
       {
-        label: 'Daily Avg +',
+        label: 'Gross Profit per Interval',
         fill: true,
-        backgroundColor: 'rgba(75,192,192,0.4)',
+        backgroundColor: colours,
         borderColor: 'rgba(75,192,192,1)',
         hoverBackgroundColor: 'rgba(75,192,192)',
         data: totals
@@ -42,24 +42,10 @@ const HourlyChart = props => {
   };
 
   const hourlyFrequency = {
-    labels: [
-      "9:30",
-      "10:00",
-      "10:30",
-      "11:00",
-      "11:30",
-      "12:00",
-      "12:30",
-      "13:00",
-      "13:30",
-      "14:00",
-      "14:30",
-      "15:00",
-      "15:30"
-    ],
+    labels: timeIntervals,
     datasets: [
       {
-        label: 'Daily Avg +',
+        label: 'Number of Trades',
         fill: true,
         backgroundColor: 'rgba(75,192,192,0.4)',
         borderColor: 'rgba(75,192,192,1)',

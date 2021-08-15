@@ -23,10 +23,10 @@ const ProfitChart = props => {
 
     let timeBlocks = {}
     const timeSegments = () => {
-      let num = 0.39584
-      for (let i=1; i < 14; i++) {
+      let num = 0.33333
+      for (let i=0; i < 9; i++) {
         timeBlocks[`${Number(num.toFixed(5))}`] = [0, 0]
-        num+=0.02083
+        num+=0.04167
       }
     }
     timeSegments()
@@ -41,17 +41,15 @@ const ProfitChart = props => {
       
       commissions += (props.savedTrades[i]["Comm"] + props.savedTrades[i]["NSCC"])
 
-      if (groups[ticker] === undefined) {
-        groups[ticker] = [0, 0, 0] //[Profit, share count, timestamp, trade count]
-      }
+      groups[ticker] === undefined && (groups[ticker] = [0, 0, 0]) //[Profit, share count, timestamp]
+      
       groups[ticker][0] += props.savedTrades[i]["Gross Proceeds"]
       groups[ticker][1] === 0 && (groups[ticker][2] = props.savedTrades[i]["Exec Time"])
       props.savedTrades[i]["Side"] === "B" ? groups[ticker][1] += props.savedTrades[i]["Qty"] : groups[ticker][1] -= props.savedTrades[i]["Qty"]
-      debugger
       if (groups[ticker][1] === 0) {
         debugger
         for(let int in timeBlocks){
-          ((Number(int) <= groups[ticker][2]) && (groups[ticker][2] < Number(int)+0.02)) && (timeBlocks[int][0] += groups[ticker][0]) && (timeBlocks[int][1]++)
+          ((Number(int) <= groups[ticker][2]) && (groups[ticker][2] < Number(int)+0.04167)) && (timeBlocks[int][0] += groups[ticker][0]) && (timeBlocks[int][1]++)
         }
         groups[ticker][0] = 0
       }
