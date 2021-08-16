@@ -5,7 +5,7 @@ const CommissionsChart = props => {
 
   let grossProfit;
   if (props.savedTrades !== null) {
-    grossProfit = props.netProfit[props.netProfit.length - 1] + props.commissions
+    grossProfit = props.netProfit[props.netProfit.length - 1]
   }
 
   const pieData = {

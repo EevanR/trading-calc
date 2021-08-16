@@ -42,7 +42,7 @@ const ProfitChart = props => {
       !dates.includes(date) && dates.push(date)
       
       commissions += (props.savedTrades[i]["Comm"] + props.savedTrades[i]["NSCC"])
-      groups[ticker] === undefined && (groups[ticker] = [0, 0, 0, ""]) //[Profit, share count, timestamp, date]
+      groups[ticker] === undefined && (groups[ticker] = [0, 0, 0, ""]) //[Profit, share count, timestamp, date, commissions]
       groups[ticker][0] += props.savedTrades[i]["Gross Proceeds"]
       groups[ticker][1] === 0 && (groups[ticker][2] = props.savedTrades[i]["Exec Time"]) && (groups[ticker][3] = props.savedTrades[i]["T/D"])
       props.savedTrades[i]["Side"] === "B" || props.savedTrades[i]["Side"] === "BC" ? groups[ticker][1] += props.savedTrades[i]["Qty"] : groups[ticker][1] -= props.savedTrades[i]["Qty"]
