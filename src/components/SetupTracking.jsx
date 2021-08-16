@@ -78,6 +78,6 @@
 
 //  useEffect(() => {
 //    if (props.savedTrades !== null) {
-//      setDates()
+//      setData()
 //    }
 //  }, [props.savedTrades])

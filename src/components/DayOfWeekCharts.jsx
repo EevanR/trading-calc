@@ -4,16 +4,15 @@ import { Bar } from 'react-chartjs-2';
 const DayOfWeekCharts = props => {
 
   let dayGain = []
+  let pLAverage = []
   if (props.barData !== null) {
-    let green = []
-    let red = []
     let posDays = []
     let negDays = []
     for (let day in props.barData) {
       let avg = props.barData[day][1].reduce((a, b) => a + b, 0)
       avg = avg/props.barData[day][0]
-      avg < 0 ? red.push(avg) && green.push(0)  : green.push(avg) && red.push(0)
-
+      pLAverage.push(avg)
+      
       let greenDay = 0
       let redDay = 0
       let redCount = 0
@@ -24,8 +23,10 @@ const DayOfWeekCharts = props => {
       posDays.push(greenDay/greenCount)
       negDays.push((redDay/redCount)*-1)
     }
-    dayGain = [green, red, posDays, negDays]
+    dayGain = [posDays, negDays]
   }
+
+  const colours = pLAverage.map((value) => value < 0 ? 'rgba(233, 133, 93, 0.719)' : 'rgba(75,192,192,0.4)');
 
   const barData = {
     labels: [
@@ -37,21 +38,12 @@ const DayOfWeekCharts = props => {
     ],
     datasets: [
       {
-        label: 'Daily Avg +',
+        label: 'Daily Avg',
         fill: true,
-        backgroundColor: 'rgba(75,192,192,0.4)',
+        backgroundColor: colours,
         borderColor: 'rgba(75,192,192,1)',
         hoverBackgroundColor: 'rgba(75,192,192)',
-        data: dayGain[0]
-      },
-      {
-        label: 'Daily Avg -',
-        data: dayGain[1],
-        fill: false,
-        backgroundColor: 'rgba(233, 133, 93, 0.719)',
-        borderColor: '#71B37C',
-        hoverBackgroundColor: 'rgba(233, 133, 93)',
-        hoverBorderColor: '#71B37C'
+        data: pLAverage
       }
     ]
   };
@@ -67,7 +59,8 @@ const DayOfWeekCharts = props => {
     scales: {
       yAxes: [{
         ticks: {
-          fontColor: "white"
+          fontColor: "white",
+          beginAtZero: true
         }
       }],
       xAxes: [{
@@ -94,7 +87,7 @@ const DayOfWeekCharts = props => {
         backgroundColor: 'rgba(75,192,192,0.4)',
         borderColor: 'rgba(75,192,192,1)',
         hoverBackgroundColor: 'rgba(75,192,192)',
-        data: dayGain[2]
+        data: dayGain[0]
       },
       {
         label: 'Average Losing Day',
@@ -102,27 +95,7 @@ const DayOfWeekCharts = props => {
         backgroundColor: 'rgba(233, 133, 93, 0.719)',
         borderColor: '#71B37C',
         hoverBackgroundColor: 'rgba(233, 133, 93)',
-        data: dayGain[3]
-      }
-    ]
-  };
-
-  const barThreedata = {
-    labels: [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday"
-    ],
-    datasets: [
-      {
-        label: 'Average PnL',
-        fill: true,
-        backgroundColor: 'rgba(75,192,192,0.4)',
-        borderColor: 'rgba(75,192,192,1)',
-        hoverBackgroundColor: 'rgba(75,192,192)',
-        data: dayGain[2]
+        data: dayGain[1]
       }
     ]
   };
@@ -142,20 +115,10 @@ const DayOfWeekCharts = props => {
           </div>
         </div>
         <div>
-          <h4>Wins vs Loss: Day of the Week</h4>
+          <h4>Profit vs Loss: Day of the Week</h4>
           <div> 
             <Bar
               data = {barTwoData}
-              options = {barOptions}
-              height={500}
-            />
-          </div>
-        </div>
-        <div>
-          <h4>Trade distribution: Hourly</h4>
-          <div> 
-            <Bar
-              // data = {barTwoData}
               options = {barOptions}
               height={500}
             />
