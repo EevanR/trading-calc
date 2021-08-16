@@ -12,46 +12,47 @@ const ProfitChart = props => {
   const [barData, setBarData] = useState(null)
   const [timeSegments, setTimeSegments] = useState(null)
 
-  const setDates = () => {
-    let dailyPreformance = {
-      Mon: [0,[]],
-      Tue: [0,[]],
-      Wed: [0,[]],
-      Thu: [0,[]],
-      Fri: [0,[]]
-    }
+  let dailyPreformance = {
+    Mon: [0,[]],
+    Tue: [0,[]],
+    Wed: [0,[]],
+    Thu: [0,[]],
+    Fri: [0,[]]
+  }
 
-    let timeBlocks = {}
-    const timeSegments = () => {
-      let num = 0.33333
-      for (let i=0; i < 9; i++) {
-        timeBlocks[`${Number(num.toFixed(5))}`] = [0, 0]
-        num+=0.04167
-      }
+  let timeBlocks = {}
+  const buildIntervals = () => {
+    let num = 0.33333
+    for (let i=0; i < 9; i++) {
+      timeBlocks[`${Number(num.toFixed(5))}`] = [0, 0]
+      num+=0.04167
     }
-    timeSegments()
+  }
+
+  const setData = () => {
+    buildIntervals()
 
     let dates = []
     let groups = {}
     let commissions = 0
+    let groupedTrades = []
     for (let i=0; i<props.savedTrades.length; i++) {
       let date = props.savedTrades[i]["T/D"]
       let ticker = props.savedTrades[i]["Symbol"]
       !dates.includes(date) && dates.push(date)
       
       commissions += (props.savedTrades[i]["Comm"] + props.savedTrades[i]["NSCC"])
-
-      groups[ticker] === undefined && (groups[ticker] = [0, 0, 0]) //[Profit, share count, timestamp]
-      
+      groups[ticker] === undefined && (groups[ticker] = [0, 0, 0, ""]) //[Profit, share count, timestamp, date]
       groups[ticker][0] += props.savedTrades[i]["Gross Proceeds"]
-      groups[ticker][1] === 0 && (groups[ticker][2] = props.savedTrades[i]["Exec Time"])
-      props.savedTrades[i]["Side"] === "B" ? groups[ticker][1] += props.savedTrades[i]["Qty"] : groups[ticker][1] -= props.savedTrades[i]["Qty"]
+      groups[ticker][1] === 0 && (groups[ticker][2] = props.savedTrades[i]["Exec Time"]) && (groups[ticker][3] = props.savedTrades[i]["T/D"])
+      props.savedTrades[i]["Side"] === "B" || props.savedTrades[i]["Side"] === "BC" ? groups[ticker][1] += props.savedTrades[i]["Qty"] : groups[ticker][1] -= props.savedTrades[i]["Qty"]
+
       if (groups[ticker][1] === 0) {
-        debugger
+        groupedTrades.push(groups[ticker])
         for(let int in timeBlocks){
           ((Number(int) <= groups[ticker][2]) && (groups[ticker][2] < Number(int)+0.04167)) && (timeBlocks[int][0] += groups[ticker][0]) && (timeBlocks[int][1]++)
         }
-        groups[ticker][0] = 0
+        delete groups[ticker]
       }
     }
     setCommissionsTotal(commissions)
@@ -60,8 +61,8 @@ const ProfitChart = props => {
     let cumulativeGains = []
     dates.map(date => {
       let total = 0
-      for(let i=0; i<props.savedTrades.length; i++) {
-        props.savedTrades[i]["T/D"] === date && (total += props.savedTrades[i]["Net Proceeds"])
+      for(let i=0; i<groupedTrades.length; i++) {
+        groupedTrades[i][3] === date && (total += groupedTrades[i][0])
       }
       dailyProfits += total
       cumulativeGains.push(dailyProfits)
@@ -121,7 +122,7 @@ const ProfitChart = props => {
 
   useEffect(() => {
     if (props.savedTrades !== null) {
-      setDates()
+      setData()
     }
   }, [props.savedTrades])
 

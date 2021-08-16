@@ -114,7 +114,7 @@ const DayOfWeekCharts = props => {
           </div>
         </div>
         <div>
-          <h4>Wins vs Loss: Day of the Week</h4>
+          <h4>Profit vs Loss: Day of the Week</h4>
           <div> 
             <Bar
               data = {barTwoData}
