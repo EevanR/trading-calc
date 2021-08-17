@@ -4,14 +4,13 @@ import SetUp from "./SetUp";
 import Plays from "./Plays"
 
 const Calculator = props => {
-  const [answer, setAnswer] = useState(null)
   const [tradeDetails, setTradeDetails] = useState([])
+  const [riskBp, setRiskBp] = useState([0, 0])
 
-  let riskValue = 0
-  let buyPower = 0
   const onChangeHandler = (e) => {
-    riskValue = e.target.value * props.userAttrs.risk
-    buyPower = e.target.value * 4
+    let riskValue = e.target.value * props.userAttrs.risk
+    let buyPower = e.target.value * 4
+    setRiskBp([riskValue, buyPower])
   }
 
   const submit = (e) => {
@@ -23,21 +22,21 @@ const Calculator = props => {
         ticker: e.target.ticker.value
       }
       const tradeParams = {
-        maxShares: Math.floor(riskValue / inputs["stop"]),
-        bpMaxShares: Math.floor(buyPower / inputs["stockPrice"]),
+        maxShares: Math.floor(riskBp[0] / inputs["stop"]),
+        bpMaxShares: Math.floor(riskBp[1] / inputs["stockPrice"]),
         pts: [(inputs["stockPrice"] + inputs["stop"] * 0.5), (inputs["stockPrice"] + inputs["stop"]), (inputs["stockPrice"] + inputs["stop"] * 2)],
         stopPrice: inputs["stockPrice"] - inputs["stop"]
       }
-
-      tradeParams["bpMaxShares"] < tradeParams["maxShares"] ? setAnswer(tradeParams["bpMaxShares"]) : setAnswer(tradeParams["maxShares"])
+      let answer;
+      tradeParams["bpMaxShares"] < tradeParams["maxShares"] ? answer = tradeParams["bpMaxShares"] : answer = tradeParams["maxShares"]
       setTradeDetails([inputs["stop"].toFixed(2), inputs["ticker"], inputs["stockPrice"].toFixed(2), tradeParams["stopPrice"]])
-      sendStorage(inputs, tradeParams)
+      sendStorage(inputs, tradeParams, answer)
     } else {
       alert("Trade doesn't meet requirements!!!")
     }
   }
 
-  const sendStorage = (inputs, tradeParams) => {
+  const sendStorage = (inputs, tradeParams, answer) => {
     const trade = {
       inputs,
       tradeParams,
@@ -102,11 +101,11 @@ const Calculator = props => {
             </div>
             <div id="risk-block" className="field">
               <label id="risk">Risk $</label>
-              <p className="risk" >${riskValue.toFixed(2)}</p>
+              <p className="risk" >${riskBp[0].toFixed(2)}</p>
             </div>
             <div id="bp-block" className="field">
               <label id="bp">Buying Power $</label>
-              <p className="bp" >${buyPower.toFixed(2)}</p>
+              <p className="bp" >${riskBp[1].toFixed(2)}</p>
             </div>
           </div>
           <SetUp />
@@ -124,7 +123,7 @@ const Calculator = props => {
               <h3 id="risk">Stop Price</h3>
               <h3 id="risk">Stop</h3>
               <h3>${tradeDetails[2]}</h3>
-              <h3><span id="color"> {answer}</span></h3>
+              <h3><span id="color"> {tradeDetails[4]}</span></h3>
               <h3 id="risk">${tradeDetails[3]}</h3>
               <h3 id="risk">${tradeDetails[0]}</h3>
             </div>
