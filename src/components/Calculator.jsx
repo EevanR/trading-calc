@@ -1,66 +1,47 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import SetUp from "./SetUp";
 import Plays from "./Plays"
 
 const Calculator = props => {
-
   const [answer, setAnswer] = useState(null)
-  const [targetPrice, setTargetPrice] = useState(null)
-  const [targetPrice2, setTargetPrice2] = useState(null)
-  const [targetPrice3, setTargetPrice3] = useState(null)
-  const [stopPrice, setStopPrice] = useState(null)
-  const [stop, setStop] = useState(null)
-  const [ticker, setTicker] = useState(null)
-  const [stockPrice, setStockPrice] = useState(null)
-  const [good, setGood] = useState(false)
-  const [riskDollar, setRisk] = useState(0)
-  const [buyPower, setBuyingPower] = useState(0)
+  const [tradeDetails, setTradeDetails] = useState([])
+
+  let riskValue = 0
+  let buyPower = 0
+  const onChangeHandler = (e) => {
+    riskValue = e.target.value * props.userAttrs.risk
+    buyPower = e.target.value * 4
+  }
 
   const submit = (e) => {
     e.preventDefault();
     if (props.preReq === props.checkList.length) {
-      let risk = riskDollar
-      let stop = parseFloat(e.target.price.value - e.target.stop.value)
-      let stockPrice = parseFloat(e.target.price.value)
-      let ticker = e.target.ticker.value
-      let maxShares = Math.floor(risk / stop)
-      let bpMax = Math.floor(buyPower / stockPrice)
-      let pt = stockPrice + stop * 0.5
-      let pt2 = stockPrice + stop
-      let pt3 = stockPrice + stop * 2
-      let sp = stockPrice - stop
-      setTargetPrice(pt.toFixed(2))
-      setTargetPrice2(pt2.toFixed(2))
-      setTargetPrice3(pt3.toFixed(2))
-      setStopPrice(sp.toFixed(2))
-      if (bpMax < maxShares) {
-        setAnswer(bpMax)
-        setStop(stop.toFixed(2))
-        setTicker(ticker)
-        setStockPrice(stockPrice.toFixed(2))
-        setGood(true)
-      } else {
-        setAnswer(maxShares)
-        setStop(stop.toFixed(2))
-        setTicker(ticker)
-        setStockPrice(stockPrice.toFixed(2))
-        setGood(true)
+      const inputs = {
+        stop: parseFloat(e.target.price.value - e.target.stop.value),
+        stockPrice: parseFloat(e.target.price.value),
+        ticker: e.target.ticker.value
       }
+      const tradeParams = {
+        maxShares: Math.floor(riskValue / inputs["stop"]),
+        bpMaxShares: Math.floor(buyPower / inputs["stockPrice"]),
+        pts: [(inputs["stockPrice"] + inputs["stop"] * 0.5), (inputs["stockPrice"] + inputs["stop"]), (inputs["stockPrice"] + inputs["stop"] * 2)],
+        stopPrice: inputs["stockPrice"] - inputs["stop"]
+      }
+
+      tradeParams["bpMaxShares"] < tradeParams["maxShares"] ? setAnswer(tradeParams["bpMaxShares"]) : setAnswer(tradeParams["maxShares"])
+      setTradeDetails([inputs["stop"].toFixed(2), inputs["ticker"], inputs["stockPrice"].toFixed(2), tradeParams["stopPrice"]])
+      sendStorage(inputs, tradeParams)
     } else {
       alert("Trade doesn't meet requirements!!!")
     }
   }
 
-  const setStorage = () => {
-    const input = {
-      ticker: ticker,
-      stockPrice: stockPrice,
+  const sendStorage = (inputs, tradeParams) => {
+    const trade = {
+      inputs,
+      tradeParams,
       shares: answer,
-      tp: targetPrice,
-      sp: stopPrice,
-      stop: stop,
-      targets: [targetPrice, targetPrice2, targetPrice3],
       setup: props.setUp,
       date: new Date().toLocaleString('en-US', { timeZone: 'America/New_York' })
     }
@@ -68,26 +49,11 @@ const Calculator = props => {
     if (sessionStorage.getItem('tickers')) {
       tickers = JSON.parse(sessionStorage.getItem('tickers'))
     }
-    tickers.push([Math.floor(Math.random() * 1000), input])
+    tickers.push([Math.floor(Math.random() * 1000), trade])
     sessionStorage.setItem('tickers', JSON.stringify(tickers))
-    setGood(false)
     props.setCount(props.count + 1)
   }
-
-  const onChangeHandler = (e) => {
-    let value = e.target.value * props.userAttrs.risk
-    setRisk(value)
-    let buyPower = e.target.value * 4
-    setBuyingPower(buyPower)
-  }
-
-  useEffect(() => {
-    if (good === true) {
-      setStorage()
-    }
-  }, [good])
-
-
+  
   return (
     <>
       <h2 id="title">Trading Position Calculator </h2>
@@ -136,7 +102,7 @@ const Calculator = props => {
             </div>
             <div id="risk-block" className="field">
               <label id="risk">Risk $</label>
-              <p className="risk" >${riskDollar.toFixed(2)}</p>
+              <p className="risk" >${riskValue.toFixed(2)}</p>
             </div>
             <div id="bp-block" className="field">
               <label id="bp">Buying Power $</label>
@@ -157,19 +123,19 @@ const Calculator = props => {
               <h3>Position Size</h3>
               <h3 id="risk">Stop Price</h3>
               <h3 id="risk">Stop</h3>
-              <h3>${stockPrice}</h3>
+              <h3>${tradeDetails[2]}</h3>
               <h3><span id="color"> {answer}</span></h3>
-              <h3 id="risk">${stopPrice}</h3>
-              <h3 id="risk">${stop}</h3>
+              <h3 id="risk">${tradeDetails[3]}</h3>
+              <h3 id="risk">${tradeDetails[0]}</h3>
             </div>
             <div className="targets">
               <h2 className="result-heading" >Targets</h2>
               <h3>0.5R Target (1/2)</h3>
               <h3>1R Target (1/4)</h3>
               <h3>2R Target (1/4)</h3>
-              <h3 id="green">${targetPrice} <span id="targets">{Math.floor(answer / 2)} shrs</span></h3>
+              {/* <h3 id="green">${targetPrice} <span id="targets">{Math.floor(answer / 2)} shrs</span></h3>
               <h3 id="green">${targetPrice2} <span id="targets">{Math.floor(answer / 4)} shrs</span></h3>
-              <h3 id="green">${targetPrice3} <span id="targets">{Math.floor(answer / 4)} shrs</span></h3>
+              <h3 id="green">${targetPrice3} <span id="targets">{Math.floor(answer / 4)} shrs</span></h3> */}
             </div>
           </div>
           <Plays />
@@ -191,12 +157,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    setPrereq: data => {
-      dispatch({ type: "SET_PREREQ", payload: data });
-    },
-    setCheckList: array => {
-      dispatch({ type: "SET_CHECKLIST", payload: array });
-    },
     setCount: data => {
       dispatch({ type: "SET_COUNT", payload: data });
     }
