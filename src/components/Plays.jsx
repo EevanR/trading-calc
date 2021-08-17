@@ -91,17 +91,17 @@ const Plays = props => {
       <div className="results">
         { tickers !== null && (
           tickers.map(ticker => {
-            let name = ticker[1].ticker
-            let entry = ticker[1].stockPrice
+            let name = ticker[1].inputs["ticker"]
+            let entry = ticker[1].inputs["stockPrice"]
             return (
             <>
               <div className="tickers">
                 <p className="ticker">${name.toUpperCase()}</p>
                 <p className="ticker">$ {entry}</p>
                 <p className="ticker">{ticker[1].shares}</p>
-                <p id="green" className="ticker">{ticker[1].targets[0]}, {ticker[1].targets[1]}, {ticker[1].targets[2]}</p>
-                <p id="red" className="ticker">{ticker[1].sp}</p>
-                <p className="ticker">{ticker[1].stop}</p>
+                <p id="green" className="ticker">{ticker[1].tradeParams["pts"][0]}, {ticker[1].tradeParams["pts"][1]}, {ticker[1].tradeParams["pts"][2]}</p>
+                <p id="red" className="ticker">{ticker[1].tradeParams["stopPrice"]}</p>
+                <p className="ticker">{ticker[1].inputs["stop"]}</p>
                 <h4 onClick={() => deleteItem(ticker[0])} id="delete" className="ticker">X</h4>
                 <p className="ticker">{ticker[1].setup}</p>
                 {savedTrades.includes(ticker[0]) ? (

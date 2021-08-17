@@ -29,7 +29,7 @@ const Calculator = props => {
       }
       let answer;
       tradeParams["bpMaxShares"] < tradeParams["maxShares"] ? answer = tradeParams["bpMaxShares"] : answer = tradeParams["maxShares"]
-      setTradeDetails([inputs["stop"].toFixed(2), inputs["ticker"], inputs["stockPrice"].toFixed(2), tradeParams["stopPrice"]])
+      setTradeDetails([inputs["stop"].toFixed(2), inputs["ticker"], inputs["stockPrice"].toFixed(2), tradeParams["stopPrice"], tradeParams["pts"], answer])
       sendStorage(inputs, tradeParams, answer)
     } else {
       alert("Trade doesn't meet requirements!!!")
@@ -132,9 +132,9 @@ const Calculator = props => {
               <h3>0.5R Target (1/2)</h3>
               <h3>1R Target (1/4)</h3>
               <h3>2R Target (1/4)</h3>
-              {/* <h3 id="green">${targetPrice} <span id="targets">{Math.floor(answer / 2)} shrs</span></h3>
-              <h3 id="green">${targetPrice2} <span id="targets">{Math.floor(answer / 4)} shrs</span></h3>
-              <h3 id="green">${targetPrice3} <span id="targets">{Math.floor(answer / 4)} shrs</span></h3> */}
+              <h3 id="green">${tradeDetails[4][0]} <span id="targets">{Math.floor(tradeDetails[4] / 2)} shrs</span></h3>
+              <h3 id="green">${tradeDetails[4][1]} <span id="targets">{Math.floor(tradeDetails[4] / 4)} shrs</span></h3>
+              <h3 id="green">${tradeDetails[4][2]} <span id="targets">{Math.floor(tradeDetails[4] / 4)} shrs</span></h3>
             </div>
           </div>
           <Plays />
