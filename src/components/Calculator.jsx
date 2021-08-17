@@ -17,14 +17,14 @@ const Calculator = props => {
     e.preventDefault();
     if (props.preReq === props.checkList.length) {
       const inputs = {
-        stop: parseFloat(e.target.price.value - e.target.stop.value),
+        stop: (parseFloat(e.target.price.value - e.target.stop.value)).toFixed(2),
         stockPrice: parseFloat(e.target.price.value),
         ticker: e.target.ticker.value
       }
       const tradeParams = {
         maxShares: Math.floor(riskBp[0] / inputs["stop"]),
         bpMaxShares: Math.floor(riskBp[1] / inputs["stockPrice"]),
-        pts: [(inputs["stockPrice"] + inputs["stop"] * 0.5), (inputs["stockPrice"] + inputs["stop"]), (inputs["stockPrice"] + inputs["stop"] * 2)],
+        pts: [(inputs["stockPrice"] + inputs["stop"] * 0.5).toFixed(2), (inputs["stockPrice"] + inputs["stop"]).toFixed(2), (inputs["stockPrice"] + inputs["stop"] * 2).toFixed(2)],
         stopPrice: inputs["stockPrice"] - inputs["stop"]
       }
       let answer;
@@ -123,7 +123,7 @@ const Calculator = props => {
               <h3 id="risk">Stop Price</h3>
               <h3 id="risk">Stop</h3>
               <h3>${tradeDetails[2]}</h3>
-              <h3><span id="color"> {tradeDetails[4]}</span></h3>
+              <h3><span id="color"> {tradeDetails[5]}</span></h3>
               <h3 id="risk">${tradeDetails[3]}</h3>
               <h3 id="risk">${tradeDetails[0]}</h3>
             </div>

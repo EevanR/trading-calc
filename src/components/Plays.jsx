@@ -104,7 +104,7 @@ const Plays = props => {
                 <p className="ticker">{ticker[1].inputs["stop"]}</p>
                 <h4 onClick={() => deleteItem(ticker[0])} id="delete" className="ticker">X</h4>
                 <p className="ticker">{ticker[1].setup}</p>
-                {savedTrades.includes(ticker[0]) ? (
+                {/* {savedTrades.includes(ticker[0]) ? (
                   <p className="ticker">Saved</p>
                 ) : (
                   <>
@@ -113,7 +113,7 @@ const Plays = props => {
                       <button id='save-trade'>Save</button>
                     </form>
                   </>
-                )}
+                )} */}
                 {loader === true && (
                   <Dimmer active>
                     <Loader />
