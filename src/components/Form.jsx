@@ -96,7 +96,18 @@ const Form = props => {
 
   const panes = [
     {
-      menuItem: 'Main', render: () => (
+      menuItem: 'Review', render: () => (
+        <Tab.Pane>
+          <>
+            <Excel />
+            <ProfitChart />
+            <Twitter/>
+          </>
+        </Tab.Pane>
+      )
+    },
+    {
+      menuItem: 'Calculator', render: () => (
         <Tab.Pane>
           <>
             <h2 id="title">Trading Position Calculator </h2>
@@ -184,9 +195,6 @@ const Form = props => {
                 <Plays />
               </>
             )}
-            <Excel />
-            <ProfitChart />
-            <Twitter/>
           </>
         </Tab.Pane>
       )
