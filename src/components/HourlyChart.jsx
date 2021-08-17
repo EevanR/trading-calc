@@ -31,7 +31,7 @@ const HourlyChart = props => {
     labels: timeIntervals,
     datasets: [
       {
-        label: 'Gross Profit per Interval',
+        label: `${props.grossNet} Profit per Interval`,
         fill: true,
         backgroundColor: colours,
         borderColor: 'rgba(75,192,192,1)',

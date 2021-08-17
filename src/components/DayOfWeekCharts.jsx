@@ -38,7 +38,7 @@ const DayOfWeekCharts = props => {
     ],
     datasets: [
       {
-        label: 'Daily Avg',
+        label: 'Combined Daily Avg',
         fill: true,
         backgroundColor: colours,
         borderColor: 'rgba(75,192,192,1)',
