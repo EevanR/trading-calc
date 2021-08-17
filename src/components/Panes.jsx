@@ -10,7 +10,7 @@ import { connect } from "react-redux";
 import { Tab } from 'semantic-ui-react'
 import Twitter from "./Twitter";
 
-const Form = props => {
+const Panes = props => {
 
   const [answer, setAnswer] = useState(null)
   const [targetPrice, setTargetPrice] = useState(null)
@@ -259,4 +259,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(Panes);

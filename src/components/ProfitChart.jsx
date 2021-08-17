@@ -136,7 +136,7 @@ const ProfitChart = props => {
         <Line 
           data = {lineData}
           options = {lineOptions}
-          height={500}
+          height={600}
         />
       </div>
       <CommissionsChart commissions={commissionsTotal} netProfit={profit} grossNet={grossNet}/>
