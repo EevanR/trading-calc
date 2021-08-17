@@ -11,6 +11,7 @@ const ProfitChart = props => {
   const [commissionsTotal, setCommissionsTotal] = useState(0)
   const [barData, setBarData] = useState(null)
   const [timeSegments, setTimeSegments] = useState(null)
+  const [grossNet, setGrossNet] = useState("Gross")
 
   let dailyPreformance = {
     Mon: [0,[]],
@@ -43,7 +44,7 @@ const ProfitChart = props => {
       
       commissions += (props.savedTrades[i]["Comm"] + props.savedTrades[i]["NSCC"])
       groups[ticker] === undefined && (groups[ticker] = [0, 0, 0, ""]) //[Profit, share count, timestamp, date, commissions]
-      groups[ticker][0] += props.savedTrades[i]["Gross Proceeds"]
+      groups[ticker][0] += props.savedTrades[i][`${grossNet} Proceeds`]
       groups[ticker][1] === 0 && (groups[ticker][2] = props.savedTrades[i]["Exec Time"]) && (groups[ticker][3] = props.savedTrades[i]["T/D"])
       props.savedTrades[i]["Side"] === "B" || props.savedTrades[i]["Side"] === "BC" ? groups[ticker][1] += props.savedTrades[i]["Qty"] : groups[ticker][1] -= props.savedTrades[i]["Qty"]
 
@@ -124,12 +125,13 @@ const ProfitChart = props => {
     if (props.savedTrades !== null) {
       setData()
     }
-  }, [props.savedTrades])
+  }, [props.savedTrades, grossNet])
 
   return (
     <>
       <h2>Profit Chart</h2>
-      <h4>Cumulative Gross Equity Growth</h4>
+      <h3><a onClick={() => setGrossNet("Gross")}>Gross</a> || <a onClick={() => setGrossNet("Net")}>Net</a></h3>
+      <h4>Cumulative {grossNet} Equity Growth</h4>
       <div className="line-chart">
         <Line 
           data = {lineData}
@@ -137,9 +139,9 @@ const ProfitChart = props => {
           height={500}
         />
       </div>
-      <CommissionsChart commissions={commissionsTotal} netProfit={profit}/>
+      <CommissionsChart commissions={commissionsTotal} netProfit={profit} grossNet={grossNet}/>
       <DayOfWeekCharts barData={barData} />
-      <HourlyChart times={timeSegments}/>
+      <HourlyChart times={timeSegments} grossNet={grossNet}/>
     </>
   )
 }
