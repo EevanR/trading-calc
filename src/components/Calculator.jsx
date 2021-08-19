@@ -17,8 +17,8 @@ const Calculator = props => {
     e.preventDefault();
     if (props.preReq === props.checkList.length) {
       const inputs = {
-        stop: (parseFloat(e.target.price.value - e.target.stop.value)).toFixed(2),
-        stockPrice: parseFloat(e.target.price.value),
+        stop: Number((e.target.price.value - e.target.stop.value).toFixed(2)),
+        stockPrice: Number(e.target.price.value),
         ticker: e.target.ticker.value
       }
       const tradeParams = {
