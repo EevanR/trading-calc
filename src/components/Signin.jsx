@@ -107,7 +107,7 @@ const Signin = props => {
 
   return (
     <div>
-      {redirect === true && <Redirect to='/form'/>}
+      {redirect === true && <Redirect to='/panes'/>}
       <div className="signin-box">
         <Tab panes={panes} />
         {loader === true && (

@@ -47,7 +47,7 @@ const SetUp = props => {
     })
   }
 
-  const onClickHandler = (id, label, checked) => {
+  const onClickHandler = (id, label) => {
     chooseSetUp[id-1].checked === false ? chooseSetUp[id-1].checked = true : chooseSetUp[id-1].checked = false
     if (props.checkList.includes(label)) {
       let newArray = []
