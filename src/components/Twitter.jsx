@@ -71,7 +71,7 @@ const Twitter = () => {
         <button id="twitter-submit">Submit</button>
       </form>
       {twitterAccount !== "" && <h4>Showing {twitterAccount}'s last 10 tweets:</h4>}
-      <i class="redo icon" onClick={() => refreshTimeline() }></i>
+      <i className="redo icon" onClick={() => refreshTimeline() }></i>
       <Timeline
         dataSource={{
           sourceType: "profile",

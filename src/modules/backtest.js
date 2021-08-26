@@ -10,7 +10,7 @@ const getIntradayData = async ticker => {
         symbol: ticker,
         interval: "15min",
         outputsize: "full",
-        apikey: "39DMC4D0QYC3JCGG"
+        apikey: process.env.REACT_ALPHA_VANTAGE_API
       }
     });
     return response
@@ -29,7 +29,7 @@ const getFiveMinData = async ticker => {
         symbol: ticker,
         interval: "5min",
         outputsize: "full",
-        apikey: "39DMC4D0QYC3JCGG"
+        apikey: process.env.REACT_ALPHA_VANTAGE_API
       }
     });
     return response
@@ -39,6 +39,7 @@ const getFiveMinData = async ticker => {
 }
 
 const getGapData = async ticker => {
+  let token = process.env.REACT_ALPHA_VANTAGE_API
   try {
     const response = await axios({
       method: "GET",
@@ -47,7 +48,7 @@ const getGapData = async ticker => {
         function: "TIME_SERIES_DAILY_ADJUSTED",
         symbol: ticker,
         outputsize: "full",
-        apikey: "39DMC4D0QYC3JCGG"
+        apikey: token
       }
     });
     return response
@@ -65,7 +66,7 @@ const getVwapData = async ticker => {
         function: "VWAP",
         symbol: ticker,
         interval: "15min",
-        apikey: "39DMC4D0QYC3JCGG"
+        apikey: process.env.REACT_ALPHA_VANTAGE_API
       }
     });
     return response
