@@ -37,7 +37,7 @@ const getQuote = async ticker => {
       params: {
         function: "GLOBAL_QUOTE",
         symbol: ticker,
-        apikey: "39DMC4D0QYC3JCGG"
+        apikey: process.env.REACT_ALPHA_VANTAGE_API
       }
     });
     return response
@@ -48,7 +48,13 @@ const getQuote = async ticker => {
 
 const getProfile = async ticker => {
   try {
-    const response = await axios.get(`https://fmpcloud.io/api/v3/profile/${ticker}?apikey=c3ae0e6333eeb76d17564d0b2c9ba878`);
+    const response = await axios({
+      method: "GET",
+      url: `https://fmpcloud.io/api/v3/profile/${ticker}`,
+      params: {
+        apikey: process.env.REACT_FMP_API
+      }
+    });
     return response
   } catch (error) {
     return error;

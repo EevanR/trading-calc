@@ -10,8 +10,8 @@ import { Provider } from "react-redux";
 import configureStore from "./state/store/configureStore";
 import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:3000/api/v1";
-// axios.defaults.baseURL = "https://trading-calc-api.herokuapp.com/api/v1";
+// axios.defaults.baseURL = "http://localhost:3000/api/v1";
+axios.defaults.baseURL = process.env.REACT_APP_API_BASEURL
 
 const store = configureStore();
 
