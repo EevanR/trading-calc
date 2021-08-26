@@ -1,31 +1,11 @@
 import axios from "axios";
 
-const sendTrade = async (id, trade, quote, profile) => {
+const sendExcel = async (groupedTrades) => {
   let headers = JSON.parse(sessionStorage.getItem("credentials"));
-  let ticker = trade[1].ticker.toUpperCase()
   try {
-    const response = await axios.post("/trades",
+    const response = await axios.post("/excels",
       {
-        trade: {
-          ticker: ticker,
-          entry: trade[1].stockPrice,
-          shares: trade[1].shares,
-          stop: trade[1].sp,
-          setup: trade[1].setup,
-          date: trade[1].date,
-          profit: trade[2],
-          trade_id: id,
-          open: quote["02. open"],
-          high: quote["03. high"],
-          low: quote["04. low"],
-          close: quote["05. price"],
-          vol: quote["06. volume"],
-          prevClose: quote["08. previous close"],
-          volAvg: profile["volAvg"],
-          mktCap: profile["mktCap"],
-          company: profile["companyName"],
-          industry: profile["industry"]
-        }
+        data: groupedTrades
       }, 
       {
         headers: headers
@@ -40,7 +20,7 @@ const sendTrade = async (id, trade, quote, profile) => {
 const getTrades = async () => {
   let headers = JSON.parse(sessionStorage.getItem("credentials"));
   try {
-    const response = await axios.get("/trades", {
+    const response = await axios.get("/excels", {
       headers: headers
     })
     return response
@@ -75,10 +55,10 @@ const getProfile = async ticker => {
   }
 }
 
-const deleteTrades = async () => {
+const destroyExcel = async (id) => {
   let headers = JSON.parse(sessionStorage.getItem("credentials"));
   try {
-    const response = await axios.delete("/trades/:id", {
+    const response = await axios.delete(`/excels/${id}`, {
       headers: headers
     })
     return response
@@ -87,4 +67,4 @@ const deleteTrades = async () => {
   }
 }
 
-export { sendTrade, getTrades, getQuote, getProfile, deleteTrades }
+export { sendExcel, getTrades, getQuote, getProfile, destroyExcel }

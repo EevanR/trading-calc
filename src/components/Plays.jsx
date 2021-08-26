@@ -53,18 +53,18 @@ const Plays = props => {
       alert(`${profile}`)
     }
 
-    let response = await sendTrade(id, trade, quote, profile);
-    if (response.status === 200) {
-      setLoader(false)
-      setSavedTrades([...savedTrades, id])
-      props.setMessage("Trade Saved")
-      setTimeout(() => {
-        props.setMessage("")
-      }, 4000);
-    } else {
-      setLoader(false)
-      alert("Sorry the trade wasn't saved, we'll look into it")
-    }
+    // let response = await sendTrade(id, trade, quote, profile);
+    // if (response.status === 200) {
+    //   setLoader(false)
+    //   setSavedTrades([...savedTrades, id])
+    //   props.setMessage("Trade Saved")
+    //   setTimeout(() => {
+    //     props.setMessage("")
+    //   }, 4000);
+    // } else {
+    //   setLoader(false)
+    //   alert("Sorry the trade wasn't saved, we'll look into it")
+    // }
   }
 
   useEffect(() => {

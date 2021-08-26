@@ -4,6 +4,7 @@ import { Line } from 'react-chartjs-2';
 import CommissionsChart from "./CommissionsChart";
 import DayOfWeekCharts from "./DayOfWeekCharts";
 import HourlyChart from "./HourlyChart";
+import { getTrades } from "../modules/trades";
 
 const ProfitChart = props => {
   const [profit, setProfit] = useState([])
@@ -11,7 +12,7 @@ const ProfitChart = props => {
   const [commissionsTotal, setCommissionsTotal] = useState(0)
   const [barData, setBarData] = useState(null)
   const [timeSegments, setTimeSegments] = useState(null)
-  const [grossNet, setGrossNet] = useState("Gross")
+  const [grossNet, setGrossNet] = useState("GrossProfit")
 
   let dailyPreformance = {
     Mon: [0,[]],
@@ -32,28 +33,16 @@ const ProfitChart = props => {
 
   const setData = () => {
     buildIntervals()
-
     let dates = []
-    let groups = {}
     let commissions = 0
-    let groupedTrades = []
-    for (let i=0; i<props.savedTrades.length; i++) {
-      let date = props.savedTrades[i]["T/D"]
-      let ticker = props.savedTrades[i]["Symbol"]
+    for (let i=0; i<props.savedTrades.data.length; i++) {
+      let date = props.savedTrades.data[i]["Date"]
       !dates.includes(date) && dates.push(date)
       
-      commissions += (props.savedTrades[i]["Comm"] + props.savedTrades[i]["NSCC"])
-      groups[ticker] === undefined && (groups[ticker] = [0, 0, 0, ""]) //[Profit, share count, timestamp, date, commissions]
-      groups[ticker][0] += props.savedTrades[i][`${grossNet} Proceeds`]
-      groups[ticker][1] === 0 && (groups[ticker][2] = props.savedTrades[i]["Exec Time"]) && (groups[ticker][3] = props.savedTrades[i]["T/D"])
-      props.savedTrades[i]["Side"] === "B" || props.savedTrades[i]["Side"] === "BC" ? groups[ticker][1] += props.savedTrades[i]["Qty"] : groups[ticker][1] -= props.savedTrades[i]["Qty"]
+      commissions += (props.savedTrades.data[i]["Commissions"])
 
-      if (groups[ticker][1] === 0) {
-        groupedTrades.push(groups[ticker])
-        for(let int in timeBlocks){
-          ((Number(int) <= groups[ticker][2]) && (groups[ticker][2] < Number(int)+0.04167)) && (timeBlocks[int][0] += groups[ticker][0]) && (timeBlocks[int][1]++)
-        }
-        delete groups[ticker]
+      for(let int in timeBlocks){
+        ((Number(int) <= props.savedTrades.data[i]["TimeStamp"]) && (props.savedTrades.data[i]["TimeStamp"] < Number(int)+0.04167)) && (timeBlocks[int][0] += props.savedTrades.data[i][grossNet]) && (timeBlocks[int][1]++)
       }
     }
     setCommissionsTotal(commissions)
@@ -62,8 +51,8 @@ const ProfitChart = props => {
     let cumulativeGains = []
     dates.map(date => {
       let total = 0
-      for(let i=0; i<groupedTrades.length; i++) {
-        groupedTrades[i][3] === date && (total += groupedTrades[i][0])
+      for(let i=0; i<props.savedTrades.data.length; i++) {
+        props.savedTrades.data[i]["Date"] === date && (total += props.savedTrades.data[i][grossNet])
       }
       dailyProfits += total
       cumulativeGains.push(dailyProfits)
@@ -122,15 +111,25 @@ const ProfitChart = props => {
   }
 
   useEffect(() => {
+    const indexExcels = async () => {
+      let response = await getTrades()
+      if (response.status === 200) {
+        props.setSavedTrades(response.data[0])
+      }
+    }
+    indexExcels()
+  }, [])
+
+  useEffect(() => {
     if (props.savedTrades !== null) {
       setData()
     }
-  }, [props.savedTrades, grossNet])
+  }, [props.savedTrades, grossNet])  // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
       <h2>Profit Chart</h2>
-      <h3><a onClick={() => setGrossNet("Gross")}>Gross</a> || <a onClick={() => setGrossNet("Net")}>Net</a></h3>
+      <h3><a onClick={() => setGrossNet("GrossProfit")}>Gross</a> || <a onClick={() => setGrossNet("NetProfit")}>Net</a></h3>
       <h4>Cumulative {grossNet} PnL Growth</h4>
       <div className="line-chart">
         <Line 
@@ -149,7 +148,8 @@ const ProfitChart = props => {
 const mapStateToProps = state => {
   return {
     savedTrades: state.savedTrades,
-    message: state.message
+    message: state.message,
+    userAttrs: state.userAttrs
   };
 };
 

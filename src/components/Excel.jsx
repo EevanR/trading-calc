@@ -1,8 +1,42 @@
 import React from 'react';
 import * as XLSX from 'xlsx'
 import { connect } from "react-redux";
+import { sendExcel, destroyExcel } from '../modules/trades';
 
 const Excel = props => {
+
+  const saveExcel = async (d) => {
+    let groupedTrades = []
+    let groups = {}
+
+    for (let i=0; i<d.length; i++) {
+      let ticker = d[i]["Symbol"]
+
+      groups[ticker] === undefined && (groups[ticker] = {Ticker: ticker, NetProfit: 0, GrossProfit: 0, ShareCount: 0, TimeStamp: 0, Date: "", Commissions: 0})
+      groups[ticker]["NetProfit"] += d[i]["Net Proceeds"]
+      groups[ticker]["GrossProfit"] += d[i]["Gross Proceeds"]
+      groups[ticker]["ShareCount"] === 0 && (groups[ticker]["TimeStamp"] = d[i]["Exec Time"]) && (groups[ticker]["Date"] = d[i]["T/D"])
+      d[i]["Side"] === "B" || d[i]["Side"] === "BC" ? groups[ticker]["ShareCount"] += d[i]["Qty"] : groups[ticker]["ShareCount"] -= d[i]["Qty"]
+      groups[ticker]["Commissions"] += (d[i]["Comm"] + d[i]["NSCC"])
+
+      if (groups[ticker]["ShareCount"] === 0) {
+        groupedTrades.push(groups[ticker])
+        delete groups[ticker]
+      }
+    }
+
+    let response = await sendExcel(groupedTrades)
+    if (response.status === 200) {
+      props.setSavedTrades(response.data)
+    }
+  }
+
+  const deleteOldExcel = async (d) => {
+    let response = await destroyExcel(props.savedTrades.id)
+    if (response.status === 200) {
+      saveExcel(d)
+    }
+  }
 
   const readExcel = (file) => {
     const promise = new Promise((resolve, reject) => {
@@ -28,7 +62,7 @@ const Excel = props => {
     })
 
     promise.then((d) => {
-      props.setSavedTrades(d)
+      props.savedTrades === null ? saveExcel(d) : deleteOldExcel(d)
     })
   }
 
