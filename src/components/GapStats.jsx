@@ -8,108 +8,77 @@ const GapStats = props => {
   const [vwap, setVwap] = useState([])
   const [intraTimes, setIntraTimes] = useState([])
   const [chartTicker, setChartTicker] = useState("")
-  const [gapStats, setGapStats] = useState([])
+  const [gapStats, setGapStats] = useState({})
   const [chartDate, setChartDate] = useState(null)
   const [gapSearchShow, setGapSearchShow] = useState(null)
 
   const runTest = async (e) => {
     e.preventDefault();
-    setChartTicker(e.target.testTicker.value)
+    setChartTicker((e.target.testTicker.value))
 
     let gaps = []
     let t = e.target.testTicker.value
     let response2 = await getGapData(t);
     let newArray;
+
+    let grouped = {
+      gapCount: 0,
+      gapPercents: 0,
+      spikes: 0,
+      closesOpen: [0, 0, 0, 0], //[Above open count, below open count, above open gain, below open gain]
+      ranges: 0,
+      day2UpDown: [0, 0, 0, 0] // [Up count, Down count, Up Avg, Down Avg]
+    }
+
     const tickerDataReceived = () => {
-      for (let i=newArray.length-1; i >= 0; i--) {
+      for (let i=1; i < newArray.length; i++) {
         let variables = {
           open: Number(newArray[i][1]["1. open"]),
           currentDayClose:  Number(newArray[i][1]["4. close"]),
           highOfDay: Number(newArray[i][1]["2. high"]),
           volume: Number(newArray[i][1]["6. volume"]),
+          previousDayClose: Number(newArray[i-1][1]["4. close"])
         }
+        variables['gapPercent'] = ((variables.open - variables.previousDayClose)/variables.previousDayClose)*100
 
-        if (newArray[i+1] !== undefined && variables.open > Number(newArray[i+1][1]["4. close"])) {
-          variables['previousDayClose'] = Number(newArray[i+1][1]["4. close"])
-
-          let gapDay = [
-            newArray[i][0],
-            {
-              gap: variables.open - variables.previousDayClose,
-              gapPercent: ((variables.open - variables.previousDayClose)/variables.previousDayClose)*100,
-              highFromOpen: (variables.highOfDay/variables.open)*100,
-              range: variables.highOfDay - Number(newArray[i][1]["3. low"]),
-              closeBelowOpen: variables.open > variables.currentDayClose ? "true" : "false",
-              closeAboveOpenPercent: ((variables.currentDayClose - variables.open)/variables.open)*100,
-              volume: variables.volume,
-            }
-          ]
-
-          if (newArray[i-1] !== undefined) {
-            let nextDayOpen = Number(newArray[i-1][1]["1. open"])
-            gapDay[1]['day2'] = ((nextDayOpen - variables.currentDayClose)/variables.currentDayClose) * 100
+        if ((variables['gapPercent'] > 19) && (variables.volume > 900000)) {
+          variables['closeBelowOpen'] = variables.open > variables.currentDayClose ? "true" : "false"
+          if (newArray[i+1] !== undefined) {
+            let nextDayOpen = Number(newArray[i+1][1]["1. open"])
+            variables['day2'] = ((nextDayOpen - variables.currentDayClose)/variables.currentDayClose) * 100
           }
-          
-          (gapDay[1]['gapPercent'] > 19 && variables.volume > 900000) && gaps.push(gapDay)
+          grouped['gapCount']++
+          grouped['gapPercents'] += ((variables.open - variables.previousDayClose)/variables.previousDayClose)*100
+          grouped['spikes'] += ((variables.highOfDay-variables.open)/variables.open)*100
+          variables["day2"] > 0 ? (grouped['day2UpDown'][2] += variables['day2']) && grouped['day2UpDown'][0]++ : (grouped['day2UpDown'][3] -= variables['day2']) && (grouped['day2UpDown'][1]++)
+          grouped['ranges'] += (variables.highOfDay - Number(newArray[i][1]["3. low"]))
+          variables['closeBelowOpen'] === "false" && grouped['closesOpen'][0]++ && (grouped['closesOpen'][2] += ((variables.currentDayClose - variables.open)/variables.open)*100)
+          variables['closeBelowOpen'] === "true" && grouped['closesOpen'][1]++ && (grouped['closesOpen'][3] += ((variables.currentDayClose - variables.open)/variables.open)*100)
         }
       }
     }
 
     if (response2.data["Time Series (Daily)"]) {
       newArray = Object.entries(response2.data["Time Series (Daily)"])
+      newArray = newArray.reverse()
       tickerDataReceived()
     } else {
       alert("Could not find ticker")
     }
-    
-    let gapCount = gaps.length
-    let gapPercents = 0
-    let spikes = 0
-    let closesAboveOpenCount = 0
-    let closesBelowOpenCount = 0
-    let closesAboveOpenGain = 0
-    let closesBelowOpenGain = 0
-    let ranges = 0
-    let day2UpCount = 0
-    let day2DownCount = 0
-    let day2AvgUp = 0
-    let day2AvgDown = 0
-    gaps.forEach(day => {
-      gapPercents += day[1]["gapPercent"]
-      spikes += day[1]["highFromOpen"]
-      day[1]["day2"] > 0 ? day2AvgUp += day[1]["day2"] : day2AvgDown -= day[1]["day2"]
-      day[1]["day2"] > 0 ? day2UpCount += 1 : day2DownCount += 1
-      if (day[1]["closeBelowOpen"] === "false") {
-        closesAboveOpenCount++
-        closesAboveOpenGain += day[1]["closeAboveOpenPercent"]
-      } else {
-        closesBelowOpenCount++
-        closesBelowOpenGain += day[1]["closeAboveOpenPercent"]
-      }
-      ranges += day[1]["range"]
-    })
-    
-    let avgGapPercent = (gapPercents/gapCount).toFixed(2)
-    let avgSpike = ((spikes/gapCount)-100).toFixed(2)
-    let closeAboveOpen = (closesAboveOpenGain/closesAboveOpenCount).toFixed(2)
-    let closeBelowOpen = (closesBelowOpenGain/closesBelowOpenCount).toFixed(2)
-    let avgRange = (ranges/gapCount).toFixed(2)
-    day2AvgUp = (day2AvgUp/day2UpCount).toFixed(2)
-    day2AvgDown = (day2AvgDown/day2DownCount).toFixed(2)
-    let stats = [
-      gapCount, 
-      avgGapPercent, 
-      avgSpike, 
-      closesAboveOpenCount, 
-      closeAboveOpen, 
-      closeBelowOpen, 
-      avgRange, 
-      (closesAboveOpenCount/gapCount),
-      day2UpCount,
-      day2DownCount,
-      day2AvgUp,
-      day2AvgDown
-    ]
+
+    let stats = {
+      gapCount: grouped['gapCount'],
+      avgGapPercent: (grouped['gapPercents']/grouped['gapCount']).toFixed(2),
+      avgSpike: (grouped['spikes']/grouped['gapCount']).toFixed(2),
+      closesAboveOpenCount: grouped['closesOpen'][0],
+      closeAboveOpen: (grouped['closesOpen'][2]/grouped['closesOpen'][0]).toFixed(2),
+      closeBelowOpen: (grouped['closesOpen'][3]/grouped['closesOpen'][1]).toFixed(2),
+      avgRange: (grouped['ranges']/grouped['gapCount']).toFixed(2),
+      day2UpCount: grouped['day2UpDown'][0],
+      day2DownCount: grouped['day2UpDown'][1],
+      day2AvgUp: (grouped['day2UpDown'][2]/grouped['day2UpDown'][0]).toFixed(2),
+      day2AvgDown: (grouped['day2UpDown'][3]/grouped['day2UpDown'][1]).toFixed(2)
+    }
     setGapStats(stats)
     props.setGapSearches([...props.gapSearches, [t, stats]])
 
@@ -117,22 +86,22 @@ const GapStats = props => {
     let datesArray = []
     let array = []
     const buildDatesArray = () => {
-      for (let i=0; i<datesArray.length; i++) {
-        let date = datesArray[i][0].substring(0, datesArray[i][0].indexOf(" "))
-        let recent = gaps.length - 1
-        setChartDate(gaps[recent][0])
-        if (date === gaps[recent][0]) {
-          array.push(datesArray[i])
-        }
-      }
-      let prices = []
-      let times = []
-      for (let i=array.length - 1; i >= 0; i--) {
-        prices.push(array[i][1]["4. close"])
-        times.push(array[i][0].substring(11))
-      }
-      setIntraPrices(prices)
-      setIntraTimes(times)
+      // for (let i=0; i<datesArray.length; i++) {
+      //   let date = datesArray[i][0].substring(0, datesArray[i][0].indexOf(" "))
+      //   let recent = gaps.length - 1
+      //   setChartDate(gaps[recent][0])
+      //   if (date === gaps[recent][0]) {
+      //     array.push(datesArray[i])
+      //   }
+      // }
+      // let prices = []
+      // let times = []
+      // for (let i=array.length - 1; i >= 0; i--) {
+      //   prices.push(array[i][1]["4. close"])
+      //   times.push(array[i][0].substring(11))
+      // }
+      // setIntraPrices(prices)
+      // setIntraTimes(times)
     }
 
     if (response.data['Time Series (15min)']) {
@@ -143,20 +112,20 @@ const GapStats = props => {
 
     let response3 = await getVwapData(t);
     let vwapChartPoints = []
-    if (response3.data['Technical Analysis: VWAP']) {
-      let vwapDates = Object.entries(response3.data['Technical Analysis: VWAP'])
-      for (let i=0; i<vwapDates.length; i++) {
-        let date = vwapDates[i][0].substring(0, vwapDates[i][0].indexOf(" "))
-        let recent = gaps.length - 1
-        setChartDate(gaps[recent][0])
-        date === gaps[recent][0] && vwapChartPoints.push(vwapDates[i])
-      }
-      let vwapPrices = []
-      for (let i=vwapChartPoints.length - 1; i >= 0; i--) {
-        vwapPrices.push(vwapChartPoints[i][1]["VWAP"])
-      }
-      setVwap(vwapPrices)
-    }
+    // if (response3.data['Technical Analysis: VWAP']) {
+    //   let vwapDates = Object.entries(response3.data['Technical Analysis: VWAP'])
+    //   for (let i=0; i<vwapDates.length; i++) {
+    //     let date = vwapDates[i][0].substring(0, vwapDates[i][0].indexOf(" "))
+    //     let recent = gaps.length - 1
+    //     setChartDate(gaps[recent][0])
+    //     date === gaps[recent][0] && vwapChartPoints.push(vwapDates[i])
+    //   }
+    //   let vwapPrices = []
+    //   for (let i=vwapChartPoints.length - 1; i >= 0; i--) {
+    //     vwapPrices.push(vwapChartPoints[i][1]["VWAP"])
+    //   }
+    //   setVwap(vwapPrices)
+    // }
   }
 
   const lineData = {
@@ -237,7 +206,7 @@ const GapStats = props => {
       )
     }))
   }
-
+debugger
   return (
     <>
       <div>
@@ -258,7 +227,7 @@ const GapStats = props => {
       </div>
       <h3 style={{marginBottom: "20px"}}>Stats {chartTicker}</h3>
         <div id="gap-stats">
-        {gapStats.length > 0 && (
+        {gapStats.length !== {} && (
           <div className="currentShow">
             <div>
               <h4>Gaps Above 20%:</h4>
@@ -274,17 +243,17 @@ const GapStats = props => {
               <h4>Day 2 Avg Gap Down:</h4>
             </div>
             <div>
-              <h4> {gapStats[0]}</h4>
-              <h4> {gapStats[1]}%</h4>
-              <h4> {gapStats[2]}%</h4>
-              <h4 id={gapStats[3] < (gapStats[0]/2) ? "backtest-red" : ""}> {gapStats[3]} / {(gapStats[7]*100).toFixed(2)}%</h4>
-              <h4> +{gapStats[4]}%</h4>
-              <h4 id="backtest-red"> {gapStats[5]}%</h4>
-              <h4> ${gapStats[6]}</h4>
-              <h4> {gapStats[8]} / {((gapStats[8]/gapStats[0])*100).toFixed(2)}%</h4>
-              <h4> {gapStats[9]}</h4>
-              <h4>{gapStats[10]}%</h4>
-              <h4>{gapStats[11]}%</h4>
+              <h4> {gapStats["gapCount"]}</h4>
+              <h4> {gapStats["avgGapPercent"]}%</h4>
+              <h4> {gapStats["avgSpike"]}%</h4>
+              <h4 id={gapStats["closesAboveOpenCount"] < (gapStats["gapCount"]/2) ? "backtest-red" : ""}> {gapStats["closesAboveOpenCount"]} / {(gapStats["day2UpCount"]*100).toFixed(2)}%</h4>
+              <h4> +{gapStats["closeAboveOpen"]}%</h4>
+              <h4 id="backtest-red"> {gapStats["closeBelowOpen"]}%</h4>
+              <h4> ${gapStats["avgRange"]}</h4>
+              <h4> {gapStats["day2UpCount"]} / {((gapStats["day2UpCount"]/gapStats["gapCount"])*100).toFixed(2)}%</h4>
+              <h4> {gapStats["day2DownCount"]}</h4>
+              <h4>{gapStats["day2AvgUp"]}%</h4>
+              <h4>{gapStats["day2AvgDown"]}%</h4>
             </div>
           </div>
           )} 

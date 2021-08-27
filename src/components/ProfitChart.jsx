@@ -117,7 +117,7 @@ const ProfitChart = props => {
         props.setSavedTrades(response.data[0])
       }
     }
-    indexExcels()
+    // indexExcels()
   }, [])
 
   useEffect(() => {
