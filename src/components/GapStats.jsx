@@ -16,7 +16,7 @@ const GapStats = props => {
     e.preventDefault();
     setChartTicker((e.target.testTicker.value))
 
-    let gaps = []
+    let mostRecentGapDate = ""
     let t = e.target.testTicker.value
     let response2 = await getGapData(t);
     let newArray;
@@ -42,6 +42,7 @@ const GapStats = props => {
         variables['gapPercent'] = ((variables.open - variables.previousDayClose)/variables.previousDayClose)*100
 
         if ((variables['gapPercent'] > 19) && (variables.volume > 900000)) {
+          mostRecentGapDate = newArray[i][0]
           variables['closeBelowOpen'] = variables.open > variables.currentDayClose ? "true" : "false"
           if (newArray[i+1] !== undefined) {
             let nextDayOpen = Number(newArray[i+1][1]["1. open"])
@@ -85,28 +86,24 @@ const GapStats = props => {
     let response = await getIntradayData(t);
     let datesArray = []
     let array = []
-    const buildDatesArray = () => {
-      // for (let i=0; i<datesArray.length; i++) {
-      //   let date = datesArray[i][0].substring(0, datesArray[i][0].indexOf(" "))
-      //   let recent = gaps.length - 1
-      //   setChartDate(gaps[recent][0])
-      //   if (date === gaps[recent][0]) {
-      //     array.push(datesArray[i])
-      //   }
-      // }
-      // let prices = []
-      // let times = []
-      // for (let i=array.length - 1; i >= 0; i--) {
-      //   prices.push(array[i][1]["4. close"])
-      //   times.push(array[i][0].substring(11))
-      // }
-      // setIntraPrices(prices)
-      // setIntraTimes(times)
+    const pullRecentGapData = () => {
+      for (let i=0; i<datesArray.length; i++) {
+        let date = datesArray[i][0].substring(0, datesArray[i][0].indexOf(" "))
+        setChartDate(mostRecentGapDate)
+        date === mostRecentGapDate && array.push(datesArray[i])
+      }
+      let pricesTimes = [[], []]
+      for (let i=array.length - 1; i >= 0; i--) {
+        pricesTimes[0].push(array[i][1]["4. close"])
+        pricesTimes[1].push(array[i][0].substring(11))
+      }
+      setIntraPrices(pricesTimes[0])
+      setIntraTimes(pricesTimes[1])
     }
 
     if (response.data['Time Series (15min)']) {
       datesArray = Object.entries(response.data['Time Series (15min)'])
-      buildDatesArray()
+      pullRecentGapData()
     }
     
 
@@ -206,7 +203,7 @@ const GapStats = props => {
       )
     }))
   }
-debugger
+
   return (
     <>
       <div>
