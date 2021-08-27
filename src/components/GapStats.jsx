@@ -85,44 +85,30 @@ const GapStats = props => {
 
     let response = await getIntradayData(t);
     let datesArray = []
-    let array = []
-    const pullRecentGapData = () => {
+    if (response.data['Time Series (15min)']) {
+      datesArray = Object.entries(response.data['Time Series (15min)'])
+      datesArray.reverse()
+      let pricesTimes = [[], []]
       for (let i=0; i<datesArray.length; i++) {
         let date = datesArray[i][0].substring(0, datesArray[i][0].indexOf(" "))
-        setChartDate(mostRecentGapDate)
-        date === mostRecentGapDate && array.push(datesArray[i])
-      }
-      let pricesTimes = [[], []]
-      for (let i=array.length - 1; i >= 0; i--) {
-        pricesTimes[0].push(array[i][1]["4. close"])
-        pricesTimes[1].push(array[i][0].substring(11))
+        date === mostRecentGapDate && pricesTimes[0].push(datesArray[i][1]["4. close"]) && pricesTimes[1].push(datesArray[i][0].substring(11))
       }
       setIntraPrices(pricesTimes[0])
       setIntraTimes(pricesTimes[1])
     }
-
-    if (response.data['Time Series (15min)']) {
-      datesArray = Object.entries(response.data['Time Series (15min)'])
-      pullRecentGapData()
-    }
     
 
     let response3 = await getVwapData(t);
-    let vwapChartPoints = []
-    // if (response3.data['Technical Analysis: VWAP']) {
-    //   let vwapDates = Object.entries(response3.data['Technical Analysis: VWAP'])
-    //   for (let i=0; i<vwapDates.length; i++) {
-    //     let date = vwapDates[i][0].substring(0, vwapDates[i][0].indexOf(" "))
-    //     let recent = gaps.length - 1
-    //     setChartDate(gaps[recent][0])
-    //     date === gaps[recent][0] && vwapChartPoints.push(vwapDates[i])
-    //   }
-    //   let vwapPrices = []
-    //   for (let i=vwapChartPoints.length - 1; i >= 0; i--) {
-    //     vwapPrices.push(vwapChartPoints[i][1]["VWAP"])
-    //   }
-    //   setVwap(vwapPrices)
-    // }
+    let vwapPrices = []
+    if (response3.data['Technical Analysis: VWAP']) {
+      let vwapDates = Object.entries(response3.data['Technical Analysis: VWAP'])
+      vwapDates.reverse()
+      for (let i=0; i<vwapDates.length; i++) {
+        let date = vwapDates[i][0].substring(0, vwapDates[i][0].indexOf(" "))
+        date === mostRecentGapDate && vwapPrices.push(vwapDates[i][1]["VWAP"])
+      }
+      setVwap(vwapPrices)
+    }
   }
 
   const lineData = {
