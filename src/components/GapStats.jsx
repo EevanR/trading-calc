@@ -88,6 +88,7 @@ const GapStats = props => {
     if (response.data['Time Series (15min)']) {
       datesArray = Object.entries(response.data['Time Series (15min)'])
       datesArray.reverse()
+      setChartDate(mostRecentGapDate)
       let pricesTimes = [[], []]
       for (let i=0; i<datesArray.length; i++) {
         let date = datesArray[i][0].substring(0, datesArray[i][0].indexOf(" "))
@@ -168,6 +169,7 @@ const GapStats = props => {
   const showStats = (gapEntry) => {
     props.gapSearches.forEach(item => {
       if (item[0] === gapEntry) {
+        debugger
         setGapSearchShow(item)
       }
     })
@@ -189,6 +191,22 @@ const GapStats = props => {
       )
     }))
   }
+
+  let statLabels = (
+      <div>
+        <h4>Gaps Above 20%:</h4>
+        <h4>Avg gap:</h4>
+        <h4>Avg GapUp Spike Above Open:</h4>
+        <h4>Gap Up Closes Above Open:</h4>
+        <h4>Avg % close Above Open:</h4>
+        <h4>Avg % close Below Open:</h4>
+        <h4>Avg Gapper Range (Low to High):</h4>
+        <h4>Day 2 Gap up Count:</h4>
+        <h4>Day 2 Gap Down Count:</h4>
+        <h4>Day 2 Avg Gap up:</h4>
+        <h4>Day 2 Avg Gap Down:</h4>
+      </div>
+  )
 
   return (
     <>
@@ -212,19 +230,7 @@ const GapStats = props => {
         <div id="gap-stats">
         {gapStats.length !== {} && (
           <div className="currentShow">
-            <div>
-              <h4>Gaps Above 20%:</h4>
-              <h4>Avg gap:</h4>
-              <h4>Avg GapUp Spike Above Open:</h4>
-              <h4>Gap Up Closes Above Open:</h4>
-              <h4>Avg % close Above Open:</h4>
-              <h4>Avg % close Below Open:</h4>
-              <h4>Avg Gapper Range (Low to High):</h4>
-              <h4>Day 2 Gap up Count:</h4>
-              <h4>Day 2 Gap Down Count:</h4>
-              <h4>Day 2 Avg Gap up:</h4>
-              <h4>Day 2 Avg Gap Down:</h4>
-            </div>
+            {statLabels}
             <div>
               <h4> {gapStats["gapCount"]}</h4>
               <h4> {gapStats["avgGapPercent"]}%</h4>
@@ -245,34 +251,22 @@ const GapStats = props => {
             {gapSearches}
           </div>
           {gapSearchShow !== null && (
-          <div>
-            <h4>Gaps Above 20%:</h4>
-            <h4>Avg gap:</h4>
-            <h4>Avg GapUp Spike Above Open:</h4>
-            <h4>Gap Up Closes Above Open:</h4>
-            <h4>Avg % close Above Open:</h4>
-            <h4>Avg % close Below Open:</h4>
-            <h4>Avg Gapper Range (Low to High):</h4>
-            <h4>Day 2 Gap up Count:</h4>
-            <h4>Day 2 Gap Down Count:</h4>
-            <h4>Day 2 Avg Gap up:</h4>
-            <h4>Day 2 Avg Gap Down:</h4>
-          </div>
-          )}
-          {gapSearchShow !== null && (
-            <div>
-              <h4>{gapSearchShow[1][0]}</h4>
-              <h4>{gapSearchShow[1][1]}%</h4>
-              <h4>{gapSearchShow[1][2]}%</h4> 
-              <h4>{gapSearchShow[1][3]}</h4>
-              <h4>+{gapSearchShow[1][4]}%</h4>
-              <h4>{gapSearchShow[1][5]}%</h4>
-              <h4>${gapSearchShow[1][6]}</h4>
-              <h4>{gapSearchShow[1][8]}</h4>
-              <h4>{gapSearchShow[1][9]}</h4>
-              <h4>{gapSearchShow[1][10]}%</h4>
-              <h4>{gapSearchShow[1][11]}%</h4>
-            </div>
+            <>
+              {statLabels}
+              <div>
+                <h4>{gapSearchShow[1]["gapCount"]}</h4>
+                <h4>{gapSearchShow[1]["avgGapPercent"]}%</h4>
+                <h4>{gapSearchShow[1]["avgSpike"]}%</h4> 
+                <h4>{gapSearchShow[1]["closesAboveOpenCount"]}</h4>
+                <h4>+{gapSearchShow[1]["closeAboveOpen"]}%</h4>
+                <h4 id="backtest-red">{gapSearchShow[1]["closeBelowOpen"]}%</h4>
+                <h4>${gapSearchShow[1]["avgRange"]}</h4>
+                <h4>{gapSearchShow[1]["day2UpCount"]}</h4>
+                <h4>{gapSearchShow[1]["day2DownCount"]}</h4>
+                <h4>{gapSearchShow[1]["day2AvgUp"]}%</h4>
+                <h4>{gapSearchShow[1]["day2AvgDown"]}%</h4>
+              </div>
+            </>
           )}
         </div>
       </div> 
