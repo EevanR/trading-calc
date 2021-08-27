@@ -169,7 +169,6 @@ const GapStats = props => {
   const showStats = (gapEntry) => {
     props.gapSearches.forEach(item => {
       if (item[0] === gapEntry) {
-        debugger
         setGapSearchShow(item)
       }
     })

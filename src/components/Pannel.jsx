@@ -147,7 +147,7 @@ const Pannel = props => {
             <div id="pannel-info">
               {props.savedTrades !== null && (
                 <>
-                  <h4 id="pannel-title">Account: </h4>
+                  {/* <h4 id="pannel-title">Account: </h4>
                   <h5>{props.userAttrs.email}</h5>
                   <h4 id="pannel-title">Stats: </h4>
                   <div className="stats-grid">
@@ -167,7 +167,7 @@ const Pannel = props => {
                     <h5 id="right-column">${(tradeWins/successTrades).toFixed(2)}</h5>
                     <h5 id="left-column">Average Loss: </h5>
                     <h5 id="right-column">${(tradeLoss/(props.savedTrades.length-successTrades)).toFixed(2)}</h5>
-                  </div>
+                  </div> */}
                 </>
               )}
             </div>
