@@ -15,51 +15,55 @@ const GapStats = props => {
   const runTest = async (e) => {
     e.preventDefault();
     setChartTicker(e.target.testTicker.value)
+
     let gaps = []
     let t = e.target.testTicker.value
     let response2 = await getGapData(t);
-    let data;
     let newArray;
+    const tickerDataReceived = () => {
+      for (let i=newArray.length-1; i >= 0; i--) {
+        let open = Number(newArray[i][1]["1. open"])
+        let currentDayClose = Number(newArray[i][1]["4. close"])
+        let highOfDay = Number(newArray[i][1]["2. high"])
+        let volume = Number(newArray[i][1]["6. volume"])
+        if (newArray[i+1] !== undefined && open > Number(newArray[i+1][1]["4. close"])) {
+          let previousDayClose = Number(newArray[i+1][1]["4. close"])
+          let gap = open - previousDayClose
+          let gapPercent = (gap/previousDayClose)*100
+          let closeBelowOpen = open > currentDayClose ? "true" : "false"
+          let closeAboveOpenPercent = ((currentDayClose - open)/open)*100
+          let nextDayOpen;
+          let day2Gap;
+          if (newArray[i-1] !== undefined) {
+            nextDayOpen = Number(newArray[i-1][1]["1. open"])
+            day2Gap = (nextDayOpen - currentDayClose)/currentDayClose * 100
+          }
+  
+          let gapDay = [
+            newArray[i][0],
+            {
+              gap: gap,
+              gapPercent: gapPercent,
+              highFromOpen: (highOfDay/open)*100,
+              range: highOfDay - Number(newArray[i][1]["3. low"]),
+              closeBelowOpen: closeBelowOpen,
+              closeAboveOpenPercent: closeAboveOpenPercent,
+              volume: volume,
+              day2: day2Gap
+            }
+          ]
+          if (gapPercent > 19 && volume > 900000) gaps.push(gapDay)
+        }
+      }
+    }
+
     if (response2.data["Time Series (Daily)"]) {
-      data = response2.data["Time Series (Daily)"]
-      newArray = Object.entries(data)
+      newArray = Object.entries(response2.data["Time Series (Daily)"])
+      tickerDataReceived()
     } else {
       alert("Could not find ticker")
     }
-    for (let i=newArray.length-1; i >= 0; i--) {
-      let open = Number(newArray[i][1]["1. open"])
-      let currentDayClose = Number(newArray[i][1]["4. close"])
-      let highOfDay = Number(newArray[i][1]["2. high"])
-      let volume = Number(newArray[i][1]["6. volume"])
-      if (newArray[i+1] !== undefined && open > Number(newArray[i+1][1]["4. close"])) {
-        let previousDayClose = Number(newArray[i+1][1]["4. close"])
-        let gap = open - previousDayClose
-        let gapPercent = (gap/previousDayClose)*100
-        let closeBelowOpen = open > currentDayClose ? "true" : "false"
-        let closeAboveOpenPercent = ((currentDayClose - open)/open)*100
-        let nextDayOpen;
-        let day2Gap;
-        if (newArray[i-1] !== undefined) {
-          nextDayOpen = Number(newArray[i-1][1]["1. open"])
-          day2Gap = (nextDayOpen - currentDayClose)/currentDayClose * 100
-        }
-
-        let gapDay = [
-          newArray[i][0],
-          {
-            gap: gap,
-            gapPercent: gapPercent,
-            highFromOpen: (highOfDay/open)*100,
-            range: highOfDay - Number(newArray[i][1]["3. low"]),
-            closeBelowOpen: closeBelowOpen,
-            closeAboveOpenPercent: closeAboveOpenPercent,
-            volume: volume,
-            day2: day2Gap
-          }
-        ]
-        if (gapPercent > 19 && volume > 900000) gaps.push(gapDay)
-      }
-    }
+    
     let gapCount = gaps.length
     let gapPercents = 0
     let spikes = 0
@@ -112,51 +116,49 @@ const GapStats = props => {
     props.setGapSearches([...props.gapSearches, [t, stats]])
 
     let response = await getIntradayData(t);
-    let intraDayData;
     let datesArray = []
     let array = []
-    if (response.data['Time Series (15min)']) {
-      intraDayData = response.data['Time Series (15min)']
-      datesArray = Object.entries(intraDayData)
-    }
-    for (let i=0; i<datesArray.length; i++) {
-      let date = datesArray[i][0].substring(0, datesArray[i][0].indexOf(" "))
-      let recent = gaps.length - 1
-      setChartDate(gaps[recent][0])
-      if (date === gaps[recent][0]) {
-        array.push(datesArray[i])
+    const buildDatesArray = () => {
+      for (let i=0; i<datesArray.length; i++) {
+        let date = datesArray[i][0].substring(0, datesArray[i][0].indexOf(" "))
+        let recent = gaps.length - 1
+        setChartDate(gaps[recent][0])
+        if (date === gaps[recent][0]) {
+          array.push(datesArray[i])
+        }
       }
+      let prices = []
+      let times = []
+      for (let i=array.length - 1; i >= 0; i--) {
+        prices.push(array[i][1]["4. close"])
+        times.push(array[i][0].substring(11))
+      }
+      setIntraPrices(prices)
+      setIntraTimes(times)
     }
-    let prices = []
-    let times = []
-    for (let i=array.length - 1; i >= 0; i--) {
-      prices.push(array[i][1]["4. close"])
-      times.push(array[i][0].substring(11))
+
+    if (response.data['Time Series (15min)']) {
+      datesArray = Object.entries(response.data['Time Series (15min)'])
+      buildDatesArray()
     }
-    setIntraPrices(prices)
-    setIntraTimes(times)
+    
 
     let response3 = await getVwapData(t);
-    let vwapData;
-    let vwapDates;
     let vwapChartPoints = []
     if (response3.data['Technical Analysis: VWAP']) {
-      vwapData = response3.data['Technical Analysis: VWAP']
-      vwapDates = Object.entries(vwapData)
-    }
-    for (let i=0; i<vwapDates.length; i++) {
-      let date = vwapDates[i][0].substring(0, vwapDates[i][0].indexOf(" "))
-      let recent = gaps.length - 1
-      setChartDate(gaps[recent][0])
-      if (date === gaps[recent][0]) {
-        vwapChartPoints.push(vwapDates[i])
+      let vwapDates = Object.entries(response3.data['Technical Analysis: VWAP'])
+      for (let i=0; i<vwapDates.length; i++) {
+        let date = vwapDates[i][0].substring(0, vwapDates[i][0].indexOf(" "))
+        let recent = gaps.length - 1
+        setChartDate(gaps[recent][0])
+        date === gaps[recent][0] && vwapChartPoints.push(vwapDates[i])
       }
+      let vwapPrices = []
+      for (let i=vwapChartPoints.length - 1; i >= 0; i--) {
+        vwapPrices.push(vwapChartPoints[i][1]["VWAP"])
+      }
+      setVwap(vwapPrices)
     }
-    let vwapPrices = []
-    for (let i=vwapChartPoints.length - 1; i >= 0; i--) {
-      vwapPrices.push(vwapChartPoints[i][1]["VWAP"])
-    }
-    setVwap(vwapPrices)
   }
 
   const lineData = {

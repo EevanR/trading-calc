@@ -37,7 +37,7 @@ const getQuote = async ticker => {
       params: {
         function: "GLOBAL_QUOTE",
         symbol: ticker,
-        apikey: process.env.REACT_ALPHA_VANTAGE_API
+        apikey: process.env.REACT_APP_ALPHA_VANTAGE_API
       }
     });
     return response
@@ -52,7 +52,7 @@ const getProfile = async ticker => {
       method: "GET",
       url: `https://fmpcloud.io/api/v3/profile/${ticker}`,
       params: {
-        apikey: process.env.REACT_FMP_API
+        apikey: process.env.REACT_APP_FMP_API
       }
     });
     return response
