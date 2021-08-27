@@ -22,37 +22,35 @@ const GapStats = props => {
     let newArray;
     const tickerDataReceived = () => {
       for (let i=newArray.length-1; i >= 0; i--) {
-        let open = Number(newArray[i][1]["1. open"])
-        let currentDayClose = Number(newArray[i][1]["4. close"])
-        let highOfDay = Number(newArray[i][1]["2. high"])
-        let volume = Number(newArray[i][1]["6. volume"])
-        if (newArray[i+1] !== undefined && open > Number(newArray[i+1][1]["4. close"])) {
-          let previousDayClose = Number(newArray[i+1][1]["4. close"])
-          let gap = open - previousDayClose
-          let gapPercent = (gap/previousDayClose)*100
-          let closeBelowOpen = open > currentDayClose ? "true" : "false"
-          let closeAboveOpenPercent = ((currentDayClose - open)/open)*100
-          let nextDayOpen;
-          let day2Gap;
-          if (newArray[i-1] !== undefined) {
-            nextDayOpen = Number(newArray[i-1][1]["1. open"])
-            day2Gap = (nextDayOpen - currentDayClose)/currentDayClose * 100
-          }
-  
+        let variables = {
+          open: Number(newArray[i][1]["1. open"]),
+          currentDayClose:  Number(newArray[i][1]["4. close"]),
+          highOfDay: Number(newArray[i][1]["2. high"]),
+          volume: Number(newArray[i][1]["6. volume"]),
+        }
+
+        if (newArray[i+1] !== undefined && variables.open > Number(newArray[i+1][1]["4. close"])) {
+          variables['previousDayClose'] = Number(newArray[i+1][1]["4. close"])
+
           let gapDay = [
             newArray[i][0],
             {
-              gap: gap,
-              gapPercent: gapPercent,
-              highFromOpen: (highOfDay/open)*100,
-              range: highOfDay - Number(newArray[i][1]["3. low"]),
-              closeBelowOpen: closeBelowOpen,
-              closeAboveOpenPercent: closeAboveOpenPercent,
-              volume: volume,
-              day2: day2Gap
+              gap: variables.open - variables.previousDayClose,
+              gapPercent: ((variables.open - variables.previousDayClose)/variables.previousDayClose)*100,
+              highFromOpen: (variables.highOfDay/variables.open)*100,
+              range: variables.highOfDay - Number(newArray[i][1]["3. low"]),
+              closeBelowOpen: variables.open > variables.currentDayClose ? "true" : "false",
+              closeAboveOpenPercent: ((variables.currentDayClose - variables.open)/variables.open)*100,
+              volume: variables.volume,
             }
           ]
-          if (gapPercent > 19 && volume > 900000) gaps.push(gapDay)
+
+          if (newArray[i-1] !== undefined) {
+            let nextDayOpen = Number(newArray[i-1][1]["1. open"])
+            gapDay[1]['day2'] = ((nextDayOpen - variables.currentDayClose)/variables.currentDayClose) * 100
+          }
+          
+          (gapDay[1]['gapPercent'] > 19 && variables.volume > 900000) && gaps.push(gapDay)
         }
       }
     }
