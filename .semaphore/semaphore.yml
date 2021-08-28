@@ -22,4 +22,5 @@ blocks:
           commands:
             - checkout
             - cache restore node-modules-$(checksum package-lock.json),node-modules-
+            - npx browserslist@latest --update-db
             - yarn build
