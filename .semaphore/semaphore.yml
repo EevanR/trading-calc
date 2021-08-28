@@ -1,5 +1,5 @@
 version: v1.0
-name: Node JS
+name: Trading Logs
 agent:
   machine:
     type: e1-standard-2
@@ -24,3 +24,14 @@ blocks:
             - cache restore node-modules-$(checksum package-lock.json),node-modules-
             - npx browserslist@latest --update-db
             - CI= yarn build
+            - cache store website-build public
+
+  - name: E2e Tests
+    task:
+      jobs:
+        - name: Client Tests
+          commands:
+            - checkout
+            - cache restore client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),client-node-modules-$SEMAPHORE_GIT_BRANCH,client-node-modules-master
+            - yarn add cypress --dev
+            - yarn cy:run
