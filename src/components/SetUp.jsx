@@ -1,25 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Checkbox, Dropdown } from 'semantic-ui-react'
 import { connect } from "react-redux";
-import { getSetups } from "../modules/setup";
 
 const SetUp = props => {
   const [chooseSetUp, setChooseSetUp] = useState([])
   const [setupList, setSetupList] = useState([])
   const [setups, setSetups] = useState([])
 
-  const indexSetups = async () => {
-    let response = await getSetups()
+  const indexSetups = () => {
     let setupsNames = []
-    if (response !== undefined && response.status === 200) {
-      props.setStrategies(response.data)
+    if (props.strategies !== [] ) {
       let key = 1
       let value = 1
-      response.data.forEach(item => {
+      props.strategies.forEach(item => {
         setupsNames.push({key: key++, value: value++, text: item.name})
       })
       setSetupList(setupsNames)
-      setSetups(response.data)
+      setSetups(props.strategies)
     } else {
       setSetupList("None")
     }
@@ -121,6 +118,7 @@ const mapStateToProps = state => {
     preReq: state.preReq,
     checkList: state.checkList,
     setUp: state.setUp,
+    strategies: state.strategies
   };
 };
 
@@ -134,9 +132,6 @@ const mapDispatchToProps = dispatch => {
     },
     setSetUp: string => {
       dispatch({ type: "SET_SETUP", payload: string });
-    },
-    setStrategies: array => {
-      dispatch({ type: "SET_STRATEGIES", payload: array });
     }
   };
 };

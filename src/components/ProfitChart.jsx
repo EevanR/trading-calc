@@ -113,11 +113,11 @@ const ProfitChart = props => {
   useEffect(() => {
     const indexExcels = async () => {
       let response = await getTrades()
-      if (response.status === 200) {
+      if (response !== undefined && response.status === 200) {
         props.setSavedTrades(response.data[0])
       }
     }
-    // indexExcels()
+    indexExcels()
   }, [])
 
   useEffect(() => {

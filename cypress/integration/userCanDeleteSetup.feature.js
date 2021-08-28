@@ -8,12 +8,6 @@ describe("User can delete a setup", () => {
       response: "fixture:index_strategies.json",
       status: 200,
     })
-    cy.route({
-      method: "GET",
-      url: "http://localhost:3000/api/v1/trades",
-      response: "fixture:saved_trades.json",
-      status: 200
-    });
   })
 
   it("can successfully delete a setup", () => {

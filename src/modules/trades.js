@@ -25,6 +25,7 @@ const getTrades = async () => {
     })
     return response
   } catch (error) {
+    debugger
     return error.response;
   }
 }
