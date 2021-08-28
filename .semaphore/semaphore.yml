@@ -1,5 +1,5 @@
 version: v1.0
-name: TradeLogs
+name: Trading Logs
 agent:
   machine:
     type: e1-standard-2
@@ -7,29 +7,31 @@ agent:
 blocks:
   - name: Install dependencies
     task:
-      prologue:
-        commands:
-          - checkout
-          - nvm use
-          - node --version
-          - npm --version
       jobs:
-        - name: client npm install and cache
+        - name: yarn install
           commands:
-            - cd src/client
-            - npm install
-  - name: Tests
+            - sem-version node 10
+            - checkout
+            - cache restore node-modules-$(checksum package-lock.json),node-modules-
+            - yarn install
+            - cache store node-modules-$(checksum package-lock.json) node_modules
+  - name: Build site
     task:
-      prologue:
-        commands:
-          - checkout
-          - nvm use
-          - node --version
-          - npm --version
+      jobs:
+        - name: build
+          commands:
+            - checkout
+            - cache restore node-modules-$(checksum package-lock.json),node-modules-
+            - npx browserslist@latest --update-db
+            - CI= yarn build
+            - cache store website-build public
+
+  - name: E2e Tests
+    task:
       jobs:
         - name: Client Tests
           commands:
-            - cd src/client
-            - npm install
-            - 'npm cy:run'
-            - npm test
+            - checkout
+            - cache restore client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),client-node-modules-$SEMAPHORE_GIT_BRANCH,client-node-modules-master
+            - yarn add cypress --dev
+            - yarn cy:run
