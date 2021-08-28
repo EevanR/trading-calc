@@ -1,5 +1,5 @@
 version: v1.0
-name: Trading Calc
+name: Node JS
 agent:
   machine:
     type: e1-standard-2
@@ -12,5 +12,14 @@ blocks:
           commands:
             - sem-version node 8
             - checkout
+            - cache restore node-modules-$(checksum package-lock.json),node-modules-
             - yarn install
-            - yarn test
+            - cache store node-modules-$(checksum package-lock.json) node_modules
+  - name: Build site
+    task:
+      jobs:
+        - name: build
+          commands:
+            - checkout
+            - cache restore node-modules-$(checksum package-lock.json),node-modules-
+            - yarn start
