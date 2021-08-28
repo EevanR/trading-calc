@@ -10,7 +10,7 @@ blocks:
       jobs:
         - name: yarn install
           commands:
-            - sem-version node 8
+            - sem-version node 10
             - checkout
             - cache restore node-modules-$(checksum package-lock.json),node-modules-
             - yarn install
@@ -22,4 +22,4 @@ blocks:
           commands:
             - checkout
             - cache restore node-modules-$(checksum package-lock.json),node-modules-
-            - yarn start
+            - yarn build
