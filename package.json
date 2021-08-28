@@ -41,6 +41,10 @@
       "last 1 safari version"
     ]
   },
+  "engines": {
+    "node": ">=10.16.3",
+    "npm": ">=6.9.0"
+  },
   "devDependencies": {
     "cypress": "^4.4.0",
     "enzyme": "^3.11.0",
