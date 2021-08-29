@@ -11,6 +11,12 @@ Cypress.Commands.add("login", () => {
     status: 200,
     delay: 1000
   });
+  cy.route({
+    method: "POST",
+    url: "http://localhost:3000/api/v1/tweets",
+    response: "fixture:send_twitter_handle.json",
+    status: 200,
+  })
   cy.get("#signin-form").within(() => {
     cy.get("#email").type("trader@mail.com");
     cy.get("#password").type("password");

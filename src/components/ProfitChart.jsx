@@ -33,6 +33,7 @@ const ProfitChart = props => {
 
   const setData = () => {
     buildIntervals()
+    debugger
     let dates = []
     let commissions = 0
     for (let i=0; i<props.savedTrades.data.length; i++) {
@@ -113,7 +114,8 @@ const ProfitChart = props => {
   useEffect(() => {
     const indexExcels = async () => {
       let response = await getTrades()
-      if (response !== undefined && response.status === 200) {
+      if (response) {
+        debugger
         props.setSavedTrades(response.data[0])
       }
     }

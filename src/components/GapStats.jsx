@@ -234,7 +234,7 @@ const GapStats = props => {
               <h4> {gapStats["gapCount"]}</h4>
               <h4> {gapStats["avgGapPercent"]}%</h4>
               <h4> {gapStats["avgSpike"]}%</h4>
-              <h4 id={gapStats["closesAboveOpenCount"] < (gapStats["gapCount"]/2) ? "backtest-red" : ""}> {gapStats["closesAboveOpenCount"]} / {(gapStats["day2UpCount"]*100).toFixed(2)}%</h4>
+              <h4 id={gapStats["closesAboveOpenCount"] < (gapStats["gapCount"]/2) ? "backtest-red" : ""}> {gapStats["closesAboveOpenCount"]} / {((gapStats["closesAboveOpenCount"]/gapStats["gapCount"])*100).toFixed(2)}%</h4>
               <h4> +{gapStats["closeAboveOpen"]}%</h4>
               <h4 id="backtest-red"> {gapStats["closeBelowOpen"]}%</h4>
               <h4> ${gapStats["avgRange"]}</h4>
