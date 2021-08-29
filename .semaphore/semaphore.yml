@@ -14,6 +14,7 @@ blocks:
             - checkout
             - cache restore node-modules-$(checksum package-lock.json),node-modules-
             - yarn install --frozen-lockfile
+            - npm install wait-on 
             - cache store node-modules-$(checksum package-lock.json) node_modules
   - name: Build site
     task:
