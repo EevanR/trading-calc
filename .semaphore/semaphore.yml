@@ -10,6 +10,7 @@ blocks:
       jobs:
         - name: yarn install
           commands:
+            - sem-version node 10
             - checkout
             - 'cache restore node-modules-$(checksum package-lock.json),node-modules-'
             - yarn install
@@ -29,7 +30,6 @@ blocks:
     task:
       prologue:
         commands:
-          - sem-version node 10
           - checkout
           - sem-service start postgres
           - sudo apt-get install -y libgtk2.0-0
