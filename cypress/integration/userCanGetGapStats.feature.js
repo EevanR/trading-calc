@@ -1,13 +1,17 @@
 describe("User can get gap stats", () => {
   beforeEach(() => {
     cy.viewport(1350, 900)
-    cy.server();
-    cy.login();
+    cy.server(); 
     cy.requests();
   });
 
+  it("can successfully access Historic Tab", () => {
+    cy.login();
+    cy.contains("Historic Gap Stats").click();
+    cy.get('#title').should("contain", "Historic Gap Stats")
+  })
+
   it("successfully submit ticker", () => {
-    cy.get('.tabular > :nth-child(4)').click();
     cy.route({
       method: "GET",
       url: "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY**",

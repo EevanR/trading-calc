@@ -210,7 +210,7 @@ const GapStats = props => {
   return (
     <>
       <div>
-        <h2>Historic Gap Stats</h2>
+        <h2 id="title">Historic Gap Stats</h2>
         <h3 style={{marginBottom: "40px"}}>Recent Gap Chart {chartDate} (15min)</h3>
         <form onSubmit={runTest}>
           <label>Ticker</label>
