@@ -25,7 +25,7 @@ describe("User can log in", () => {
       cy.get("#password").type("password");
       cy.get("#submit").click();
     });
-    cy.wait(10000)
+    cy.visit("/panes");
     cy.contains("Profit Chart")
   });
 });

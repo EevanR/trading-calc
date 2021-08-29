@@ -7,7 +7,6 @@ describe("User can save strategy", () => {
 
   it("can successfully save strategy", ()=> {    
     cy.login();
-    cy.wait(30000)
     cy.route({
       method: "POST",
       url: "http://localhost:3000/api/v1/setups",
