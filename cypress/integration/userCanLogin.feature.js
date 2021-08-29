@@ -1,6 +1,6 @@
 describe("User can log in", () => {
   beforeEach(() => {
-    cy.viewport(1350, 900);
+    cy.viewport(1400, 900);
     cy.server();
     cy.route({
       method: "POST",
