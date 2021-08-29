@@ -115,7 +115,6 @@ const ProfitChart = props => {
     const indexExcels = async () => {
       let response = await getTrades()
       if (response) {
-        debugger
         props.setSavedTrades(response.data[0])
       }
     }
@@ -130,7 +129,7 @@ const ProfitChart = props => {
 
   return (
     <>
-      <h2>Profit Chart</h2>
+      <h2 className="title">Profit Chart</h2>
       <h3><a onClick={() => setGrossNet("GrossProfit")}>Gross</a> || <a onClick={() => setGrossNet("NetProfit")}>Net</a></h3>
       <h4>Cumulative {grossNet} PnL Growth</h4>
       <div className="line-chart">
