@@ -31,5 +31,6 @@ blocks:
           commands:
             - checkout
             - cache restore client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),client-node-modules-$SEMAPHORE_GIT_BRANCH,client-node-modules-master
-            - yarn add cypress
-            - yarn cy:run
+            - yarn add cypress --dev
+            - yarn run cy:run
+            - yarn run test
