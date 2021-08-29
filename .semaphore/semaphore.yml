@@ -13,7 +13,7 @@ blocks:
             - sem-version node 10
             - checkout
             - cache restore node-modules-$(checksum package-lock.json),node-modules-
-            - yarn install
+            - yarn install --frozen-lockfile
             - cache store node-modules-$(checksum package-lock.json) node_modules
   - name: Build site
     task:
@@ -37,5 +37,6 @@ blocks:
         - name: Client Tests
           commands:
             - cache restore client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),client-node-modules-$SEMAPHORE_GIT_BRANCH,client-node-modules-master
-            - yarn add cypress
-            - yarn cy:run
+            - yarn add cypress --save-dev
+            - BROWSER=none yarn start & wait-on http://localhost:8080
+            - cypress run
