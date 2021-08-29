@@ -7,7 +7,7 @@ describe("User can get gap stats", () => {
   });
 
   it("successfully submit ticker", () => {
-    cy.contains("Historic Gap Stats").click();
+    cy.get('.tabular > :nth-child(4)').click();
     cy.route({
       method: "GET",
       url: "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY**",
