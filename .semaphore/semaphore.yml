@@ -32,5 +32,4 @@ blocks:
             - checkout
             - cache restore client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),client-node-modules-$SEMAPHORE_GIT_BRANCH,client-node-modules-master
             - yarn add cypress --dev
-            - BROWSER=none yarn start
-            - DEBUG=cypress:server:util:process_profiler cypress run
+            - yarn cy:citest
