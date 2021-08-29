@@ -7,6 +7,7 @@ describe("User can see live tweets", () => {
   })
 
   it("can successfully set desired user twitter handle", () => {
+    cy.visit('/panes')
     cy.route({
       method: "POST",
       url: "http://localhost:3000/api/v1/tweets",
@@ -19,6 +20,7 @@ describe("User can see live tweets", () => {
   })
 
   it("user can choose twitter handle from drop down", () => {
+    cy.visit('/panes')
     cy.route({
       method: "GET",
       url: "http://localhost:3000/api/v1/tweets",
