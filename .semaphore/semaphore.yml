@@ -23,8 +23,14 @@ blocks:
             - cache restore node-modules-$(checksum package-lock.json),node-modules-
             - npx browserslist@latest --update-db
             - CI= yarn build
-            - yarn add cypress --dev
-            - yarn run cy:run
-            - yarn run test
             - cache store node-modules-$(checksum package-lock.json) node_modules
-
+  - name: E2e Tests
+    task:
+      jobs:
+        - name: Client Tests
+          commands:
+            - checkout
+            - cache restore client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),client-node-modules-$SEMAPHORE_GIT_BRANCH,client-node-modules-master
+            - yarn add cypress --dev
+            - BROWSER=none yarn start
+            - DEBUG=cypress:server:util:process_profiler cypress run
