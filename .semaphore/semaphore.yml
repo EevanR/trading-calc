@@ -11,25 +11,20 @@ blocks:
         - name: yarn install
           commands:
             - checkout
-            - cache restore node-modules-$(checksum package-lock.json),node-modules-
             - yarn install
-            - cache store node-modules-$(checksum package-lock.json) node_modules
   - name: Build site
     task:
       jobs:
         - name: build
           commands:
             - checkout
-            - cache restore node-modules-$(checksum package-lock.json),node-modules-
             - npx browserslist@latest --update-db
             - CI= yarn build
-            - cache store node-modules-$(checksum package-lock.json) node_modules
   - name: E2e Tests
     task:
       jobs:
         - name: Client Tests
           commands:
             - checkout
-            - cache restore client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),client-node-modules-$SEMAPHORE_GIT_BRANCH,client-node-modules-master
             - yarn add cypress --dev
-            - yarn cy:citest
+            - yarn cy:run
