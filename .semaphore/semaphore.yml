@@ -24,7 +24,7 @@ blocks:
             - 'cache restore node-modules-$(checksum package-lock.json),node-modules-'
             - npx browserslist@latest --update-db
             - CI= yarn build
-            - cache store website-build public
+            - cache store node-modules-$(checksum package-lock.json) node_modules
   - name: E2e Tests
     task:
       jobs:
@@ -32,6 +32,5 @@ blocks:
           commands:
             - checkout
             - 'cache restore client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),client-node-modules-$SEMAPHORE_GIT_BRANCH,client-node-modules-master'
-            - yarn add cypress --dev
-            - BROWSER=none yarn start
-            - cypress run
+            - yarn add cypress
+            - 'yarn cy:run'
