@@ -6,7 +6,7 @@ describe("User can get gap stats", () => {
   });
 
   it("can successfully access Historic Tab", () => {
-    cy.login();
+    cy.visit("/panes");
     cy.contains("Historic Gap Stats").click();
     cy.get('#title').should("contain", "Historic Gap Stats")
   })
