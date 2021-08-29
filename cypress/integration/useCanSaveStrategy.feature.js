@@ -2,6 +2,7 @@ describe("User can save strategy", () => {
   beforeEach(() => {
     cy.viewport(1450, 1000);
     cy.server();
+    cy.requests();
   })
 
   it("can successfully save strategy", ()=> {    

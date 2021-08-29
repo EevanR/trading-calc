@@ -11,15 +11,36 @@ Cypress.Commands.add("login", () => {
     status: 200,
     delay: 1000
   });
-  cy.route({
-    method: "POST",
-    url: "http://localhost:3000/api/v1/tweets",
-    response: "fixture:send_twitter_handle.json",
-    status: 200,
-  })
   cy.get("#signin-form").within(() => {
     cy.get("#email").type("trader@mail.com");
     cy.get("#password").type("password");
     cy.get("#submit").click();
   })
+});
+
+Cypress.Commands.add("requests", () => {
+  cy.route({
+    method: "GET",
+    url: "http://localhost:3000/api/v1/tweets",
+    response: "fixture:index_tweets.json",
+    status: 200
+  })
+  cy.route({
+    method: "GET",
+    url: "http://localhost:3000/api/v1/trades",
+    response: "fixture:saved_trades.json",
+    status: 200
+  });
+  cy.route({
+    method: "GET",
+    url: "http://localhost:3000/api/v1/setups",
+    response: "fixture:index_strategies.json",
+    status: 200,
+  });
+  cy.route({
+    method: "GET",
+    url: "http://localhost:3000/api/v1/excels",
+    response: "fixture:excel_test.json",
+    status: 200,
+  });
 });
