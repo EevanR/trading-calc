@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as XLSX from 'xlsx'
 import { connect } from "react-redux";
 import { sendExcel, destroyExcel } from '../modules/trades';
-import { Dropdown } from 'semantic-ui-react'
 
 const Excel = props => {
+  const [excelType, setExcelType] = useState("")
 
   const saveExcel = async (d) => {
     let groupedTrades = []
@@ -39,6 +39,27 @@ const Excel = props => {
     }
   }
 
+  const saveFees = async (d) => {
+    let sum = 0
+    for (let i=0; i<d.length; i++) {
+      if (d[i]["Note"].split(" ", 1)[0] === "Pre-Borrow" || d[i]["Note"].split(" ", 1)[0] === "Locate") {
+        sum -= d[i]["Withdraw"]
+        sum += d[i]["Deposit"]
+    }}
+
+    let response = await sendFees(sum)
+    if (response.status === 200) {
+      props.setSavedFees(sum)
+    }
+  }
+
+  const deleteOldfees = async () => {
+    let response = await sendFees()
+    if (response.status === 200) {
+      saveFees(d)
+    }
+  }
+
   const dropdownOptions = [
     {key: 1, value: 1, text: "Trades/Comms"},
     {key: 2, value: 2, text: "Locate Fees"}
@@ -68,18 +89,16 @@ const Excel = props => {
     })
 
     promise.then((d) => {
-      props.savedTrades === null ? saveExcel(d) : deleteOldExcel(d)
+      if (d[0]["T/D"] === undefined) {
+        props.savedFees === null ? saveFees(d) : deleteOldfees(d)
+      } else {
+        props.savedTrades === null ? saveExcel(d) : deleteOldExcel(d)
+      }
     })
   }
 
   return (
     <>
-      <Dropdown
-        placeholder=".xlsx"
-        clearable
-        fluid
-        options={dropdownOptions}
-      />
       <div>
         <input 
           type="file" 
@@ -96,6 +115,7 @@ const Excel = props => {
 const mapStateToProps = state => {
   return {
     savedTrades: state.savedTrades,
+    savedFees: state.savedFees
   };
 };
 
@@ -103,6 +123,9 @@ const mapDispatchToProps = dispatch => {
   return {
     setSavedTrades: data => {
       dispatch({ type: "SET_SAVEDTRADES", payload: data });
+    },
+    setSavedFees: data => {
+      dispatch({ type: "SET_SAVEDFEES", payload: data });
     }
   };
 };

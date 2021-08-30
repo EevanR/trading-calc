@@ -7,6 +7,7 @@ const initialState = {
   count: null,
   userAttrs: null,
   strategies: [],
-  gapSearches: []
+  gapSearches: [],
+  savedFees: null
 };
 export default initialState;
