@@ -14,7 +14,7 @@ const GapStats = props => {
 
   const runTest = async (e) => {
     e.preventDefault();
-    setChartTicker((e.target.testTicker.value))
+    setChartTicker((e.target.testTicker.value).toUpperCase())
 
     let mostRecentGapDate = ""
     let t = e.target.testTicker.value
@@ -184,7 +184,7 @@ const GapStats = props => {
           onClick={() => showStats(entry[0])}
           id="gapStatList"
           >
-            {entry[0] } {gapSearchShow !== null && gapSearchShow[0] === entry[0] && (<h4 style={{float: "right"}}>-&gt;</h4>)}
+            {entry[0].toUpperCase()} {gapSearchShow !== null && gapSearchShow[0] === entry[0] && (<h4 style={{float: "right"}}>-&gt;</h4>)}
           </h4>
         </div>
       )
@@ -234,7 +234,7 @@ const GapStats = props => {
               <h4> {gapStats["gapCount"]}</h4>
               <h4> {gapStats["avgGapPercent"]}%</h4>
               <h4> {gapStats["avgSpike"]}%</h4>
-              <h4 id={gapStats["closesAboveOpenCount"] < (gapStats["gapCount"]/2) ? "backtest-red" : ""}> {gapStats["closesAboveOpenCount"]} / {(gapStats["day2UpCount"]*100).toFixed(2)}%</h4>
+              <h4 id={gapStats["closesAboveOpenCount"] < (gapStats["gapCount"]/2) ? "backtest-red" : ""}> {gapStats["closesAboveOpenCount"]} / {((gapStats["closesAboveOpenCount"]/gapStats["gapCount"])*100).toFixed(2)}%</h4>
               <h4> +{gapStats["closeAboveOpen"]}%</h4>
               <h4 id="backtest-red"> {gapStats["closeBelowOpen"]}%</h4>
               <h4> ${gapStats["avgRange"]}</h4>

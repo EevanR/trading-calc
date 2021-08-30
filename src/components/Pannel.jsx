@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Icon, Button } from 'semantic-ui-react'
 import { connect } from "react-redux";
 import { logout, updateRisk } from "../modules/auth";
 // import { deleteTrades } from "../modules/trades";
 import { Redirect } from 'react-router-dom';
 import { Dimmer, Loader } from 'semantic-ui-react'
+import { getSetups } from "../modules/setup";
 
 const Pannel = props => {
   const [pannel, setPannel] = useState(false)
@@ -44,6 +45,13 @@ const Pannel = props => {
     } else {
       setLoader(false)
       alert("Update Failed")
+    }
+  }
+
+  const indexSetups = async () => {
+    let response = await getSetups()
+    if (response !== undefined && response.status === 200) {
+      props.setStrategies(response.data)
     }
   }
 
@@ -128,6 +136,10 @@ const Pannel = props => {
   //     )
   //   })
   // }
+
+  useEffect(() => {
+    indexSetups()
+  }, [indexSetups])
 
   return (
     <>
@@ -240,6 +252,9 @@ const mapDispatchToProps = dispatch => {
     },
     resetTrades: string => {
       dispatch({ type: "SET_SAVEDTRADES", payload: string });
+    },
+    setStrategies: array => {
+      dispatch({ type: "SET_STRATEGIES", payload: array });
     }
   }
 };

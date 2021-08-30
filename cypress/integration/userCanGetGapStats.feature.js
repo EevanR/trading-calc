@@ -3,12 +3,7 @@ describe("User can get gap stats", () => {
     cy.viewport(1350, 900)
     cy.server();
     cy.login();
-    cy.route({
-      method: "GET",
-      url: "http://localhost:3000/api/v1/trades",
-      response: "fixture:saved_trades.json",
-      status: 200
-    });
+    cy.requests();
   });
 
   it("successfully submit ticker", () => {
