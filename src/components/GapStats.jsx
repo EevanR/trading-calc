@@ -14,7 +14,7 @@ const GapStats = props => {
 
   const runTest = async (e) => {
     e.preventDefault();
-    setChartTicker((e.target.testTicker.value))
+    setChartTicker((e.target.testTicker.value).toUpperCase())
 
     let mostRecentGapDate = ""
     let t = e.target.testTicker.value
