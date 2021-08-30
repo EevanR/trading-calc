@@ -2,6 +2,7 @@ import React from 'react';
 import * as XLSX from 'xlsx'
 import { connect } from "react-redux";
 import { sendExcel, destroyExcel } from '../modules/trades';
+import { Dropdown } from 'semantic-ui-react'
 
 const Excel = props => {
 
@@ -38,6 +39,11 @@ const Excel = props => {
     }
   }
 
+  const dropdownOptions = [
+    {key: 1, value: 1, text: "Trades/Comms"},
+    {key: 2, value: 2, text: "Locate Fees"}
+  ]
+
   const readExcel = (file) => {
     const promise = new Promise((resolve, reject) => {
       const fileReader = new FileReader()
@@ -68,6 +74,12 @@ const Excel = props => {
 
   return (
     <>
+      <Dropdown
+        placeholder=".xlsx"
+        clearable
+        fluid
+        options={dropdownOptions}
+      />
       <div>
         <input 
           type="file" 
