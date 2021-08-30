@@ -12,7 +12,7 @@ blocks:
           commands:
             - sem-version node 10
             - checkout
-            - 'cache restore node-modules-$(checksum package-lock.json),node-modules-'
+            - cache restore node-modules-$(checksum package-lock.json),node-modules-
             - yarn install
             - cache store node-modules-$(checksum package-lock.json) node_modules
   - name: Build site
@@ -22,7 +22,7 @@ blocks:
           commands:
             - sem-version node 10
             - checkout
-            - 'cache restore node-modules-$(checksum package-lock.json),node-modules-'
+            - cache restore node-modules-$(checksum package-lock.json),node-modules-
             - npx browserslist@latest --update-db
             - CI= yarn build
             - cache store node-modules-$(checksum package-lock.json) node_modules
@@ -32,9 +32,9 @@ blocks:
         - name: Client Tests
           commands:
             - checkout
-            - 'cache restore client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),client-node-modules-$SEMAPHORE_GIT_BRANCH,client-node-modules-master'
+            - cache restore client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),client-node-modules-$SEMAPHORE_GIT_BRANCH,client-node-modules-master
             - yarn add cypress
-            - 'yarn cy:run'
+            - yarn cy:run --spec 'cypress/integration/*[!.userCanDeleteSetup.feature].js'
       env_vars:
         - name: REACT_APP_ALPHA_VANTAGE_API
           value: 39DMC4D0QYC3JCGG
