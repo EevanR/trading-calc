@@ -8,6 +8,13 @@ describe("User can delete a setup", () => {
   it("can successfully delete a setup", () => {
     cy.login();
 
+    cy.route({
+      method: "GET",
+      url: "http://localhost:3000/api/v1/setups",
+      response: "fixture:index_strategies.json",
+      status: 200,
+    });
+
     cy.contains("Strategies").click();
     cy.route({
       method: "DELETE",

@@ -34,7 +34,7 @@ blocks:
             - checkout
             - cache restore client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),client-node-modules-$SEMAPHORE_GIT_BRANCH,client-node-modules-master
             - yarn add cypress
-            - yarn cy:run 'cypress/integration/*[!.userCanDeleteSetup.feature].js'
+            - yarn cy:run
       env_vars:
         - name: REACT_APP_ALPHA_VANTAGE_API
           value: 39DMC4D0QYC3JCGG
