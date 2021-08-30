@@ -184,7 +184,7 @@ const GapStats = props => {
           onClick={() => showStats(entry[0])}
           id="gapStatList"
           >
-            {entry[0] } {gapSearchShow !== null && gapSearchShow[0] === entry[0] && (<h4 style={{float: "right"}}>-&gt;</h4>)}
+            {entry[0].toUpperCase()} {gapSearchShow !== null && gapSearchShow[0] === entry[0] && (<h4 style={{float: "right"}}>-&gt;</h4>)}
           </h4>
         </div>
       )
