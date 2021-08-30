@@ -36,9 +36,9 @@ blocks:
             - yarn add cypress
             - 'yarn cy:run'
       env_vars:
-        - name: REACT_ALPHA_VANTAGE_API
+        - name: REACT_APP_ALPHA_VANTAGE_API
           value: 39DMC4D0QYC3JCGG
         - name: REACT_APP_API_BASEURL
           value: 'http://localhost:3000/api/v1'
-        - name: REACT_FMP_API
+        - name: REACT_APP_FMP_API
           value: c3ae0e6333eeb76d17564d0b2c9ba878
