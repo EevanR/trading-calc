@@ -35,6 +35,7 @@ const ProfitChart = props => {
     buildIntervals()
     let dates = []
     let commissions = 0
+    debugger
     for (let i=0; i<props.savedTrades.data.length; i++) {
       let date = props.savedTrades.data[i]["Date"]
       !dates.includes(date) && dates.push(date)
@@ -113,7 +114,7 @@ const ProfitChart = props => {
   useEffect(() => {
     const indexExcels = async () => {
       let response = await getTrades()
-      if (response) {
+      if (response.data !== null) {
         props.setSavedTrades(response.data[0])
       }
     }

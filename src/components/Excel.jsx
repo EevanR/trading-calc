@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as XLSX from 'xlsx'
 import { connect } from "react-redux";
-import { sendExcel, destroyExcel } from '../modules/trades';
+import { sendExcel, destroyExcel, updateExcel } from '../modules/trades';
 
 const Excel = props => {
-  const [excelType, setExcelType] = useState("")
+  let option = "update"
 
-  const saveExcel = async (d) => {
+  const organizeExcel = async (d, option) => {
     let groupedTrades = []
     let groups = {}
 
@@ -25,45 +25,41 @@ const Excel = props => {
         delete groups[ticker]
       }
     }
+    option === "update" ? updateEntry(groupedTrades) : createEntry(groupedTrades)
+  }
 
-    let response = await sendExcel(groupedTrades)
+  const organizeShortFees = async (d, option) => {
+    let sum = 0
+    for (let i=0; i<d.length; i++) {
+      if (d[i]["Note"].split(" ", 1)[0] === "Pre-Borrow" || d[i]["Note"].split(" ", 1)[0] === "Locate" || d[i]["Note"].split(" ", 1)[0] === "Short") {
+        sum -= d[i]["Withdraw"]
+        sum += d[i]["Deposit"]
+    }}
+    option === "update" ? updateEntry(sum) : createEntry(sum)
+  }
+
+  const createEntry = async (data) => {
+    typeof(data) === "number" ? option = "shortFees" : option = "trades"
+    let response = await sendExcel(data, option)
     if (response.status === 200) {
       props.setSavedTrades(response.data)
     }
   }
 
-  const deleteOldExcel = async (d) => {
+  const updateEntry = async (data) => {
+    typeof(data) === "number" ? option = "shortFees" : option = "trades"
+    let response = await updateExcel(data, option, props.savedTrades.id)
+    if (response.status === 200) {
+      props.setSavedTrades(response.data)
+    }
+  }
+
+  const deleteExcel = async (d) => {
     let response = await destroyExcel(props.savedTrades.id)
-    if (response.status === 200) {
-      saveExcel(d)
-    }
+    // if (response.status === 200) {
+    //   saveExcel(d)
+    // }
   }
-
-  const saveFees = async (d) => {
-    let sum = 0
-    for (let i=0; i<d.length; i++) {
-      if (d[i]["Note"].split(" ", 1)[0] === "Pre-Borrow" || d[i]["Note"].split(" ", 1)[0] === "Locate") {
-        sum -= d[i]["Withdraw"]
-        sum += d[i]["Deposit"]
-    }}
-
-    let response = await sendFees(sum)
-    if (response.status === 200) {
-      props.setSavedFees(sum)
-    }
-  }
-
-  const deleteOldfees = async () => {
-    let response = await sendFees()
-    if (response.status === 200) {
-      saveFees(d)
-    }
-  }
-
-  const dropdownOptions = [
-    {key: 1, value: 1, text: "Trades/Comms"},
-    {key: 2, value: 2, text: "Locate Fees"}
-  ]
 
   const readExcel = (file) => {
     const promise = new Promise((resolve, reject) => {
@@ -89,10 +85,27 @@ const Excel = props => {
     })
 
     promise.then((d) => {
-      if (d[0]["T/D"] === undefined) {
-        props.savedFees === null ? saveFees(d) : deleteOldfees(d)
-      } else {
-        props.savedTrades === null ? saveExcel(d) : deleteOldExcel(d)
+      switch (true) {
+        case d[0]["T/D"] === undefined && props.savedTrades !== null:
+          let q1 = window.confirm("Short Fees Detected. Add to or overwrite current DataSet?");
+          if (q1 == true) {
+            organizeShortFees(d, option);
+          } else {
+            props.setMessage = "Short Fees not added";
+          }
+          break;
+        case d[0]["T/D"] !== undefined && props.savedTrades !== null:
+          let q2 = window.confirm("Trade Summary Detected. Add to current DataSet?");
+          if (q2 == true) {
+            organizeExcel(d, option);
+          } else {
+            props.setMessage = "Trade Summary not added";
+          }
+          break;
+        case d[0]["T/D"] !== undefined && props.savedTrades === null:
+          organizeExcel(d);
+          break;
+        default: organizeShortFees(d);
       }
     })
   }
@@ -115,7 +128,8 @@ const Excel = props => {
 const mapStateToProps = state => {
   return {
     savedTrades: state.savedTrades,
-    savedFees: state.savedFees
+    savedFees: state.savedFees,
+    message: state.message
   };
 };
 
@@ -126,6 +140,9 @@ const mapDispatchToProps = dispatch => {
     },
     setSavedFees: data => {
       dispatch({ type: "SET_SAVEDFEES", payload: data });
+    },
+    setMessage: string => {
+      dispatch({ type: "SET_MESSAGE", payload: string })
     }
   };
 };

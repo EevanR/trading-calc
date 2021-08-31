@@ -1,11 +1,15 @@
 import axios from "axios";
 
-const sendExcel = async (groupedTrades) => {
+const sendExcel = async (data, option) => {
+  let groupedTrades;
+  let sum;
+  option === "shortFees" ? sum = data : groupedTrades = data
   let headers = JSON.parse(sessionStorage.getItem("credentials"));
   try {
     const response = await axios.post("/excels",
       {
-        data: groupedTrades
+        data: groupedTrades,
+        fees: sum
       }, 
       {
         headers: headers
@@ -14,6 +18,27 @@ const sendExcel = async (groupedTrades) => {
     return response
   } catch (error) {
     return error.response;
+  }
+}
+
+const updateExcel = async (data, option, id) => {
+  let groupedTrades;
+  let sum;
+  option === "shortFees" ? sum = data : groupedTrades = data
+  let headers = JSON.parse(sessionStorage.getItem("credentials"));
+  try {
+    const response = await axios.patch(`/excels/${id}`,
+      {
+        data: groupedTrades,
+        fees: sum
+      }, 
+      {
+        headers: headers
+      }
+    )
+    return response
+  } catch (error) {
+    return error.resposne
   }
 }
 
@@ -73,4 +98,4 @@ const destroyExcel = async (id) => {
   }
 }
 
-export { sendExcel, getTrades, getQuote, getProfile, destroyExcel }
+export { sendExcel, getTrades, getQuote, getProfile, destroyExcel, updateExcel }
