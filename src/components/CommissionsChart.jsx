@@ -2,7 +2,7 @@ import React from 'react';
 import { Pie } from 'react-chartjs-2';
 
 const CommissionsChart = props => {
-
+  debugger
   let grossProfit;
   if (props.savedTrades !== null) {
     grossProfit = props.netProfit[props.netProfit.length - 1]
