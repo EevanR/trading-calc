@@ -54,11 +54,15 @@ const Excel = props => {
     }
   }
 
-  const deleteExcel = async (d) => {
+  const deleteExcel = async () => {
     let response = await destroyExcel(props.savedTrades.id)
-    // if (response.status === 200) {
-    //   saveExcel(d)
-    // }
+    if (response.status === 200) {
+      props.setMessage(`${response.data.message}. Charts will clear next time you sign in.`)
+      props.setSavedTrades(null)
+      setTimeout(() => {
+        props.setMessage("")
+      }, 3000);
+    }
   }
 
   const readExcel = (file) => {
@@ -121,6 +125,8 @@ const Excel = props => {
           }}
         />
       </div>
+      <button onClick={() => deleteExcel()}>Clear Uploaded Data</button> 
+      <h3 id="message">{props.message}</h3>
     </>
   )
 }

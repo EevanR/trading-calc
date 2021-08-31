@@ -10,7 +10,7 @@ const CommissionsChart = props => {
   }
   
   const pieData = {
-    labels: [`${props.grossNet} PnL`, "Commissions", "Short Fees"],
+    labels: [`${props.grossNet} PnL`, "Commissions", "Locate Fees"],
     datasets: [
       {
         label: 'Successes',
