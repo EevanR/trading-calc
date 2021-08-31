@@ -47,6 +47,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         gapSearches: action.payload
       };
+    case "SET_SAVEDFEES":
+      return {
+        ...state,
+        savedFees: action.payload
+      };
     default:
       return {
         ...state

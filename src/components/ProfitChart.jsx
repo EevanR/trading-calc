@@ -113,7 +113,7 @@ const ProfitChart = props => {
   useEffect(() => {
     const indexExcels = async () => {
       let response = await getTrades()
-      if (response) {
+      if (response.data !== null) {
         props.setSavedTrades(response.data[0])
       }
     }
@@ -138,7 +138,7 @@ const ProfitChart = props => {
           height={600}
         />
       </div>
-      <CommissionsChart commissions={commissionsTotal} netProfit={profit} grossNet={grossNet}/>
+      <CommissionsChart commissions={commissionsTotal} netProfit={profit} grossNet={grossNet} />
       <DayOfWeekCharts barData={barData} />
       <HourlyChart times={timeSegments} grossNet={grossNet}/>
     </>
