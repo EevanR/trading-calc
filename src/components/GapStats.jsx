@@ -31,15 +31,25 @@ const GapStats = props => {
       day2UpDown: [0, 0, 0, 0] // [Up count, Down count, Up Avg, Down Avg]
     }
 
+    const sortIntraDay = (results) => {
+      let newArray = results["data"].reverse()
+      let pricesTimes = [[], []]
+      for (let i=2; i<newArray.length-1; i++) {
+        let date = newArray[i][0].substring(0, 10)
+        date === mostRecentGapDate && pricesTimes[0].push(newArray[i][4]) && pricesTimes[1].push(newArray[i][0].substring(11, 16))
+      }
+      setIntraPrices(pricesTimes[0])
+      setIntraTimes(pricesTimes[1])
+    }
+
     const papa = (month) => {
       let apiKey = process.env.REACT_APP_ALPHA_VANTAGE_API
       let url = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY_EXTENDED&symbol=${t}&interval=5min&slice=year1month${month}&apikey=${apiKey}`
       Papa.parse(url, {
         download: true,
         complete: function(results) {
-          debugger
+          sortIntraDay(results)
         }
-        // rest of config ...
       })
     }
 
@@ -80,6 +90,7 @@ const GapStats = props => {
           variables['closeBelowOpen'] === "true" && grouped['closesOpen'][1]++ && (grouped['closesOpen'][3] += ((variables.currentDayClose - variables.open)/variables.open)*100)
         }
       }
+      setChartDate(mostRecentGapDate)
       findGapDateSlice(mostRecentGapDate)
     }
 
@@ -106,22 +117,6 @@ const GapStats = props => {
     }
     setGapStats(stats)
     props.setGapSearches([...props.gapSearches, [t, stats]])
-
-    let response = await getIntradayData(t);
-    let datesArray = []
-    if (response.data['Time Series (15min)']) {
-      datesArray = Object.entries(response.data['Time Series (15min)'])
-      datesArray.reverse()
-      setChartDate(mostRecentGapDate)
-      let pricesTimes = [[], []]
-      for (let i=0; i<datesArray.length; i++) {
-        let date = datesArray[i][0].substring(0, datesArray[i][0].indexOf(" "))
-        date === mostRecentGapDate && pricesTimes[0].push(datesArray[i][1]["4. close"]) && pricesTimes[1].push(datesArray[i][0].substring(11))
-      }
-      setIntraPrices(pricesTimes[0])
-      setIntraTimes(pricesTimes[1])
-    }
-    
 
     let response3 = await getVwapData(t);
     let vwapPrices = []
