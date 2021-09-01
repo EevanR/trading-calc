@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { getIntradayData, getGapData, getVwapData } from "../modules/backtest";
 import { Line } from 'react-chartjs-2';
 import { connect } from "react-redux";
+import Papa from 'papaparse';
 
 const GapStats = props => {
   const [intraPrices, setIntraPrices] = useState([])
@@ -28,6 +29,28 @@ const GapStats = props => {
       closesOpen: [0, 0, 0, 0], //[Above open count, below open count, above open gain, below open gain]
       ranges: 0,
       day2UpDown: [0, 0, 0, 0] // [Up count, Down count, Up Avg, Down Avg]
+    }
+
+    const papa = (month) => {
+      let apiKey = process.env.REACT_APP_ALPHA_VANTAGE_API
+      let url = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY_EXTENDED&symbol=${t}&interval=5min&slice=year1month${month}&apikey=${apiKey}`
+      Papa.parse(url, {
+        download: true,
+        complete: function(results) {
+          debugger
+        }
+        // rest of config ...
+      })
+    }
+
+    const findGapDateSlice = (date) => {
+      let recentDate = date.split("-").reverse()
+      recentDate = recentDate.join("/")
+      recentDate = new Date(date)
+      let gapDateEpoch = recentDate.getTime()/1000.0
+      let currentDateEpoch = Math.floor(new Date().getTime()/1000.0)
+      let monthsBack = (Math.floor((currentDateEpoch - gapDateEpoch)/2629743)+1)
+      papa(monthsBack)
     }
 
     const tickerDataReceived = () => {
@@ -57,6 +80,7 @@ const GapStats = props => {
           variables['closeBelowOpen'] === "true" && grouped['closesOpen'][1]++ && (grouped['closesOpen'][3] += ((variables.currentDayClose - variables.open)/variables.open)*100)
         }
       }
+      findGapDateSlice(mostRecentGapDate)
     }
 
     if (response2.data["Time Series (Daily)"]) {
