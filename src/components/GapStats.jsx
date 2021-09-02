@@ -33,7 +33,9 @@ const GapStats = props => {
 
     const sortIntraDay = (results) => {
       let newArray = results["data"].reverse()
-      let pricesTimes = [[], [], []]
+      let pricesTimes = [[], [], [], []]
+      let pv = 0
+      let cumulatieVolume = 0
       for (let i=2; i<newArray.length-1; i++) {
         let time = newArray[i][0].substring(11, 16).split(":")
         let decimalTime = ((Number(time[0]) * 60) + Number(time[1]))/1440
@@ -41,9 +43,14 @@ const GapStats = props => {
         if (date === mostRecentGapDate) {
           decimalTime <= 0.398333333 ? (pricesTimes[0].push(newArray[i][4]) && pricesTimes[1].push(newArray[i][4])) : pricesTimes[1].push(newArray[i][4])
           pricesTimes[2].push(newArray[i][0].substring(11, 16))
+          //VWAP DATA
+          pv += ((Number(newArray[i][2])+Number(newArray[i][3])+Number(newArray[i][4]))/3)*Number(newArray[i][5])
+          cumulatieVolume += Number(newArray[i][5])
         }
+        debugger
+        pricesTimes[3].push(pv/cumulatieVolume)
       }
-      setIntraPrices([pricesTimes[0], pricesTimes[1]])
+      setIntraPrices([pricesTimes[0], pricesTimes[1], pricesTimes[3]])
       setIntraTimes(pricesTimes[2])
     }
 
@@ -51,7 +58,7 @@ const GapStats = props => {
       let apiKey = process.env.REACT_APP_ALPHA_VANTAGE_API
       let demo ="https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY_EXTENDED&symbol=IBM&interval=15min&slice=year1month1&apikey=demo"
       let url = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY_EXTENDED&symbol=${t}&interval=5min&slice=year1month${month}&apikey=${apiKey}`
-      Papa.parse(url, {
+      Papa.parse(demo, {
         download: true,
         complete: function(results) {
           sortIntraDay(results)
@@ -177,7 +184,7 @@ const GapStats = props => {
         pointBorderWidth: 1,
         pointHoverRadius: 5,
         pointRadius: 4,
-        data: vwap
+        data: intraPrices[2]
       }
     ]
   };

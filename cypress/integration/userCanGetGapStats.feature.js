@@ -8,12 +8,12 @@ describe("User can get gap stats", () => {
 
   it("successfully submit ticker", () => {
     cy.contains("Historic Gap Stats").click();
-    cy.route({
-      method: "GET",
-      url: "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY**",
-      response: "fixture:intraday_hourly.json",
-      status: 200
-    });
+    // cy.route({
+    //   method: "GET",
+    //   url: "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY**",
+    //   response: "fixture:intraday_hourly.json",
+    //   status: 200
+    // });
     cy.route({
       method: "GET",
       url: "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED**",
