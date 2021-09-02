@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { getIntradayData, getGapData, getVwapData } from "../modules/backtest";
+import { getGapData, getVwapData } from "../modules/backtest";
 import { Line } from 'react-chartjs-2';
 import { connect } from "react-redux";
 import Papa from 'papaparse';
 
 const GapStats = props => {
-  const [intraPrices, setIntraPrices] = useState([])
+  const [intraPrices, setIntraPrices] = useState([[], []])
   const [vwap, setVwap] = useState([])
   const [intraTimes, setIntraTimes] = useState([])
   const [chartTicker, setChartTicker] = useState("")
@@ -33,17 +33,23 @@ const GapStats = props => {
 
     const sortIntraDay = (results) => {
       let newArray = results["data"].reverse()
-      let pricesTimes = [[], []]
+      let pricesTimes = [[], [], []]
       for (let i=2; i<newArray.length-1; i++) {
+        let time = newArray[i][0].substring(11, 16).split(":")
+        let decimalTime = ((Number(time[0]) * 60) + Number(time[1]))/1440
         let date = newArray[i][0].substring(0, 10)
-        date === mostRecentGapDate && pricesTimes[0].push(newArray[i][4]) && pricesTimes[1].push(newArray[i][0].substring(11, 16))
+        if (date === mostRecentGapDate) {
+          decimalTime <= 0.398333333 ? (pricesTimes[0].push(newArray[i][4]) && pricesTimes[1].push(newArray[i][4])) : pricesTimes[1].push(newArray[i][4])
+          pricesTimes[2].push(newArray[i][0].substring(11, 16))
+        }
       }
-      setIntraPrices(pricesTimes[0])
-      setIntraTimes(pricesTimes[1])
+      setIntraPrices([pricesTimes[0], pricesTimes[1]])
+      setIntraTimes(pricesTimes[2])
     }
 
     const papa = (month) => {
       let apiKey = process.env.REACT_APP_ALPHA_VANTAGE_API
+      let demo ="https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY_EXTENDED&symbol=IBM&interval=15min&slice=year1month1&apikey=demo"
       let url = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY_EXTENDED&symbol=${t}&interval=5min&slice=year1month${month}&apikey=${apiKey}`
       Papa.parse(url, {
         download: true,
@@ -145,7 +151,20 @@ const GapStats = props => {
         pointBorderWidth: 1,
         pointHoverRadius: 5,
         pointRadius: 4,
-        data: intraPrices
+        data: intraPrices[1]
+      },
+      {
+        label: "PreMarket",
+        fill: true,
+        lineTension: 0.1,
+        backgroundColor: 'grey',
+        borderColor: 'darkgrey',
+        borderCapStyle: 'butt',
+        borderDash: [],
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointRadius: 4,
+        data: intraPrices[0]
       },
       {
         type: "line",
@@ -230,7 +249,7 @@ const GapStats = props => {
     <>
       <div>
         <h2>Historic Gap Stats</h2>
-        <h3 style={{marginBottom: "40px"}}>Recent Gap Chart {chartDate} (15min)</h3>
+        <h3 style={{marginBottom: "40px"}}>Recent Gap Chart {chartDate} (5min)</h3>
         <form onSubmit={runTest}>
           <label>Ticker</label>
           <input required type='text' name="testTicker" id="testTicker"/>
