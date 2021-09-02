@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { getGapData, getVwapData } from "../modules/backtest";
+import { getGapData } from "../modules/backtest";
 import { Line } from 'react-chartjs-2';
 import { connect } from "react-redux";
 import Papa from 'papaparse';
 
 const GapStats = props => {
   const [intraPrices, setIntraPrices] = useState([[], []])
-  const [vwap, setVwap] = useState([])
   const [intraTimes, setIntraTimes] = useState([])
   const [chartTicker, setChartTicker] = useState("")
   const [gapStats, setGapStats] = useState({})
@@ -46,18 +45,18 @@ const GapStats = props => {
           //VWAP CALCULATION
           pv += ((Number(newArray[i][2])+Number(newArray[i][3])+Number(newArray[i][4]))/3)*Number(newArray[i][5])
           cumulatieVolume += Number(newArray[i][5])
+          pricesTimes[3].push(pv/cumulatieVolume)
         }
-        pricesTimes[3].push(pv/cumulatieVolume)
       }
       setIntraPrices([pricesTimes[0], pricesTimes[1], pricesTimes[3]])
       setIntraTimes(pricesTimes[2])
     }
 
-    const papa = (month) => {
+    const papa = (month, years) => {
       let apiKey = process.env.REACT_APP_ALPHA_VANTAGE_API
       let demo ="https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY_EXTENDED&symbol=IBM&interval=15min&slice=year1month1&apikey=demo"
-      let url = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY_EXTENDED&symbol=${t}&interval=5min&slice=year1month${month}&apikey=${apiKey}`
-      Papa.parse(demo, {
+      let url = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY_EXTENDED&symbol=${t}&interval=5min&slice=year${years}month${month}&apikey=${apiKey}`
+      Papa.parse(url, {
         download: true,
         complete: function(results) {
           sortIntraDay(results)
@@ -72,7 +71,12 @@ const GapStats = props => {
       let gapDateEpoch = recentDate.getTime()/1000.0
       let currentDateEpoch = Math.floor(new Date().getTime()/1000.0)
       let monthsBack = (Math.floor((currentDateEpoch - gapDateEpoch)/2629743)+1)
-      papa(monthsBack)
+      let years = 1
+      if (monthsBack > 12) {
+        monthsBack = Math.floor(monthsBack-12)
+        years += 1
+      }
+      papa(monthsBack, years)
     }
 
     const tickerDataReceived = () => {
@@ -133,21 +137,8 @@ const GapStats = props => {
       day2AvgUp: (grouped['day2UpDown'][2]/grouped['day2UpDown'][0]).toFixed(2),
       day2AvgDown: (grouped['day2UpDown'][3]/grouped['day2UpDown'][1]).toFixed(2)
     }
-    debugger
     setGapStats(stats)
     props.setGapSearches([...props.gapSearches, [t, stats]])
-
-    let response3 = await getVwapData(t);
-    let vwapPrices = []
-    if (response3.data['Technical Analysis: VWAP']) {
-      let vwapDates = Object.entries(response3.data['Technical Analysis: VWAP'])
-      vwapDates.reverse()
-      for (let i=0; i<vwapDates.length; i++) {
-        let date = vwapDates[i][0].substring(0, vwapDates[i][0].indexOf(" "))
-        date === mostRecentGapDate && vwapPrices.push(vwapDates[i][1]["VWAP"])
-      }
-      setVwap(vwapPrices)
-    }
   }
 
   const lineData = {
@@ -186,10 +177,9 @@ const GapStats = props => {
         lineTension: 0.1,
         borderColor: 'rgb(207, 107, 36)',
         borderCapStyle: 'butt',
-        borderDash: [],
-        pointBorderWidth: 1,
+        pointBorderWidth: 0,
         pointHoverRadius: 5,
-        pointRadius: 4,
+        pointRadius: 1,
         data: intraPrices[2]
       }
     ]
