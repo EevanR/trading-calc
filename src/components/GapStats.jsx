@@ -43,11 +43,10 @@ const GapStats = props => {
         if (date === mostRecentGapDate) {
           decimalTime <= 0.398333333 ? (pricesTimes[0].push(newArray[i][4]) && pricesTimes[1].push(newArray[i][4])) : pricesTimes[1].push(newArray[i][4])
           pricesTimes[2].push(newArray[i][0].substring(11, 16))
-          //VWAP DATA
+          //VWAP CALCULATION
           pv += ((Number(newArray[i][2])+Number(newArray[i][3])+Number(newArray[i][4]))/3)*Number(newArray[i][5])
           cumulatieVolume += Number(newArray[i][5])
         }
-        debugger
         pricesTimes[3].push(pv/cumulatieVolume)
       }
       setIntraPrices([pricesTimes[0], pricesTimes[1], pricesTimes[3]])
@@ -89,18 +88,24 @@ const GapStats = props => {
 
         if ((variables['gapPercent'] > 19) && (variables.volume > 900000)) {
           mostRecentGapDate = newArray[i][0]
-          variables['closeBelowOpen'] = variables.open > variables.currentDayClose ? "true" : "false"
+          variables['closeBelowOpen'] = (variables.open > variables.currentDayClose ? "true" : "false")
           if (newArray[i+1] !== undefined) {
             let nextDayOpen = Number(newArray[i+1][1]["1. open"])
             variables['day2'] = ((nextDayOpen - variables.currentDayClose)/variables.currentDayClose) * 100
+            variables["day2"] > 0 ? (grouped['day2UpDown'][2] += variables['day2']) && grouped['day2UpDown'][0]++ : (grouped['day2UpDown'][3] += variables['day2']) && (grouped['day2UpDown'][1]++)
           }
+
           grouped['gapCount']++
           grouped['gapPercents'] += ((variables.open - variables.previousDayClose)/variables.previousDayClose)*100
           grouped['spikes'] += ((variables.highOfDay-variables.open)/variables.open)*100
-          variables["day2"] > 0 ? (grouped['day2UpDown'][2] += variables['day2']) && grouped['day2UpDown'][0]++ : (grouped['day2UpDown'][3] -= variables['day2']) && (grouped['day2UpDown'][1]++)
           grouped['ranges'] += (variables.highOfDay - Number(newArray[i][1]["3. low"]))
-          variables['closeBelowOpen'] === "false" && grouped['closesOpen'][0]++ && (grouped['closesOpen'][2] += ((variables.currentDayClose - variables.open)/variables.open)*100)
-          variables['closeBelowOpen'] === "true" && grouped['closesOpen'][1]++ && (grouped['closesOpen'][3] += ((variables.currentDayClose - variables.open)/variables.open)*100)
+          if (variables['closeBelowOpen'] === "false") {
+            grouped['closesOpen'][0]++
+            grouped['closesOpen'][2] += ((variables.currentDayClose - variables.open)/variables.open)*100
+          } else {
+            grouped['closesOpen'][1]++
+            grouped['closesOpen'][3] += ((variables.currentDayClose - variables.open)/variables.open)*100
+          }
         }
       }
       setChartDate(mostRecentGapDate)
@@ -128,6 +133,7 @@ const GapStats = props => {
       day2AvgUp: (grouped['day2UpDown'][2]/grouped['day2UpDown'][0]).toFixed(2),
       day2AvgDown: (grouped['day2UpDown'][3]/grouped['day2UpDown'][1]).toFixed(2)
     }
+    debugger
     setGapStats(stats)
     props.setGapSearches([...props.gapSearches, [t, stats]])
 
