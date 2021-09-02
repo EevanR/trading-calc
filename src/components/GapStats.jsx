@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { getIntradayData, getGapData, getVwapData } from "../modules/backtest";
+import { getGapData } from "../modules/backtest";
 import { Line } from 'react-chartjs-2';
 import { connect } from "react-redux";
+import Papa from 'papaparse';
 
 const GapStats = props => {
-  const [intraPrices, setIntraPrices] = useState([])
-  const [vwap, setVwap] = useState([])
+  const [intraPrices, setIntraPrices] = useState([[], []])
   const [intraTimes, setIntraTimes] = useState([])
   const [chartTicker, setChartTicker] = useState("")
   const [gapStats, setGapStats] = useState({})
@@ -30,6 +30,55 @@ const GapStats = props => {
       day2UpDown: [0, 0, 0, 0] // [Up count, Down count, Up Avg, Down Avg]
     }
 
+    const sortIntraDay = (results) => {
+      let newArray = results["data"].reverse()
+      let pricesTimes = [[], [], [], []]
+      let pv = 0
+      let cumulatieVolume = 0
+      for (let i=2; i<newArray.length-1; i++) {
+        let time = newArray[i][0].substring(11, 16).split(":")
+        let decimalTime = ((Number(time[0]) * 60) + Number(time[1]))/1440
+        let date = newArray[i][0].substring(0, 10)
+        if (date === mostRecentGapDate) {
+          decimalTime <= 0.398333333 ? (pricesTimes[0].push(newArray[i][4]) && pricesTimes[1].push(newArray[i][4])) : pricesTimes[1].push(newArray[i][4])
+          pricesTimes[2].push(newArray[i][0].substring(11, 16))
+          //VWAP CALCULATION
+          pv += ((Number(newArray[i][2])+Number(newArray[i][3])+Number(newArray[i][4]))/3)*Number(newArray[i][5])
+          cumulatieVolume += Number(newArray[i][5])
+          pricesTimes[3].push(pv/cumulatieVolume)
+        }
+      }
+      setIntraPrices([pricesTimes[0], pricesTimes[1], pricesTimes[3]])
+      setIntraTimes(pricesTimes[2])
+    }
+
+    const papa = (month, years) => {
+      let apiKey = process.env.REACT_APP_ALPHA_VANTAGE_API
+      let demo ="https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY_EXTENDED&symbol=IBM&interval=15min&slice=year1month1&apikey=demo"
+      let url = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY_EXTENDED&symbol=${t}&interval=5min&slice=year${years}month${month}&apikey=${apiKey}`
+      Papa.parse(url, {
+        download: true,
+        complete: function(results) {
+          sortIntraDay(results)
+        }
+      })
+    }
+
+    const findGapDateSlice = (date) => {
+      let recentDate = date.split("-").reverse()
+      recentDate = recentDate.join("/")
+      recentDate = new Date(date)
+      let gapDateEpoch = recentDate.getTime()/1000.0
+      let currentDateEpoch = Math.floor(new Date().getTime()/1000.0)
+      let monthsBack = (Math.floor((currentDateEpoch - gapDateEpoch)/2629743)+1)
+      let years = 1
+      if (monthsBack > 12) {
+        monthsBack = Math.floor(monthsBack-12)
+        years += 1
+      }
+      papa(monthsBack, years)
+    }
+
     const tickerDataReceived = () => {
       for (let i=1; i < newArray.length; i++) {
         let variables = {
@@ -43,20 +92,28 @@ const GapStats = props => {
 
         if ((variables['gapPercent'] > 19) && (variables.volume > 900000)) {
           mostRecentGapDate = newArray[i][0]
-          variables['closeBelowOpen'] = variables.open > variables.currentDayClose ? "true" : "false"
+          variables['closeBelowOpen'] = (variables.open > variables.currentDayClose ? "true" : "false")
           if (newArray[i+1] !== undefined) {
             let nextDayOpen = Number(newArray[i+1][1]["1. open"])
             variables['day2'] = ((nextDayOpen - variables.currentDayClose)/variables.currentDayClose) * 100
+            variables["day2"] > 0 ? (grouped['day2UpDown'][2] += variables['day2']) && grouped['day2UpDown'][0]++ : (grouped['day2UpDown'][3] += variables['day2']) && (grouped['day2UpDown'][1]++)
           }
+
           grouped['gapCount']++
           grouped['gapPercents'] += ((variables.open - variables.previousDayClose)/variables.previousDayClose)*100
           grouped['spikes'] += ((variables.highOfDay-variables.open)/variables.open)*100
-          variables["day2"] > 0 ? (grouped['day2UpDown'][2] += variables['day2']) && grouped['day2UpDown'][0]++ : (grouped['day2UpDown'][3] -= variables['day2']) && (grouped['day2UpDown'][1]++)
           grouped['ranges'] += (variables.highOfDay - Number(newArray[i][1]["3. low"]))
-          variables['closeBelowOpen'] === "false" && grouped['closesOpen'][0]++ && (grouped['closesOpen'][2] += ((variables.currentDayClose - variables.open)/variables.open)*100)
-          variables['closeBelowOpen'] === "true" && grouped['closesOpen'][1]++ && (grouped['closesOpen'][3] += ((variables.currentDayClose - variables.open)/variables.open)*100)
+          if (variables['closeBelowOpen'] === "false") {
+            grouped['closesOpen'][0]++
+            grouped['closesOpen'][2] += ((variables.currentDayClose - variables.open)/variables.open)*100
+          } else {
+            grouped['closesOpen'][1]++
+            grouped['closesOpen'][3] += ((variables.currentDayClose - variables.open)/variables.open)*100
+          }
         }
       }
+      setChartDate(mostRecentGapDate)
+      findGapDateSlice(mostRecentGapDate)
     }
 
     if (response2.data["Time Series (Daily)"]) {
@@ -82,34 +139,6 @@ const GapStats = props => {
     }
     setGapStats(stats)
     props.setGapSearches([...props.gapSearches, [t, stats]])
-
-    let response = await getIntradayData(t);
-    let datesArray = []
-    if (response.data['Time Series (15min)']) {
-      datesArray = Object.entries(response.data['Time Series (15min)'])
-      datesArray.reverse()
-      setChartDate(mostRecentGapDate)
-      let pricesTimes = [[], []]
-      for (let i=0; i<datesArray.length; i++) {
-        let date = datesArray[i][0].substring(0, datesArray[i][0].indexOf(" "))
-        date === mostRecentGapDate && pricesTimes[0].push(datesArray[i][1]["4. close"]) && pricesTimes[1].push(datesArray[i][0].substring(11))
-      }
-      setIntraPrices(pricesTimes[0])
-      setIntraTimes(pricesTimes[1])
-    }
-    
-
-    let response3 = await getVwapData(t);
-    let vwapPrices = []
-    if (response3.data['Technical Analysis: VWAP']) {
-      let vwapDates = Object.entries(response3.data['Technical Analysis: VWAP'])
-      vwapDates.reverse()
-      for (let i=0; i<vwapDates.length; i++) {
-        let date = vwapDates[i][0].substring(0, vwapDates[i][0].indexOf(" "))
-        date === mostRecentGapDate && vwapPrices.push(vwapDates[i][1]["VWAP"])
-      }
-      setVwap(vwapPrices)
-    }
   }
 
   const lineData = {
@@ -126,7 +155,20 @@ const GapStats = props => {
         pointBorderWidth: 1,
         pointHoverRadius: 5,
         pointRadius: 4,
-        data: intraPrices
+        data: intraPrices[1]
+      },
+      {
+        label: "PreMarket",
+        fill: true,
+        lineTension: 0.1,
+        backgroundColor: 'grey',
+        borderColor: 'darkgrey',
+        borderCapStyle: 'butt',
+        borderDash: [],
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointRadius: 4,
+        data: intraPrices[0]
       },
       {
         type: "line",
@@ -135,11 +177,10 @@ const GapStats = props => {
         lineTension: 0.1,
         borderColor: 'rgb(207, 107, 36)',
         borderCapStyle: 'butt',
-        borderDash: [],
-        pointBorderWidth: 1,
+        pointBorderWidth: 0,
         pointHoverRadius: 5,
-        pointRadius: 4,
-        data: vwap
+        pointRadius: 1,
+        data: intraPrices[2]
       }
     ]
   };
@@ -211,7 +252,7 @@ const GapStats = props => {
     <>
       <div>
         <h2>Historic Gap Stats</h2>
-        <h3 style={{marginBottom: "40px"}}>Recent Gap Chart {chartDate} (15min)</h3>
+        <h3 style={{marginBottom: "40px"}}>Recent Gap Chart {chartDate} (5min)</h3>
         <form onSubmit={runTest}>
           <label>Ticker</label>
           <input required type='text' name="testTicker" id="testTicker"/>

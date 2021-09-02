@@ -11,7 +11,7 @@ describe("User can get gap stats", () => {
     cy.route({
       method: "GET",
       url: "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY**",
-      response: "fixture:intraday_15_minute.json",
+      response: "fixture:intraday_hourly.json",
       status: 200
     });
     cy.route({
@@ -26,10 +26,10 @@ describe("User can get gap stats", () => {
       response: "fixture:vwap.json",
       status: 200
     });
-    cy.get("#testTicker").type("AMTX");
+    cy.get("#testTicker").type("IBM");
     cy.get("#loadChart").click();
 
-    cy.get("#gap-stats").should("contain", "30.53%")
-    cy.get("#gap-stats").should("contain", "4.36%")
+    cy.get("#gap-stats").should("contain", "27.98%")
+    cy.get("#gap-stats").should("contain", "5.55%")
   })
 });
