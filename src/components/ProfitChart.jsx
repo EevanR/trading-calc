@@ -35,16 +35,24 @@ const ProfitChart = props => {
     buildIntervals()
     let dates = []
     let commissions = 0
+    let stats = {
+      wins: 0,
+      loss: 0,
+      gains: 0,
+      negGains: 0
+    }
     for (let i=0; i<props.savedTrades.data.length; i++) {
       let date = props.savedTrades.data[i]["Date"]
       !dates.includes(date) && dates.push(date)
       
       commissions += (props.savedTrades.data[i]["Commissions"])
+      props.savedTrades.data[i][grossNet] > 0 ? stats['wins']++ && (stats['gains']+=props.savedTrades.data[i][grossNet]) : stats['loss']++ && (stats['negGains']+=props.savedTrades.data[i][grossNet])
 
       for(let int in timeBlocks){
         ((Number(int) <= props.savedTrades.data[i]["TimeStamp"]) && (props.savedTrades.data[i]["TimeStamp"] < Number(int)+0.04167)) && (timeBlocks[int][0] += props.savedTrades.data[i][grossNet]) && (timeBlocks[int][1]++)
       }
     }
+    props.setStats(stats)
     setCommissionsTotal(commissions)
     
     let dailyProfits = 0
@@ -149,7 +157,8 @@ const mapStateToProps = state => {
   return {
     savedTrades: state.savedTrades,
     message: state.message,
-    userAttrs: state.userAttrs
+    userAttrs: state.userAttrs,
+    stats: state.stats
   };
 };
 
@@ -160,6 +169,9 @@ const mapDispatchToProps = dispatch => {
     },
     setMessage: string => {
       dispatch({ type: "SET_MESSAGE", payload: string });
+    },
+    setStats: string => {
+      dispatch({ type: "SET_STATS", payload: string });
     }
   };
 };

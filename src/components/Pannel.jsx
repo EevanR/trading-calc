@@ -101,19 +101,19 @@ const Pannel = props => {
                     <h5 id="left-column">Trade Count: </h5>
                     <h5 id="right-column">{props.savedTrades.data.length}</h5>
                     <h5 id="left-column">Trades Won: </h5>
-                    <h5 id="right-column">{}</h5>
+                    <h5 id="right-column">{props.stats['wins']}</h5>
                     <h5 id="left-column">Win Percentage: </h5>
-                    <h5 id="right-column">%</h5>
+                    <h5 id="right-column">{((props.stats['wins']/(props.stats['wins']+props.stats['loss']))*100).toFixed(2)}%</h5>
                     <h5 id="left-column">Gross Profits: </h5>
-                    <h5 id="right-column"></h5>
+                    <h5 id="right-column">${(props.stats['gains']).toFixed(2)}</h5>
                     <h5 id="left-column">Gross Loss:</h5>
-                    <h5 id="right-column" style={{marginLeft: "-6px"}}>$</h5>
-                    <h5 id="left-column">Profit/Loss: </h5>
-                    <h5 id="right-column"></h5>
+                    <h5 id="right-column" style={{marginLeft: "-6px"}}>${(props.stats['negGains']).toFixed(2)}</h5>
+                    <h5 id="left-column">Profit/Loss Ratio: </h5>
+                    <h5 id="right-column">{((props.stats['gains']/props.stats['negGains'])*-1).toFixed(2)}</h5>
                     <h5 id="left-column">Average Win: </h5>
-                    <h5 id="right-column">$</h5>
+                    <h5 id="right-column">${(props.stats['gains']/props.stats['wins']).toFixed(2)}</h5>
                     <h5 id="left-column">Average Loss: </h5>
-                    <h5 id="right-column">$</h5>
+                    <h5 id="right-column">${(props.stats['negGains']/props.stats['loss']).toFixed(2)}</h5>
                   </div>
                 </>
               )}
@@ -148,7 +148,6 @@ const Pannel = props => {
                   )}
                 </>
               )}
-            <h4 id="pannel-title">Setup Performance:</h4>
             <div className="preformance">
               <Button className="logout" onClick={() => onLogout()}>Logout</Button>
             </div>
@@ -162,7 +161,8 @@ const Pannel = props => {
 const mapStateToProps = state => {
   return {
     userAttrs: state.userAttrs,
-    savedTrades: state.savedTrades
+    savedTrades: state.savedTrades,
+    stats: state.stats
   };
 };
 
