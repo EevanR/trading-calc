@@ -71,4 +71,18 @@ const updateRisk = async (id, risk) => {
   }
 }
 
-export { register, signIn, logout, updateRisk }
+const showUser = async (id) => {
+  let headers = JSON.parse(sessionStorage.getItem("credentials"));
+  try {
+    const response = await axios.get(`/admin/users/${id}`,
+      {
+        headers: headers
+      }
+    )
+    return response
+  } catch (error) {
+    return error.response
+  }
+}
+
+export { register, signIn, logout, updateRisk, showUser }

@@ -5,6 +5,7 @@ import { logout, updateRisk } from "../modules/auth";
 import { Redirect } from 'react-router-dom';
 import { Dimmer, Loader } from 'semantic-ui-react'
 import { getSetups } from "../modules/setup";
+import { showUser } from "../modules/auth";
 
 const Pannel = props => {
   const [pannel, setPannel] = useState(false)
@@ -62,12 +63,26 @@ const Pannel = props => {
     indexSetups()
   }, [indexSetups])
 
+  useEffect(() => {(async() => {
+    if (props.userAttrs === null && props.savedTrades !== null) {
+      let response = await showUser(props.savedTrades.user_id)
+      response.status === 200 && props.setUser(response.data)
+    }
+  })()}, [props.userAttrs, props.savedTrades])
+
   return (
     <>
       {redirect === true && <Redirect to='/' />}
       <div id="pannel" className={pannel ? "pannel-in" : "pannel-out"} >
         {props.userAttrs === null ? (
-          <h2>Not Logged In</h2>
+          <>
+            <div className="pannel-switch">
+              <Icon onClick={() => togglePannel()}
+                color='red'
+                name={pannel === false ? 'arrow alternate circle right outline' : 'arrow alternate circle left outline'} />
+            </div>
+            <h2>Not Logged In</h2>
+          </>
         ) : (
           <>
             <h2 id="pannel-name">{props.userAttrs.nickname}</h2>
