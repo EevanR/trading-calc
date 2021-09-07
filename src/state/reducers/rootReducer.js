@@ -52,6 +52,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         savedFees: action.payload
       };
+    case "SET_STATS":
+      return {
+        ...state,
+        stats: action.payload
+      };
     default:
       return {
         ...state
