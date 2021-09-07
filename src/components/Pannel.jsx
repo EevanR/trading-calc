@@ -87,13 +87,13 @@ const Pannel = props => {
           <>
             <h2 id="pannel-name">{props.userAttrs.nickname}</h2>
             <div className="pannel-switch">
-              <Icon onClick={() => togglePannel()}
+              <Icon id="pannel-arrow" onClick={() => togglePannel()}
                 color='red'
                 name={pannel === false ? 'arrow alternate circle right outline' : 'arrow alternate circle left outline'} />
             </div>
             <div id="border-pannel"></div>
             <div id="pannel-info">
-              {props.savedTrades !== null && (
+              {props.stats !== null && props.savedTrades !== null && (
                 <>
                   <h4 id="pannel-title">Account: </h4>
                   <h5>{props.userAttrs.email}</h5>
