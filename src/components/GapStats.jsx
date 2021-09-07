@@ -39,6 +39,7 @@ const GapStats = props => {
         let time = newArray[i][0].substring(11, 16).split(":")
         let decimalTime = ((Number(time[0]) * 60) + Number(time[1]))/1440
         let date = newArray[i][0].substring(0, 10)
+        debugger
         if (date === mostRecentGapDate) {
           decimalTime <= 0.398333333 ? (pricesTimes[0].push(newArray[i][4]) && pricesTimes[1].push(newArray[i][4])) : pricesTimes[1].push(newArray[i][4])
           pricesTimes[2].push(newArray[i][0].substring(11, 16))
@@ -48,6 +49,7 @@ const GapStats = props => {
           pricesTimes[3].push(pv/cumulatieVolume)
         }
       }
+      debugger
       setIntraPrices([pricesTimes[0], pricesTimes[1], pricesTimes[3]])
       setIntraTimes(pricesTimes[2])
     }
@@ -70,9 +72,9 @@ const GapStats = props => {
       recentDate = new Date(date)
       let gapDateEpoch = recentDate.getTime()/1000.0
       let currentDateEpoch = Math.floor(new Date().getTime()/1000.0)
-      let monthsBack = (Math.floor((currentDateEpoch - gapDateEpoch)/2629743)+1)
+      let monthsBack = (Math.floor((currentDateEpoch - gapDateEpoch)/2592000)+1)
       let years = 1
-      if (monthsBack > 12) {
+      if (monthsBack >= 12) {
         monthsBack = Math.floor(monthsBack-12)
         years += 1
       }
