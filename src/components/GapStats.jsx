@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import Papa from 'papaparse';
 
 const GapStats = props => {
-  const [intraPrices, setIntraPrices] = useState([[], []])
+  const [intraPrices, setIntraPrices] = useState([[], [], []])
   const [intraTimes, setIntraTimes] = useState([])
   const [chartTicker, setChartTicker] = useState("")
   const [gapStats, setGapStats] = useState({})
@@ -13,6 +13,7 @@ const GapStats = props => {
   const [gapSearchShow, setGapSearchShow] = useState(null)
 
   const runTest = async (e) => {
+    setIntraPrices([[], [], []])
     e.preventDefault();
     setChartTicker((e.target.testTicker.value).toUpperCase())
 
@@ -32,26 +33,30 @@ const GapStats = props => {
 
     const sortIntraDay = (results) => {
       let newArray = results["data"].reverse()
-      let pricesTimes = [[], [], [], []]
       let pv = 0
       let cumulatieVolume = 0
+      let pricesTimes = {
+        PreMark: [],
+        Main: [],
+        VWAP: [],
+        Labels: []
+      }
       for (let i=2; i<newArray.length-1; i++) {
         let time = newArray[i][0].substring(11, 16).split(":")
         let decimalTime = ((Number(time[0]) * 60) + Number(time[1]))/1440
         let date = newArray[i][0].substring(0, 10)
-        debugger
         if (date === mostRecentGapDate) {
-          decimalTime <= 0.398333333 ? (pricesTimes[0].push(newArray[i][4]) && pricesTimes[1].push(newArray[i][4])) : pricesTimes[1].push(newArray[i][4])
-          pricesTimes[2].push(newArray[i][0].substring(11, 16))
+          decimalTime <= 0.398333333 ? (pricesTimes['PreMark'].push(newArray[i][4]) && pricesTimes['Main'].push(newArray[i][4])) : pricesTimes['Main'].push(newArray[i][4])
+          pricesTimes['Labels'].push(newArray[i][0].substring(11, 16))
           //VWAP CALCULATION
           pv += ((Number(newArray[i][2])+Number(newArray[i][3])+Number(newArray[i][4]))/3)*Number(newArray[i][5])
           cumulatieVolume += Number(newArray[i][5])
-          pricesTimes[3].push(pv/cumulatieVolume)
+          pricesTimes['VWAP'].push(pv/cumulatieVolume)
         }
       }
-      debugger
-      setIntraPrices([pricesTimes[0], pricesTimes[1], pricesTimes[3]])
-      setIntraTimes(pricesTimes[2])
+      setIntraPrices([pricesTimes['PreMark'], pricesTimes['Main'], pricesTimes['VWAP']])
+      setIntraTimes(pricesTimes['Labels'])
+      setSearches(pricesTimes)
     }
 
     const papa = (month, years) => {
@@ -140,7 +145,10 @@ const GapStats = props => {
       day2AvgDown: (grouped['day2UpDown'][3]/grouped['day2UpDown'][1]).toFixed(2)
     }
     setGapStats(stats)
-    props.setGapSearches([...props.gapSearches, [t, stats]])
+    
+    const setSearches = (pricesTimes) => {
+      props.setGapSearches([...props.gapSearches, [t, stats, pricesTimes]])
+    }
   }
 
   const lineData = {
@@ -213,6 +221,8 @@ const GapStats = props => {
     props.gapSearches.forEach(item => {
       if (item[0] === gapEntry) {
         setGapSearchShow(item)
+        setIntraPrices([item[2]['PreMark'], item[2]['Main'], item[2]['VWAP']])
+        setIntraTimes(item[2]['Labels'])
       }
     })
   }
