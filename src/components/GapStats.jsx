@@ -39,8 +39,10 @@ const GapStats = props => {
         PreMark: [],
         Main: [],
         VWAP: [],
-        Labels: []
+        Labels: [],
+        SMA: []
       }
+      let smaArray = []
       for (let i=2; i<newArray.length-1; i++) {
         let time = newArray[i][0].substring(11, 16).split(":")
         let decimalTime = ((Number(time[0]) * 60) + Number(time[1]))/1440
@@ -52,9 +54,19 @@ const GapStats = props => {
           pv += ((Number(newArray[i][2])+Number(newArray[i][3])+Number(newArray[i][4]))/3)*Number(newArray[i][5])
           cumulatieVolume += Number(newArray[i][5])
           pricesTimes['VWAP'].push(pv/cumulatieVolume)
+
+          //SMA CALCULATION
+          smaArray.length < 24 && smaArray.push(Number(newArray[i][4]))
+          if (smaArray.length === 24) {
+            let value = (smaArray.reduce((a, b) => a + b, 0))/24
+            pricesTimes['SMA'].push(value)
+            smaArray.shift()
+          } else {
+            pricesTimes['SMA'].push(null)
+          }
         }
       }
-      setIntraPrices([pricesTimes['PreMark'], pricesTimes['Main'], pricesTimes['VWAP']])
+      setIntraPrices([pricesTimes['PreMark'], pricesTimes['Main'], pricesTimes['VWAP'], pricesTimes['SMA']])
       setIntraTimes(pricesTimes['Labels'])
       setSearches(pricesTimes)
     }
@@ -191,6 +203,18 @@ const GapStats = props => {
         pointHoverRadius: 5,
         pointRadius: 1,
         data: intraPrices[2]
+      },
+      {
+        type: "line",
+        label: "24SMA",
+        fill: false,
+        lineTension: 0.1,
+        borderColor: 'rgb(0, 0, 255)',
+        borderCapStyle: 'butt',
+        pointBorderWidth: 0,
+        pointHoverRadius: 5,
+        pointRadius: 1,
+        data: intraPrices[3]
       }
     ]
   };
@@ -221,7 +245,7 @@ const GapStats = props => {
     props.gapSearches.forEach(item => {
       if (item[0] === gapEntry) {
         setGapSearchShow(item)
-        setIntraPrices([item[2]['PreMark'], item[2]['Main'], item[2]['VWAP']])
+        setIntraPrices([item[2]['PreMark'], item[2]['Main'], item[2]['VWAP'], item[2]['SMA']])
         setIntraTimes(item[2]['Labels'])
       }
     })
