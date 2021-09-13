@@ -1,4 +1,100 @@
-.signin-box {
+:root {
+  --clr--neutral-100: white;
+  --clr--neutral-900: black
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  /* font-family: ;
+  font-weight: ; */
+  font-size: 1.3125rem;
+  line-height: 1.6;
+}
+
+body,
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+h1, h2, h3 {
+  /* font-family: ;
+  font-weight: ; */
+  line-height: 1;
+}
+
+h1, h2, h3, p {
+  margin-bottom: 1em!important;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+header,
+section {
+  padding: 4rem 0;
+}
+
+@media (min-width: 40em) {
+  header, section {
+    padding: 6rem 0;
+  }
+}
+
+.container {
+  margin-inline: auto; 
+  width: min(90%, 70.5rem);
+}
+
+.split {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 40em) {
+  .split {
+    flex-direction: row;
+  }
+
+  .split > * {
+    flex-basis: 100%;
+  }
+
+  .split > * + * {
+    margin-left: 2em;
+  }
+}
+
+.container--narrow {
+  max-width: 30rem;
+}
+
+.bg-light {
+  background-color: aqua;
+}
+
+.bg-dark {
+  background-color: grey;
+}
+
+.bg-primary {
+  background-color: purple;
+}
+
+/* .signin-box {
   border: 2px solid grey;
   border-radius: 5px;
   position: absolute;
@@ -47,4 +143,4 @@ Button#submit.ui.button {
 
 #border {
   border-bottom: 10px double grey;
-}
+}*/
