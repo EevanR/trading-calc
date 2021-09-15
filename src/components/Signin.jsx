@@ -108,7 +108,7 @@ const Signin = props => {
 
   return (
     <>
-      <header className="bg-primary text-center">
+      <header className="text-center header-image">
         <div className="container container--narrow">
           <h1>Welcome to Tradelogs, Do lots of things with your logs</h1>
           <p>Below find information and sign up blah blah blah</p>
@@ -165,7 +165,7 @@ const Signin = props => {
         </div>
       </section>
 
-      <section className="bg-primary">
+      <section className="bg-secondary">
         <div className="container">
           <div className="split">
             <div>

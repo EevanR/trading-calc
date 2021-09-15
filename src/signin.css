@@ -48,6 +48,21 @@ section {
   padding: 4rem 0;
 }
 
+header {
+  height: 78vh;
+  color: white;
+}
+
+.header-image {
+  background-image: url("../src/screenshots/singns.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
+  /* background-color: rgba(21, 73, 105, 0.144);
+  background-blend-mode: multiply; */
+  box-shadow: 0 0 200px rgb(8,43,66) inset;
+}
+
 @media (min-width: 40em) {
   header, section {
     padding: 6rem 0;
@@ -83,15 +98,19 @@ section {
 }
 
 .bg-light {
-  background-color: aqua;
+  background-color: white;
 }
 
 .bg-dark {
-  background-color: grey;
+  background-color: rgb(243,245,248);
 }
 
 .bg-primary {
-  background-color: purple;
+  background-color: rgb(8,43,66);
+}
+
+.bg-secondary {
+  background-color: rgb(7,37,79);
 }
 
 /* .signin-box {
