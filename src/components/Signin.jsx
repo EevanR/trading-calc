@@ -7,7 +7,6 @@ import { connect } from "react-redux";
 const Signin = props => {
   const [redirect, setRedirect] = useState(false)
   const [loader, setLoader] = useState(false)
-  const image1 = './screenshots/wallstr.png'
 
   const submitFormHandler = async event => {
     event.preventDefault();
@@ -110,8 +109,8 @@ const Signin = props => {
     <>
       <header className="text-center header-image">
         <div className="container container--narrow">
-          <h1>Welcome to Tradelogs, Do lots of things with your logs</h1>
-          <p>Below find information and sign up blah blah blah</p>
+          <h1>Welcome to Tradelogs</h1>
+          <p>Dynamic representations of your trade data</p>
         </div>
       </header>
 
@@ -147,7 +146,7 @@ const Signin = props => {
         </div>
       </section>
 
-      <section className="bg-dark">
+      <section className="bg-ivory">
         <div className="container">
           <div className="split">
             <div>
@@ -159,27 +158,32 @@ const Signin = props => {
               </p>
             </div>
             <div>
-              <img src={image1} alt="Wall Street" />
+              <img src="" alt="Wall Street" />
             </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-secondary">
-        <div className="container">
-          <div className="split">
-            <div>
-              <h2>Another section</h2>
-              <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-              </p>
-            </div>
-            <div>
-          
+      <div className="bull-icon">
+        <section className="bg-secondary">
+          <div className="container">
+            <div className="split">
+              <div>
+                <h2>Another section</h2>
+                <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                </p>
+              </div>
+              <div>
+                <h2>Another section</h2>
+                <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </>
   )
 }
