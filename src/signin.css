@@ -15,8 +15,6 @@
 }
 
 body {
-  /* font-family: ;
-  font-weight: ; */
   font-size: 1.3125rem;
   line-height: 1.6;
 }
@@ -29,9 +27,14 @@ p {
   margin: 0;
 }
 
-h1, h2, h3 {
+h1, h2, h3, p {
   font-family: 'Montserrat';
   line-height: 1.3;
+  text-align: center;
+}
+
+p {
+  font-size: 17px;
 }
 
 h1, h2, h3, p {
@@ -86,7 +89,7 @@ header h1 {
 
 .container {
   margin-inline: auto; 
-  width: min(90%, 70.5rem);
+  width: min(90%, 65rem);
 }
 
 .split {
@@ -126,6 +129,15 @@ header h1 {
 
 .bg-secondary {
   background-color: rgba(6, 34, 53, 0.986);
+}
+
+.section-1 img {
+  max-width: 80%;
+  margin: 60px auto 0;
+}
+
+.section-1 p {
+  margin-top: 55px;
 }
 
 /* .signin-box {

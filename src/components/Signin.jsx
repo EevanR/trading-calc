@@ -114,24 +114,15 @@ const Signin = props => {
         </div>
       </header>
 
-      <section className="bg-light">
+      <section className="bg-light section-1">
         <div className="container">
-          <h2 className="text-center">Section 1</h2>
-          <div className="split">
+          <h1 className="text-center">Follow your profit curve with the click of one button</h1>
+          <div>
             <div>
-              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                Why do we use it?
-              </p>
+              <p>Upload your trade logs from supported brokers. We'll read the data and throw it on some easy-to-read graphs for you. Simple.</p>
             </div>
             <div>
-              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                Why do we use it?
-              </p>
-            </div>
-            <div>
-              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                Why do we use it?
-              </p>
+              <img src="../images/profitchart.png" alt="profit chart example" />
             </div>
             {/* {redirect === true && <Redirect to='/panes'/>}
             <div className="signin-box">
@@ -150,7 +141,7 @@ const Signin = props => {
         <div className="container">
           <div className="split">
             <div>
-              <h2>First Section</h2>
+              <h1>Create an account and start uploading Registration is Free</h1>
               <p>
               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
               Why do we use it?
