@@ -86,6 +86,13 @@ header h1 {
   background-position: right 5% bottom -180px;
 }
 
+.line-chart-bg {
+  background-image: url("../src/screenshots/line-extra-faint.png");
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-position: left -300px top -100px;
+}
+
 .section-3 img {
   padding: 3rem 0;
 }
@@ -151,6 +158,11 @@ header h1 {
 
 .bg-secondary {
   background-color: rgba(6, 34, 53, 0.986);
+}
+
+.red-bold {
+  color: rgba(233, 133, 93, 0.719);
+  font-family: 'Montserrat-bold';
 }
 
 .big.ui.button {

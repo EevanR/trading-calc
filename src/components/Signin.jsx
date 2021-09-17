@@ -114,12 +114,12 @@ const Signin = props => {
         </div>
       </header>
 
-      <section className="bg-light section-1">
+      <section className="bg-light section-1 line-chart-bg ">
         <div className="container">
           <h1 className="text-center">Follow your profit curve with the click of one button</h1>
           <div>
             <div>
-              <p>Upload your trade logs from supported brokers. We'll read the data and throw it on some easy-to-read graphs for you. Simple.</p>
+              <p>Upload years of trade history from any supported broker. We'll read the data and throw it on some easy-to-read graphs for you. Simple.</p>
             </div>
             <div>
               <img src="../images/profitchart.png" alt="profit chart example" />
@@ -154,7 +154,7 @@ const Signin = props => {
         <div className="container-wide">
           <div className="split verticle-centre">
             <div>
-              <h1>Check true Net Profitability by adding your FEES to the mix</h1>
+              <h1>Check true Net Profitability by adding your <span className="red-bold">FEES</span> to the mix</h1>
             </div>
             <div>
               <img src="../images/commis1.png" alt="Commission chart example 1" />
