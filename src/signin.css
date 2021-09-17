@@ -14,6 +14,11 @@
   src: url('./css_fonts/Montserrat/Montserrat-Light.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'Montserrat-bold';
+  src: url('./css_fonts/Montserrat/Montserrat-Bold.ttf') format('truetype');
+}
+
 body {
   font-size: 1.3125rem;
   line-height: 1.6;
@@ -81,15 +86,28 @@ header h1 {
   background-position: right 5% bottom -180px;
 }
 
+.section-3 img {
+  padding: 3rem 0;
+}
+
 @media (min-width: 40em) {
   header, section {
     padding: 6rem 0;
+  }
+
+  .section-3 img {
+    padding: 2rem 0;
   }
 }
 
 .container {
   margin-inline: auto; 
   width: min(90%, 65rem);
+}
+
+.container-wide {
+  margin-inline: auto; 
+  width: min(90%, 85rem);
 }
 
 .split {
@@ -131,6 +149,18 @@ header h1 {
   background-color: rgba(6, 34, 53, 0.986);
 }
 
+.big.ui.button {
+  background-color: rgb(68,105,129);
+  padding: 1.4rem 3rem;
+  color: white;
+  font-family: 'Montserrat-bold';
+  letter-spacing: 1px;
+}
+
+.big.ui.button:hover {
+  background-color: rgb(153,232,231);
+}
+
 .section-1 img {
   max-width: 80%;
   margin: 60px auto 0;
@@ -138,6 +168,10 @@ header h1 {
 
 .section-1 p {
   margin-top: 55px;
+}
+
+.verticle-centre {
+  align-items: center;
 }
 
 /* .signin-box {
