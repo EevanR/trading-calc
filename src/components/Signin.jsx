@@ -160,7 +160,7 @@ const Signin = props => {
               <img src="../images/commis1.png" alt="Commission chart example 1" />
             </div>
             <div>
-              <img src="../images/commis2.png" alt="Commission chart example 2" />
+              <img id="im-2" src="../images/commis2.png" alt="Commission chart example 2" />
             </div>
           </div>
         </div>
