@@ -167,20 +167,26 @@ const Signin = props => {
       </section>
 
       <div className="bull-icon">
-        <section className="bg-secondary">
+        <section className="bg-secondary section-4">
           <div className="container">
-            <div className="split">
-              <div>
-                <h2>Another section</h2>
-                <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                </p>
+            <div className="main">
+              <div className="sec-1">
+                <h2>The Breakdown.</h2>
               </div>
-              <div>
-                <h2>Another section</h2>
-                <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                </p>
+              <div className="sec-2 white-border">
+                <h4>Hourly</h4>
+              </div>
+              <div className="sec-3 white-border">
+                <h4>Hourly Fequency</h4>
+              </div>
+              <div className="sec-4 white-border">
+                <h4>Daily Combined Avg</h4>
+              </div>
+              <div className="sec-5 white-border">
+                <h4>DoW Win Avg & Lose Avg</h4>
+              </div>
+              <div className="sec-6 white-border">
+                <h4>Gross or Net</h4>
               </div>
             </div>
           </div>
