@@ -175,18 +175,23 @@ const Signin = props => {
               </div>
               <div className="sec-2 white-border">
                 <h4>Hourly</h4>
+                <p>Cumulative PnL by hour of the day</p>
               </div>
               <div className="sec-3 white-border">
                 <h4>Hourly Fequency</h4>
+                <p>Number of Trades by hour of the day</p>
               </div>
               <div className="sec-4 white-border">
                 <h4>Daily Combined Avg</h4>
+                <p>Average Pnl logged each day of the week</p>
               </div>
               <div className="sec-5 white-border">
                 <h4>DoW Win Avg & Lose Avg</h4>
+                <p>Average win day and average losing day for each day of the week</p>
               </div>
               <div className="sec-6 white-border">
                 <h4>Gross or Net</h4>
+                <p>Ability to switch between Gross data or net data</p>
               </div>
             </div>
           </div>
