@@ -111,6 +111,7 @@ const Signin = props => {
         <div className="container container--narrow">
           <h1>Welcome to Tradelogs</h1>
           <p>Dynamic representations of your trade data</p>
+          <button className="big ui button">Sign In</button>
         </div>
       </header>
 
