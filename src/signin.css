@@ -205,6 +205,10 @@ header h1 {
   text-align: center;
 }
 
+.white-border:hover {
+  border-color: white; 
+}
+
 .section-4 .sec-1 h2 {
   text-align: left;
   padding-top: 20px;
@@ -238,6 +242,7 @@ header h1 {
 
   .section-4 p {
     font-size: 14px;
+    color: rgb(27, 90, 136);
   }
 
   .section-4 i {
@@ -246,6 +251,10 @@ header h1 {
     top: -2.5rem; 
     left: 3rem;
     background-color: green;
+  }
+
+  .white-border:hover p {
+    color: white; 
   }
 }
 
