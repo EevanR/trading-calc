@@ -112,6 +112,13 @@ const Signin = props => {
           <h1>Welcome to Tradelogs</h1>
           <p>Dynamic representations of your trade data</p>
           <button className="big ui button">Sign In</button>
+          <div className="header-grid">
+            <div><h4>Profit Chart</h4></div>
+            <div><h4>Commissions & Fees</h4></div>
+            <div><h4>Breakdown</h4></div>
+            <div><h4>Strategies</h4></div>
+            <div><h4>Gap Stats</h4></div>
+          </div>
         </div>
       </header>
 
@@ -214,6 +221,12 @@ const Signin = props => {
             </div>
               <p>COMING SOON</p>
           </div>
+        </div>
+      </section>
+
+      <section className="bg-ivory">
+        <div>
+          footer
         </div>
       </section>
     </>

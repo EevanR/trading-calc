@@ -19,6 +19,11 @@
   src: url('./css_fonts/Montserrat/Montserrat-Bold.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'Montserrat-Medium';
+  src: url('./css_fonts/Montserrat/Montserrat-Medium.ttf') format('truetype');
+}
+
 body {
   font-size: 1.3125rem;
   line-height: 1.6;
@@ -61,7 +66,7 @@ section {
 }
 
 header {
-  height: 78vh;
+  height: 42rem;
   color: white;
 }
 
@@ -69,6 +74,11 @@ header h1 {
   padding-top: 6rem;
   font-size: 40px;
   margin-bottom: 10px!important;
+}
+
+header h4 {
+  color: rgb(12, 54, 82);
+  font-family: 'Montserrat-Medium';
 }
 
 .header-image {
@@ -108,7 +118,23 @@ header .big.ui.button {
 
 @media (min-width: 40em) {
   header, section {
-    padding: 8rem 0;
+    padding: 6rem 0;
+  }
+
+  .header-grid {
+    position: absolute;
+    display: grid;
+    align-items: center;
+    width: 100%;
+    bottom: -115%;
+    grid-template-columns: minmax(100px, 250px) minmax(100px, 250px) minmax(100px, 250px) minmax(100px, 250px) minmax(100px, 250px);
+    grid-template-rows: 150px;
+    grid-gap: 5% 1%;
+    border: 2px solid white;
+    background-color: white;
+    color: black;
+    border-radius: 7px;
+    box-shadow: 0 15px 30px 1px rgba(8, 43, 66, 0.12);
   }
 
   .section-3 img {
@@ -150,7 +176,8 @@ header .big.ui.button {
 }
 
 .container--narrow {
-  max-width: 40rem;
+  max-width: 60rem;
+  position: relative;
 }
 
 .bg-light {
@@ -167,6 +194,10 @@ header .big.ui.button {
 
 .bg-secondary {
   background-color: rgba(6, 34, 53, 0.986);
+}
+
+.bg-dark {
+  background-color: rgb(4,19,41);
 }
 
 .red-bold {
@@ -197,7 +228,7 @@ header .big.ui.button {
 
 .section-4 {
   color: white;
-  height: 1480px;
+  height: 1400px;
 }
 
 .section-4 .main {
@@ -241,7 +272,7 @@ header .big.ui.button {
     grid-template-columns: minmax(150px, 500px) minmax(150px, 500px) minmax(150px, 500px);
     grid-template-rows: auto;
     grid-gap: 15% 7%;
-    min-height: 300px;
+    min-height: 500px;
   }
 
   .section-4 {
@@ -256,6 +287,12 @@ header .big.ui.button {
 
   .white-border:hover p {
     color: white; 
+  }
+}
+
+@media (min-width: 40em) {
+  .section-1 h1{
+    padding-top: 90px;
   }
 }
 
