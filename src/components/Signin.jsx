@@ -113,11 +113,26 @@ const Signin = props => {
           <p>Dynamic representations of your trade data</p>
           <button className="big ui button">Sign In</button>
           <div className="header-grid">
-            <div><h4>Profit Chart</h4></div>
-            <div><h4>Commissions & Fees</h4></div>
-            <div><h4>Breakdown</h4></div>
-            <div><h4>Strategies</h4></div>
-            <div><h4>Gap Stats</h4></div>
+            <div className="border-right">
+              <h4>Profit Chart</h4>
+              <p>Gross or Net</p>
+            </div>
+            <div className="border-right">
+              <h4>Fees</h4>
+              <p>Platform fees, Locate fees, Commissions</p>
+            </div>
+            <div className="border-right">
+              <h4>Breakdown</h4>
+              <p>Your statistics</p>
+            </div>
+            <div className="border-right">
+              <h4>Strategies</h4>
+              <p>Save, display, track</p>
+            </div>
+            <div>
+              <h4>Gap Stats</h4>
+              <p>Stock History Statistics</p>
+            </div>
           </div>
         </div>
       </header>

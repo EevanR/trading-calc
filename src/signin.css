@@ -71,7 +71,7 @@ header {
 }
 
 header h1 {
-  padding-top: 6rem;
+  padding-top: 7rem;
   font-size: 40px;
   margin-bottom: 10px!important;
 }
@@ -79,6 +79,7 @@ header h1 {
 header h4 {
   color: rgb(12, 54, 82);
   font-family: 'Montserrat-Medium';
+  margin-bottom: 0px;
 }
 
 .header-image {
@@ -126,15 +127,23 @@ header .big.ui.button {
     display: grid;
     align-items: center;
     width: 100%;
-    bottom: -115%;
+    bottom: -105%;
     grid-template-columns: minmax(100px, 250px) minmax(100px, 250px) minmax(100px, 250px) minmax(100px, 250px) minmax(100px, 250px);
     grid-template-rows: 150px;
-    grid-gap: 5% 1%;
     border: 2px solid white;
     background-color: white;
-    color: black;
+    color: rgba(12, 54, 82, 0.55);
     border-radius: 7px;
-    box-shadow: 0 15px 30px 1px rgba(8, 43, 66, 0.12);
+    box-shadow: 0 15px 30px 1px rgba(8, 43, 66, 0.25);
+  }
+
+  .border-right {
+    border-right: 1px solid lightgrey;
+    height: 35%;
+  }
+
+  .header-grid p {
+    font-size: 13px;
   }
 
   .section-3 img {
