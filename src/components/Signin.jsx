@@ -109,29 +109,44 @@ const Signin = props => {
     <>
       <header className="text-center header-image">
         <div className="container container--narrow">
-          <h1>Welcome to Tradelogs</h1>
+          <h1>Quick. Easy. Tradelogs.</h1>
           <p>Dynamic representations of your trade data</p>
           <button className="big ui button">Sign In</button>
           <div className="header-grid">
             <div className="border-right">
-              <h4>Profit Chart</h4>
-              <p>Gross or Net</p>
+              <div>
+                <h4>Profit Chart</h4>
+                <p>Gross or Net</p>
+                <i className="angle down icon"></i>
+              </div>
             </div>
             <div className="border-right">
-              <h4>Fees</h4>
-              <p>Platform fees, Locate fees, Commissions</p>
+              <div>
+                <h4>Fees</h4>
+                <p>Platform fees, Locate fees, Commissions</p>
+                <i className="angle down icon"></i>
+              </div>
             </div>
             <div className="border-right">
-              <h4>Breakdown</h4>
-              <p>Your statistics</p>
+              <div>
+                <h4>Breakdown</h4>
+                <p>Your statistics</p>
+                <i className="angle down icon"></i>
+              </div>
             </div>
             <div className="border-right">
-              <h4>Strategies</h4>
-              <p>Save, display, track</p>
+              <div>
+                <h4>Strategies</h4>
+                <p>Save, display, track</p>
+                <i className="angle down icon"></i>
+              </div>
             </div>
-            <div>
-              <h4>Gap Stats</h4>
-              <p>Stock History Statistics</p>
+            <div className="no-border-right">
+              <div>
+                <h4>Gap Stats</h4>
+                <p>Stock History Statistics</p>
+                <i className="angle down icon"></i>
+              </div>
             </div>
           </div>
         </div>

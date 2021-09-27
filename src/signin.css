@@ -142,6 +142,31 @@ header .big.ui.button {
     height: 35%;
   }
 
+  .no-border-right {
+    height: 35%;
+  }
+
+  .header-grid div {
+    transition: transform .3s;
+    cursor: pointer;
+  }
+
+  .header-grid div i {
+    color: white;
+  }
+
+  .header-grid div div:hover {
+    position: relative;
+    padding-top: 30%;
+    align-items: center;
+    top: -4.1rem;
+    transform: scale(1.1);
+    background-color: rgb(4,119,251);
+    color: white;
+    height: 12rem;
+    border-radius: 5px;
+  }
+
   .header-grid p {
     font-size: 13px;
   }
@@ -266,9 +291,10 @@ header .big.ui.button {
 .section-4 i {
   font-size: 3rem;
   position: absolute;
-  top: -2.5rem; 
+  top: -1.5rem; 
   left: 3rem;
   background-color: green;
+  border-radius: 5px;
 }
 
 .verticle-centre {
@@ -280,8 +306,8 @@ header .big.ui.button {
     display: grid;
     grid-template-columns: minmax(150px, 500px) minmax(150px, 500px) minmax(150px, 500px);
     grid-template-rows: auto;
-    grid-gap: 15% 7%;
-    min-height: 500px;
+    grid-gap: 8% 4%;
+    min-height: 450px;
   }
 
   .section-4 {
