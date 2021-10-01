@@ -182,7 +182,7 @@ header .big.ui.button {
 
 .container {
   margin-inline: auto; 
-  width: min(90%, 65rem);
+  width: min(90%, 60rem);
 }
 
 .container-wide {
@@ -247,10 +247,6 @@ header .big.ui.button {
   letter-spacing: 1px;
 }
 
-.big.ui.button:hover {
-  background-color: rgb(153,232,231);
-}
-
 .section-1 img {
   max-width: 80%;
   margin: 60px auto 0;
@@ -258,6 +254,10 @@ header .big.ui.button {
 
 .section-1 p {
   margin-top: 55px;
+}
+
+.big.ui.button:hover {
+  background-color: rgb(153,232,231);
 }
 
 .section-4 {
@@ -301,13 +301,21 @@ header .big.ui.button {
   align-items: center;
 }
 
+.section-5 .ui.button {
+  padding: 15px 40px;
+  font-size: 16px;
+  font-family: 'Montserrat';
+  margin-top: 20px;
+  border-radius: 25px;
+}
+
 @media (min-width: 40em) {
   .section-4 .main {
     display: grid;
     grid-template-columns: minmax(150px, 500px) minmax(150px, 500px) minmax(150px, 500px);
     grid-template-rows: auto;
     grid-gap: 8% 4%;
-    min-height: 450px;
+    min-height: 500px;
   }
 
   .section-4 {

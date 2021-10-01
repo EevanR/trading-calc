@@ -241,18 +241,37 @@ const Signin = props => {
         </section>
       </div>
 
-      <section className="bg-ivory">
-        <div className="container">
+      <section className="bg-light section-5">
+        <h1>+ Features</h1>
+        <div className="container split">
           <div>
             <div>
-              <h1>Journal strategies and track their performance</h1>
+              <p>STRATEGY JOURNAL / PERFORMANCE</p>
+            </div>
+            <div className="text-center">
+              <p>Coming Soon</p>
+            </div>
+          </div>
+          <div>
+            <div>
+              <p>GAP STASTITICS</p>
             </div>
             <div className="text-center">
             </div>
-              <p>COMING SOON</p>
+              <p>Take advantage of our ticker history scanner. Stastistics gathered from all previous gaps. Displayed as a list of probable outcomes, including possible day 2 probabilities.</p>
           </div>
         </div>
+        <div className="text-center">
+          <button className="big ui button">Subsciption Details</button>
+        </div>
       </section>
+
+      <div>
+        <section className="bg-secondary section-5">
+          <div className="container">
+          </div>
+        </section>
+      </div>
 
       <section className="bg-ivory">
         <div>
