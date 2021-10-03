@@ -48,7 +48,7 @@ p {
 }
 
 h1, h2, h3, p {
-  margin-bottom: 1em;
+  margin-bottom: 1em!important;
 }
 
 img {
@@ -71,6 +71,7 @@ header {
 }
 
 .header-grid {
+  display: none;
   position: fixed;
   padding: 2rem 3rem 1rem 3rem;
   top: 4rem;
@@ -79,11 +80,15 @@ header {
   z-index: 1000;
 }
 
+.header-grid h4 {
+  padding-top: 7px;
+}
+
 .header-grid p {
-  padding-bottom: 15px;
+  padding-bottom: 17px;
   font-size: 14px;
   margin-top: 0.5rem;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.3rem;
   color: rgb(4,119,251);
   border-bottom: solid 1px lightgrey
 }
