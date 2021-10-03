@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 const Signin = props => {
   const [redirect, setRedirect] = useState(false)
   const [loader, setLoader] = useState(false)
+  const [menu, setMenu] = useState("hidden")
 
   const submitFormHandler = async event => {
     event.preventDefault();
@@ -40,6 +41,10 @@ const Signin = props => {
       setLoader(false)
       alert(response)
     }
+  }
+
+  const menuVisibility = () => {
+    menu === "hiddden" ? setMenu("visible") : setMenu("hidden")
   }
 
   const panes = [
@@ -108,45 +113,46 @@ const Signin = props => {
   return (
     <>
       <header className="text-center header-image">
-      <div className="header-grid">
-        <i className="x icon icon"></i>
+      <i onClick={() => setMenu("visible")} className="bars icon"></i>
+        <div className="container container--narrow">
+          <div style={{visibility: `${menu}`}} className="header-grid">
+            <i onClick={() => setMenu("hidden")} className="x icon icon"></i>
             <div className="border-right">
               <div>
                 <h4>PROFIT CHART</h4>
-                <i className="angle down icon"></i>
                 <p>Gross or Net</p>
+                <i className="angle down icon"></i>
               </div>
             </div>
             <div className="border-right">
               <div>
                 <h4>FEES</h4>
-                <i className="angle down icon"></i>
                 <p>Platform fees, Locate fees, Commissions</p>
+                <i className="angle down icon"></i>
               </div>
             </div>
             <div className="border-right">
               <div>
                 <h4>BREAKDOWN</h4>
-                <i className="angle down icon"></i>
                 <p>Your statistics</p>
+                <i className="angle down icon"></i>
               </div>
             </div>
             <div className="border-right">
               <div>
                 <h4>STRATEGIES</h4>
-                <i className="angle down icon"></i>
                 <p>Save, display, track</p>
+                <i className="angle down icon"></i>
               </div>
             </div>
             <div className="no-border-right">
               <div>
                 <h4>GAP STATS</h4>
-                <i className="angle down icon"></i>
                 <p>Stock History Statistics</p>
+                <i className="angle down icon"></i>
               </div>
             </div>
           </div>
-        <div className="container container--narrow">
           <h1>Quick. Easy. Tradelogs.</h1>
           <p>Dynamic representations of your trade data</p>
           <button className="big ui button">Sign In</button>
@@ -164,14 +170,14 @@ const Signin = props => {
               <img src="../images/profitchart.png" alt="profit chart example" />
             </div>
             {redirect === true && <Redirect to='/panes'/>}
-            <div className="signin-box">
+            {/* <div className="signin-box">
               <Tab panes={panes} />
               {loader === true && (
                 <Dimmer active>
                   <Loader />
                 </Dimmer>
               )}
-            </div>
+            </div> */}
           </div>
         </div>
       </section>

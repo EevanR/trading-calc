@@ -71,10 +71,11 @@ header {
 }
 
 .header-grid {
-  display: none;
+  visibility: hidden;
   position: fixed;
   padding: 2rem 3rem 1rem 3rem;
-  top: 4rem;
+  top: 3rem;
+  left: 0;
   width: 100%;
   background-color: white;
   z-index: 1000;
@@ -89,8 +90,11 @@ header {
   font-size: 14px;
   margin-top: 0.5rem;
   margin-bottom: 1.3rem;
-  color: rgb(4,119,251);
   border-bottom: solid 1px lightgrey
+}
+
+.header-grid div div {
+  color: rgb(4,119,251);
 }
 
 .header-grid div:first-of-type div h4 {
@@ -107,11 +111,20 @@ header {
   position: relative;
   color: rgb(12, 54, 82);
   display: inline;
+  cursor: pointer;
 }
 
+.bars.icon {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  font-size: 2.5rem;
+  color: rgb(4,119,251);
+  cursor: pointer;
+}
 
 header h1 {
-  padding-top: 7rem;
+  padding-top: 9rem;
   font-size: 40px;
   margin-bottom: 10px!important;
 }
@@ -162,12 +175,43 @@ header .big.ui.button {
     padding: 6rem 0;
   }
 
+  header h1 {
+    padding-top: 7rem;
+  }
+
+  .bars.icon {
+    visibility: hidden;
+  }
+
+  .header-grid .x.icon.icon {
+    display: none;
+  }
+
+  .header-grid p {
+    padding: 0px 1rem 0 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1.3rem;
+    border-bottom: none;
+    font-size: 13px;
+    min-height: 2rem
+  }
+
+  .header-grid div:first-of-type div h4 {
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+  }
+
+  .header-grid h4 {
+    padding-top: 0px;
+  }
+
   .header-grid {
+    visibility: visible!important;
     position: absolute;
     display: grid;
     align-items: center;
-    width: 100%;
-    bottom: -105%;
+    top: 29rem;
     grid-template-columns: minmax(100px, 250px) minmax(100px, 250px) minmax(100px, 250px) minmax(100px, 250px) minmax(100px, 250px);
     grid-template-rows: 150px;
     border: 2px solid white;
@@ -175,6 +219,7 @@ header .big.ui.button {
     color: rgba(12, 54, 82, 0.55);
     border-radius: 7px;
     box-shadow: 0 15px 30px 1px rgba(8, 43, 66, 0.25);
+    padding: 0rem 0 0.6rem 0;
   }
 
   .border-right {
@@ -193,6 +238,7 @@ header .big.ui.button {
 
   .header-grid div i {
     color: white;
+    display: inline;
   }
 
   .header-grid div div:hover {
@@ -205,10 +251,6 @@ header .big.ui.button {
     color: white;
     height: 12rem;
     border-radius: 5px;
-  }
-
-  .header-grid p {
-    font-size: 13px;
   }
 
   .section-3 img {
@@ -302,7 +344,7 @@ header .big.ui.button {
 
 .section-4 {
   color: white;
-  height: 1400px;
+  height: 1470px;
 }
 
 .section-4 .main {
@@ -366,6 +408,10 @@ header .big.ui.button {
   .section-4 p {
     font-size: 14px;
     color: rgb(27, 90, 136);
+  }
+
+  .section-4 h4 {
+    margin-bottom: 2rem;
   }
 
   .white-border:hover p {
