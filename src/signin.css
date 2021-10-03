@@ -48,7 +48,7 @@ p {
 }
 
 h1, h2, h3, p {
-  margin-bottom: 1em!important;
+  margin-bottom: 1em;
 }
 
 img {
@@ -69,6 +69,41 @@ header {
   height: 42rem;
   color: white;
 }
+
+.header-grid {
+  position: fixed;
+  padding: 2rem 3rem 1rem 3rem;
+  top: 4rem;
+  width: 100%;
+  background-color: white;
+  z-index: 1000;
+}
+
+.header-grid p {
+  padding-bottom: 15px;
+  font-size: 14px;
+  margin-top: 0.5rem;
+  margin-bottom: 1.2rem;
+  color: rgb(4,119,251);
+  border-bottom: solid 1px lightgrey
+}
+
+.header-grid div:first-of-type div h4 {
+  border-top: solid 1px lightgrey;
+  padding-top: 1.2rem;
+  margin-top: 1.5rem;
+}
+
+.header-grid i {
+  display: none;
+}
+
+.header-grid .x.icon.icon {
+  position: relative;
+  color: rgb(12, 54, 82);
+  display: inline;
+}
+
 
 header h1 {
   padding-top: 7rem;

@@ -47,14 +47,14 @@ const Signin = props => {
       menuItem: 'SignIn', render: () => (
         <Tab.Pane>
           <>
-            <div id="border">
-              <img className="sign-up-img" src="/favicon.png" alt=""/>
+            <div>
+              <img src="/favicon.png" alt="TradeLogs logo"/>
               <h1>
                 TradeLogs Sign In  
               </h1>
             </div>
             <div className="form">
-              <Form onSubmit={submitSignInHandler} id="signin-form">
+              <Form onSubmit={submitSignInHandler}>
                 <label>Email</label>
                 <br/>
                 <input name="email" type="email" id="email"></input>
@@ -72,14 +72,14 @@ const Signin = props => {
       menuItem: 'Register', render: () => (
         <Tab.Pane>
           <>
-            <div id="border">
-              <img className="sign-up-img" src="/favicon.png" alt=""/>
+            <div>
+              <img src="/favicon.png" alt="TradeLogs Logo"/>
               <h1>
                 TradeLogs Sign Up  
               </h1>
             </div>
             <div className="form">
-              <Form onSubmit={submitFormHandler} id="signup-form">
+              <Form onSubmit={submitFormHandler} >
                 <label>Email</label>
                 <br/>
                 <input name="email" type="email" id="email"></input>
@@ -108,47 +108,48 @@ const Signin = props => {
   return (
     <>
       <header className="text-center header-image">
-        <div className="container container--narrow">
-          <h1>Quick. Easy. Tradelogs.</h1>
-          <p>Dynamic representations of your trade data</p>
-          <button className="big ui button">Sign In</button>
-          <div className="header-grid">
+      <div className="header-grid">
+        <i className="x icon icon"></i>
             <div className="border-right">
               <div>
-                <h4>Profit Chart</h4>
+                <h4>PROFIT CHART</h4>
+                <i className="angle down icon"></i>
                 <p>Gross or Net</p>
-                <i className="angle down icon"></i>
               </div>
             </div>
             <div className="border-right">
               <div>
-                <h4>Fees</h4>
+                <h4>FEES</h4>
+                <i className="angle down icon"></i>
                 <p>Platform fees, Locate fees, Commissions</p>
-                <i className="angle down icon"></i>
               </div>
             </div>
             <div className="border-right">
               <div>
-                <h4>Breakdown</h4>
+                <h4>BREAKDOWN</h4>
+                <i className="angle down icon"></i>
                 <p>Your statistics</p>
-                <i className="angle down icon"></i>
               </div>
             </div>
             <div className="border-right">
               <div>
-                <h4>Strategies</h4>
-                <p>Save, display, track</p>
+                <h4>STRATEGIES</h4>
                 <i className="angle down icon"></i>
+                <p>Save, display, track</p>
               </div>
             </div>
             <div className="no-border-right">
               <div>
-                <h4>Gap Stats</h4>
-                <p>Stock History Statistics</p>
+                <h4>GAP STATS</h4>
                 <i className="angle down icon"></i>
+                <p>Stock History Statistics</p>
               </div>
             </div>
           </div>
+        <div className="container container--narrow">
+          <h1>Quick. Easy. Tradelogs.</h1>
+          <p>Dynamic representations of your trade data</p>
+          <button className="big ui button">Sign In</button>
         </div>
       </header>
 
@@ -162,7 +163,7 @@ const Signin = props => {
             <div>
               <img src="../images/profitchart.png" alt="profit chart example" />
             </div>
-            {/* {redirect === true && <Redirect to='/panes'/>}
+            {redirect === true && <Redirect to='/panes'/>}
             <div className="signin-box">
               <Tab panes={panes} />
               {loader === true && (
@@ -170,7 +171,7 @@ const Signin = props => {
                   <Loader />
                 </Dimmer>
               )}
-            </div> */}
+            </div>
           </div>
         </div>
       </section>
@@ -242,7 +243,7 @@ const Signin = props => {
       </div>
 
       <section className="bg-light section-5">
-        <h1>+ Features</h1>
+        <h1>Additional Features</h1>
         <div className="container split">
           <div>
             <div>
