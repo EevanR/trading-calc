@@ -66,7 +66,7 @@ const Signin = props => {
                 <label>Password</label>
                 <br/>
                 <input name="password" type="password" id="password"></input>
-                <Button id="submit" type="submit" >Sign In</Button>
+                <button className="big ui button" id="submit" type="submit" >Sign In</button>
               </Form>
             </div>
           </>
@@ -101,7 +101,7 @@ const Signin = props => {
                 <br/>
                 <input name="passCon" type="password" id="passCon"></input>
                 <br/>
-                <Button id="submit" type="submit" >Sign Up</Button>
+                <button className="big ui button" id="submit" type="submit" >Sign Up</button>
               </Form>
             </div>
           </>
@@ -170,14 +170,14 @@ const Signin = props => {
               <img src="../images/profitchart.png" alt="profit chart example" />
             </div>
             {redirect === true && <Redirect to='/panes'/>}
-            {/* <div className="signin-box">
+            <div className="signin-box">
               <Tab panes={panes} />
               {loader === true && (
                 <Dimmer active>
                   <Loader />
                 </Dimmer>
               )}
-            </div> */}
+            </div>
           </div>
         </div>
       </section>

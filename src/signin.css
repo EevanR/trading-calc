@@ -425,55 +425,51 @@ header .big.ui.button {
   }
 }
 
-
-
-/* .signin-box {
-  border: 2px solid grey;
+.signin-box {
   border-radius: 5px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  width: 350px;
-  height: 470px;
+  position: fixed;
+  top: 2rem;
+  left: 0;
+  width: 100%;
+  max-height: 600px!important;
   padding: 10px;
   text-align: center;
-  background-color: #323641;
+  z-index: 2000;
+
 }
 
-.signin-box h1 {
-  font-family: chomsky; 
-  width: 100%;
-  padding-bottom: 5px;
-  margin-top: 12px;
-  padding-left: 40px;
+.signin-box img {
+  height: 10rem;
+  margin: 0;
+  margin-inline: auto;
+}
+
+.ui.attached.tabular.menu a {
+  font-family: 'Montserrat';
+  color: white;
+  background-color: rgba(0, 0, 0, 0.253);
 }
 
 #signup-form {
   width: 90%;
   margin: auto;
-  line-height: 30px;
 }
 
 Button#submit.ui.button {
-  margin-top: 10px;
+  margin: 10px 0 10px 0;
+  font-family: 'Montserrat';
 }
 
-.sign-up-img {
-  height: 50px;
-  width: 70px;
-  position: absolute;
-  left: 5px;
-  top: 15px;
+.ui.attached:not(.message)+.ui.attached.segment:not(.top) input {
+  margin-bottom: 0.5rem;
 }
 
 .ui.attached:not(.message)+.ui.attached.segment:not(.top) {
-  border: none;
-  background-color: #282c34;
-  height: 405px;
+  border-top: none;
+  max-height: 460px;
+  overflow: scroll;
 }
 
-#border {
-  border-bottom: 10px double grey;
-}*/
+.ui.attached:not(.message)+.ui.attached.segment:not(.top)::-webkit-scrollbar {
+  display: none;
+}
