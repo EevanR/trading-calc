@@ -435,7 +435,6 @@ header .big.ui.button {
   padding: 10px;
   text-align: center;
   z-index: 2000;
-
 }
 
 .signin-box img {
@@ -461,7 +460,7 @@ Button#submit.ui.button {
 }
 
 .ui.attached:not(.message)+.ui.attached.segment:not(.top) input {
-  margin-bottom: 0.5rem;
+  margin-bottom: 2rem;
 }
 
 .ui.attached:not(.message)+.ui.attached.segment:not(.top) {
@@ -472,4 +471,40 @@ Button#submit.ui.button {
 
 .ui.attached:not(.message)+.ui.attached.segment:not(.top)::-webkit-scrollbar {
   display: none;
+}
+
+/* SIGN IN BOX DESKTOP SCREEN */
+@media (min-width: 40em) {
+  .signin-box {
+    position: relative;
+    top: 0;
+    right: 0;
+    height: 1000px;
+    padding: 0 15%;
+  }
+
+  .ui.attached:not(.message)+.ui.attached.segment:not(.top) {
+    max-height: 600px;
+    padding: 4rem 0;
+  }
+
+  .signin {
+    top: 4rem;
+    position: fixed;
+    z-index: 2000;
+  }
+
+  .signin .container {
+    max-width: 30rem;
+  }
+
+  .ui.form {
+    position: relative;
+    max-width: 80%;
+    margin-inline: auto;
+  }
+
+  .signin-box h1 {
+    padding-top: 4rem;
+  }
 }

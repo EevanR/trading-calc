@@ -170,13 +170,15 @@ const Signin = props => {
               <img src="../images/profitchart.png" alt="profit chart example" />
             </div>
             {redirect === true && <Redirect to='/panes'/>}
-            <div className="signin-box">
-              <Tab panes={panes} />
-              {loader === true && (
-                <Dimmer active>
-                  <Loader />
-                </Dimmer>
-              )}
+            <div className="signin container">
+              <div className="signin-box">
+                <Tab panes={panes} />
+                {loader === true && (
+                  <Dimmer active>
+                    <Loader />
+                  </Dimmer>
+                )}
+              </div>
             </div>
           </div>
         </div>
