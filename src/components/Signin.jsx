@@ -60,12 +60,10 @@ const Signin = props => {
             </div>
             <div className="form">
               <Form onSubmit={submitSignInHandler}>
-                <label>Email</label>
                 <br/>
-                <input name="email" type="email" id="email"></input>
-                <label>Password</label>
+                <input name="email" type="email" id="email" placeholder="Email"></input>
                 <br/>
-                <input name="password" type="password" id="password"></input>
+                <input name="password" type="password" id="password" placeholder="Password"></input>
                 <button className="big ui button" id="submit" type="submit" >Sign In</button>
               </Form>
             </div>

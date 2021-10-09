@@ -461,6 +461,8 @@ Button#submit.ui.button {
 
 .ui.attached:not(.message)+.ui.attached.segment:not(.top) input {
   margin-bottom: 2rem;
+  border-radius: 15px;
+  font-size: 16px;
 }
 
 .ui.attached:not(.message)+.ui.attached.segment:not(.top) {
@@ -480,7 +482,7 @@ Button#submit.ui.button {
     top: 0;
     right: 0;
     height: 1000px;
-    padding: 0 15%;
+    padding: 0 18%;
   }
 
   .ui.attached:not(.message)+.ui.attached.segment:not(.top) {
