@@ -436,6 +436,8 @@ header .big.ui.button {
   text-align: center;
   z-index: 2000;
   color: green;
+  opacity:0;
+  transition:opacity 0.2s linear;
 }
 
 .signin-box img {
@@ -474,6 +476,19 @@ Button#submit.ui.button {
 
 .ui.attached:not(.message)+.ui.attached.segment:not(.top)::-webkit-scrollbar {
   display: none;
+}
+
+.signin-box i {
+  position: absolute;
+  right: 1.5rem;
+  top: 1.5rem;
+  font-size: 20px;
+  color: rgba(19, 66, 100, 0.74);
+  cursor: pointer;
+}
+
+.signin-box i:hover {
+  color: rgb(153,232,231);
 }
 
 /* SIGN IN BOX DESKTOP SCREEN */
