@@ -53,10 +53,10 @@ const Signin = props => {
         <Tab.Pane>
           <>
             <div>
-              <img src="/favicon.png" alt="TradeLogs logo"/>
-              <h1>
-                TradeLogs Sign In  
-              </h1>
+              <img src="/TradeLogs.png" alt="TradeLogs logo"/>
+              <h2>
+                Sign In  
+              </h2>
             </div>
             <div className="form">
               <Form onSubmit={submitSignInHandler}>
@@ -76,28 +76,21 @@ const Signin = props => {
         <Tab.Pane>
           <>
             <div>
-              <img src="/favicon.png" alt="TradeLogs Logo"/>
-              <h1>
-                TradeLogs Sign Up  
-              </h1>
+              <img src="/TradeLogs.png"  alt="TradeLogs Logo"/>
+              <h2>
+                Register  
+              </h2>
             </div>
             <div className="form">
               <Form onSubmit={submitFormHandler} >
-                <label>Email</label>
                 <br/>
-                <input name="email" type="email" id="email"></input>
+                <input placeholder="Email" name="email" type="email" id="email"></input>
                 <br/>
-                <label>UserName</label>
+                <input placeholder="Username" name="username" type="text" id="username"></input>
                 <br/>
-                <input name="username" type="text" id="username"></input>
+                <input  placeholder="Password" name="password" type="password" id="password"></input>
                 <br/>
-                <label>Password</label>
-                <br/>
-                <input name="password" type="password" id="password"></input>
-                <br/>
-                <label>Confirm Password</label>
-                <br/>
-                <input name="passCon" type="password" id="passCon"></input>
+                <input  placeholder="Confirm Password" name="passCon" type="password" id="passCon"></input>
                 <br/>
                 <button className="big ui button" id="submit" type="submit" >Sign Up</button>
               </Form>

@@ -435,12 +435,13 @@ header .big.ui.button {
   padding: 10px;
   text-align: center;
   z-index: 2000;
+  color: green;
 }
 
 .signin-box img {
-  height: 10rem;
-  margin: 0;
+  margin: 2rem 0 3rem 0;
   margin-inline: auto;
+  max-width: 100%;
 }
 
 .ui.attached.tabular.menu a {
@@ -486,8 +487,8 @@ Button#submit.ui.button {
   }
 
   .ui.attached:not(.message)+.ui.attached.segment:not(.top) {
-    max-height: 600px;
-    padding: 4rem 0;
+    max-height: 610px;
+    padding: 3rem 0;
   }
 
   .signin {
@@ -504,9 +505,10 @@ Button#submit.ui.button {
     position: relative;
     max-width: 80%;
     margin-inline: auto;
+    top: -1rem;
   }
 
-  .signin-box h1 {
-    padding-top: 4rem;
+  .signin-box h2 {
+    margin-bottom: 0;
   }
 }
