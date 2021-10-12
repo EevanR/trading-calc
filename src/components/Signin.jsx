@@ -112,35 +112,35 @@ const Signin = props => {
           <div style={{visibility: `${menu}`}} className="header-grid">
             <i onClick={() => setMenu("hidden")} className="x icon icon"></i>
             <div className="border-right">
-              <div>
+              <div onClick={() => window.scroll({top: 700, left: 0, behavior: 'smooth'})}>
                 <h4>PROFIT CHART</h4>
                 <p>Gross or Net</p>
                 <i className="angle down icon"></i>
               </div>
             </div>
             <div className="border-right">
-              <div>
+              <div onClick={() => window.scroll({top: 1750, left: 0, behavior: 'smooth'})}>
                 <h4>FEES</h4>
                 <p>Platform fees, Locate fees, Commissions</p>
                 <i className="angle down icon"></i>
               </div>
             </div>
             <div className="border-right">
-              <div>
+              <div onClick={() => window.scroll({top: 2350, left: 0, behavior: 'smooth'})}>
                 <h4>BREAKDOWN</h4>
                 <p>Your statistics</p>
                 <i className="angle down icon"></i>
               </div>
             </div>
             <div className="border-right">
-              <div>
+              <div onClick={() => window.scroll({top: 3000, left: 0, behavior: 'smooth'})}>
                 <h4>STRATEGIES</h4>
                 <p>Save, display, track</p>
                 <i className="angle down icon"></i>
               </div>
             </div>
             <div className="no-border-right">
-              <div>
+              <div onClick={() => window.scroll({top: 3000, left: 0, behavior: 'smooth'})}>
                 <h4>GAP STATS</h4>
                 <p>Stock History Statistics</p>
                 <i className="angle down icon"></i>
