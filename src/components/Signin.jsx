@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { register, signIn } from "../modules/auth";
-import { Form, Button, Tab, Dimmer, Loader } from 'semantic-ui-react'
+import { Form, Tab, Dimmer, Loader } from 'semantic-ui-react'
 import { Redirect } from 'react-router-dom';
 import { connect } from "react-redux";
 
@@ -8,7 +8,7 @@ const Signin = props => {
   const [redirect, setRedirect] = useState(false)
   const [loader, setLoader] = useState(false)
   const [menu, setMenu] = useState("hidden")
-  const [signin, setSignin] = useState(["hidden", -2000])
+  const [signin, setSignin] = useState(["hidden", -2000, 0])
 
   const submitFormHandler = async event => {
     event.preventDefault();
@@ -149,7 +149,7 @@ const Signin = props => {
           </div>
           <h1>Quick. Easy. Tradelogs.</h1>
           <p>Dynamic representations of your trade data</p>
-          <button onClick={() => setSignin(["visible", 2000, 1])} className="big ui button">Sign In</button>
+          <button onClick={() => setSignin(["visible", 4000, 1])} className="big ui button">Sign In</button>
         </div>
       </header>
 
@@ -165,7 +165,12 @@ const Signin = props => {
             </div>
             {redirect === true && <Redirect to='/panes'/>}
             <div style={{zIndex: `${signin[1]}`}} className="signin container">
-              <div style={{visibility: `${signin[0]}`}, {opacity: `${signin[2]}`}} className="signin-box">
+              <div style={
+                {visibility: `${signin[0]}`, 
+                opacity: `${signin[2]}`, 
+                zIndex: `${signin[1]}`}
+                }
+                className="signin-box">
                 <Tab panes={panes} />
                 {loader === true && (
                   <Dimmer active>
