@@ -112,38 +112,48 @@ const Signin = props => {
           <div style={{visibility: `${menu}`}} className="header-grid">
             <i onClick={() => setMenu("hidden")} className="x icon icon"></i>
             <div className="border-right">
-              <div onClick={() => window.scroll({top: 700, left: 0, behavior: 'smooth'})}>
-                <h4>PROFIT CHART</h4>
-                <p>Gross or Net</p>
-                <i className="angle down icon"></i>
+              <div>
+                <a href="#section-1">
+                  <h4>PROFIT CHART</h4>
+                  <p>Gross or Net</p>
+                  <i className="angle down icon"></i>
+                </a>
               </div>
             </div>
             <div className="border-right">
-              <div onClick={() => window.scroll({top: 1750, left: 0, behavior: 'smooth'})}>
-                <h4>FEES</h4>
-                <p>Platform fees, Locate fees, Commissions</p>
-                <i className="angle down icon"></i>
+              <div >
+                <a href="#section-3">
+                  <h4>FEES</h4>
+                  <p>Platform fees, Locate fees, Commissions</p>
+                  <i className="angle down icon"></i>
+                </a>
               </div>
             </div>
             <div className="border-right">
-              <div onClick={() => window.scroll({top: 2350, left: 0, behavior: 'smooth'})}>
-                <h4>BREAKDOWN</h4>
-                <p>Your statistics</p>
-                <i className="angle down icon"></i>
+              <div>
+                <a href="#section-4">
+                  <h4>BREAKDOWN</h4>
+                  <p>Your statistics</p>
+                  <i className="angle down icon"></i>
+                </a>
               </div>
             </div>
             <div className="border-right">
-              <div onClick={() => window.scroll({top: 3000, left: 0, behavior: 'smooth'})}>
-                <h4>STRATEGIES</h4>
-                <p>Save, display, track</p>
-                <i className="angle down icon"></i>
+              <div>
+                <a href="#section-5">
+                  <h4>STRATEGIES</h4>
+                  <p>Save, display, track</p>
+                  <i className="angle down icon"></i>
+                </a>
               </div>
             </div>
             <div className="no-border-right">
-              <div onClick={() => window.scroll({top: 3000, left: 0, behavior: 'smooth'})}>
-                <h4>GAP STATS</h4>
-                <p>Stock History Statistics</p>
-                <i className="angle down icon"></i>
+              <div>
+                <a href="#section-5">
+                  <h4>GAP STATS</h4>
+                  <p>Stock History Statistics</p>
+                  <i className="angle down icon"></i>
+                </a>
               </div>
             </div>
           </div>
@@ -153,7 +163,7 @@ const Signin = props => {
         </div>
       </header>
 
-      <section className="bg-light section-1 line-chart-bg ">
+      <section id="section-1" className="bg-light section-1 line-chart-bg ">
         <div className="container">
           <h1 className="text-center">Follow your profit curve with the click of one button</h1>
           <div>
@@ -183,7 +193,7 @@ const Signin = props => {
         </div>
       </section>
 
-      <section className="bg-ivory">
+      <section id="section-2" className="bg-ivory">
         <div className="container">
           <div>
             <div>
@@ -196,7 +206,7 @@ const Signin = props => {
         </div>
       </section>
 
-      <section className="bg-light section-3">
+      <section id="section-3" className="bg-light section-3">
         <div className="container-wide">
           <div className="split verticle-centre">
             <div>
@@ -212,7 +222,7 @@ const Signin = props => {
         </div>
       </section>
 
-      <div className="bull-icon">
+      <div id="section-4" className="bull-icon">
         <section className="bg-secondary section-4">
           <div className="container">
             <div className="main">
@@ -249,7 +259,7 @@ const Signin = props => {
         </section>
       </div>
 
-      <section className="bg-light section-5">
+      <section id="section-5" className="bg-light section-5">
         <h1>Additional Features</h1>
         <div className="container split">
           <div>

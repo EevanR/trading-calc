@@ -24,6 +24,10 @@
   src: url('./css_fonts/Montserrat/Montserrat-Medium.ttf') format('truetype');
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-size: 1.3125rem;
   line-height: 1.6;
@@ -253,12 +257,12 @@ header .big.ui.button {
     border-radius: 5px;
   }
 
-  .section-3 img {
-    padding: 2rem 0;
+  .header-grid div div:hover > a {
+    color: white;
   }
 
-  #im-2 {
-    padding: 1.5%;
+  .section-3 img {
+    padding: 2rem 0;
   }
 }
 
