@@ -109,7 +109,7 @@ const Signin = props => {
       <header className="text-center header-image">
       <i onClick={() => setMenu("visible")} className="bars icon"></i>
         <div className="container container--narrow">
-          <div style={{visibility: `${menu}`}} className="header-grid">
+          <div style={{visibility: `${menu}`}} className="header-grid" onClick={() => setMenu("hidden")}>
             <i onClick={() => setMenu("hidden")} className="x icon icon"></i>
             <div className="border-right">
               <div>
