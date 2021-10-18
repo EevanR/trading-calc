@@ -200,7 +200,7 @@ const Signin = props => {
               <h1>Create an account and start uploading. Registration is Free.</h1>
             </div>
             <div className="text-center">
-              <button className="big ui button">NEW ACCOUNT</button>
+              <button onClick={() => setSignin(["visible", 4000, 1])} className="big ui button">NEW ACCOUNT</button>
             </div>
           </div>
         </div>
