@@ -54,15 +54,11 @@ const Panes = () => {
   return (
     <>
       <Pannel />
-      <div>
-        <img className="sign-up-img" src="/favicon.png" alt=""/>
-        <h1>
-          TradeLogs 
-        </h1>
-      </div>
-      <div>
-        <Tab panes={panes} />
-      </div>
+      <section className="panes">
+        <div className="container-wide">
+          <Tab panes={panes} />
+        </div>
+      </section>
     </>
   );
 };

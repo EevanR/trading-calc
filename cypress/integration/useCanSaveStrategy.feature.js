@@ -13,7 +13,6 @@ describe("User can save strategy", () => {
       response: "fixture:save_setup_success.json",
       status: 200
     })
-    cy.contains("TradeLogs")
 
     cy.contains("Strategies").click();
     cy.get("#main-form").within(() => {

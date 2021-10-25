@@ -1,4 +1,17 @@
-body {
+
+@media (min-width: 40em) {
+  .panes .ui.attached:not(.message)+.ui.attached.segment:not(.top) {
+    overflow: visible;
+    border: none;
+  }
+
+  .panes .ui.tabular.menu .active.item {
+    border-bottom: 1px solid lightblue;
+  }
+}
+
+
+/* body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -7,15 +20,6 @@ body {
   color: whitesmoke;
   line-height: 25px;
 }
-
-/* .App {
-  margin: 2rem auto;
-} */
-/* 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-} */
 
 .ui.form .field>label {
   display: block;
@@ -279,4 +283,4 @@ h3 {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto;
   grid-column-gap: 55px;
-}
+} */
