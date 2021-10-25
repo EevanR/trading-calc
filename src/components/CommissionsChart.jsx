@@ -59,7 +59,7 @@ const CommissionsChart = props => {
   return (
     <>
       <h4>PnL vs Commissions: Equity Curve</h4>
-      <div className="setup-graphs">
+      <div className="split">
         <div className="chartSmall"> 
           <Doughnut
             data = {pieData}

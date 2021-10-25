@@ -80,7 +80,7 @@ const HourlyChart = props => {
 
   return (
     <>
-      <div className="setup-graphs">
+      <div className="split">
         <div>
           <h4>Trade distribution: Hourly</h4>
           <div> 

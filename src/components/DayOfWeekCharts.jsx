@@ -103,7 +103,7 @@ const DayOfWeekCharts = props => {
   return (
     <>
       <h2>Breakdown</h2>
-      <div className="setup-graphs">
+      <div className="split">
         <div>
           <h4>PnL Average: Day of the Week</h4>
           <div> 
