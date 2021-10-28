@@ -139,11 +139,11 @@ const ProfitChart = props => {
       <h2>Profit Chart</h2>
       <h3><a onClick={() => setGrossNet("GrossProfit")}>Gross</a> || <a onClick={() => setGrossNet("NetProfit")}>Net</a></h3>
       <h4>Cumulative {grossNet} PnL Growth</h4>
-      <div className="line-chart">
+      <div>
         <Line 
           data = {lineData}
           options = {lineOptions}
-          height={600}
+          height={400}
         />
       </div>
       <CommissionsChart commissions={commissionsTotal} netProfit={profit} grossNet={grossNet} />

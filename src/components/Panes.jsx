@@ -17,7 +17,7 @@ const Panes = () => {
           <>
             <Excel />
             <ProfitChart />
-            <Twitter/>
+            {/* <Twitter/> */}
           </>
         </Tab.Pane>
       )
@@ -53,12 +53,10 @@ const Panes = () => {
 
   return (
     <>
-      <Pannel />
-      <section className="panes">
-        <div className="container-wide">
+      {/* <Pannel /> */}
+      <div className="panes">
           <Tab panes={panes} />
-        </div>
-      </section>
+      </div>
     </>
   );
 };

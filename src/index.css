@@ -1,4 +1,9 @@
 
+.panes .ui.attached:not(.message)+.ui.attached.segment:not(.top) {
+  overflow: visible;
+  border: none;
+}
+
 @media (min-width: 40em) {
   .panes .ui.attached:not(.message)+.ui.attached.segment:not(.top) {
     overflow: visible;
@@ -8,7 +13,18 @@
   .panes .ui.tabular.menu .active.item {
     border-bottom: 1px solid lightblue;
   }
+
+  .chartSmall {
+    width: 5%;
+  }
 }
+
+.chartSmall {
+  height: 20rem;
+  margin-top: 50px;
+  margin-bottom: 4rem;
+}
+
 
 
 /* body {

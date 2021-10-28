@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-// import './chart.css';
 import './signin.css';
 import './userPannel.css';
 import App from './App.jsx';

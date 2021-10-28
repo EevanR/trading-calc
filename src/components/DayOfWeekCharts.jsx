@@ -103,27 +103,27 @@ const DayOfWeekCharts = props => {
   return (
     <>
       <h2>Breakdown</h2>
-      <div className="split">
-        <div>
-          <h4>PnL Average: Day of the Week</h4>
-          <div> 
-            <Bar
-              data = {barData}
-              options = {barOptions}
-              height={500}
-            />
+        <div className="split">
+          <div>
+            <h4>PnL Average: Day of the Week</h4>
+            <div> 
+              <Bar
+                data = {barData}
+                options = {barOptions}
+                height={500}
+              />
+            </div>
           </div>
-        </div>
-        <div>
-          <h4>Profit vs Loss: Day of the Week</h4>
-          <div> 
-            <Bar
-              data = {barTwoData}
-              options = {barOptions}
-              height={500}
-            />
+          <div>
+            <h4>Profit vs Loss: Day of the Week</h4>
+            <div> 
+              <Bar
+                data = {barTwoData}
+                options = {barOptions}
+                height={500}
+              />
+            </div>
           </div>
-        </div>
       </div>
     </>
   )
