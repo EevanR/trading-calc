@@ -117,15 +117,16 @@ const Excel = props => {
   return (
     <>
       <div>
-        <input 
+        <button className="big ui button">Uploads</button> 
+        <button className="big ui button">Clear Uploaded Data</button> 
+        {/* <input 
           type="file" 
           onChange={(e) => {
             const file = e.target.files[0]
             readExcel(file)
           }}
-        />
+        /> */}
       </div>
-      <button onClick={() => deleteExcel()}>Clear Uploaded Data</button> 
       <h3 id="message">{props.message}</h3>
     </>
   )

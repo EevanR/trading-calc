@@ -1,7 +1,24 @@
+.panes {
+  padding-top: 1rem;
+}
 
 .panes .ui.attached:not(.message)+.ui.attached.segment:not(.top) {
   overflow: visible;
   border: none;
+}
+
+.ui.tabular.menu {
+  border-bottom: none;
+  display: none;
+}
+
+.panes .bars.icon {
+  z-index: 2000;
+  position: absolute;
+}
+
+.panes img {
+  width: 80%;
 }
 
 @media (min-width: 40em) {
