@@ -99,19 +99,19 @@ const ProfitChart = props => {
     maintainAspectRatio: false,
     legend: {
       labels: {
-        fontColor: "white",
+        fontColor: "darkgrey",
         fontSize: 16
       }
     },
     scales: {
       yAxes: [{
         ticks: {
-          fontColor: "white"
+          fontColor: "darkgrey"
         }
       }],
       xAxes: [{
         ticks: {
-            fontColor: "white",
+            fontColor: "darkgrey",
             fontSize: 14,
         }
       }]
@@ -135,7 +135,7 @@ const ProfitChart = props => {
   }, [props.savedTrades, grossNet])  // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <>
+    <section>
       <h2>Profit Chart</h2>
       <h3><a onClick={() => setGrossNet("GrossProfit")}>Gross</a> || <a onClick={() => setGrossNet("NetProfit")}>Net</a></h3>
       <h4>Cumulative {grossNet} PnL Growth</h4>
@@ -149,7 +149,7 @@ const ProfitChart = props => {
       <CommissionsChart commissions={commissionsTotal} netProfit={profit} grossNet={grossNet} />
       <DayOfWeekCharts barData={barData} />
       <HourlyChart times={timeSegments} grossNet={grossNet}/>
-    </>
+    </section>
   )
 }
 

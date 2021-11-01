@@ -116,9 +116,9 @@ const Excel = props => {
 
   return (
     <>
-      <div>
-        <button className="big ui button">Uploads</button> 
-        <button className="big ui button">Clear Uploaded Data</button> 
+      <div className="section-5">
+        <button className="ui button">Uploads</button> 
+        <button className="ui button">Clear Uploaded Data</button> 
         {/* <input 
           type="file" 
           onChange={(e) => {

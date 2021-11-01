@@ -52,20 +52,20 @@ const DayOfWeekCharts = props => {
     maintainAspectRatio: false,
     legend: {
       labels: {
-        fontColor: "white",
+        fontColor: "darkgrey",
         fontSize: 16
       }
     },
     scales: {
       yAxes: [{
         ticks: {
-          fontColor: "white",
+          fontColor: "darkgrey",
           beginAtZero: true
         }
       }],
       xAxes: [{
         ticks: {
-            fontColor: "white",
+            fontColor: "darkgrey",
             fontSize: 14,
         }
       }]
@@ -101,7 +101,7 @@ const DayOfWeekCharts = props => {
   };
 
   return (
-    <>
+    <section className="breakdown">
       <h2>Breakdown</h2>
         <div className="split">
           <div>
@@ -125,7 +125,7 @@ const DayOfWeekCharts = props => {
             </div>
           </div>
       </div>
-    </>
+    </section>
   )
 }
 

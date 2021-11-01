@@ -59,19 +59,19 @@ const HourlyChart = props => {
     maintainAspectRatio: false,
     legend: {
       labels: {
-        fontColor: "white",
+        fontColor: "darkgrey",
         fontSize: 16
       }
     },
     scales: {
       yAxes: [{
         ticks: {
-          fontColor: "white"
+          fontColor: "darkgrey"
         }
       }],
       xAxes: [{
         ticks: {
-            fontColor: "white",
+            fontColor: "darkgrey",
             fontSize: 14,
         }
       }]
@@ -79,7 +79,7 @@ const HourlyChart = props => {
   }
 
   return (
-    <>
+    <section className="breakdown">
       <div className="split">
         <div>
           <h4>Trade distribution: Hourly</h4>
@@ -102,7 +102,7 @@ const HourlyChart = props => {
           </div>
         </div>
       </div>
-    </>
+    </section>
   )
 }
 

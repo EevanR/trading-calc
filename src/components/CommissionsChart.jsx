@@ -49,7 +49,7 @@ const CommissionsChart = props => {
     legend: {
       position: 'top',
       labels: {
-        fontColor: "black",
+        fontColor: "darkgrey",
         fontSize: 16,
       }
     }
@@ -57,8 +57,8 @@ const CommissionsChart = props => {
 
 
   return (
-    <>
-      <h4>PnL vs Commissions: Equity Curve</h4>
+    <section className="breakdown">
+      <h3>PnL vs Commissions: Equity Curve</h3>
       <div className="split">
         <div className="chartSmall"> 
           <Doughnut
@@ -73,7 +73,7 @@ const CommissionsChart = props => {
           />
         </div>
       </div>
-    </>
+    </section>
   )
 }
 

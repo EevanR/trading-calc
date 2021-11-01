@@ -530,3 +530,64 @@ Button#submit.ui.button {
   }
 }
 
+/* PANES ROUTE */
+
+.panes {
+  padding-top: 1rem;
+}
+
+.panes .ui.attached:not(.message)+.ui.attached.segment:not(.top) {
+  overflow: visible;
+  border: none;
+}
+
+.ui.tabular.menu {
+  border-bottom: none;
+  display: none;
+}
+
+.panes .bars.icon {
+  z-index: 2000;
+  position: absolute;
+  top: 2.6rem;
+}
+
+.panes img {
+  width: 85%;
+}
+
+/* .ui.button {
+  background-color: rgb(68,105,129);
+  padding: 1rem 3rem;
+  color: white;
+  font-family: 'Montserrat-bold';
+  letter-spacing: 1px;
+} */
+
+.breakdown h4 {
+  margin-top: 3em;
+}
+
+.breakdown {
+  padding: 0rem 0;
+}
+
+@media (min-width: 40em) {
+  .panes .ui.attached:not(.message)+.ui.attached.segment:not(.top) {
+    overflow: visible;
+    border: none;
+  }
+
+  .panes .ui.tabular.menu .active.item {
+    border-bottom: 1px solid lightblue;
+  }
+
+  .chartSmall {
+    width: 5%;
+  }
+}
+
+.chartSmall {
+  height: 20rem;
+  margin: 1rem 0;
+}
