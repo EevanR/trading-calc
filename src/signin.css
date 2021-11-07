@@ -555,6 +555,10 @@ Button#submit.ui.button {
 
 .ui.tabular.menu {
   border-bottom: none;
+  overflow: scroll;
+}
+
+.ui.tabular.menu::-webkit-scrollbar {
   display: none;
 }
 

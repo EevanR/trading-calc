@@ -91,6 +91,7 @@ const Excel = props => {
     })
 
     promise.then((d) => {
+      setUploadBox(["hidden", 0])
       switch (true) {
         case d[0]["T/D"] === undefined && props.savedTrades !== null:
           let q1 = window.confirm("Short Fees Detected. Add to or overwrite current DataSet?");
