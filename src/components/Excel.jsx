@@ -116,18 +116,20 @@ const Excel = props => {
 
   return (
     <>
-      <div className="section-5">
-        <button className="ui button">Uploads</button> 
-        <button className="ui button">Clear Uploaded Data</button> 
-        {/* <input 
-          type="file" 
-          onChange={(e) => {
-            const file = e.target.files[0]
-            readExcel(file)
-          }}
-        /> */}
+      <div className="excel section-5 bg-ivory">
+        <div className="split">
+          <button className="ui button">Upload</button> 
+          <button className="ui button">Clear Uploaded Data</button> 
+          {/* <input 
+            type="file" 
+            onChange={(e) => {
+              const file = e.target.files[0]
+              readExcel(file)
+            }}
+          /> */}
+        </div>
       </div>
-      <h3 id="message">{props.message}</h3>
+      {/* <h3 id="message">{props.message}</h3> */}
     </>
   )
 }

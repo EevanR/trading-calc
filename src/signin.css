@@ -388,10 +388,10 @@ header .big.ui.button {
 }
 
 .section-5 .ui.button {
-  padding: 15px 40px;
-  font-size: 16px;
+  padding: 15px 30px;
+  font-size: 14px;
   font-family: 'Montserrat';
-  margin-top: 20px;
+  margin: 0 3rem 1rem 3rem;
   border-radius: 25px;
 }
 
@@ -532,6 +532,18 @@ Button#submit.ui.button {
 
 /* PANES ROUTE */
 
+.tab {
+  padding: 1rem;
+}
+
+.tab h2, h4 {
+  color: lightgrey;
+}
+
+.excel {
+  padding: 1rem 1rem 0 1rem;
+}
+
 .panes {
   padding-top: 1rem;
 }
@@ -549,27 +561,39 @@ Button#submit.ui.button {
 .panes .bars.icon {
   z-index: 2000;
   position: absolute;
-  top: 2.6rem;
+  top: 2.8rem;
 }
 
 .panes img {
-  width: 85%;
+  width: 90%;
 }
 
-/* .ui.button {
+.ui.button {
+  margin: 0;
   background-color: rgb(68,105,129);
-  padding: 1rem 3rem;
   color: white;
   font-family: 'Montserrat-bold';
   letter-spacing: 1px;
-} */
+}
 
 .breakdown h4 {
-  margin-top: 3em;
+  margin-top: 1em;
 }
 
 .breakdown {
   padding: 0rem 0;
+}
+
+.breakdown h2 {
+  margin-top: 2rem;
+}
+
+canvas {
+  margin-bottom: 3rem;
+}
+
+#graphs {
+  padding-top: 2rem;
 }
 
 @media (min-width: 40em) {
@@ -590,4 +614,8 @@ Button#submit.ui.button {
 .chartSmall {
   height: 20rem;
   margin: 1rem 0;
+}
+
+.ui.segment {
+  padding: 0;
 }
