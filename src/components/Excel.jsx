@@ -140,7 +140,6 @@ const Excel = props => {
           </div>
         </div>
       </div>
-      {/* <h3 id="message">{props.message}</h3> */}
     </>
   )
 }

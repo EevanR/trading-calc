@@ -55,7 +55,7 @@ const Panes = () => {
     <>
       {/* <Pannel /> */}
       <div className="panes bg-primary">
-        <img src="/TradeLogs.png"  alt="TradeLogs Logo"/>
+        <a href="/"><img src="/TradeLogs.png"  alt="TradeLogs Logo"/></a>
         <i className="bars icon"></i>
         <Tab panes={panes} />
       </div>
