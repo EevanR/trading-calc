@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as XLSX from 'xlsx'
 import { connect } from "react-redux";
 import { sendExcel, destroyExcel, updateExcel } from '../modules/trades';
 
 const Excel = props => {
+  const [uploadBox, setUploadBox] = useState(["hidden", 0])
+
   let option = "update"
 
   const organizeExcel = async (d, option) => {
@@ -118,15 +120,24 @@ const Excel = props => {
     <>
       <div className="excel section-5 bg-ivory">
         <div className="split">
-          <button className="ui button">Upload</button> 
+          <button onClick={() => setUploadBox(["visible", 1])} className="ui button">Upload</button> 
           <button className="ui button">Clear Uploaded Data</button> 
-          {/* <input 
-            type="file" 
-            onChange={(e) => {
-              const file = e.target.files[0]
-              readExcel(file)
-            }}
-          /> */}
+          <div className="signin container">
+            <div style={
+                {visibility: `${uploadBox[0]}`, 
+                opacity: `${uploadBox[1]}`}
+                }
+              className="signin-box">
+              <i onClick={() => setUploadBox(["hidden", 0])} className="x icon icon"></i>
+              <input 
+                type="file" 
+                onChange={(e) => {
+                  const file = e.target.files[0]
+                  readExcel(file)
+                }}
+              />
+            </div>
+          </div>
         </div>
       </div>
       {/* <h3 id="message">{props.message}</h3> */}

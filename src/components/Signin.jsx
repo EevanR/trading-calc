@@ -291,11 +291,11 @@ const Signin = props => {
         </section>
       </div>
 
-      <section className="bg-ivory">
+      {/* <section className="bg-ivory">
         <div>
           footer
         </div>
-      </section>
+      </section> */}
     </>
   )
 }

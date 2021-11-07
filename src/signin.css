@@ -619,3 +619,21 @@ canvas {
 .ui.segment {
   padding: 0;
 }
+
+.panes .signin-box {
+  border-radius: 0px;
+  position: absolute;
+  top: 1rem;
+  width: 100%;
+  padding-top: 3rem;
+  text-align: center;
+  color: black;
+  opacity: 1;
+  transition: opacity 0.2s linear;
+  background-color: lightgrey;
+  z-index: 10000;
+}
+
+.panes .ui.attached:not(.message)+.ui.attached.segment:not(.top) input {
+  border-radius: 0;
+}
