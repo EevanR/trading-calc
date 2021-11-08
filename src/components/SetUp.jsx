@@ -67,7 +67,7 @@ const SetUp = props => {
   if (chooseSetUp !== []) {
     setUp = (
       <>
-        <h2>{props.setUp} <span id="italic"> Pre-reqs</span></h2>
+        <h3>{props.setUp} <span id="italic"> Pre-reqs</span></h3>
         {chooseSetUp.map(checkbox => {
           return (
             <Checkbox key={checkbox.id}
@@ -90,7 +90,7 @@ const SetUp = props => {
         <div>
           {setupList === "None" ? "No Setups, Add new on strategies tab" : 
             <Dropdown
-              placeholder= "Set Up"
+              placeholder= "Select Setup"
               clearable
               fluid
               options={setupList}

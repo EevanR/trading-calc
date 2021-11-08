@@ -641,3 +641,9 @@ canvas {
 .panes .ui.attached:not(.message)+.ui.attached.segment:not(.top) input {
   border-radius: 0;
 }
+
+/* Calc Tab */
+
+.calc h2 {
+  color: rgb(8,43,66);
+}

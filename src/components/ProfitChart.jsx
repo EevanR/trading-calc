@@ -137,7 +137,7 @@ const ProfitChart = props => {
   return (
     <section className="bg-primary tab" id="graphs">
       <div>
-        <h2>Profit Chart</h2>
+        <h2>Profit Chart & Fees</h2>
         <h3><a onClick={() => setGrossNet("GrossProfit")}>Gross</a> || <a onClick={() => setGrossNet("NetProfit")}>Net</a></h3>
         <h4>Cumulative {grossNet} PnL Growth</h4>
         <div>
