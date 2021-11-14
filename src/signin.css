@@ -647,3 +647,10 @@ canvas {
 .calc h2 {
   color: rgb(8,43,66);
 }
+
+.two-column-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem 1rem;
+  /* min-height: 400px; */
+}

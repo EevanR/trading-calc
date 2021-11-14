@@ -67,7 +67,6 @@ const SetUp = props => {
   if (chooseSetUp !== []) {
     setUp = (
       <>
-        <h3>{props.setUp} <span id="italic"> Pre-reqs</span></h3>
         {chooseSetUp.map(checkbox => {
           return (
             <Checkbox key={checkbox.id}
@@ -105,7 +104,8 @@ const SetUp = props => {
             />
           }
         </div>
-        <div>
+        <h3>{props.setUp} Pre-reqs</h3>
+        <div className="two-column-grid">
           {setUp}
         </div>
       </div>
