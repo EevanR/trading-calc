@@ -71,7 +71,7 @@ const Pannel = props => {
   })()}, [props.userAttrs, props.savedTrades])
 
   return (
-    <>
+    <section style={{display: "none"}}>
       {redirect === true && <Redirect to='/' />}
       <div id="pannel" className={pannel ? "pannel-in" : "pannel-out"} >
         {props.userAttrs === null ? (
@@ -154,7 +154,7 @@ const Pannel = props => {
           </>
         )}
       </div>
-    </>
+    </section>
   )
 }
 

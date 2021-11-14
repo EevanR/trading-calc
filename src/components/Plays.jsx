@@ -26,47 +26,6 @@ const Plays = props => {
     getTickers()
   }
 
-  const saveTrade = async (e) => {
-    e.preventDefault();
-    setLoader(true)
-    let id = saveTradeId
-    let trade;
-    let storage = JSON.parse(sessionStorage.getItem('tickers'))
-    storage.forEach(item => {
-      if (item[0] === id) {
-        trade = item
-      }
-    })
-    trade.push(e.target.profit.value)
-    
-    let quote = await getQuote(trade[1].ticker)
-    if (quote.status === 200) {
-      quote = quote.data["Global Quote"]
-    } else {
-      alert(`${quote}`)
-    }
-
-    let profile = await getProfile(trade[1].ticker)
-    if (profile.status === 200) {
-      profile = profile.data[0]
-    } else {
-      alert(`${profile}`)
-    }
-
-    // let response = await sendTrade(id, trade, quote, profile);
-    // if (response.status === 200) {
-    //   setLoader(false)
-    //   setSavedTrades([...savedTrades, id])
-    //   props.setMessage("Trade Saved")
-    //   setTimeout(() => {
-    //     props.setMessage("")
-    //   }, 4000);
-    // } else {
-    //   setLoader(false)
-    //   alert("Sorry the trade wasn't saved, we'll look into it")
-    // }
-  }
-
   useEffect(() => {
     if (props.count > 0) {
       getTickers()
@@ -104,16 +63,6 @@ const Plays = props => {
                 <p className="ticker">{ticker[1].inputs["stop"]}</p>
                 <h4 onClick={() => deleteItem(ticker[0])} id="delete" className="ticker">X</h4>
                 <p className="ticker">{ticker[1].setup}</p>
-                {/* {savedTrades.includes(ticker[0]) ? (
-                  <p className="ticker">Saved</p>
-                ) : (
-                  <>
-                    <form id="save-form" onSubmit={saveTrade} onClick={() => setSaveTradeId(ticker[0])}>
-                      <input required type='float' placeholder="$" name="profit" id="profit"/>
-                      <button id='save-trade'>Save</button>
-                    </form>
-                  </>
-                )} */}
                 {loader === true && (
                   <Dimmer active>
                     <Loader />
