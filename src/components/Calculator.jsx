@@ -115,31 +115,30 @@ const Calculator = props => {
           </form>
         </div>
         { props.count > 0 && (
-          <>
-            <div className="info">
-              <div className="details">
-                <h2 className="details-heading" >Details</h2>
+          <section>
+            <h2>Details</h2>
+            <div className="two-column-grid">
+              <div>
                 <h3>Entry</h3>
                 <h3>Position Size</h3>
-                <h3 id="risk">Stop Price</h3>
-                <h3 id="risk">Stop</h3>
-                <h3>${tradeDetails[2]}</h3>
-                <h3><span id="color"> {tradeDetails[5]}</span></h3>
-                <h3 id="risk">${tradeDetails[3]}</h3>
-                <h3 id="risk">${tradeDetails[0]}</h3>
+                <h3>Stop Price</h3>
+                <h3>Stop</h3>
+                <h3>0.5R Target</h3>
+                <h3>1R Target</h3>
+                <h3>2R Target</h3>
               </div>
-              <div className="targets">
-                <h2 className="result-heading" >Targets</h2>
-                <h3>0.5R Target (1/2)</h3>
-                <h3>1R Target (1/4)</h3>
-                <h3>2R Target (1/4)</h3>
-                <h3 id="green">${tradeDetails[4][0]} <span id="targets">{Math.floor(tradeDetails[4] / 2)} shrs</span></h3>
-                <h3 id="green">${tradeDetails[4][1]} <span id="targets">{Math.floor(tradeDetails[4] / 4)} shrs</span></h3>
-                <h3 id="green">${tradeDetails[4][2]} <span id="targets">{Math.floor(tradeDetails[4] / 4)} shrs</span></h3>
+              <div>
+                <h3>${tradeDetails[2]}</h3>
+                <h3>{tradeDetails[5]}</h3>
+                <h3>${tradeDetails[3]}</h3>
+                <h3>${tradeDetails[0]}</h3>
+                <h3>${tradeDetails[4][0]}</h3>
+                <h3>${tradeDetails[4][1]}</h3>
+                <h3>${tradeDetails[4][2]}</h3>
               </div>
             </div>
             <Plays />
-          </>
+          </section>
         )}
       </div>
     </section>

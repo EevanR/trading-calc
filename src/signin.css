@@ -652,5 +652,23 @@ canvas {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 1rem 1rem;
-  /* min-height: 400px; */
+}
+
+.plays-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 1rem 1rem;
+  overflow: scroll;
+}
+
+.plays-grid::-webkit-scrollbar {
+  display: none;
+}
+
+.plays-grid p {
+  font-size: 14px;
+}
+
+.plays-grid h4 {
+  margin-top: 0rem;
 }
