@@ -128,13 +128,19 @@ const Calculator = props => {
                 <h3>2R Target</h3>
               </div>
               <div>
-                <h3>${tradeDetails[2]}</h3>
-                <h3>{tradeDetails[5]}</h3>
-                <h3>${tradeDetails[3]}</h3>
-                <h3>${tradeDetails[0]}</h3>
-                <h3>${tradeDetails[4][0]}</h3>
-                <h3>${tradeDetails[4][1]}</h3>
-                <h3>${tradeDetails[4][2]}</h3>
+                { tradeDetails[4] !== undefined &&
+                  (
+                    <>
+                      <h3>${tradeDetails[2]}</h3>
+                      <h3>{tradeDetails[5]} shares</h3>
+                      <h3>${tradeDetails[3]}</h3>
+                      <h3>${tradeDetails[0]}</h3>
+                      <h3>${tradeDetails[4][0]}</h3>
+                      <h3>${tradeDetails[4][1]}</h3>
+                      <h3>${tradeDetails[4][2]}</h3>
+                    </>
+                  )
+                }
               </div>
             </div>
             <Plays />

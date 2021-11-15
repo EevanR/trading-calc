@@ -667,8 +667,10 @@ canvas {
 
 .plays-grid p {
   font-size: 14px;
+  color: grey;
 }
 
 .plays-grid h4 {
   margin-top: 0rem;
+  color: grey;
 }

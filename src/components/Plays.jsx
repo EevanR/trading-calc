@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { sendTrade, getQuote, getProfile } from "../modules/trades";
 import { connect } from "react-redux";
-import { Dimmer, Loader } from 'semantic-ui-react'
 
 const Plays = props => {
   const [tickers, setTickers] = useState(null)
-  const [saveTradeId, setSaveTradeId] = useState(null)
-  const [savedTrades, setSavedTrades] = useState([])
-  const [loader, setLoader] = useState(false)
 
   const getTickers = () => {
     let storage = JSON.parse(sessionStorage.getItem('tickers'))
@@ -30,7 +25,7 @@ const Plays = props => {
     if (props.count > 0) {
       getTickers()
     }
-  }, [props.count, props.message, savedTrades])
+  }, [props.count, props.message])
 
   return (
     <>
@@ -59,11 +54,6 @@ const Plays = props => {
               <p>{ticker[1].inputs["stop"]}</p>
               <p>{ticker[1].setup}</p>
               <h4 onClick={() => deleteItem(ticker[0])} id="delete" className="ticker">X</h4>
-              {loader === true && (
-                <Dimmer active>
-                  <Loader />
-                </Dimmer>
-              )}
             </>
             )
           })
