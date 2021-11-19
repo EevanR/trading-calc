@@ -148,12 +148,12 @@ const Setups = (props) => {
   }
 
   return (
-    <>
+    <section className="container strats-tab" id="graphs">
       <h2>Strategies</h2>
       <div>
         {editStrat === true ? <h4>Edit Strategy "{editInfo[0]}"</h4> : <h4>Add New Strategy</h4> }
         <form id="main-form" onSubmit={submit}>
-          <div className="fields">
+          <div className="fields strategies-fileds">
             <div className="field">
               <label>Strategy Name</label>
               <input
@@ -298,7 +298,7 @@ const Setups = (props) => {
           </div>
         </>
       }
-    </>
+    </section>
   )
 }
 

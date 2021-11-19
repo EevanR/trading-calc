@@ -50,7 +50,7 @@ const CommissionsChart = props => {
       position: 'top',
       labels: {
         fontColor: "darkgrey",
-        fontSize: 16,
+        fontSize: 16
       }
     }
   }
