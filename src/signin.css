@@ -651,7 +651,8 @@ canvas {
 .two-column-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 1rem 1rem;
+  grid-template-rows: auto;
+  grid-gap: 0.5rem 1rem;
 }
 
 .plays-grid {
@@ -691,6 +692,25 @@ section.container.strategies {
   padding-top: 1rem;
 }
 
-.strats-tab h2, h4, label {
+.strats-tab {
   color: rgb(8,43,66);
+}
+
+.gap-stats div div:first-of-type {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+#testTicker {
+  width: 70%;
+  margin-bottom: 1rem;
+}
+
+.right-align {
+  text-align: right;
+}
+
+.gap-stats h4{
+  margin: 0.5rem 1rem;
 }

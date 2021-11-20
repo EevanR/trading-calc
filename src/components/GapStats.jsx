@@ -3,6 +3,7 @@ import { getGapData } from "../modules/backtest";
 import { Line } from 'react-chartjs-2';
 import { connect } from "react-redux";
 import Papa from 'papaparse';
+import { Form, Button } from 'semantic-ui-react'
 
 const GapStats = props => {
   const [intraPrices, setIntraPrices] = useState([[], [], []])
@@ -268,59 +269,50 @@ const GapStats = props => {
     }))
   }
 
-  let statLabels = (
-      <div>
-        <h4>Gaps Above 20%:</h4>
-        <h4>Avg gap:</h4>
-        <h4>Avg GapUp Spike Above Open:</h4>
-        <h4>Gap Up Closes Above Open:</h4>
-        <h4>Avg % close Above Open:</h4>
-        <h4>Avg % close Below Open:</h4>
-        <h4>Avg Gapper Range (Low to High):</h4>
-        <h4>Day 2 Gap up Count:</h4>
-        <h4>Day 2 Gap Down Count:</h4>
-        <h4>Day 2 Avg Gap up:</h4>
-        <h4>Day 2 Avg Gap Down:</h4>
-      </div>
-  )
-
   return (
-    <section className="bg-primary tab" id="graphs">
-      <div className="container">
+    <section className="bg-primary tab gap-stats" id="graphs">
+      <div>
         <div>
           <h2>Historic Gap Stats</h2>
-          <h4 style={{marginBottom: "40px"}}>Recent Gap Chart {chartDate} (5min)</h4>
-          <form onSubmit={runTest}>
-            <label>Ticker</label>
-            <input required type='text' name="testTicker" id="testTicker"/>
-            <button id="loadChart" type="submit">Display Chart</button>
-          </form>
+          <h4>Recent Gap Chart {chartDate} (5min)</h4>
+          <Form onSubmit={runTest}>
+            <input placeholder="Ticker" required type='text' name="testTicker" id="testTicker"/>
+            <button className="ui button" id="loadChart" type="submit">Find Stats</button>
+          </Form>
         </div>
-        <div className="backtest-chart">
+        <div>
           <Line 
             data = {lineData}
             options = {lineOptions}
-            height={500}
+            height={450}
           />
         </div>
-        <h3 style={{marginBottom: "20px"}}>Stats {chartTicker}</h3>
-        <div id="gap-stats">
+        <h2>Stats {chartTicker}</h2>
+        <div>
           {gapStats.length !== {} && (
-            <div className="currentShow">
-              {statLabels}
-              <div>
+            <div className="two-column-grid gap-stats">
+                <h4 className="right-align">Gaps Above 20%:</h4>
                 <h4> {gapStats["gapCount"]}</h4>
+                <h4 className="right-align">Avg gap:</h4>
                 <h4> {gapStats["avgGapPercent"]}%</h4>
+                <h4 className="right-align">Avg GapUp Spike Above Open:</h4>
                 <h4> {gapStats["avgSpike"]}%</h4>
+                <h4 className="right-align">Gap Up Closes Above Open:</h4>
                 <h4 id={gapStats["closesAboveOpenCount"] < (gapStats["gapCount"]/2) ? "backtest-red" : ""}> {gapStats["closesAboveOpenCount"]} / {((gapStats["closesAboveOpenCount"]/gapStats["gapCount"])*100).toFixed(2)}%</h4>
+                <h4 className="right-align">Avg % close Above Open:</h4>
                 <h4> +{gapStats["closeAboveOpen"]}%</h4>
+                <h4 className="right-align">Avg % close Below Open:</h4>
                 <h4 id="backtest-red"> {gapStats["closeBelowOpen"]}%</h4>
+                <h4 className="right-align">Avg Gapper Range (Low to High):</h4>
                 <h4> ${gapStats["avgRange"]}</h4>
+                <h4 className="right-align">Day 2 Gap up Count:</h4>
                 <h4> {gapStats["day2UpCount"]} / {((gapStats["day2UpCount"]/gapStats["gapCount"])*100).toFixed(2)}%</h4>
+                <h4 className="right-align">Day 2 Gap Down Count:</h4>
                 <h4> {gapStats["day2DownCount"]}</h4>
+                <h4 className="right-align">Day 2 Avg Gap up:</h4>
                 <h4>{gapStats["day2AvgUp"]}%</h4>
+                <h4 className="right-align">Day 2 Avg Gap Down:</h4>
                 <h4>{gapStats["day2AvgDown"]}%</h4>
-              </div>
             </div>
             )} 
           <div className="gapShow">     
@@ -329,7 +321,6 @@ const GapStats = props => {
             </div>
             {gapSearchShow !== null && (
               <>
-                {statLabels}
                 <div>
                   <h4>{gapSearchShow[1]["gapCount"]}</h4>
                   <h4>{gapSearchShow[1]["avgGapPercent"]}%</h4>
