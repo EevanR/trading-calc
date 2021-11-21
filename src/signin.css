@@ -653,6 +653,7 @@ canvas {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto;
   grid-gap: 0.5rem 1rem;
+  margin-bottom: 1rem;
 }
 
 .plays-grid {
@@ -696,10 +697,12 @@ section.container.strategies {
   color: rgb(8,43,66);
 }
 
+/* GAP STATS TAB */
+
 .gap-stats div div:first-of-type {
   width: 100%;
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
 }
 
 #testTicker {
@@ -712,5 +715,33 @@ section.container.strategies {
 }
 
 .gap-stats h4{
-  margin: 0.5rem 1rem;
+  margin: 1rem;
+}
+
+.gap-show-stats.two-column-grid {
+  grid-template-columns: 10rem 1fr;
+  grid-gap: 0rem 0rem;
+  overflow: scroll;
+}
+
+.gap-stats.two-column-grid h4, .gap-show-stats.two-column-grid h4 {
+  margin: 0.2rem 0.5rem;
+}
+
+.two-column-grid.gap-show {
+  grid-template-columns: 15rem 8rem;
+}
+
+#gap-show-arrow {
+  margin-top: -0.1rem;
+}
+
+.gap-show-stats::-webkit-scrollbar {
+  display: none;
+}
+
+.two-column-grid.gap-stats {
+  border-bottom: 1px solid rgba(211, 211, 211, 0.2);
+  border-top: 1px solid rgba(211, 211, 211, 0.2);
+  padding: 1rem;
 }
