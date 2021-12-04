@@ -243,6 +243,7 @@ const GapStats = props => {
   }
 
   const showStats = (gapEntry) => {
+    debugger
     props.gapSearches.forEach(item => {
       if (item[0] === gapEntry) {
         setGapSearchShow(item)
@@ -288,7 +289,7 @@ const GapStats = props => {
             height={450}
           />
         </div>
-        {chartTicker !== "" && (
+        {chartTicker !== "" && gapStats["gapCount"] !== undefined && (
           <>
             <h2>Stats {chartTicker}</h2>
             <div className="two-column-grid gap-stats">
