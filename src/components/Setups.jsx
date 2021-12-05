@@ -150,11 +150,11 @@ const Setups = (props) => {
   return (
     <section className="container strats-tab" id="graphs">
       <h2>Strategies</h2>
-      <div>
+      <div className="ui form">
         {editStrat === true ? <h4>Edit Strategy "{editInfo[0]}"</h4> : <h4>Add New Strategy</h4> }
         <form id="main-form" onSubmit={submit}>
-          <div className="fields strategies-fileds">
-            <div className="field">
+          <div>
+            <div>
               <label>Strategy Name</label>
               <input
                 type="text"
@@ -164,7 +164,7 @@ const Setups = (props) => {
                 onClick= {clickHandler}
               />
             </div>
-            <div className="field">
+            <div>
               <label>Condition</label>
               <input
                 type="text"
@@ -174,7 +174,7 @@ const Setups = (props) => {
                 onClick= {clickHandler}
               />
             </div>
-            <div className="field">
+            <div>
               <label>Condition</label>
               <input
                 type="text"
@@ -184,7 +184,7 @@ const Setups = (props) => {
                 onClick= {clickHandler}
               />
             </div>
-            <div className="field">
+            <div>
               <label>Condition</label>
               <input
                 type="text"
@@ -194,7 +194,7 @@ const Setups = (props) => {
                 onClick= {clickHandler}
               />
             </div>
-            <div className="field">
+            <div>
               <label>Condition</label>
               <input
                 type="text"
@@ -204,7 +204,7 @@ const Setups = (props) => {
                 onClick= {clickHandler}
               />
             </div>
-            <div className="field">
+            <div>
               <label>Condition</label>
               <input
                 type="text"
@@ -214,7 +214,7 @@ const Setups = (props) => {
                 onClick= {clickHandler}
               />
             </div>
-            <div className="field">
+            <div>
               <label>Condition</label>
               <input
                 type="text"
@@ -224,7 +224,7 @@ const Setups = (props) => {
                 onClick= {clickHandler}
               />
             </div>
-            <div className="field">
+            <div>
               <label>Condition</label>
               <input
                 type="text"
@@ -234,7 +234,7 @@ const Setups = (props) => {
                 onClick= {clickHandler}
               />
             </div>
-            <div className="field">
+            <div>
               <label>Condition</label>
               <input
                 type="text"
@@ -244,7 +244,7 @@ const Setups = (props) => {
                 onClick= {clickHandler}
               />
             </div>
-            <div className="field">
+            <div>
               <label>Condition</label>
               <input
                 type="text"
@@ -254,7 +254,7 @@ const Setups = (props) => {
                 onClick= {clickHandler}
               />
             </div>
-            <div className="field">
+            <div>
               <label>Condition</label>
               <input
                 type="text"
@@ -266,8 +266,8 @@ const Setups = (props) => {
             </div>
           </div>
           {editStrat === false ? 
-            <button id='create-strategy'>Create Strategy</button> :
-            <button id='edit-strategy'>Save Edit</button> }
+            <button className="ui button" id='create-strategy'>Create Strategy</button> :
+            <button className="ui button" id='edit-strategy'>Save Edit</button> }
         </form>
         { editStrat === true && 
           <button id='cancle-eidt'
@@ -275,7 +275,7 @@ const Setups = (props) => {
           >Cancel</button>
         }
       </div>
-      <h3 id='result-message'>{message}</h3>
+      <h3 className='message-alert'>{message}</h3>
       {editStrat === false &&
         <>
           <h2>Saved Strategies</h2>

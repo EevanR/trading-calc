@@ -64,6 +64,10 @@ img {
   text-align: center;
 }
 
+.message-alert {
+  margin: 1rem 1rem;
+}
+
 header,
 section {
   padding: 4rem 0;
