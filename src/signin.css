@@ -683,22 +683,50 @@ canvas {
 
 /* Strategies tab */
 
-.strategies-fileds input {
-  position: absolute;
-  right: 3rem;
-}
-
-.strategies-fileds .field {
-  padding: 0rem 2rem;
-  margin-bottom: 1rem;
-}
-
-section.container.strategies {
-  padding-top: 1rem;
+.strats-form div div input {
+  margin-bottom: 1rem!important;
 }
 
 .strats-tab {
   color: rgb(8,43,66);
+  padding-bottom: 2rem;
+}
+
+.strats-tab h2, 
+.strats-tab h4, 
+.carousel h4,
+.carousel h2 {
+  color: rgb(8,43,66);
+}
+
+.pre-reqs p {
+  font-size: 14px;
+  text-align: left;
+}
+
+.pre-reqs {
+  margin-top: 0.5rem;
+  border-top: 1px solid lightgrey;
+  padding-top: 1rem;
+}
+
+.ui.button.reqs {
+  font-family: 'Montserrat';
+  margin-right: 1rem;
+  font-size: 12px;
+  padding: 0.5rem 1rem;
+}
+
+.carousel {
+  padding: 2rem 1rem 2rem 1rem;
+}
+
+#strats-alert {
+  color: green;
+}
+
+.ui.circular.button {
+  background-color: rgba(68, 105, 129, 0.541);
 }
 
 /* GAP STATS TAB */
@@ -748,4 +776,8 @@ section.container.strategies {
   border-bottom: 1px solid rgba(211, 211, 211, 0.2);
   border-top: 1px solid rgba(211, 211, 211, 0.2);
   padding: 1rem;
+}
+
+.footer {
+  padding-bottom: 2rem;
 }

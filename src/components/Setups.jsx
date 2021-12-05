@@ -9,7 +9,6 @@ const Setups = (props) => {
   const [editStrat, setEditStrat] = useState(false)
   const [editInfo, setEditInfo] = useState([])
   const [activeItemIndex, setActiveItemIndex] = useState(0);
-  const chevronWidth = 40;
   const [editReqs, setEditReqs] = useState({})
 
   const submit = (e) => {
@@ -131,15 +130,15 @@ const Setups = (props) => {
       }
       preReqs = preReqArray.map(req => {
         return (
-          <p>{req}</p>
+          <p>&#8226; {req}</p>
         )
       })
       return (
         <div id={`setup${strategy.id}`}>
           <h4>{strategy.name}</h4>
-          {preReqs}
-          <button id={strategy.id} onClick={() => deleteStrat(strategy.id, strategy.name)}>Delete</button>
-          <button id={`edit${strategy.id}`} onClick={() => editSetup(strategy.id, strategy.name)}>Edit</button>
+          <button className="ui button reqs" id={strategy.id} onClick={() => deleteStrat(strategy.id, strategy.name)}>Delete</button>
+          <button className="ui button reqs" id={`edit${strategy.id}`} onClick={() => editSetup(strategy.id, strategy.name)}>Edit</button>
+          <div className="pre-reqs">{preReqs}</div>
         </div>
       )
     })
@@ -148,157 +147,162 @@ const Setups = (props) => {
   }
 
   return (
-    <section className="container strats-tab" id="graphs">
-      <h2>Strategies</h2>
-      <div className="ui form">
-        {editStrat === true ? <h4>Edit Strategy "{editInfo[0]}"</h4> : <h4>Add New Strategy</h4> }
-        <form id="main-form" onSubmit={submit}>
-          <div>
+    <>
+      <section className="container strats-tab" id="graphs">
+        <h2>Strategies</h2>
+        <div className="ui form">
+          {editStrat === true ? <h4>Edit Strategy "{editInfo[0]}"</h4> : <h4>Add New Strategy</h4> }
+          <form className="strats-form" onSubmit={submit}>
             <div>
-              <label>Strategy Name</label>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                value = {editReqs.name}
-                onClick= {clickHandler}
-              />
+              <div>
+                <label>Strategy Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  value = {editReqs.name}
+                  onClick= {clickHandler}
+                />
+              </div>
+              <div>
+                <label>Condition</label>
+                <input
+                  type="text"
+                  name="req1"
+                  id="req1"
+                  value = {editReqs.req1}
+                  onClick= {clickHandler}
+                />
+              </div>
+              <div>
+                <label>Condition</label>
+                <input
+                  type="text"
+                  name="req2"
+                  id="req2"
+                  value = {editReqs.req2}
+                  onClick= {clickHandler}
+                />
+              </div>
+              <div>
+                <label>Condition</label>
+                <input
+                  type="text"
+                  name="req3"
+                  id="req3"
+                  value = {editReqs.req3}
+                  onClick= {clickHandler}
+                />
+              </div>
+              <div>
+                <label>Condition</label>
+                <input
+                  type="text"
+                  name="req4"
+                  id="req4"
+                  value = {editReqs.req4}
+                  onClick= {clickHandler}
+                />
+              </div>
+              <div>
+                <label>Condition</label>
+                <input
+                  type="text"
+                  name="req5"
+                  id="req5"
+                  value = {editReqs.req5}
+                  onClick= {clickHandler}
+                />
+              </div>
+              <div>
+                <label>Condition</label>
+                <input
+                  type="text"
+                  name="req6"
+                  id="req6"
+                  value = {editReqs.req6}
+                  onClick= {clickHandler}
+                />
+              </div>
+              <div>
+                <label>Condition</label>
+                <input
+                  type="text"
+                  name="req7"
+                  id="req7"
+                  value = {editReqs.req7}
+                  onClick= {clickHandler}
+                />
+              </div>
+              <div>
+                <label>Condition</label>
+                <input
+                  type="text"
+                  name="req8"
+                  id="req8"
+                  value = {editReqs.req8}
+                  onClick= {clickHandler}
+                />
+              </div>
+              <div>
+                <label>Condition</label>
+                <input
+                  type="text"
+                  name="req9"
+                  id="req9"
+                  value = {editReqs.req9}
+                  onClick= {clickHandler}
+                />
+              </div>
+              <div>
+                <label>Condition</label>
+                <input
+                  type="text"
+                  name="req10"
+                  id="req10"
+                  value = {editReqs.req10}
+                  onClick= {clickHandler}
+                />
+              </div>
             </div>
-            <div>
-              <label>Condition</label>
-              <input
-                type="text"
-                name="req1"
-                id="req1"
-                value = {editReqs.req1}
-                onClick= {clickHandler}
-              />
-            </div>
-            <div>
-              <label>Condition</label>
-              <input
-                type="text"
-                name="req2"
-                id="req2"
-                value = {editReqs.req2}
-                onClick= {clickHandler}
-              />
-            </div>
-            <div>
-              <label>Condition</label>
-              <input
-                type="text"
-                name="req3"
-                id="req3"
-                value = {editReqs.req3}
-                onClick= {clickHandler}
-              />
-            </div>
-            <div>
-              <label>Condition</label>
-              <input
-                type="text"
-                name="req4"
-                id="req4"
-                value = {editReqs.req4}
-                onClick= {clickHandler}
-              />
-            </div>
-            <div>
-              <label>Condition</label>
-              <input
-                type="text"
-                name="req5"
-                id="req5"
-                value = {editReqs.req5}
-                onClick= {clickHandler}
-              />
-            </div>
-            <div>
-              <label>Condition</label>
-              <input
-                type="text"
-                name="req6"
-                id="req6"
-                value = {editReqs.req6}
-                onClick= {clickHandler}
-              />
-            </div>
-            <div>
-              <label>Condition</label>
-              <input
-                type="text"
-                name="req7"
-                id="req7"
-                value = {editReqs.req7}
-                onClick= {clickHandler}
-              />
-            </div>
-            <div>
-              <label>Condition</label>
-              <input
-                type="text"
-                name="req8"
-                id="req8"
-                value = {editReqs.req8}
-                onClick= {clickHandler}
-              />
-            </div>
-            <div>
-              <label>Condition</label>
-              <input
-                type="text"
-                name="req9"
-                id="req9"
-                value = {editReqs.req9}
-                onClick= {clickHandler}
-              />
-            </div>
-            <div>
-              <label>Condition</label>
-              <input
-                type="text"
-                name="req10"
-                id="req10"
-                value = {editReqs.req10}
-                onClick= {clickHandler}
-              />
-            </div>
-          </div>
-          {editStrat === false ? 
-            <button className="ui button" id='create-strategy'>Create Strategy</button> :
-            <button className="ui button" id='edit-strategy'>Save Edit</button> }
-        </form>
-        { editStrat === true && 
-          <button id='cancle-eidt'
-            onClick={() => cancleEdit()}
-          >Cancel</button>
-        }
-      </div>
-      <h3 className='message-alert'>{message}</h3>
+            {editStrat === false ? 
+              <button className="ui button">Create Strategy</button> :
+              <button className="ui button">Save Edit</button> }
+          </form>
+          { editStrat === true && 
+            <button id='cancle-eidt'
+              onClick={() => cancleEdit()}
+            >Cancel</button>
+          }
+        </div>
+        <h4 id='strats-alert'>{message}</h4>
+      </section>
       {editStrat === false &&
-        <>
-          <h2>Saved Strategies</h2>
-          <div className="carousel" >
-            <ItemsCarousel
-              requestToChangeActive={setActiveItemIndex}
-              activeItemIndex={activeItemIndex}
-              numberOfCards={2.5}
-              gutter={5}
-              leftChevron={
-                <Button circular icon='angle left' />
-              }
-              rightChevron={
-                <Button circular icon='angle right'/>
-              }
-              chevronWidth={chevronWidth}
-            >
-              {savedStrategies}
-            </ItemsCarousel>
-          </div>
-        </>
+      <section className="carousel bg-ivory" >
+        <h2>Saved Strategies</h2>
+        <div>
+          <ItemsCarousel
+            requestToChangeActive={setActiveItemIndex}
+            activeItemIndex={activeItemIndex}
+            numberOfCards={2}
+            gutter={20}
+            leftChevron={
+              <Button circular icon='angle left' />
+            }
+            rightChevron={
+              <Button circular icon='angle right'/>
+            }
+            chevronWidth={40}
+          >
+            {savedStrategies}
+          </ItemsCarousel>
+        </div>
+      </section>
       }
-    </section>
+      <section className="footer bg-primary">
+
+      </section>
+    </>
   )
 }
 
