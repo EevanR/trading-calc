@@ -135,23 +135,28 @@ const ProfitChart = props => {
   }, [props.savedTrades, grossNet])  // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <section className="bg-primary tab" id="graphs">
-      <div>
-        <h2>Profit Chart & Fees</h2>
-        <h3><a onClick={() => setGrossNet("GrossProfit")}>Gross</a> || <a onClick={() => setGrossNet("NetProfit")}>Net</a></h3>
-        <h4>Cumulative {grossNet} PnL Growth</h4>
+    <>
+      <section className="bg-primary tab" id="graphs">
         <div>
-          <Line 
-            data = {lineData}
-            options = {lineOptions}
-            height={400}
-          />
+          <h2>Profit Chart & Fees</h2>
+          <h3><a onClick={() => setGrossNet("GrossProfit")}>Gross</a> || <a onClick={() => setGrossNet("NetProfit")}>Net</a></h3>
+          <h4>Cumulative {grossNet} PnL Growth</h4>
+          <div>
+            <Line 
+              data = {lineData}
+              options = {lineOptions}
+              height={400}
+            />
+          </div>
         </div>
-      </div>
-      <CommissionsChart commissions={commissionsTotal} netProfit={profit} grossNet={grossNet} />
-      <DayOfWeekCharts barData={barData} />
-      <HourlyChart times={timeSegments} grossNet={grossNet}/>
-    </section>
+        <CommissionsChart commissions={commissionsTotal} netProfit={profit} grossNet={grossNet} />
+        <DayOfWeekCharts barData={barData} />
+        <HourlyChart times={timeSegments} grossNet={grossNet}/>
+      </section>
+      <section className="footer bg-secondary">
+  
+      </section>
+    </>
   )
 }
 

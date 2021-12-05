@@ -299,7 +299,7 @@ const Setups = (props) => {
         </div>
       </section>
       }
-      <section className="footer bg-primary">
+      <section className="footer bg-secondary">
 
       </section>
     </>
