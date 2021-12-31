@@ -100,12 +100,12 @@ const GapStats = props => {
     }
 
     const tickerDataReceived = () => {
-      for (let i=1; i < newArray.length; i++) {
+      for (let i=1122; i < newArray.length; i++) {
         let variables = {
           open: Number(newArray[i][1]["1. open"]),
           currentDayClose:  Number(newArray[i][1]["4. close"]),
           highOfDay: Number(newArray[i][1]["2. high"]),
-          volume: Number(newArray[i][1]["6. volume"]),
+          volume: Number(newArray[i][1]["5. volume"]),
           previousDayClose: Number(newArray[i-1][1]["4. close"])
         }
         variables['gapPercent'] = ((variables.open - variables.previousDayClose)/variables.previousDayClose)*100

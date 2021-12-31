@@ -589,7 +589,7 @@ Button#submit.ui.button {
 }
 
 .breakdown {
-  padding: 0rem 0;
+  padding: 0rem 0rem;
 }
 
 .breakdown h2 {
@@ -608,6 +608,7 @@ canvas {
   .panes .ui.attached:not(.message)+.ui.attached.segment:not(.top) {
     overflow: visible;
     border: none;
+    padding: 0;
   }
 
   .panes .ui.tabular.menu .active.item {
