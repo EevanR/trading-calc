@@ -620,6 +620,11 @@ canvas {
     border-bottom: 1px solid lightblue;
   }
 
+  .panes img {
+    width: 80%;
+    margin: auto;
+  }
+
   .chartSmall {
     height: 20rem;
     margin: 2rem 0;
