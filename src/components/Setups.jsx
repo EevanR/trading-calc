@@ -279,23 +279,25 @@ const Setups = (props) => {
       </section>
       {editStrat === false &&
       <section className="carousel bg-ivory" >
-        <h2>Saved Strategies</h2>
-        <div>
-          <ItemsCarousel
-            requestToChangeActive={setActiveItemIndex}
-            activeItemIndex={activeItemIndex}
-            numberOfCards={2}
-            gutter={20}
-            leftChevron={
-              <Button circular icon='angle left' />
-            }
-            rightChevron={
-              <Button circular icon='angle right'/>
-            }
-            chevronWidth={40}
-          >
-            {savedStrategies}
-          </ItemsCarousel>
+        <div className="container">
+          <h2>Saved Strategies</h2>
+          <div>
+            <ItemsCarousel
+              requestToChangeActive={setActiveItemIndex}
+              activeItemIndex={activeItemIndex}
+              numberOfCards={2}
+              gutter={20}
+              leftChevron={
+                <Button circular icon='angle left' />
+              }
+              rightChevron={
+                <Button circular icon='angle right'/>
+              }
+              chevronWidth={40}
+            >
+              {savedStrategies}
+            </ItemsCarousel>
+          </div>
         </div>
       </section>
       }
