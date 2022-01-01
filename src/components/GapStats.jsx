@@ -57,9 +57,9 @@ const GapStats = props => {
           pricesTimes['VWAP'].push(pv/cumulatieVolume)
 
           //SMA CALCULATION
-          smaArray.length < 24 && smaArray.push(Number(newArray[i][4]))
-          if (smaArray.length === 24) {
-            let value = (smaArray.reduce((a, b) => a + b, 0))/24
+          smaArray.length < 50 && smaArray.push(Number(newArray[i][4]))
+          if (smaArray.length === 50) {
+            let value = (smaArray.reduce((a, b) => a + b, 0))/50
             pricesTimes['SMA'].push(value)
             smaArray.shift()
           } else {
@@ -207,7 +207,7 @@ const GapStats = props => {
       },
       {
         type: "line",
-        label: "24SMA",
+        label: "50SMA",
         fill: false,
         lineTension: 0.1,
         borderColor: 'rgb(0, 0, 255)',
