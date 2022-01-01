@@ -171,7 +171,7 @@ header .big.ui.button {
   background-position: right 5% bottom -180px;
 }
 
-.-bg {
+.line-chart-bg {
   background-image: url("../src/screenshots/line-extra-faint.png");
   background-size: 80%;
   background-repeat: no-repeat;
