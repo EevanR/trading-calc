@@ -604,6 +604,11 @@ canvas {
   padding-top: 2rem;
 }
 
+.chartSmall {
+  height: 15rem;
+  margin: 0rem 0;
+}
+
 @media (min-width: 40em) {
   .panes .ui.attached:not(.message)+.ui.attached.segment:not(.top) {
     overflow: visible;
@@ -616,13 +621,9 @@ canvas {
   }
 
   .chartSmall {
-    width: 5%;
+    height: 20rem;
+    margin: 2rem 0;
   }
-}
-
-.chartSmall {
-  height: 20rem;
-  margin: 1rem 0;
 }
 
 .ui.segment {

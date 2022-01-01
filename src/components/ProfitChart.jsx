@@ -146,7 +146,7 @@ const ProfitChart = props => {
               <Line 
                 data = {lineData}
                 options = {lineOptions}
-                height={400}
+                height={500}
               />
             </div>
           </div>
