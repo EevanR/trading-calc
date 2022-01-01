@@ -137,21 +137,23 @@ const ProfitChart = props => {
   return (
     <>
       <section className="bg-primary tab" id="graphs">
-        <div>
-          <h2>Profit Chart & Fees</h2>
-          <h3><a onClick={() => setGrossNet("GrossProfit")}>Gross</a> || <a onClick={() => setGrossNet("NetProfit")}>Net</a></h3>
-          <h4>Cumulative {grossNet} PnL Growth</h4>
+        <div className="container-wide">
           <div>
-            <Line 
-              data = {lineData}
-              options = {lineOptions}
-              height={400}
-            />
+            <h2>Profit Chart & Fees</h2>
+            <h3><a onClick={() => setGrossNet("GrossProfit")}>Gross</a> || <a onClick={() => setGrossNet("NetProfit")}>Net</a></h3>
+            <h4>Cumulative {grossNet} PnL Growth</h4>
+            <div>
+              <Line 
+                data = {lineData}
+                options = {lineOptions}
+                height={400}
+              />
+            </div>
           </div>
+          <CommissionsChart commissions={commissionsTotal} netProfit={profit} grossNet={grossNet} />
+          <DayOfWeekCharts barData={barData} />
+          <HourlyChart times={timeSegments} grossNet={grossNet}/>
         </div>
-        <CommissionsChart commissions={commissionsTotal} netProfit={profit} grossNet={grossNet} />
-        <DayOfWeekCharts barData={barData} />
-        <HourlyChart times={timeSegments} grossNet={grossNet}/>
       </section>
       <section className="footer bg-secondary">
   

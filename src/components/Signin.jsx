@@ -165,7 +165,7 @@ const Signin = props => {
 
       <section id="section-1" className="bg-light section-1 line-chart-bg ">
         <div className="container">
-          <h1 className="text-center">Follow your profit curve with the click of one button</h1>
+          <h1 className="text-center">Follow your curve. Keep track of your profits.</h1>
           <div>
             <div>
               <p>Upload years of trade history from any supported broker. We'll read the data and throw it on some easy-to-read graphs for you. Simple.</p>
