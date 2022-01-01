@@ -322,7 +322,7 @@ const GapStats = props => {
           {props.gapSearches !== [] && (
             <>
               <h2>Recent Searches</h2>
-              {gapSearchShow === null && <h4>No Recent Searches</h4>}
+              {gapSearches.length === 0 && <h4>No Recent Searches</h4>}
               <div className="gap-show-stats two-column-grid">  
                 <div>
                   {gapSearches}
