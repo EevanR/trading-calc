@@ -60,6 +60,10 @@ img {
   max-width: 100%;
 }
 
+a {
+  cursor: pointer;
+}
+
 .text-center {
   text-align: center;
 }
@@ -458,6 +462,10 @@ header .big.ui.button {
   background-color: rgba(0, 0, 0, 0.253);
 }
 
+.ui.attached.tabular.menu a:hover {
+  background-color: rgb(153,232,231);
+}
+
 #signup-form {
   width: 90%;
   margin: auto;
@@ -616,12 +624,13 @@ canvas {
     padding: 0;
   }
 
-  .panes .ui.tabular.menu .active.item {
-    border-bottom: 1px solid lightblue;
+  .panes .ui.tabular.menu {
+    margin-left: 2rem;
+    /* border-bottom: 1px solid lightblue; */
   }
 
   .panes img {
-    width: 80%;
+    width: 70%;
     margin: auto;
   }
 
@@ -629,6 +638,7 @@ canvas {
     height: 20rem;
     margin: 2rem 0;
   }
+  
 }
 
 .ui.segment {
