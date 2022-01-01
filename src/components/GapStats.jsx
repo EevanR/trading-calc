@@ -301,7 +301,7 @@ const GapStats = props => {
                 <h4 className="right-align">Avg GapUp Spike Above Open:</h4>
                 <h4> {gapStats["avgSpike"]}%</h4>
                 <h4 className="right-align">Gap Up Closes Above Open:</h4>
-                <h4 id={gapStats["closesAboveOpenCount"] < (gapStats["gapCount"]/2) ? "backtest-red" : ""}> {gapStats["closesAboveOpenCount"]} / {((gapStats["closesAboveOpenCount"]/gapStats["gapCount"])*100).toFixed(2)}%</h4>
+                <h4 id={gapStats["closesAboveOpenCount"] < (gapStats["gapCount"]/2) ? "backtest-red" : ""}> {gapStats["closesAboveOpenCount"]} ({((gapStats["closesAboveOpenCount"]/gapStats["gapCount"])*100).toFixed(2)}%)</h4>
                 <h4 className="right-align">Avg % close Above Open:</h4>
                 <h4> +{gapStats["closeAboveOpen"]}%</h4>
                 <h4 className="right-align">Avg % close Below Open:</h4>
@@ -309,7 +309,7 @@ const GapStats = props => {
                 <h4 className="right-align">Avg Gapper Range (Low to High):</h4>
                 <h4> ${gapStats["avgRange"]}</h4>
                 <h4 className="right-align">Day 2 Gap up Count:</h4>
-                <h4> {gapStats["day2UpCount"]} / {((gapStats["day2UpCount"]/gapStats["gapCount"])*100).toFixed(2)}%</h4>
+                <h4> {gapStats["day2UpCount"]} ({((gapStats["day2UpCount"]/gapStats["gapCount"])*100).toFixed(2)}%)</h4>
                 <h4 className="right-align">Day 2 Gap Down Count:</h4>
                 <h4> {gapStats["day2DownCount"]}</h4>
                 <h4 className="right-align">Day 2 Avg Gap up:</h4>
@@ -336,7 +336,7 @@ const GapStats = props => {
                     <h4 className="right-align">Avg GapUp Spike Above Open:</h4>
                     <h4>{gapSearchShow[1]["avgSpike"]}%</h4>
                     <h4 className="right-align">Gap Up Closes Above Open:</h4> 
-                    <h4>{gapSearchShow[1]["closesAboveOpenCount"]} / {((gapSearchShow[1]["closesAboveOpenCount"]/gapSearchShow[1]["gapCount"])*100).toFixed(2)}%</h4>
+                    <h4>{gapSearchShow[1]["closesAboveOpenCount"]} ({((gapSearchShow[1]["closesAboveOpenCount"]/gapSearchShow[1]["gapCount"])*100).toFixed(2)}%)</h4>
                     <h4 className="right-align">Avg % close Above Open:</h4>
                     <h4>+{gapSearchShow[1]["closeAboveOpen"]}%</h4>
                     <h4 className="right-align">Avg % close Below Open:</h4>
