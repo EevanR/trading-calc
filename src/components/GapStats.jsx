@@ -273,7 +273,7 @@ const GapStats = props => {
   return (
     <>
       <section className="bg-primary tab gap-stats" id="graphs">
-        <div>
+        <div className="container-wide">
           <div>
             <h2>Historic Gap Stats</h2>
             <h4>Recent Gap Chart {chartDate} (5min)</h4>
@@ -286,7 +286,8 @@ const GapStats = props => {
             <Line
               data = {lineData}
               options = {lineOptions}
-              height={450}
+              height={500}
+              width={100}
             />
           </div>
           {chartTicker !== "" && gapStats["gapCount"] !== undefined && (

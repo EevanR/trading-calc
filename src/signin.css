@@ -281,7 +281,7 @@ header .big.ui.button {
 
 .container-wide {
   margin-inline: auto; 
-  width: min(90%, 85rem);
+  width: min(95%, 85rem);
 }
 
 .split {
@@ -434,6 +434,10 @@ header .big.ui.button {
 @media (min-width: 40em) {
   .section-1 h1{
     padding-top: 90px;
+  }
+
+  .section-5 .ui.button {
+    margin: 0 1rem 1rem 1rem;
   }
 }
 
@@ -639,6 +643,12 @@ canvas {
     margin: 2rem 0;
   }
   
+  .excel {
+    width: 50rem;
+    position: relative;
+    margin-inline: auto;
+    background: transparent;
+  }
 }
 
 .ui.segment {
@@ -793,6 +803,22 @@ canvas {
   border-bottom: 1px solid rgba(211, 211, 211, 0.2);
   border-top: 1px solid rgba(211, 211, 211, 0.2);
   padding: 1rem;
+}
+
+#gapStatList {
+  cursor: pointer;
+}
+
+@media (min-width: 40em) {
+  #testTicker {
+    width: 30%;
+    margin: 1rem;
+    border-radius: 10px;
+  }
+
+  #loadChart {
+    margin: 1rem;
+  }
 }
 
 .footer {

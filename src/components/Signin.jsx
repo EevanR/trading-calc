@@ -259,7 +259,7 @@ const Signin = props => {
         </section>
       </div>
 
-      <section id="section-5" className="bg-light section-5">
+      <section className="bg-light section-5">
         <h1>Additional Features</h1>
         <div className="container split">
           <div>
