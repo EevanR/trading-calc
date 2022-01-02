@@ -261,7 +261,7 @@ const Signin = props => {
 
       <section className="container bg-light section-5">
         <h2 className="red-bold">EXTRAS</h2>
-        <h2>GAP STASTITICS</h2>
+        <h1>GAP STASTITICS</h1>
         <div id="section-5" className="container split">
           <div>
             <img src="../images/time.png" alt="mac desktop with charts on screen" />
