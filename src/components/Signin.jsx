@@ -193,11 +193,11 @@ const Signin = props => {
         </div>
       </section>
 
-      <section id="section-2" className="bg-ivory">
+      <section id="section-2" className="section-2 bg-ivory">
         <div className="container">
           <div>
             <div>
-              <h1>Create an account and start uploading. Registration is Free.</h1>
+              <h2>Create an account and start uploading. Registration is Free.</h2>
             </div>
             <div className="text-center">
               <button onClick={() => setSignin(["visible", 4000, 1])} className="big ui button">NEW ACCOUNT</button>
@@ -259,33 +259,26 @@ const Signin = props => {
         </section>
       </div>
 
-      <section className="bg-light section-5">
-        <h1>Additional Features</h1>
-        <div className="container split">
+      <section className="container bg-light section-5">
+        <h2 className="red-bold">EXTRAS</h2>
+        <h2>GAP STASTITICS</h2>
+        <div id="section-5" className="container split">
           <div>
-            <div>
-              <p>STRATEGY JOURNAL / PERFORMANCE</p>
-            </div>
-            <div className="text-center">
-              <p>Coming Soon</p>
-            </div>
+            <img src="../images/time.png" alt="mac desktop with charts on screen" />
           </div>
           <div>
-            <div>
-              <p>GAP STASTITICS</p>
-            </div>
             <div className="text-center">
+              <p>Turn back the clock</p>
+              <p>
+                Probablities genereated from up to 20 years of stock history on a desired ticker. 
+              </p>
             </div>
-              <p>Take advantage of our ticker history scanner. Stastistics gathered from all previous gaps. Displayed as a list of probable outcomes, including possible day 2 probabilities.</p>
           </div>
-        </div>
-        <div className="text-center">
-          <button className="big ui button">Subsciption Details</button>
         </div>
       </section>
 
-      <div>
-        <section className="bg-secondary section-5">
+      <div className="section-6 bg-secondary">
+        <section>
           <div className="container">
           </div>
         </section>

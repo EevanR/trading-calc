@@ -138,7 +138,7 @@ const ProfitChart = props => {
 
   return (
     <>
-      <section className="bg-primary tab" id="graphs">
+      <section className="bg-dark tab" id="graphs">
         <div className="container-wide">
           <div>
             <h2>Profit Chart & Fees</h2>

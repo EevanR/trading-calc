@@ -350,6 +350,16 @@ header .big.ui.button {
   margin-top: 55px;
 }
 
+.section-2 .big.ui.button, .section-5 .big.ui.button {
+  background-color: white;
+  padding: 1.4rem 3rem;
+  color: rgb(12, 54, 82);
+  font-family: 'Montserrat';
+  border-radius: 25px;
+  border: 1px solid black;
+  font-size: 16px;
+}
+
 .big.ui.button:hover {
   background-color: rgb(153,232,231);
 }
@@ -368,7 +378,7 @@ header .big.ui.button {
 
 .white-border {
   position: relative;
-  border: 4px solid rgba(19, 66, 100, 0.74);
+  border: 1px solid rgba(19, 66, 100, 0.74);
   padding: 60px 5% 40px;
   text-align: center;
 }
@@ -393,14 +403,6 @@ header .big.ui.button {
 
 .verticle-centre {
   align-items: center;
-}
-
-.section-5 .ui.button {
-  padding: 15px 30px;
-  font-size: 14px;
-  font-family: 'Montserrat';
-  margin: 0 3rem 1rem 3rem;
-  border-radius: 25px;
 }
 
 @media (min-width: 40em) {
@@ -431,6 +433,11 @@ header .big.ui.button {
   }
 }
 
+.section-5 h1 {
+  color: black;
+  font-family: 'Montserrat-bold';
+}
+
 @media (min-width: 40em) {
   .section-1 h1{
     padding-top: 90px;
@@ -438,6 +445,24 @@ header .big.ui.button {
 
   .section-5 .ui.button {
     margin: 0 1rem 1rem 1rem;
+  }
+
+  #section-5 img {
+    position: relative;
+    max-width: 50rem;
+    left: -10rem;
+    top: -2rem;
+    /* margin: 5rem 1rem; */
+    opacity: 0.8;
+  }
+
+  .section-5 .text-center {
+    position: relative;
+    /* border: 1px solid black; */
+    padding: 3rem 6rem;
+    top: 12rem;
+    left: -25rem;
+    background-color: rgb(241, 241, 241);
   }
 }
 
@@ -546,18 +571,30 @@ Button#submit.ui.button {
   }
 }
 
+.section-6 {
+  height: 500px;
+}
+
 /* PANES ROUTE */
 
 .tab {
   padding: 1rem;
 }
 
-.tab h2, h4 {
+.tab h2 {
   color: lightgrey;
+}
+
+.tab h4 {
+  color: darksalmon;
 }
 
 .excel {
   padding: 1rem 1rem 0 1rem;
+}
+
+.excel .ui.button {
+  margin: 0rem 2rem 0.5rem 2rem;
 }
 
 .panes {
@@ -618,7 +655,7 @@ canvas {
 
 .chartSmall {
   height: 15rem;
-  margin: 0rem 0;
+  margin: 1rem 0;
 }
 
 @media (min-width: 40em) {
@@ -629,8 +666,8 @@ canvas {
   }
 
   .panes .ui.tabular.menu {
-    margin-left: 2rem;
-    /* border-bottom: 1px solid lightblue; */
+    /* margin-left: 2rem; */
+    border-bottom: 1px solid lightblue;
   }
 
   .panes img {
@@ -648,6 +685,10 @@ canvas {
     position: relative;
     margin-inline: auto;
     background: transparent;
+  }
+
+  .excel .ui.button {
+    margin: 1rem;
   }
 }
 
