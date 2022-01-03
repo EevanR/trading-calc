@@ -259,10 +259,10 @@ const Signin = props => {
         </section>
       </div>
 
-      <section className="container bg-light section-5">
+      <section id="section-5" className="container bg-light section-5">
         <h2 className="red-bold">EXTRAS</h2>
         <h1>GAP STASTITICS</h1>
-        <div id="section-5" className="container split">
+        <div className="container split">
           <div>
             <img src="../images/time.png" alt="mac desktop with charts on screen" />
           </div>
@@ -277,18 +277,26 @@ const Signin = props => {
         </div>
       </section>
 
-      <div className="section-6 bg-secondary">
-        <section>
-          <div className="container">
+      <section className="section-6 bg-secondary">
+        <div className="container-wide">
+          <div className="four-column-grid">
+            <div>
+              <img src="/TradeLogs.png"  alt="TradeLogs Logo"/>
+            </div>
+            <div>
+            </div>
+            <div>
+              <h4>ABOUT US</h4>
+              <p>FAQ</p>
+              <p>HOW TO</p>
+              <p>PRIVACY POLICY</p>
+            </div>
+            <div>
+              <h4>CONTACT</h4>
+            </div>
           </div>
-        </section>
-      </div>
-
-      {/* <section className="bg-ivory">
-        <div>
-          footer
         </div>
-      </section> */}
+      </section>
     </>
   )
 }

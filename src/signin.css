@@ -451,13 +451,11 @@ header .big.ui.button {
     max-width: 50rem;
     left: -10rem;
     top: -2rem;
-    /* margin: 5rem 1rem; */
     opacity: 0.8;
   }
 
   .section-5 .text-center {
     position: relative;
-    /* border: 1px solid black; */
     padding: 3rem 6rem;
     top: 12rem;
     left: -25rem;
@@ -570,8 +568,25 @@ Button#submit.ui.button {
   }
 }
 
-.section-6 {
-  height: 500px;
+.section-6 .four-column-grid {
+  color: lightgrey;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-gap: 0.5rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.section-6 p, .section-6 h4 {
+  text-align: left;
+}
+
+.section-6 h4 {
+  text-decoration: underline;
+}
+
+.section-6 p {
+  font-size: 12px;
 }
 
 /* PANES ROUTE */
