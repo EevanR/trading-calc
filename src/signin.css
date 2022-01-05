@@ -571,22 +571,40 @@ Button#submit.ui.button {
 .section-6 .four-column-grid {
   color: lightgrey;
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
   grid-template-rows: auto;
   grid-gap: 0.5rem 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 15rem;
 }
 
 .section-6 p, .section-6 h4 {
   text-align: left;
+  line-height: 2.5;
 }
 
 .section-6 h4 {
-  text-decoration: underline;
+  font-family: "Montserrat-bold";
 }
 
 .section-6 p {
   font-size: 12px;
+}
+
+#copyright {
+  margin-left: 10%;
+  color: grey;
+}
+
+#copyright i {
+  font-size: 38px;
+  margin-bottom: 2rem;
+}
+
+.section-6 #logo {
+  position: relative;
+  top: -2rem;
+  left: -3.5rem;
+  max-width: 35rem;
 }
 
 /* PANES ROUTE */

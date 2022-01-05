@@ -281,20 +281,29 @@ const Signin = props => {
         <div className="container-wide">
           <div className="four-column-grid">
             <div>
-              <img src="/TradeLogs.png"  alt="TradeLogs Logo"/>
+              <img id="logo" src="/TradeLogs.png"  alt="TradeLogs Logo"/>
             </div>
             <div>
             </div>
             <div>
               <h4>ABOUT US</h4>
+              <p>TERMS OF SERVICE</p>
               <p>FAQ</p>
-              <p>HOW TO</p>
               <p>PRIVACY POLICY</p>
             </div>
             <div>
-              <h4>CONTACT</h4>
+              <h4>QUICK LINKS</h4>
+              <p>HOW TO</p>
+            </div>
+            <div>
+              <h4>CONNECT</h4>
+              <p>CONTACT US</p>
             </div>
           </div>
+        </div>
+        <div id="copyright">
+          <i className="envelope outline icon"></i>
+          <p >Copyright © TradeLogs 2022. All rights reserved.</p>
         </div>
       </section>
     </>
