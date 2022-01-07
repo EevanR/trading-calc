@@ -11,11 +11,10 @@ Cypress.Commands.add("login", () => {
     status: 200,
     delay: 1000
   });
-  cy.get("#signin-form").within(() => {
-    cy.get("#email").type("trader@mail.com");
-    cy.get("#password").type("password");
-    cy.get("#submit").click();
-  })
+  cy.contains("Sign In").click()
+  cy.get("#email").type("trader@mail.com");
+  cy.get("#password").type("password");
+  cy.get("#submit").click();
 });
 
 Cypress.Commands.add("requests", () => {

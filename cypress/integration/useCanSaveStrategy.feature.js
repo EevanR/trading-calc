@@ -15,11 +15,11 @@ describe("User can save strategy", () => {
     })
 
     cy.contains("Strategies").click();
-    cy.get("#main-form").within(() => {
+    cy.get(".strats-form").within(() => {
       cy.get("#name").type("Strategy 1");
       cy.get("#req1").type("Stock in play");
       cy.get("#req2").type("Strong relative volume");
-      cy.get("#create-strategy").click();
+      cy.contains("Create Strategy").click();
     })
 
     cy.get("#result-message").should("contain", "Strategy 1 added Successfully")
@@ -32,9 +32,9 @@ describe("User can save strategy", () => {
       response: "fixture:failed_saved_strategy.json",
       status: 422
     })
-    cy.get("#main-form").within(() => {
+    cy.get(".strats-form").within(() => {
       cy.get("#name").clear();
-      cy.get("#create-strategy").click();
+      cy.contains("Create Strategy").click();
     })
 
     cy.get("#result-message").should("contain", "Name can't be blank")

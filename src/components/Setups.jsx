@@ -275,7 +275,7 @@ const Setups = (props) => {
             >Cancel</button>
           }
         </div>
-        <h4 id='strats-alert'>{message}</h4>
+        <h4 id='result-message'>{message}</h4>
       </section>
       {editStrat === false &&
       <section className="carousel bg-ivory" >

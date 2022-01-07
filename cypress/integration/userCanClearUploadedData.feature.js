@@ -17,9 +17,11 @@ describe("User can clear uploaded data", () => {
       status: 200
     })
     cy.wait(3000)
-    cy.contains("Clear Uploaded Data").click()
+    cy.contains("Clear Data").click()
 
-    cy.get("#message").should("contain", "Entry deleted")
+    cy.on('window:alert', (str) => {
+      expect(str).to.equal(`Charts will clear next time you sign in.`)
+    })
   })
 
 })
