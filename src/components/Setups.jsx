@@ -302,7 +302,7 @@ const Setups = (props) => {
       </section>
       }
       <section className="footer bg-secondary">
-
+        <p >Copyright © TradeLogs 2022. All rights reserved.</p>
       </section>
     </>
   )

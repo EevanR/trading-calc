@@ -281,7 +281,7 @@ header .big.ui.button {
 
 .container-wide {
   margin-inline: auto; 
-  width: min(95%, 85rem);
+  width: min(90%, 85rem);
 }
 
 .split {
@@ -437,6 +437,10 @@ header .big.ui.button {
   font-family: 'Montserrat';
 }
 
+.section-5 {
+  margin-bottom: 4rem;
+}
+
 @media (min-width: 40em) {
   .section-1 h1{
     padding-top: 90px;
@@ -450,16 +454,17 @@ header .big.ui.button {
     position: relative;
     max-width: 50rem;
     left: -10rem;
-    top: -2rem;
+    top: -1rem;
     opacity: 0.8;
   }
 
-  .section-5 .text-center {
+  .section-5 .stats-gif {
+    background-image: url("https://media.giphy.com/media/GWeYePrF8gWdGKBFyz/giphy.gif");
     position: relative;
-    padding: 3rem 6rem;
+    height: 480px;
+    width: 270px;
     top: 12rem;
     left: -25rem;
-    background-color: rgb(241, 241, 241);
   }
 }
 
@@ -472,7 +477,6 @@ header .big.ui.button {
   max-height: 600px!important;
   padding: 10px;
   text-align: center;
-  color: green;
   transition: opacity 0.1s linear;
 }
 
@@ -568,16 +572,8 @@ Button#submit.ui.button {
   }
 }
 
-.section-6 .four-column-grid {
-  color: lightgrey;
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: auto;
-  grid-gap: 0.5rem 1rem;
-  margin-bottom: 15rem;
-}
-
 .section-6 p, .section-6 h4 {
+  color: lightgrey;
   text-align: left;
   line-height: 2.5;
 }
@@ -597,6 +593,7 @@ Button#submit.ui.button {
 
 #copyright i {
   font-size: 38px;
+  margin-top: 8rem;
   margin-bottom: 2rem;
 }
 
@@ -604,7 +601,13 @@ Button#submit.ui.button {
   position: relative;
   top: -2rem;
   left: -3.5rem;
-  max-width: 35rem;
+  max-width: 25rem;
+}
+
+@media (min-width: 40em) {
+  .section-6 #logo {
+    max-width: 35rem;
+  }
 }
 
 /* PANES ROUTE */

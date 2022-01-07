@@ -119,7 +119,7 @@ const Excel = props => {
 
   return (
     <>
-      <div className="excel section-5 bg-ivory">
+      <div className="excel bg-ivory">
         <div className="split">
           <button onClick={() => setUploadBox(["visible", 1])} className="ui button">Upload</button> 
           <button className="ui button">Clear Uploaded Data</button> 

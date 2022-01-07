@@ -107,7 +107,7 @@ const Signin = props => {
   return (
     <>
       <header className="text-center header-image">
-      <i onClick={() => setMenu("visible")} className="bars icon"></i>
+      {/* <i onClick={() => setMenu("visible")} className="bars icon"></i> */}
         <div className="container container--narrow">
           <div style={{visibility: `${menu}`}} className="header-grid" onClick={() => setMenu("hidden")}>
             <i onClick={() => setMenu("hidden")} className="x icon icon"></i>
@@ -262,24 +262,23 @@ const Signin = props => {
       <section id="section-5" className="container bg-light section-5">
         <h2 className="red-bold">EXTRAS</h2>
         <h1>GAP STASTITICS</h1>
+          <p>Turn back the clock
+            <br />
+            Probablities genereated from up to 20 years of stock history on a desired ticker. 
+          </p>
         <div className="container split">
           <div>
             <img src="../images/time.png" alt="mac desktop with charts on screen" />
           </div>
           <div>
-            <div className="text-center">
-              <p>Turn back the clock</p>
-              <p>
-                Probablities genereated from up to 20 years of stock history on a desired ticker. 
-              </p>
-            </div>
+            <div className="stats-gif"></div>
           </div>
         </div>
       </section>
 
       <section className="section-6 bg-secondary">
         <div className="container-wide">
-          <div className="four-column-grid">
+          <div className="split">
             <div>
               <img id="logo" src="/TradeLogs.png"  alt="TradeLogs Logo"/>
             </div>
