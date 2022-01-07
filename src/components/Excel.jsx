@@ -56,15 +56,18 @@ const Excel = props => {
     }
   }
 
-  const deleteExcel = async () => {
-    let response = await destroyExcel(props.savedTrades.id)
-    if (response.status === 200) {
-      props.setMessage(`${response.data.message}. Charts will clear next time you sign in.`)
-      props.setSavedTrades(null)
-      setTimeout(() => {
-        props.setMessage("")
-      }, 3000);
+  const deleteExcel = () => {
+    const runDestroy = async () => {
+      let response = await destroyExcel(props.savedTrades.id)
+      if (response.status === 200) {
+        alert("Charts will clear next time you sign in.")
+        props.setSavedTrades(null)
+        setTimeout(() => {
+          props.setMessage("")
+        }, 3000);
+      }
     }
+    props.savedTrades === null ? alert("No data to delete") : runDestroy()
   }
 
   const readExcel = (file) => {
@@ -122,7 +125,7 @@ const Excel = props => {
       <div className="excel bg-ivory">
         <div className="split">
           <button onClick={() => setUploadBox(["visible", 1])} className="ui button">Upload</button> 
-          <button className="ui button">Clear Uploaded Data</button> 
+          <button onClick={() => deleteExcel()} className="ui button">Clear Data</button> 
           <div className="signin container">
             <div style={
                 {visibility: `${uploadBox[0]}`, 
