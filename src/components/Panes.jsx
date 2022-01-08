@@ -15,9 +15,9 @@ const Panes = () => {
       menuItem: 'Review', render: () => (
         <Tab.Pane>
           <>
-            <Excel />
+            <div className="bg-primary"><Excel /></div>
             <ProfitChart />
-            <Twitter/>
+            {/* <Twitter/> */}
           </>
         </Tab.Pane>
       )
@@ -53,14 +53,10 @@ const Panes = () => {
 
   return (
     <>
-      <Pannel />
-      <div>
-        <img className="sign-up-img" src="/favicon.png" alt=""/>
-        <h1>
-          TradeLogs 
-        </h1>
-      </div>
-      <div>
+      <Pannel/>
+      <div className="panes bg-primary">
+        <a href="/"><img src="/TradeLogs.png"  alt="TradeLogs Logo"/></a>
+        <i className="bars icon"></i>
         <Tab panes={panes} />
       </div>
     </>

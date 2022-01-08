@@ -55,50 +55,10 @@ const Calculator = props => {
   
   return (
     <>
-      <h2 id="title">Trading Position Calculator </h2>
-      <div className="ui form">
-        <form id="main-form" onSubmit={submit}>
-          <div className="fields">
-            <div className="field">
-              <label>Equity</label>
-              <input
-                required
-                type="text"
-                placeholder="$"
-                name="equity"
-                id="equity"
-                onChange={onChangeHandler}
-              />
-            </div>
-            <div className="field">
-              <label>$Ticker</label>
-              <input
-                required
-                type="text"
-                name="ticker"
-                id="ticker"
-              />
-            </div>
-            <div className="field">
-              <label>Upper Line</label>
-              <input
-                required
-                type="text"
-                placeholder="$"
-                name="price"
-                id="price"
-              />
-            </div>
-            <div className="field">
-              <label id="risk">Stop Price</label>
-              <input
-                type="text"
-                required
-                placeholder="$"
-                name="stop"
-                id="stop"
-              />
-            </div>
+      <section className="bg-ivory calc" id="graphs">
+        <div className="container">
+          <h2 id="title">Trading Position Calculator </h2>
+          <div className="ui form">
             <div id="risk-block" className="field">
               <label id="risk">Risk $</label>
               <p className="risk" >${riskBp[0].toFixed(2)}</p>
@@ -107,39 +67,91 @@ const Calculator = props => {
               <label id="bp">Buying Power $</label>
               <p className="bp" >${riskBp[1].toFixed(2)}</p>
             </div>
+            <form id="main-form" onSubmit={submit}>
+              <div className="fields">
+                <div className="field">
+                  <label>Equity</label>
+                  <input
+                    required
+                    type="text"
+                    placeholder="$"
+                    name="equity"
+                    id="equity"
+                    onChange={onChangeHandler}
+                  />
+                </div>
+                <div className="field">
+                  <label>$Ticker</label>
+                  <input
+                    required
+                    type="text"
+                    name="ticker"
+                    id="ticker"
+                  />
+                </div>
+                <div className="field">
+                  <label>Upper Line</label>
+                  <input
+                    required
+                    type="text"
+                    placeholder="$"
+                    name="price"
+                    id="price"
+                  />
+                </div>
+                <div className="field">
+                  <label id="risk">Stop Price</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="$"
+                    name="stop"
+                    id="stop"
+                  />
+                </div>
+              </div>
+              <SetUp />
+              <br />
+              <button className="big ui button" id='calculate'>Calculate</button>
+            </form>
           </div>
-          <SetUp />
-          <br />
-          <button id='calculate'>Calculate</button>
-        </form>
-      </div>
-      { props.count > 0 && (
-        <>
-          <div className="info">
-            <div className="details">
-              <h2 className="details-heading" >Details</h2>
-              <h3>Entry</h3>
-              <h3>Position Size</h3>
-              <h3 id="risk">Stop Price</h3>
-              <h3 id="risk">Stop</h3>
-              <h3>${tradeDetails[2]}</h3>
-              <h3><span id="color"> {tradeDetails[5]}</span></h3>
-              <h3 id="risk">${tradeDetails[3]}</h3>
-              <h3 id="risk">${tradeDetails[0]}</h3>
-            </div>
-            <div className="targets">
-              <h2 className="result-heading" >Targets</h2>
-              <h3>0.5R Target (1/2)</h3>
-              <h3>1R Target (1/4)</h3>
-              <h3>2R Target (1/4)</h3>
-              <h3 id="green">${tradeDetails[4][0]} <span id="targets">{Math.floor(tradeDetails[4] / 2)} shrs</span></h3>
-              <h3 id="green">${tradeDetails[4][1]} <span id="targets">{Math.floor(tradeDetails[4] / 4)} shrs</span></h3>
-              <h3 id="green">${tradeDetails[4][2]} <span id="targets">{Math.floor(tradeDetails[4] / 4)} shrs</span></h3>
-            </div>
-          </div>
-          <Plays />
-        </>
-      )}
+          { props.count > 0 && (
+            <section>
+              <h2>Details</h2>
+              <div className="two-column-grid">
+                <div>
+                  <h3>Entry</h3>
+                  <h3>Position Size</h3>
+                  <h3>Stop Price</h3>
+                  <h3>Stop</h3>
+                  <h3>0.5R Target</h3>
+                  <h3>1R Target</h3>
+                  <h3>2R Target</h3>
+                </div>
+                <div>
+                  { tradeDetails[4] !== undefined &&
+                    (
+                      <>
+                        <h3>${tradeDetails[2]}</h3>
+                        <h3>{tradeDetails[5]} shares</h3>
+                        <h3>${tradeDetails[3]}</h3>
+                        <h3>${tradeDetails[0]}</h3>
+                        <h3>${tradeDetails[4][0]}</h3>
+                        <h3>${tradeDetails[4][1]}</h3>
+                        <h3>${tradeDetails[4][2]}</h3>
+                      </>
+                    )
+                  }
+                </div>
+              </div>
+              <Plays />
+            </section>
+          )}
+        </div>
+      </section>
+      <section className="footer bg-secondary">
+        <p >Copyright © TradeLogs 2022. All rights reserved.</p>
+      </section>
     </>
   )
 }

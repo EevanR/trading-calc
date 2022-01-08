@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as XLSX from 'xlsx'
 import { connect } from "react-redux";
 import { sendExcel, destroyExcel, updateExcel } from '../modules/trades';
 
 const Excel = props => {
+  const [uploadBox, setUploadBox] = useState(["hidden", 0])
+
   let option = "update"
 
   const organizeExcel = async (d, option) => {
@@ -54,15 +56,18 @@ const Excel = props => {
     }
   }
 
-  const deleteExcel = async () => {
-    let response = await destroyExcel(props.savedTrades.id)
-    if (response.status === 200) {
-      props.setMessage(`${response.data.message}. Charts will clear next time you sign in.`)
-      props.setSavedTrades(null)
-      setTimeout(() => {
-        props.setMessage("")
-      }, 3000);
+  const deleteExcel = () => {
+    const runDestroy = async () => {
+      let response = await destroyExcel(props.savedTrades.id)
+      if (response.status === 200) {
+        alert("Charts will clear next time you sign in.")
+        props.setSavedTrades(null)
+        setTimeout(() => {
+          props.setMessage("")
+        }, 3000);
+      }
     }
+    props.savedTrades === null ? alert("No data to delete") : runDestroy()
   }
 
   const readExcel = (file) => {
@@ -89,6 +94,7 @@ const Excel = props => {
     })
 
     promise.then((d) => {
+      setUploadBox(["hidden", 0])
       switch (true) {
         case d[0]["T/D"] === undefined && props.savedTrades !== null:
           let q1 = window.confirm("Short Fees Detected. Add to or overwrite current DataSet?");
@@ -116,17 +122,28 @@ const Excel = props => {
 
   return (
     <>
-      <div>
-        <input 
-          type="file" 
-          onChange={(e) => {
-            const file = e.target.files[0]
-            readExcel(file)
-          }}
-        />
+      <div className="excel bg-ivory">
+        <div className="split">
+          <button onClick={() => setUploadBox(["visible", 1])} className="ui button">Upload</button> 
+          <button onClick={() => deleteExcel()} className="ui button">Clear Data</button> 
+          <div className="signin container">
+            <div style={
+                {visibility: `${uploadBox[0]}`, 
+                opacity: `${uploadBox[1]}`}
+                }
+              className="signin-box">
+              <i onClick={() => setUploadBox(["hidden", 0])} className="x icon icon"></i>
+              <input 
+                type="file" 
+                onChange={(e) => {
+                  const file = e.target.files[0]
+                  readExcel(file)
+                }}
+              />
+            </div>
+          </div>
+        </div>
       </div>
-      <button onClick={() => deleteExcel()}>Clear Uploaded Data</button> 
-      <h3 id="message">{props.message}</h3>
     </>
   )
 }

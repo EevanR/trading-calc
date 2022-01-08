@@ -13,7 +13,7 @@ blocks:
             - sem-version node 10
             - checkout
             - cache restore node-modules-$(checksum package-lock.json),node-modules-
-            - yarn install
+            - yarn install --ignore-engines
             - cache store node-modules-$(checksum package-lock.json) node_modules
   - name: Build site
     task:
@@ -23,7 +23,6 @@ blocks:
             - sem-version node 10
             - checkout
             - cache restore node-modules-$(checksum package-lock.json),node-modules-
-            - npx browserslist@latest --update-db
             - CI= yarn build
             - cache store node-modules-$(checksum package-lock.json) node_modules
   - name: E2e Tests

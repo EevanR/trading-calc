@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pie } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 import { connect } from "react-redux";
 
 const CommissionsChart = props => {
@@ -47,9 +47,9 @@ const CommissionsChart = props => {
   const pieOptions = {
     maintainAspectRatio: false,
     legend: {
-      position: 'top',
+      position: 'left',
       labels: {
-        fontColor: "white",
+        fontColor: "darkgrey",
         fontSize: 16
       }
     }
@@ -57,23 +57,23 @@ const CommissionsChart = props => {
 
 
   return (
-    <>
+    <section className="breakdown tab">
       <h4>PnL vs Commissions: Equity Curve</h4>
-      <div className="setup-graphs">
+      <div className="split">
         <div className="chartSmall"> 
-          <Pie
+          <Doughnut
             data = {pieData}
             options = {pieOptions}
           />
         </div>
         <div className="chartSmall"> 
-          <Pie
+          <Doughnut
             data = {pieData2}
             options = {pieOptions}
           />
         </div>
       </div>
-    </>
+    </section>
   )
 }
 

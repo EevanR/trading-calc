@@ -25,7 +25,7 @@ const getGapData = async ticker => {
       method: "GET",
       url: "https://www.alphavantage.co/query",
       params: {
-        function: "TIME_SERIES_DAILY_ADJUSTED",
+        function: "TIME_SERIES_DAILY",
         symbol: ticker,
         outputsize: "full",
         apikey: process.env.REACT_APP_ALPHA_VANTAGE_API

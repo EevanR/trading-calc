@@ -3,6 +3,7 @@ import { getGapData } from "../modules/backtest";
 import { Line } from 'react-chartjs-2';
 import { connect } from "react-redux";
 import Papa from 'papaparse';
+import { Form } from 'semantic-ui-react'
 
 const GapStats = props => {
   const [intraPrices, setIntraPrices] = useState([[], [], []])
@@ -56,9 +57,9 @@ const GapStats = props => {
           pricesTimes['VWAP'].push(pv/cumulatieVolume)
 
           //SMA CALCULATION
-          smaArray.length < 24 && smaArray.push(Number(newArray[i][4]))
-          if (smaArray.length === 24) {
-            let value = (smaArray.reduce((a, b) => a + b, 0))/24
+          smaArray.length < 50 && smaArray.push(Number(newArray[i][4]))
+          if (smaArray.length === 50) {
+            let value = (smaArray.reduce((a, b) => a + b, 0))/50
             pricesTimes['SMA'].push(value)
             smaArray.shift()
           } else {
@@ -104,7 +105,7 @@ const GapStats = props => {
           open: Number(newArray[i][1]["1. open"]),
           currentDayClose:  Number(newArray[i][1]["4. close"]),
           highOfDay: Number(newArray[i][1]["2. high"]),
-          volume: Number(newArray[i][1]["6. volume"]),
+          volume: Number(newArray[i][1]["5. volume"]),
           previousDayClose: Number(newArray[i-1][1]["4. close"])
         }
         variables['gapPercent'] = ((variables.open - variables.previousDayClose)/variables.previousDayClose)*100
@@ -206,7 +207,7 @@ const GapStats = props => {
       },
       {
         type: "line",
-        label: "24SMA",
+        label: "50SMA",
         fill: false,
         lineTension: 0.1,
         borderColor: 'rgb(0, 0, 255)',
@@ -247,6 +248,7 @@ const GapStats = props => {
         setGapSearchShow(item)
         setIntraPrices([item[2]['PreMark'], item[2]['Main'], item[2]['VWAP'], item[2]['SMA']])
         setIntraTimes(item[2]['Labels'])
+        setChartTicker(item[0].toUpperCase())
       }
     })
   }
@@ -261,91 +263,104 @@ const GapStats = props => {
           onClick={() => showStats(entry[0])}
           id="gapStatList"
           >
-            {entry[0].toUpperCase()} {gapSearchShow !== null && gapSearchShow[0] === entry[0] && (<h4 style={{float: "right"}}>-&gt;</h4>)}
+            {entry[0].toUpperCase()} {gapSearchShow !== null && gapSearchShow[0] === entry[0] && (<h4 id="gap-show-arrow" style={{float: "right"}}>-&gt;</h4>)}
           </h4>
         </div>
       )
     }))
   }
 
-  let statLabels = (
-      <div>
-        <h4>Gaps Above 20%:</h4>
-        <h4>Avg gap:</h4>
-        <h4>Avg GapUp Spike Above Open:</h4>
-        <h4>Gap Up Closes Above Open:</h4>
-        <h4>Avg % close Above Open:</h4>
-        <h4>Avg % close Below Open:</h4>
-        <h4>Avg Gapper Range (Low to High):</h4>
-        <h4>Day 2 Gap up Count:</h4>
-        <h4>Day 2 Gap Down Count:</h4>
-        <h4>Day 2 Avg Gap up:</h4>
-        <h4>Day 2 Avg Gap Down:</h4>
-      </div>
-  )
-
   return (
     <>
-      <div>
-        <h2>Historic Gap Stats</h2>
-        <h3 style={{marginBottom: "40px"}}>Recent Gap Chart {chartDate} (5min)</h3>
-        <form onSubmit={runTest}>
-          <label>Ticker</label>
-          <input required type='text' name="testTicker" id="testTicker"/>
-          <button id="loadChart" type="submit">Display Chart</button>
-        </form>
-      </div>
-      <div className="backtest-chart">
-        <Line 
-          data = {lineData}
-          options = {lineOptions}
-          height={500}
-        />
-      </div>
-      <h3 style={{marginBottom: "20px"}}>Stats {chartTicker}</h3>
-        <div id="gap-stats">
-        {gapStats.length !== {} && (
-          <div className="currentShow">
-            {statLabels}
-            <div>
-              <h4> {gapStats["gapCount"]}</h4>
-              <h4> {gapStats["avgGapPercent"]}%</h4>
-              <h4> {gapStats["avgSpike"]}%</h4>
-              <h4 id={gapStats["closesAboveOpenCount"] < (gapStats["gapCount"]/2) ? "backtest-red" : ""}> {gapStats["closesAboveOpenCount"]} / {((gapStats["closesAboveOpenCount"]/gapStats["gapCount"])*100).toFixed(2)}%</h4>
-              <h4> +{gapStats["closeAboveOpen"]}%</h4>
-              <h4 id="backtest-red"> {gapStats["closeBelowOpen"]}%</h4>
-              <h4> ${gapStats["avgRange"]}</h4>
-              <h4> {gapStats["day2UpCount"]} / {((gapStats["day2UpCount"]/gapStats["gapCount"])*100).toFixed(2)}%</h4>
-              <h4> {gapStats["day2DownCount"]}</h4>
-              <h4>{gapStats["day2AvgUp"]}%</h4>
-              <h4>{gapStats["day2AvgDown"]}%</h4>
-            </div>
-          </div>
-          )} 
-        <div className="gapShow">     
+      <section className="bg-primary tab gap-stats" id="graphs">
+        <div className="container-wide">
           <div>
-            {gapSearches}
+            <h2>Historic Gap Stats</h2>
+            <h4>Recent Gap Chart {chartDate} (5min)</h4>
+            <Form onSubmit={runTest}>
+              <input placeholder="Ticker" required type='text' name="testTicker" id="testTicker"/>
+              <button className="ui button" id="loadChart" type="submit">Find Stats</button>
+            </Form>
           </div>
-          {gapSearchShow !== null && (
+          <div>
+            <Line
+              data = {lineData}
+              options = {lineOptions}
+              height={500}
+              width={100}
+            />
+          </div>
+          {chartTicker !== "" && gapStats["gapCount"] !== undefined && (
             <>
-              {statLabels}
-              <div>
-                <h4>{gapSearchShow[1]["gapCount"]}</h4>
-                <h4>{gapSearchShow[1]["avgGapPercent"]}%</h4>
-                <h4>{gapSearchShow[1]["avgSpike"]}%</h4> 
-                <h4>{gapSearchShow[1]["closesAboveOpenCount"]}</h4>
-                <h4>+{gapSearchShow[1]["closeAboveOpen"]}%</h4>
-                <h4 id="backtest-red">{gapSearchShow[1]["closeBelowOpen"]}%</h4>
-                <h4>${gapSearchShow[1]["avgRange"]}</h4>
-                <h4>{gapSearchShow[1]["day2UpCount"]}</h4>
-                <h4>{gapSearchShow[1]["day2DownCount"]}</h4>
-                <h4>{gapSearchShow[1]["day2AvgUp"]}%</h4>
-                <h4>{gapSearchShow[1]["day2AvgDown"]}%</h4>
+              <h2>Stats {chartTicker}</h2>
+              <div className="two-column-grid gap-stats">
+                <h4 className="right-align">Gaps Above 20%:</h4>
+                <h4> {gapStats["gapCount"]}</h4>
+                <h4 className="right-align">Avg gap:</h4>
+                <h4> {gapStats["avgGapPercent"]}%</h4>
+                <h4 className="right-align">Avg GapUp Spike Above Open:</h4>
+                <h4> {gapStats["avgSpike"]}%</h4>
+                <h4 className="right-align">Gap Up Closes Above Open:</h4>
+                <h4 id={gapStats["closesAboveOpenCount"] < (gapStats["gapCount"]/2) ? "backtest-red" : ""}> {gapStats["closesAboveOpenCount"]} ({((gapStats["closesAboveOpenCount"]/gapStats["gapCount"])*100).toFixed(2)}%)</h4>
+                <h4 className="right-align">Avg % close Above Open:</h4>
+                <h4> +{gapStats["closeAboveOpen"]}%</h4>
+                <h4 className="right-align">Avg % close Below Open:</h4>
+                <h4 id="backtest-red"> {gapStats["closeBelowOpen"]}%</h4>
+                <h4 className="right-align">Avg Gapper Range (Low to High):</h4>
+                <h4> ${gapStats["avgRange"]}</h4>
+                <h4 className="right-align">Day 2 Gap up Count:</h4>
+                <h4> {gapStats["day2UpCount"]} ({((gapStats["day2UpCount"]/gapStats["gapCount"])*100).toFixed(2)}%)</h4>
+                <h4 className="right-align">Day 2 Gap Down Count:</h4>
+                <h4> {gapStats["day2DownCount"]}</h4>
+                <h4 className="right-align">Day 2 Avg Gap up:</h4>
+                <h4>{gapStats["day2AvgUp"]}%</h4>
+                <h4 className="right-align">Day 2 Avg Gap Down:</h4>
+                <h4>{gapStats["day2AvgDown"]}%</h4>
+              </div>
+            </>
+          )} 
+          {props.gapSearches !== [] && (
+            <>
+              <h2>Recent Searches</h2>
+              {gapSearches.length === 0 && <h4>No Recent Searches</h4>}
+              <div className="gap-show-stats two-column-grid">  
+                <div>
+                  {gapSearches}
+                </div>
+                {gapSearchShow !== null && (   
+                  <div className="two-column-grid gap-show">
+                    <h4 className="right-align">Gaps Above 20%:</h4>
+                    <h4>{gapSearchShow[1]["gapCount"]}</h4>
+                    <h4 className="right-align">Avg gap:</h4>
+                    <h4>{gapSearchShow[1]["avgGapPercent"]}%</h4>
+                    <h4 className="right-align">Avg GapUp Spike Above Open:</h4>
+                    <h4>{gapSearchShow[1]["avgSpike"]}%</h4>
+                    <h4 className="right-align">Gap Up Closes Above Open:</h4> 
+                    <h4>{gapSearchShow[1]["closesAboveOpenCount"]} ({((gapSearchShow[1]["closesAboveOpenCount"]/gapSearchShow[1]["gapCount"])*100).toFixed(2)}%)</h4>
+                    <h4 className="right-align">Avg % close Above Open:</h4>
+                    <h4>+{gapSearchShow[1]["closeAboveOpen"]}%</h4>
+                    <h4 className="right-align">Avg % close Below Open:</h4>
+                    <h4 id="backtest-red">{gapSearchShow[1]["closeBelowOpen"]}%</h4>
+                    <h4 className="right-align">Avg Gapper Range (Low to High):</h4>
+                    <h4>${gapSearchShow[1]["avgRange"]}</h4>
+                    <h4 className="right-align">Day 2 Gap up Count:</h4>
+                    <h4>{gapSearchShow[1]["day2UpCount"]}</h4>
+                    <h4 className="right-align">Day 2 Gap Down Count:</h4>
+                    <h4>{gapSearchShow[1]["day2DownCount"]}</h4>
+                    <h4 className="right-align">Day 2 Avg Gap up:</h4>
+                    <h4>{gapSearchShow[1]["day2AvgUp"]}%</h4>
+                    <h4 className="right-align">Day 2 Avg Gap Down:</h4>
+                    <h4>{gapSearchShow[1]["day2AvgDown"]}%</h4>
+                  </div>
+                )}
               </div>
             </>
           )}
-        </div>
-      </div> 
+        </div> 
+      </section>
+      <section className="footer bg-secondary">
+        <p >Copyright © TradeLogs 2022. All rights reserved.</p>
+      </section>
     </>
   )
 }
