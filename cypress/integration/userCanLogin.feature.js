@@ -2,6 +2,7 @@ describe("User can log in", () => {
   beforeEach(() => {
     cy.viewport(1350, 900);
     cy.server();
+    cy.requests()
     cy.route({
       method: "POST",
       url: "http://localhost:3000/api/v1/auth/sign_in",

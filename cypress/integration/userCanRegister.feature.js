@@ -2,6 +2,7 @@ describe("User can register", () => {
   beforeEach(() => {
     cy.viewport(1350, 900);
     cy.server();
+    cy.requests()
   })
 
   it("can successfully access Register Tab", () => {
