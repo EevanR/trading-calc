@@ -6,32 +6,12 @@ describe("User can register", () => {
 
   it("can successfully access Register Tab", () => {
     cy.visit("/");
+    cy.contains("Sign In").click();
     cy.contains("Register").click();
-    cy.get("#border").should("contain", "TradeLogs Sign Up")
-  })
-
-  it("can submit registration", () => {
-    cy.route({
-      method: "POST",
-      url: "http://localhost:3000/api/v1/auth",
-      response: "fixture:register.json",
-      status: 200
-    })
-    cy.get("#signup-form").within(() => {
-      cy.get("#email").type("newtrader@mail.com");
-      cy.get("#username").type("NewTrader");
-      cy.get("#password").type("password");
-      cy.get("#passCon").type("password");
-      cy.get("#submit").click();
-    })
-
-    cy.on('window:alert', (str) => {
-      expect(str).to.equal(`Welcome NewTrader`)
-    })
+    cy.get(".signin-box").should("contain", "Register")
   })
 
   it("user fails to register", () => {
-    cy.visit("/");
     cy.route({
       method: "POST",
       url: "http://localhost:3000/api/v1/auth",
@@ -47,6 +27,31 @@ describe("User can register", () => {
 
     cy.on('window:alert', (str) => {
       expect(str).to.equal(`Email is not an email`)
+    })
+  })
+
+  it("can submit registration", () => {
+    cy.visit("/");
+    cy.route({
+      method: "POST",
+      url: "http://localhost:3000/api/v1/auth",
+      response: "fixture:register.json",
+      status: 200
+    })
+    
+    cy.contains("Sign In").click();
+    cy.contains("Register").click();
+
+    cy.get(".form").within(() => {
+      cy.get("#email").type("newtrader@mail.com");
+      cy.get("#username").type("NewTrader");
+      cy.get("#password").type("password");
+      cy.get("#passCon").type("password");
+      cy.get("#submit").click();
+    })
+
+    cy.on('window:alert', (str) => {
+      expect(str).to.equal(`Welcome NewTrader`)
     })
   })
 })

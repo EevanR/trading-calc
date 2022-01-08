@@ -100,7 +100,7 @@ const GapStats = props => {
     }
 
     const tickerDataReceived = () => {
-      for (let i=1122; i < newArray.length; i++) {
+      for (let i=1; i < newArray.length; i++) {
         let variables = {
           open: Number(newArray[i][1]["1. open"]),
           currentDayClose:  Number(newArray[i][1]["4. close"]),

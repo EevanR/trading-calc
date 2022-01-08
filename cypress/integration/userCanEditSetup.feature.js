@@ -27,7 +27,7 @@ describe("User can edit a setup", () => {
     })
 
     cy.get('#req3').type("Add a new requirement");
-    cy.get("#edit-strategy").click();
+    cy.contains("Save Edit").click()
     cy.get("#setup1").should("contain", "Add a new requirement");
   })
 }) 

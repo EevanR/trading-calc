@@ -16,15 +16,15 @@ describe("User can log in", () => {
   });
 
   it("successfully loads login page", () => {
-    cy.contains("TradeLogs Sign In")
+    cy.contains("Quick. Easy. Tradelogs.")
   })
 
   it("can successfully sign in", () => {
-    cy.get("#signin-form").within(() => {
-      cy.get("#email").type("trader@mail.com");
-      cy.get("#password").type("password");
-      cy.get("#submit").click();
-    });
+    cy.contains("Sign In").click()
+  cy.get("#email").type("trader@mail.com");
+  cy.get("#password").type("password");
+  cy.get("#submit").click();
     cy.contains("Profit Chart")
+    cy.visit("/");
   });
 });

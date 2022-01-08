@@ -20,7 +20,7 @@ describe("User can clear uploaded data", () => {
     cy.contains("Clear Data").click()
 
     cy.on('window:alert', (str) => {
-      expect(str).to.equal(`Charts will clear next time you sign in.`)
+      expect(str).to.equal("Charts will clear next time you sign in.")
     })
   })
 
