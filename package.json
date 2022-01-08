@@ -45,7 +45,7 @@
     ]
   },
   "devDependencies": {
-    "cypress": "^9.2.0",
+    "cypress": "^3.4.1",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "react-test-renderer": "^16.13.1"
