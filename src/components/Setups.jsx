@@ -266,7 +266,7 @@ const Setups = (props) => {
               </div>
             </div>
             {editStrat === false ? 
-              <button className="ui button">Create Strategy</button> :
+              <button id="create" className="ui button">Create Strategy</button> :
               <button className="ui button">Save Edit</button> }
           </form>
           { editStrat === true && 
