@@ -702,7 +702,6 @@ canvas {
 
   .panes .ui.tabular.menu {
     /* margin-left: 2rem; */
-    border-bottom: 1px solid lightblue;
   }
 
   .panes img {
@@ -899,4 +898,5 @@ canvas {
 
 .footer {
   padding-bottom: 1rem;
+  color: lightgrey;
 }

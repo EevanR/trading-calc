@@ -235,7 +235,7 @@ const Signin = props => {
                 <i className="hourglass outline icon"></i>
               </div>
               <div className="sec-3 white-border">
-                <h4>Hourly Fequency</h4>
+                <h4>Hourly Frequency</h4>
                 <p>Number of Trades by hour of the day</p>
                 <i className="chart bar outline icon"></i>
               </div>
@@ -261,7 +261,7 @@ const Signin = props => {
 
       <section id="section-5" className="container bg-light section-5">
         <h2 className="red-bold">EXTRAS</h2>
-        <h1>GAP STASTITICS</h1>
+        <h1>GAP STATISTICS</h1>
           <p>Turn back the clock
             <br />
             Probablities genereated from up to 20 years of stock history on a desired ticker. 
