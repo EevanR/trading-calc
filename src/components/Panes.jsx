@@ -15,7 +15,6 @@ const Panes = () => {
       menuItem: 'Review', render: () => (
         <Tab.Pane>
           <>
-            <div className="bg-primary"><Excel /></div>
             <ProfitChart />
             {/* <Twitter/> */}
           </>

@@ -299,10 +299,10 @@ const Signin = props => {
               <p>CONTACT US</p>
             </div>
           </div>
-        </div>
-        <div id="copyright">
-          <i className="envelope outline icon"></i>
-          <p >Copyright © TradeLogs 2022. All rights reserved.</p>
+          <div id="copyright">
+            <i className="envelope outline icon"></i>
+            <p >Copyright © TradeLogs 2022. All rights reserved.</p>
+          </div>
         </div>
       </section>
     </>

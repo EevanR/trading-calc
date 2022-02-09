@@ -441,6 +441,20 @@ header .big.ui.button {
   margin-bottom: 4rem;
 }
 
+#section-5 img {
+  display: none;
+}
+
+.section-5 .stats-gif {
+  background-image: url("https://media.giphy.com/media/GWeYePrF8gWdGKBFyz/giphy.gif");
+  position: relative;
+  height: 480px;
+  width: 270px;
+  top: 2rem;
+  margin-inline: auto;
+  border-radius: 5px;
+}
+
 @media (min-width: 40em) {
   .section-1 h1{
     padding-top: 90px;
@@ -451,6 +465,7 @@ header .big.ui.button {
   }
 
   #section-5 img {
+    display: inline;
     position: relative;
     max-width: 50rem;
     left: -10rem;
@@ -587,7 +602,6 @@ Button#submit.ui.button {
 }
 
 #copyright {
-  margin-left: 10%;
   color: grey;
 }
 
@@ -706,7 +720,7 @@ canvas {
 
   .panes img {
     width: 70%;
-    margin: auto;
+    /* margin: auto; */
   }
 
   .chartSmall {
