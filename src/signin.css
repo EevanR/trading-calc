@@ -655,11 +655,6 @@ Button#submit.ui.button {
   border: none;
 }
 
-.ui.tabular.menu {
-  border-bottom: none;
-  overflow: scroll;
-}
-
 .ui.tabular.menu::-webkit-scrollbar {
   display: none;
 }
@@ -707,6 +702,22 @@ canvas {
   margin: 1rem 0;
 }
 
+.panes .ui.tabular.menu .active.item {
+  background-color: rgb(4,19,41);
+  color: white;
+  border: none
+}
+
+.panes .ui.tabular.menu {
+  color: white;
+  border-bottom: none;
+  overflow: scroll;
+}
+
+.panes .ui.attached.tabular.menu a {
+  background-color: rgba(0, 0, 0, 0);
+}
+
 @media (min-width: 40em) {
   .panes .ui.attached:not(.message)+.ui.attached.segment:not(.top) {
     overflow: visible;
@@ -715,11 +726,13 @@ canvas {
   }
 
   .panes .ui.tabular.menu {
-    /* margin-left: 2rem; */
+    width: 500px;
+    position: relative;
+    margin-inline: auto;
   }
 
   .panes img {
-    width: 70%;
+    width: 30%;
     /* margin: auto; */
   }
 
