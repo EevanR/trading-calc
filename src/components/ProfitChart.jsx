@@ -46,8 +46,7 @@ const ProfitChart = props => {
       !dates.includes(date) && dates.push(date)
       
       commissions += (props.savedTrades.data[i]["Commissions"])
-      props.savedTrades.data[i][grossNet] > 0 ? stats['wins']++ && (stats['gains']+=props.savedTrades.data[i][grossNet]) : stats['loss']++ && (stats['negGains']+=props.savedTrades.data[i][grossNet])
-
+      props.savedTrades.data[i][grossNet] > 0 ? stats['wins']++ && (stats['gains']+=props.savedTrades.data[i][grossNet]) : (stats['negGains']+=props.savedTrades.data[i][grossNet]) && stats['loss']++
       for(let int in timeBlocks){
         ((Number(int) <= props.savedTrades.data[i]["TimeStamp"]) && (props.savedTrades.data[i]["TimeStamp"] < Number(int)+0.04167)) && (timeBlocks[int][0] += props.savedTrades.data[i][grossNet]) && (timeBlocks[int][1]++)
       }
@@ -63,7 +62,7 @@ const ProfitChart = props => {
         props.savedTrades.data[i]["Date"] === date && (total += props.savedTrades.data[i][grossNet])
       }
       dailyProfits += total
-      cumulativeGains.push(dailyProfits)
+      cumulativeGains.push(dailyProfits.toFixed(2))
 
       let dayOfWeek = new Date(date).toString().slice(0, 3)
       for (let property in dailyPreformance) {
@@ -100,8 +99,7 @@ const ProfitChart = props => {
     legend: {
       labels: {
         fontColor: "darkgrey",
-        fontSize: 16
-      }
+        fontSize: 16      }
     },
     scales: {
       yAxes: [{
@@ -134,12 +132,33 @@ const ProfitChart = props => {
     }
   }, [props.savedTrades, grossNet])  // eslint-disable-line react-hooks/exhaustive-deps
 
-
-
   return (
     <>
       <section className="bg-dark tab" id="graphs">
         <div className="container-wide">
+          <div className="summary-box">
+            <h1>Welcome, {props.userAttrs.nickname}</h1>
+            {props.savedTrades !== null && props.stats !== null &&
+              (<div className="four-column-grid">
+                <div>
+                  <h3>Trade Count</h3> 
+                  <h3>{props.savedTrades.data.length}</h3>
+                </div>
+                <div>
+                  <h3>Win %</h3>
+                  <h3>{((props.stats['wins']/(props.stats['wins']+props.stats['loss']))*100).toFixed(2)}%</h3>
+                </div>
+                <div>
+                  <h3>{grossNet.substring(0, grossNet.indexOf("P"))} Profits</h3>
+                  <h3>${((props.stats['gains'])-(props.stats['negGains'])).toFixed(2)}</h3>
+                </div>
+                <div>
+                  <h3>Average R:R</h3>
+                  <h3>{((props.stats['gains']/props.stats['wins'])/(props.stats['negGains']/props.stats['loss'])).toFixed(2)}/1</h3>
+                </div>
+              </div>)
+            }
+          </div>
           <div>
             <h2>Profit Chart & Fees</h2>
             <h3><a onClick={() => setGrossNet("GrossProfit")}>Gross</a> || <a onClick={() => setGrossNet("NetProfit")}>Net</a></h3>
