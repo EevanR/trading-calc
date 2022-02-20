@@ -134,7 +134,7 @@ const ProfitChart = props => {
 
   return (
     <>
-      <section className="bg-dark tab" id="graphs">
+      <section className="bg-verydark tab" id="graphs">
         <div className="container-wide">
           <div className="summary-box">
             <h1>Welcome, {props.userAttrs.nickname}</h1>
@@ -159,7 +159,7 @@ const ProfitChart = props => {
               </div>)
             }
           </div>
-          <div>
+          <div className="foreground bg-dark">
             <h2>Profit Chart & Fees</h2>
             <h3><a onClick={() => setGrossNet("GrossProfit")}>Gross</a> || <a onClick={() => setGrossNet("NetProfit")}>Net</a></h3>
             <h4>Cumulative {grossNet.substring(0, grossNet.indexOf("P"))} PnL Growth</h4>
@@ -171,12 +171,16 @@ const ProfitChart = props => {
               />
             </div>
           </div>
-          <CommissionsChart commissions={commissionsTotal} netProfit={profit} grossNet={grossNet.substring(0, grossNet.indexOf("P"))} />
-          <DayOfWeekCharts barData={barData} />
-          <HourlyChart times={timeSegments} grossNet={grossNet.substring(0, grossNet.indexOf("P"))}/>
+          <div className="foreground bg-dark">
+            <CommissionsChart commissions={commissionsTotal} netProfit={profit} grossNet={grossNet.substring(0, grossNet.indexOf("P"))} />
+          </div>
+          <div className="foreground bg-dark">
+            <DayOfWeekCharts barData={barData} />
+            <HourlyChart times={timeSegments} grossNet={grossNet.substring(0, grossNet.indexOf("P"))}/>
+          </div>
         </div>
       </section>
-      <section className="footer bg-secondary">
+      <section className="footer bg-dark">
         <p >Copyright © TradeLogs 2022. All rights reserved.</p>
       </section>
     </>
