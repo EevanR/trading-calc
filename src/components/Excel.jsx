@@ -123,9 +123,9 @@ const Excel = props => {
   return (
     <>
       <div className="excel bg-ivory">
-        <div className="split">
-          <button onClick={() => setUploadBox(["visible", 1])} className="ui button">Upload</button> 
-          <button onClick={() => deleteExcel()} className="ui button">Clear Data</button> 
+        <div>
+          <h4 onClick={() => setUploadBox(["visible", 1])}>Upload</h4> 
+          <h4 onClick={() => deleteExcel()}>Clear Data</h4> 
           <div className="signin container">
             <div style={
                 {visibility: `${uploadBox[0]}`, 

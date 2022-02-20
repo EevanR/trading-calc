@@ -647,10 +647,6 @@ Button#submit.ui.button {
   color: darksalmon;
 }
 
-.excel {
-  padding: 1rem 1rem 0 1rem;
-}
-
 .excel .ui.button {
   margin: 0rem 2rem 0.5rem 2rem;
 }
@@ -754,8 +750,7 @@ canvas {
   }
 
   .panes img {
-    width: 30%;
-    /* margin: auto; */
+    width: 60%;
   }
 
   .summary-box {
@@ -789,14 +784,23 @@ canvas {
   }
   
   .excel {
-    width: 50rem;
+    color: rgb(117, 168, 202);
     position: relative;
-    margin-inline: auto;
     background: transparent;
   }
 
-  .excel .ui.button {
-    margin: 1rem;
+  .excel div {
+    position: absolute;
+    top: 1rem;
+    right: 0;
+  }
+
+  .excel div h4 {
+    display: inline;
+    margin-right: 3rem;
+    cursor: pointer;
+    border-left: 1px solid rgba(255, 166, 0, 0.63);
+    padding-left: 1rem;
   }
 }
 
