@@ -513,6 +513,11 @@ header .big.ui.button {
 
 .ui.attached.tabular.menu a:hover {
   background-color: rgb(153,232,231);
+  color: white;
+}
+
+.panes .ui.attached.tabular.menu a:hover {
+  background-color: rgb(1, 4, 10);
 }
 
 #signup-form {
@@ -708,10 +713,11 @@ canvas {
 
 .panes .ui.tabular.menu .active.item {
   background-color: rgb(1, 4, 10);
-  color: white;
+  color: rgb(4,119,251);;
   border: none;
   font-size: 18px;
-  /* font-family: "Montserrat-Medium"; */
+  font-style: italic;
+  font-family: "Montserrat-bold";
 }
 
 .panes .ui.tabular.menu {
