@@ -127,9 +127,6 @@ header {
 }
 
 .bars.icon {
-  position: fixed;
-  top: 2rem;
-  right: 2rem;
   font-size: 2.5rem;
   color: rgb(4,119,251);
   cursor: pointer;
@@ -189,10 +186,6 @@ header .big.ui.button {
 
   header h1 {
     padding-top: 7rem;
-  }
-
-  .bars.icon {
-    visibility: hidden;
   }
 
   .header-grid .x.icon.icon {
@@ -664,12 +657,6 @@ Button#submit.ui.button {
   display: none;
 }
 
-.panes .bars.icon {
-  z-index: 2000;
-  position: absolute;
-  top: 2.8rem;
-}
-
 .panes img {
   width: 90%;
 }
@@ -791,8 +778,7 @@ canvas {
 
   .excel div {
     position: absolute;
-    top: 1rem;
-    right: 0;
+    right: 2rem;
   }
 
   .excel div h4 {

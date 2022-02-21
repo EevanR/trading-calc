@@ -59,8 +59,7 @@ const Panes = () => {
             <a href="/"><img src="/TradeLogs.png"  alt="TradeLogs Logo"/></a>
           </div>
           <div>
-            <Excel />
-            <i className="bars icon"></i>
+            <Excel/>
           </div>
         </div>
         <Tab panes={panes} />

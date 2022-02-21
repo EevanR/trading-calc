@@ -126,6 +126,7 @@ const Excel = props => {
         <div>
           <h4 onClick={() => setUploadBox(["visible", 1])}>Upload</h4> 
           <h4 onClick={() => deleteExcel()}>Clear Data</h4> 
+          <i className="bars icon"></i>
           <div className="signin container">
             <div style={
                 {visibility: `${uploadBox[0]}`, 
