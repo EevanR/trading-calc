@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { sendExcel, destroyExcel, updateExcel } from '../modules/trades';
 
 const Excel = props => {
-  const [uploadBox, setUploadBox] = useState(["hidden", 0])
+  const [uploadBox, setUploadBox] = useState("fadeout")
 
   let option = "update"
 
@@ -119,30 +119,23 @@ const Excel = props => {
       }
     })
   }
-
+  
   return (
     <>
-      <div className="excel bg-ivory">
+      <div className="excel bg-dark">
         <div>
-          <h4 onClick={() => setUploadBox(["visible", 1])}>Upload</h4> 
-          <h4 onClick={() => deleteExcel()}>Clear Data</h4> 
+          <label>
+            <input 
+              type="file" 
+              onChange={(e) => {
+                const file = e.target.files[0]
+                readExcel(file)
+              }}
+            />
+            <span className="upload-btn">Upload</span>
+          </label>
+          <h4 onClick={() => deleteExcel()}>Clear Data</h4>
           <i className="bars icon"></i>
-          <div className="signin container">
-            <div style={
-                {visibility: `${uploadBox[0]}`, 
-                opacity: `${uploadBox[1]}`}
-                }
-              className="signin-box">
-              <i onClick={() => setUploadBox(["hidden", 0])} className="x icon icon"></i>
-              <input 
-                type="file" 
-                onChange={(e) => {
-                  const file = e.target.files[0]
-                  readExcel(file)
-                }}
-              />
-            </div>
-          </div>
         </div>
       </div>
     </>

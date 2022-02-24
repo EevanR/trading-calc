@@ -772,21 +772,35 @@ canvas {
   
   .excel {
     color: rgb(117, 168, 202);
-    position: relative;
-    background: transparent;
-  }
-
-  .excel div {
     position: absolute;
     right: 2rem;
+    top: 0rem;
+    padding-top: 1rem;
   }
 
-  .excel div h4 {
+  .excel h4 {
     display: inline;
     margin-right: 3rem;
     cursor: pointer;
     border-left: 1px solid rgba(255, 166, 0, 0.63);
     padding-left: 1rem;
+  }
+
+  input[type='file'] {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+  }
+
+  .upload-btn {
+    position: relative;
+    font-family: "Montserrat";
+    font-size: 15px;
+    cursor: pointer;
+    border-left: 1px solid rgba(255, 166, 0, 0.63);
+    padding-left: 1rem;
+    margin-right: 3rem;
   }
 }
 
