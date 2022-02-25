@@ -53,6 +53,7 @@ const Panes = () => {
   return (
     <>
       <Pannel/>
+      <div className="bg-verydark pannel"></div>
       <div className="panes bg-dark">
         <div className="two-column-grid">
           <div>

@@ -31,6 +31,7 @@ const Signin = props => {
   }
 
   const submitSignInHandler = async event => {
+    setSignin(["hidden", -2000, 0])
     event.preventDefault();
     setLoader(true)
     let response = await signIn(event.target.email.value, event.target.password.value)
@@ -66,7 +67,7 @@ const Signin = props => {
                 <input name="email" type="email" id="email" placeholder="Email"></input>
                 <br/>
                 <input name="password" type="password" id="password" placeholder="Password"></input>
-                <button className="big ui button" id="submit" type="submit" >Sign In</button>
+                <button className="big ui button" id="submit" type="submit">Sign In</button>
               </Form>
             </div>
           </>
@@ -182,11 +183,6 @@ const Signin = props => {
                 }
                 className="signin-box">
                 <Tab panes={panes} />
-                {loader === true && (
-                  <Dimmer active>
-                    <Loader />
-                  </Dimmer>
-                )}
               </div>
             </div>
           </div>
@@ -305,6 +301,11 @@ const Signin = props => {
           </div>
         </div>
       </section>
+      {loader === true && (
+        <Dimmer active>
+          <Loader />
+        </Dimmer>
+      )}
     </>
   )
 }
