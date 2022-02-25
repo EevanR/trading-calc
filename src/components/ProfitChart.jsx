@@ -46,7 +46,8 @@ const ProfitChart = props => {
       !dates.includes(date) && dates.push(date)
       
       commissions += (props.savedTrades.data[i]["Commissions"])
-      props.savedTrades.data[i][grossNet] > 0 ? stats['wins']++ && (stats['gains']+=props.savedTrades.data[i][grossNet]) : (stats['negGains']+=props.savedTrades.data[i][grossNet]) && stats['loss']++
+      props.savedTrades.data[i][grossNet] > 0 ? (stats['gains']+=props.savedTrades.data[i][grossNet]) && stats['wins']++ : (stats['negGains']+=props.savedTrades.data[i][grossNet]) && stats['loss']++
+      
       for(let int in timeBlocks){
         ((Number(int) <= props.savedTrades.data[i]["TimeStamp"]) && (props.savedTrades.data[i]["TimeStamp"] < Number(int)+0.04167)) && (timeBlocks[int][0] += props.savedTrades.data[i][grossNet]) && (timeBlocks[int][1]++)
       }
@@ -150,11 +151,11 @@ const ProfitChart = props => {
                 </div>
                 <div>
                   <h3>{grossNet.substring(0, grossNet.indexOf("P"))} Profits</h3>
-                  <h3>${((props.stats['gains'])-(props.stats['negGains'])).toFixed(2)}</h3>
+                  <h3>${((props.stats['gains'])+(props.stats['negGains'])).toFixed(2)}</h3>
                 </div>
                 <div>
                   <h3>Average R:R</h3>
-                  <h3>{((props.stats['gains']/props.stats['wins'])/(props.stats['negGains']/props.stats['loss'])).toFixed(2)}/1</h3>
+                  <h3>{((props.stats['gains']/props.stats['wins'])/((props.stats['negGains']/props.stats['loss'])*-1)).toFixed(2)}/1</h3>
                 </div>
               </div>)
             }
