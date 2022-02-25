@@ -155,7 +155,7 @@ const ProfitChart = props => {
                 </div>
                 <div>
                   <h3>Average R:R</h3>
-                  <h3>{((props.stats['gains']/props.stats['wins'])/((props.stats['negGains']/props.stats['loss'])*-1)).toFixed(2)}/1</h3>
+                  <h3>{((props.stats['gains']/props.stats['wins'])/((props.stats['negGains']/props.stats['loss'])*-1)).toFixed(2)} : 1</h3>
                 </div>
               </div>)
             }

@@ -110,7 +110,7 @@ const DayOfWeekCharts = props => {
               <Bar
                 data = {barData}
                 options = {barOptions}
-                height={500}
+                height={450}
               />
             </div>
           </div>
@@ -120,7 +120,7 @@ const DayOfWeekCharts = props => {
               <Bar
                 data = {barTwoData}
                 options = {barOptions}
-                height={500}
+                height={450}
               />
             </div>
           </div>
