@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as XLSX from 'xlsx'
 import { connect } from "react-redux";
 import { sendExcel, destroyExcel, updateExcel } from '../modules/trades';
+import { logout } from "../modules/auth";
 
 const Excel = props => {
-  const [uploadBox, setUploadBox] = useState("fadeout")
-
   let option = "update"
 
   const organizeExcel = async (d, option) => {
@@ -94,7 +93,6 @@ const Excel = props => {
     })
 
     promise.then((d) => {
-      setUploadBox(["hidden", 0])
       switch (true) {
         case d[0]["T/D"] === undefined && props.savedTrades !== null:
           let q1 = window.confirm("Short Fees Detected. Add to or overwrite current DataSet?");
@@ -119,6 +117,14 @@ const Excel = props => {
       }
     })
   }
+
+  const onLogout = async () => {
+    sessionStorage.clear()
+    let response = await logout();
+    if (response.data.success !== true) {
+      alert("SignOut failed unexpectedly")
+    }
+  }
   
   return (
     <>
@@ -135,6 +141,7 @@ const Excel = props => {
             <span className="upload-btn">Upload</span>
           </label>
           <h4 onClick={() => deleteExcel()}>Clear Data</h4>
+          <a href="/"><h4 onClick={() => onLogout()}>Logout</h4></a>
           <i className="bars icon"></i>
         </div>
       </div>
