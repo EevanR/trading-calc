@@ -742,7 +742,7 @@ canvas {
 
   .summary-box {
     width: 100%;
-    height: 300px;
+    min-height: 300px;
     border: 1px solid grey;
     margin: 1rem 0;
     color: lightgrey;
@@ -939,26 +939,59 @@ canvas {
   margin: 0.2rem 0.5rem;
 }
 
+.gap-show h4 {
+  color: rgba(211, 211, 211, 0.753);
+}
+
 .two-column-grid.gap-show {
-  grid-template-columns: 15rem 8rem;
+  grid-template-columns: repeat(11, 1fr);
 }
 
 #gap-show-arrow {
   margin-top: -0.1rem;
+  color: rgb(4,119,251);
+  float: right;
 }
 
 .gap-show-stats::-webkit-scrollbar {
   display: none;
 }
 
-.two-column-grid.gap-stats {
-  border-bottom: 1px solid rgba(211, 211, 211, 0.2);
-  border-top: 1px solid rgba(211, 211, 211, 0.2);
-  padding: 1rem;
+.gap-stats .foreground h3 {
+  color: white;
+  border-bottom: 1px solid rgba(211, 211, 211, 0.1);
+  padding-bottom: 1rem;
 }
 
 #gapStatList {
   cursor: pointer;
+  text-align: left;
+  line-height: 2;
+}
+
+.gap-stats-heading {
+  padding: 2rem;
+}
+
+.gap-stats-heading h3 {
+  display: inline;
+  color: white;
+  font-family: "Montserrat-bold";
+}
+
+.gap-stats-heading h1 {
+  display: inline;
+  color: rgb(4,119,251);
+  font-size: 38px;
+  font-style: italic;
+  font-family: "Montserrat";
+}
+
+.line {
+  width: 60%!important;
+  border: 1px solid rgb(4,119,251);
+  height: 1px;
+  display: inline-block;
 }
 
 @media (min-width: 40em) {
