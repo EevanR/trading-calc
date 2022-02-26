@@ -272,9 +272,9 @@ const GapStats = props => {
 
   return (
     <>
-      <section className="bg-primary tab gap-stats" id="graphs">
+      <section className="bg-verydark tab gap-stats" id="graphs">
         <div className="container-wide">
-          <div>
+          <div className="foreground bg-dark">
             <h2>Historic Gap Stats</h2>
             <h4>Recent Gap Chart {chartDate} (5min)</h4>
             <Form onSubmit={runTest}>
@@ -282,7 +282,7 @@ const GapStats = props => {
               <button className="ui button" id="loadChart" type="submit">Find Stats</button>
             </Form>
           </div>
-          <div>
+          <div className="foreground bg-dark">
             <Line
               data = {lineData}
               options = {lineOptions}
@@ -291,7 +291,7 @@ const GapStats = props => {
             />
           </div>
           {chartTicker !== "" && gapStats["gapCount"] !== undefined && (
-            <>
+            <div className="foreground bg-dark">
               <h2>Stats {chartTicker}</h2>
               <div className="two-column-grid gap-stats">
                 <h4 className="right-align">Gaps Above 20%:</h4>
@@ -317,10 +317,10 @@ const GapStats = props => {
                 <h4 className="right-align">Day 2 Avg Gap Down:</h4>
                 <h4>{gapStats["day2AvgDown"]}%</h4>
               </div>
-            </>
+            </div>
           )} 
           {props.gapSearches !== [] && (
-            <>
+            <div className="foreground bg-dark">
               <h2>Recent Searches</h2>
               {gapSearches.length === 0 && <h4>No Recent Searches</h4>}
               <div className="gap-show-stats two-column-grid">  
@@ -354,11 +354,11 @@ const GapStats = props => {
                   </div>
                 )}
               </div>
-            </>
+            </div>
           )}
         </div> 
       </section>
-      <section className="footer bg-secondary">
+      <section className="footer bg-dark">
         <p >Copyright © TradeLogs 2022. All rights reserved.</p>
       </section>
     </>
