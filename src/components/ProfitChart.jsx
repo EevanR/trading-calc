@@ -138,7 +138,7 @@ const ProfitChart = props => {
       <section className="bg-verydark tab" id="graphs">
         <div className="container-wide">
           <div className="summary-box">
-            <h1>Welcome, {props.userAttrs.nickname}</h1>
+            {props.userAttrs !== null && <h1>Welcome, {props.userAttrs.nickname}</h1>}
             {props.savedTrades !== null && props.stats !== null &&
               (<div className="four-column-grid">
                 <div>
