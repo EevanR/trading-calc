@@ -925,8 +925,9 @@ canvas {
   text-align: right;
 }
 
-.gap-stats h4{
+.gap-stats h4 {
   margin: 1rem;
+  display: inline;
 }
 
 .gap-show-stats.two-column-grid {
