@@ -911,7 +911,7 @@ canvas {
 
 /* GAP STATS TAB */
 
-.gap-stats div div:first-of-type {
+.gap-stats Form {
   width: 100%;
   text-align: center;
 }
@@ -925,15 +925,13 @@ canvas {
   text-align: right;
 }
 
+.left-align {
+  text-align: left;
+}
+
 .gap-stats h4 {
   margin: 1rem;
   display: inline;
-}
-
-.gap-show-stats.two-column-grid {
-  grid-template-columns: 10rem 1fr;
-  grid-gap: 0rem 0rem;
-  overflow: scroll;
 }
 
 .gap-stats.two-column-grid h4, .gap-show-stats.two-column-grid h4 {
@@ -944,18 +942,10 @@ canvas {
   color: rgba(211, 211, 211, 0.753);
 }
 
-.two-column-grid.gap-show {
-  grid-template-columns: repeat(11, 1fr);
-}
-
 #gap-show-arrow {
   margin-top: -0.1rem;
   color: rgb(4,119,251);
   float: right;
-}
-
-.gap-show-stats::-webkit-scrollbar {
-  display: none;
 }
 
 .gap-stats .foreground h3 {
@@ -993,6 +983,37 @@ canvas {
   border: 1px solid rgb(4,119,251);
   height: 1px;
   display: inline-block;
+}
+
+#gaptable { 
+  font-family: "Montserrat";
+  border-collapse: collapse;
+  width: 100%;
+  text-align: center;
+}
+
+#gaptable th, #gaptable td { 
+  color: rgb(4,119,251);
+  min-width: 150px;
+}
+
+#gaptable td { 
+  padding-top: 2rem;
+}
+
+#gaptable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  color: white;
+  border-bottom: 1px solid rgba(211, 211, 211, 0.1);;
+}
+
+.foreground.bg-dark.table {
+  overflow-x: scroll;
+}
+
+#gaplist {
+  margin-top: 9rem;
 }
 
 @media (min-width: 40em) {
