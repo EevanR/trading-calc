@@ -26,6 +26,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -274,7 +275,7 @@ header .big.ui.button {
 
 .container-wide {
   margin-inline: auto; 
-  width: min(90%, 85rem);
+  width: min(95%, 85rem);
 }
 
 .split {
@@ -293,6 +294,10 @@ header .big.ui.button {
 
   .split > * + * {
     margin-left: 2em;
+  }
+
+  .container-wide {
+    width: min(90%, 85rem);
   }
 }
 
@@ -682,7 +687,7 @@ Button#submit.ui.button {
 }
 
 canvas {
-  margin-bottom: 3rem;
+  margin: 1rem 0;
 }
 
 #graphs {
@@ -691,7 +696,7 @@ canvas {
 
 .chartSmall {
   height: 15rem;
-  margin: 1rem 0;
+  margin: 0rem 0;
 }
 
 .panes .ui.tabular.menu .active.item {
@@ -714,16 +719,51 @@ canvas {
 }
 
 .tab h4 {
-  margin-top: 4rem;
+  margin-top: 2rem;
 }
 
 .tab .foreground {
   border-radius: 10px;
-  padding: 2rem;
+  padding: 2rem 0.5rem;
   margin-bottom: 1rem;
 }
 
+.summary-box {
+  width: 100%;
+  min-height: 300px;
+  border: 1px solid grey;
+  margin-bottom: 1rem;
+  color: lightgrey;
+  padding: 2rem;
+}
+
+.four-column-grid {
+  position: relative;
+  top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr) minmax(150px, 1fr));
+  grid-gap: 1.5rem 1rem;
+}
+
+.four-column-grid div {
+  padding: 2rem 1rem 1rem 1rem;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 1px rgba(4, 119, 251, 0.28);
+}
+
 @media (min-width: 40em) {
+  .tab .foreground {
+    padding: 2rem;
+  }
+
+  .chartSmall {
+    margin: 1rem 0;
+  }
+
+  canvas {
+    margin-bottom: 3rem;
+  }
+
   .panes .ui.attached:not(.message)+.ui.attached.segment:not(.top) {
     overflow: visible;
     border: none;
@@ -740,29 +780,16 @@ canvas {
     width: 60%;
   }
 
-  .summary-box {
-    width: 100%;
-    min-height: 300px;
-    border: 1px solid grey;
-    margin: 1rem 0;
-    color: lightgrey;
-    padding: 2rem;
-  }
-
   .four-column-grid {
-    position: relative;
     top: 1.5rem;
-    display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: 1rem 2rem;
+    grid-gap: 1rem 3%;
     height: 20px;
   }
 
   .four-column-grid div {
-    padding: 2.5rem 4rem;
-    height: 10rem;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px 1px rgba(4, 119, 251, 0.28);
+    min-height: 10rem;
+    justify-content: center;
   }
 
   .chartSmall {
