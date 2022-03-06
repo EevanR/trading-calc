@@ -1,37 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Icon, Button } from 'semantic-ui-react'
+import { Icon } from 'semantic-ui-react'
 import { connect } from "react-redux";
-import { logout, updateRisk } from "../modules/auth";
-import { Redirect } from 'react-router-dom';
+import { updateRisk } from "../modules/auth";
 import { Dimmer, Loader } from 'semantic-ui-react'
-import { getSetups } from "../modules/setup";
 import { showUser } from "../modules/auth";
 
 const Pannel = props => {
-  const [pannel, setPannel] = useState(false)
-  const [redirect, setRedirect] = useState(false)
+  const [pannel, setPannel] = useState("pannel-up")
   const [editRisk, setEditRisk] = useState(false)
   const [showMenu, setShowMenu] = useState(false)
   const [loader, setLoader] = useState(false)
-
-  const togglePannel = () => {
-    pannel === false ? setPannel(true) : setPannel(false)
-  }
-
-  const onLogout = async () => {
-    let response = await logout();
-    if (response.data.success === true) {
-      setRedirect(true)
-      sessionStorage.clear()
-      props.setUser(null)
-      props.setCount(0)
-      props.setPrereq(null)
-      props.setCheckList([])
-      props.setSetUp("")
-    } else {
-      alert("SignOut failed unexpectedly")
-    }
-  }
 
   const setRisk = async (e) => {
     e.preventDefault();
@@ -48,21 +26,10 @@ const Pannel = props => {
     }
   }
 
-  const indexSetups = async () => {
-    let response = await getSetups()
-    if (response !== undefined && response.status === 200) {
-      props.setStrategies(response.data)
-    }
-  }
-
   const openCommentMenu = () => {
     showMenu === false ? setShowMenu(true) : setShowMenu(false);
   }
-
-  useEffect(() => {
-    indexSetups()
-  }, [indexSetups])
-
+  
   useEffect(() => {(async() => {
     if (props.userAttrs === null && props.savedTrades !== null) {
       let response = await showUser(props.savedTrades.user_id)
@@ -71,54 +38,33 @@ const Pannel = props => {
   })()}, [props.userAttrs, props.savedTrades])
 
   return (
-    <section style={{display: "none"}}>
-      {redirect === true && <Redirect to='/' />}
-      <div id="pannel" className={pannel ? "pannel-in" : "pannel-out"} >
+    <section  id="pannel" className={pannel} >
+      <div className="bg-ivory container-wide">
         {props.userAttrs === null ? (
           <>
-            <div className="pannel-switch">
-              <Icon onClick={() => togglePannel()}
-                color='red'
-                name={pannel === false ? 'arrow alternate circle right outline' : 'arrow alternate circle left outline'} />
-            </div>
             <h2>Not Logged In</h2>
           </>
         ) : (
           <>
-            <h2 id="pannel-name">{props.userAttrs.nickname}</h2>
-            <div className="pannel-switch">
-              <Icon id="pannel-arrow" onClick={() => togglePannel()}
-                color='red'
-                name={pannel === false ? 'arrow alternate circle right outline' : 'arrow alternate circle left outline'} />
-            </div>
-            <div id="border-pannel"></div>
-            <div id="pannel-info">
+            <div>
               {props.stats !== null && props.savedTrades !== null && (
                 <>
-                  <h4 id="pannel-title">Account: </h4>
+                  <h4>Account: </h4>
                   <h5>{props.userAttrs.email}</h5>
-                  <div className="stats-grid">
-                    <h5 id="left-column">Trade Count: </h5>
-                    <h5 id="right-column">{props.savedTrades.data.length}</h5>
-                    <h5 id="left-column">Trades Won: </h5>
-                    <h5 id="right-column">{props.stats['wins']}</h5>
-                    <h5 id="left-column">Win Percentage: </h5>
-                    <h5 id="right-column">{((props.stats['wins']/(props.stats['wins']+props.stats['loss']))*100).toFixed(2)}%</h5>
-                    <h5 id="left-column">Gross Profits: </h5>
-                    <h5 id="right-column">${(props.stats['gains']).toFixed(2)}</h5>
-                    <h5 id="left-column">Gross Loss:</h5>
-                    <h5 id="right-column" style={{marginLeft: "-6px"}}>${(props.stats['negGains']).toFixed(2)}</h5>
-                    <h5 id="left-column">Profit/Loss Ratio: </h5>
-                    <h5 id="right-column">{((props.stats['gains']/props.stats['negGains'])*-1).toFixed(2)}</h5>
-                    <h5 id="left-column">Average Win: </h5>
-                    <h5 id="right-column">${(props.stats['gains']/props.stats['wins']).toFixed(2)}</h5>
-                    <h5 id="left-column">Average Loss: </h5>
-                    <h5 id="right-column">${(props.stats['negGains']/props.stats['loss']).toFixed(2)}</h5>
-                  </div>
+                  <h5>Trades Won: </h5>
+                  <h5>{props.stats['wins']}</h5>
+                  <h5>Gross Loss:</h5>
+                  <h5>${(props.stats['negGains']).toFixed(2)}</h5>
+                  <h5>Profit/Loss Ratio: </h5>
+                  <h5>{((props.stats['gains']/props.stats['negGains'])*-1).toFixed(2)}</h5>
+                  <h5>Average Win: </h5>
+                  <h5>${(props.stats['gains']/props.stats['wins']).toFixed(2)}</h5>
+                  <h5>Average Loss: </h5>
+                  <h5>${(props.stats['negGains']/props.stats['loss']).toFixed(2)}</h5>
                 </>
               )}
             </div>
-            <h4 id="pannel-title">Risk / trade:
+            <h4>Risk / trade:
             <div id="elipse"
                 onClick={() => openCommentMenu()}
                 className={showMenu ? "elipse-open" : "elipse-close"}
@@ -148,12 +94,10 @@ const Pannel = props => {
                   )}
                 </>
               )}
-            <div className="preformance">
-              <Button className="logout" onClick={() => onLogout()}>Logout</Button>
-            </div>
           </>
         )}
       </div>
+      <i onClick={() => pannel === "pannel-up" ? setPannel("pannel-down") : setPannel("pannel-up")} className="bars icon"></i>
     </section>
   )
 }

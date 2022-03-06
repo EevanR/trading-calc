@@ -1,14 +1,15 @@
-#pannel {
+/* #pannel {
   position: fixed;
   top: 0;
-  left: -290px;
-  width: 350px;
-  height: 100%;
-  background-color: #1d2026;
-  z-index: 100;
+  width: 100%;
+  background-color: white;
   text-align: left;
-  overflow: scroll;
   padding: 2%;
+  overflow-y: scroll;
+}
+
+.pannel {
+  height: 40%;
 }
 
 .pannel-in {
@@ -22,12 +23,9 @@
   -webkit-animation: slide-left 0.5s forwards;
   animation: slide-left 0.5s forwards;
   background-color: transparent;
-}
+} */
 
-.pannel-details {
-  overflow: scroll;
-}
-
+/* 
 @-webkit-keyframes slide-right {
   100% { left: 0; }
 }
@@ -50,9 +48,9 @@
   font-size: 34px;
   right: 10px;
   cursor: pointer;
-}
+} */
 
-#pannel-name {
+/* #pannel-name {
   top: 25px;
   position: absolute;
   color: red;
@@ -196,7 +194,7 @@
 
 .clearTades {
   margin-top: 10px;
-  /* padding-bottom: 30px; */
+  padding-bottom: 30px;
 }
 
 .stats-grid {
@@ -213,4 +211,4 @@
 
 #left-column {
   margin: 5px 0px;
-}
+} */

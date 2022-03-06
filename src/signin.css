@@ -127,12 +127,6 @@ header {
   cursor: pointer;
 }
 
-.bars.icon {
-  font-size: 2.5rem;
-  color: rgb(4,119,251);
-  cursor: pointer;
-}
-
 header h1 {
   padding-top: 9rem;
   font-size: 40px;
@@ -649,8 +643,26 @@ Button#submit.ui.button {
   margin: 0rem 2rem 0.5rem 2rem;
 }
 
+.excel {
+  color: rgb(117, 168, 202);
+  position: absolute;
+  right: 2rem;
+  top: 0rem;
+  padding-top: 1rem;
+  visibility: hidden;
+}
+
+.excel h4 {
+  display: inline;
+  margin-right: 3rem;
+  cursor: pointer;
+  border-left: 1px solid rgba(255, 166, 0, 0.63);
+  padding-left: 1rem;
+}
+
 .panes {
   padding-top: 1rem;
+  position: relative;
 }
 
 .panes .ui.attached:not(.message)+.ui.attached.segment:not(.top) {
@@ -798,19 +810,9 @@ canvas {
   }
   
   .excel {
-    color: rgb(117, 168, 202);
-    position: absolute;
-    right: 2rem;
-    top: 0rem;
-    padding-top: 1rem;
-  }
-
-  .excel h4 {
-    display: inline;
-    margin-right: 3rem;
-    cursor: pointer;
-    border-left: 1px solid rgba(255, 166, 0, 0.63);
-    padding-left: 1rem;
+    right: 4rem;
+    top: 1.3rem;
+    visibility: visible;
   }
 
   input[type='file'] {
@@ -1062,4 +1064,36 @@ canvas {
 
 .footer p {
   font-size: 13px;
+}
+
+/* PANNEL */
+
+.bars.icon {
+  position: absolute;
+  bottom: -3.5rem;
+  right: 2rem;
+  color: rgb(4,119,251);
+  z-index: 1;
+  font-size: 2.5rem;
+  cursor: pointer;
+}
+
+#pannel {
+  position: relative;
+  top: 0;
+  width: 100%;
+  background-color: rgb(243,245,248);
+  text-align: left;
+  padding: 0;
+  transition: all .5s ease-in-out;
+}
+
+.pannel-up {
+  height: 0px;
+  transition: all .5s ease-in-out;
+}
+
+.pannel-down {
+  transition: all .5s ease-in-out;
+  height: 400px;
 }
