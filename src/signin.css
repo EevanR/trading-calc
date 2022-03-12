@@ -26,7 +26,7 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 
 body {
@@ -326,7 +326,12 @@ header .big.ui.button {
 
 .red-bold {
   color: rgba(233, 133, 93, 0.719);
-  font-family: 'Montserrat-bold';
+  font-family: 'Montserrat';
+}
+
+.green {
+  color: green;
+  font-family: 'Montserrat';
 }
 
 .big.ui.button {
@@ -1078,22 +1083,35 @@ canvas {
   cursor: pointer;
 }
 
-#pannel {
+.pannel {
+  color: lightgrey;
   position: relative;
   top: 0;
   width: 100%;
-  background-color: rgb(243,245,248);
+  background-color: rgb(1, 4, 10);
+  padding: 0rem;
+}
+
+.pannel p {
   text-align: left;
-  padding: 0;
-  transition: all .5s ease-in-out;
+  font-size: 14px;
+}
+
+.pannel-up p {
+  text-align: left;
+  font-size: 14px;
 }
 
 .pannel-up {
+  position: relative;
+  background-color: rgb(1, 4, 10);
+  padding: 0rem;
   height: 0px;
   transition: all .5s ease-in-out;
 }
 
 .pannel-down {
+  padding: 3rem;
   transition: all .5s ease-in-out;
-  height: 400px;
+  height: 130px;
 }

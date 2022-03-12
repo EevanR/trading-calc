@@ -38,66 +38,66 @@ const Pannel = props => {
   })()}, [props.userAttrs, props.savedTrades])
 
   return (
-    <section  id="pannel" className={pannel} >
-      <div className="bg-ivory container-wide">
+    <section id="pannel" className={pannel} >
+      <div className="bg-verydark">
         {props.userAttrs === null ? (
           <>
             <h2>Not Logged In</h2>
           </>
         ) : (
           <>
-            <div>
+            <div className="split">
               {props.stats !== null && props.savedTrades !== null && (
                 <>
-                  <h4>Account: </h4>
-                  <h5>{props.userAttrs.email}</h5>
-                  <h5>Trades Won: </h5>
-                  <h5>{props.stats['wins']}</h5>
-                  <h5>Gross Loss:</h5>
-                  <h5>${(props.stats['negGains']).toFixed(2)}</h5>
-                  <h5>Profit/Loss Ratio: </h5>
-                  <h5>{((props.stats['gains']/props.stats['negGains'])*-1).toFixed(2)}</h5>
-                  <h5>Average Win: </h5>
-                  <h5>${(props.stats['gains']/props.stats['wins']).toFixed(2)}</h5>
-                  <h5>Average Loss: </h5>
-                  <h5>${(props.stats['negGains']/props.stats['loss']).toFixed(2)}</h5>
+                  <p>Account: {props.userAttrs.email}</p>
+                  <p>Trades Won</p>
+                  <i id="gap-show-arrow" className="angle double right icon"></i>
+                  <p>{props.stats['wins']}</p>
+                  <p>Profit/Loss Ratio</p>
+                  <i id="gap-show-arrow" className="angle double right icon"></i>
+                  <p>{((props.stats['gains']/props.stats['negGains'])*-1).toFixed(2)}</p>
+                  <p>Average Win</p>
+                  <i id="gap-show-arrow" className="angle double right icon"></i>
+                  <p className="green">${(props.stats['gains']/props.stats['wins']).toFixed(2)}</p>
+                  <p>Average Loss</p>
+                  <i id="gap-show-arrow" className="angle double right icon"></i>
+                  <p className="red-bold">${(props.stats['negGains']/props.stats['loss']).toFixed(2)}</p>
+                  <p>Risk / trade:</p>
+                  {!editRisk ? (
+                    <>
+                      <p id="user-risk">{props.userAttrs.risk * 100} %</p>
+                    </>
+                  ) : (
+                    <>
+                      <form id="risk-form" onSubmit={setRisk}>
+                        <label htmlFor="">Risk</label>
+                        <input required type='float' placeholder="%" name="risk" />
+                        <button id='update-risk'>update</button>
+                        <button onClick={() => setEditRisk(false)}>Cancel</button>
+                      </form>
+                      {loader === true && (
+                        <Dimmer active>
+                          <Loader />
+                        </Dimmer>
+                      )}
+                    </>
+                  )}
+                  <div id="elipse"
+                    onClick={() => openCommentMenu()}
+                    className={showMenu ? "elipse-open" : "elipse-close"}
+                  >
+                    {showMenu === true && (
+                      <button onClick={() => setEditRisk(true)}>Edit</button>
+                    )}
+                    <Icon id="risk-elipse" name='ellipsis vertical' />
+                  </div>
                 </>
               )}
             </div>
-            <h4>Risk / trade:
-            <div id="elipse"
-                onClick={() => openCommentMenu()}
-                className={showMenu ? "elipse-open" : "elipse-close"}
-              >
-                {showMenu === true && (
-                  <button id="risk-edit" onClick={() => setEditRisk(true)}>Edit</button>
-                )}
-                <Icon id="risk-elipse" name='ellipsis vertical' />
-              </div>
-            </h4>
-            {!editRisk ? (
-              <>
-                <h4 id="user-risk">{props.userAttrs.risk * 100} %</h4>
-              </>
-            ) : (
-                <>
-                  <form id="risk-form" onSubmit={setRisk}>
-                    <label htmlFor="">Risk</label>
-                    <input required type='float' placeholder="%" name="risk" id="pannel-risk" />
-                    <button id='update-risk'>update</button>
-                    <button onClick={() => setEditRisk(false)}>Cancel</button>
-                  </form>
-                  {loader === true && (
-                    <Dimmer active>
-                      <Loader />
-                    </Dimmer>
-                  )}
-                </>
-              )}
           </>
         )}
       </div>
-      <i onClick={() => pannel === "pannel-up" ? setPannel("pannel-down") : setPannel("pannel-up")} className="bars icon"></i>
+      <i onClick={() => pannel === "pannel-up" ? setPannel("pannel pannel-down") : setPannel("pannel-up")} className="bars icon"></i>
     </section>
   )
 }
