@@ -12,7 +12,7 @@ const Panes = () => {
 
   const panes = [
     {
-      menuItem: 'Review', render: () => (
+      menuItem: 'Overview', render: () => (
         <Tab.Pane>
           <>
             <ProfitChart />

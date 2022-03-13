@@ -1119,6 +1119,8 @@ canvas {
   padding: 3rem;
   transition: all .3s ease-in-out;
   height: 130px;
+  /* overflow-x: scroll; */
+
 }
 
 #risk-form {
@@ -1142,4 +1144,8 @@ canvas {
   width: 5rem;
   padding: 0.5rem 0.5rem 0.5rem 1.5rem;
   border: 1px solid rgba(4, 119, 251, 0.678);
+}
+
+#risk-form input:hover {
+  background-color: rgb(14, 34, 75);
 }

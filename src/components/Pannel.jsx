@@ -46,9 +46,9 @@ const Pannel = props => {
         ) : (
           <>
             <div className="split">
+              <p>Account: {props.userAttrs.email}</p>
               {props.stats !== null && props.savedTrades !== null && (
                 <>
-                  <p>Account: {props.userAttrs.email}</p>
                   <p>Trades Won</p>
                   <i id="gap-show-arrow" className="angle double right icon"></i>
                   <p>{props.stats['wins']}</p>
@@ -64,25 +64,24 @@ const Pannel = props => {
                   <p>Average Loss</p>
                   <i id="gap-show-arrow" className="angle double right icon"></i>
                   <p className="red-bold">${(props.stats['negGains']/props.stats['loss']).toFixed(2)}</p>
-                  <p>Risk / trade:</p>
-                  {/* <p>{props.userAttrs.risk * 100} %</p> */}
-                  <form id="risk-form" onSubmit={setRisk}>
-                    <input 
-                      required 
-                      type='float' 
-                      placeholder={`${props.userAttrs.risk * 100} %`} 
-                      name="risk"
-                      value={riskValue}
-                      onClick= {clickHandler}
-                    />
-                    <button className="ui button">update</button>
-                  </form>
-                  {loader === true && (
-                    <Dimmer active>
-                      <Loader />
-                    </Dimmer>
-                  )}
                 </>
+              )}
+              <p>Risk / trade:</p>
+              <form id="risk-form" onSubmit={setRisk}>
+                <input 
+                  required 
+                  type='float' 
+                  placeholder={`${props.userAttrs.risk * 100} %`} 
+                  name="risk"
+                  value={riskValue}
+                  onClick= {clickHandler}
+                />
+                <button className="ui button">update</button>
+              </form>
+              {loader === true && (
+                <Dimmer active>
+                  <Loader />
+                </Dimmer>
               )}
             </div>
           </>
