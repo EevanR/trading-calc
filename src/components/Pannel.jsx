@@ -53,6 +53,9 @@ const Pannel = props => {
                   <p>Trades Won</p>
                   <i id="gap-show-arrow" className="angle double right icon"></i>
                   <p>{props.stats['wins']}</p>
+                  <p>Trades Loss</p>
+                  <i id="gap-show-arrow" className="angle double right icon"></i>
+                  <p>{props.stats['loss']}</p>
                   <p>Profit/Loss Ratio</p>
                   <i id="gap-show-arrow" className="angle double right icon"></i>
                   <p>{((props.stats['gains']/props.stats['negGains'])*-1).toFixed(2)}</p>

@@ -334,6 +334,10 @@ header .big.ui.button {
   font-family: 'Montserrat';
 }
 
+.orange {
+  color: orange;
+}
+
 .big.ui.button {
   background-color: rgb(68,105,129);
   padding: 1.4rem 3rem;
@@ -1112,6 +1116,10 @@ canvas {
 
 .pannel-down {
   padding: 3rem;
-  transition: all .5s ease-in-out;
+  transition: all .3s ease-in-out;
   height: 130px;
+}
+
+#risk-elipse {
+  cursor: pointer;
 }
