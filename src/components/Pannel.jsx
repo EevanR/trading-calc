@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Icon } from 'semantic-ui-react'
 import { connect } from "react-redux";
 import { updateRisk } from "../modules/auth";
 import { Dimmer, Loader } from 'semantic-ui-react'
@@ -7,9 +6,8 @@ import { showUser } from "../modules/auth";
 
 const Pannel = props => {
   const [pannel, setPannel] = useState("pannel-up")
-  const [editRisk, setEditRisk] = useState(false)
-  const [showMenu, setShowMenu] = useState(false)
   const [loader, setLoader] = useState(false)
+  const [riskValue, setRiskValue] = useState(null)
 
   const setRisk = async (e) => {
     e.preventDefault();
@@ -19,15 +17,16 @@ const Pannel = props => {
     if (response.status === 200) {
       setLoader(false)
       props.setUser(response.data)
-      setEditRisk(false)
+      setRiskValue("")
     } else {
       setLoader(false)
       alert("Update Failed")
+      setRiskValue("")
     }
   }
 
-  const openCommentMenu = () => {
-    showMenu === false ? setShowMenu(true) : setShowMenu(false);
+  const clickHandler = () => {
+    setRiskValue(null)
   }
   
   useEffect(() => {(async() => {
@@ -38,7 +37,7 @@ const Pannel = props => {
   })()}, [props.userAttrs, props.savedTrades])
 
   return (
-    <section id="pannel" className={pannel} >
+    <section className={pannel} >
       <div className="bg-verydark">
         {props.userAttrs === null ? (
           <>
@@ -66,34 +65,23 @@ const Pannel = props => {
                   <i id="gap-show-arrow" className="angle double right icon"></i>
                   <p className="red-bold">${(props.stats['negGains']/props.stats['loss']).toFixed(2)}</p>
                   <p>Risk / trade:</p>
-                  {!editRisk ? (
-                    <>
-                      <p id="user-risk">{props.userAttrs.risk * 100} %</p>
-                    </>
-                  ) : (
-                    <>
-                      <form id="risk-form" onSubmit={setRisk}>
-                        <label htmlFor="">Risk</label>
-                        <input required type='float' placeholder="%" name="risk" />
-                        <button id='update-risk'>update</button>
-                        <button onClick={() => setEditRisk(false)}>Cancel</button>
-                      </form>
-                      {loader === true && (
-                        <Dimmer active>
-                          <Loader />
-                        </Dimmer>
-                      )}
-                    </>
+                  {/* <p>{props.userAttrs.risk * 100} %</p> */}
+                  <form id="risk-form" onSubmit={setRisk}>
+                    <input 
+                      required 
+                      type='float' 
+                      placeholder={`${props.userAttrs.risk * 100} %`} 
+                      name="risk"
+                      value={riskValue}
+                      onClick= {clickHandler}
+                    />
+                    <button className="ui button">update</button>
+                  </form>
+                  {loader === true && (
+                    <Dimmer active>
+                      <Loader />
+                    </Dimmer>
                   )}
-                  <div id="elipse"
-                    onClick={() => openCommentMenu()}
-                    className={showMenu ? "elipse-open" : "elipse-close"}
-                  >
-                    {showMenu === true && (
-                      <button onClick={() => setEditRisk(true)}>Edit</button>
-                    )}
-                    <Icon id="risk-elipse" name='ellipsis vertical' />
-                  </div>
                 </>
               )}
             </div>

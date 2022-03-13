@@ -1088,6 +1088,7 @@ canvas {
 }
 
 .pannel {
+  font-family: 'Montserrat';
   color: lightgrey;
   position: relative;
   top: 0;
@@ -1120,6 +1121,25 @@ canvas {
   height: 130px;
 }
 
-#risk-elipse {
-  cursor: pointer;
+#risk-form {
+  display: inline-flex;
+}
+
+#risk-form button {
+  background: transparent;
+  color: lightgrey;
+  font-family: 'Montserrat';
+  color: rgb(85, 161, 248);
+}
+
+#risk-form input {
+  position: relative;
+  background: transparent;
+  color: lightgrey;
+  font-family: 'Montserrat';
+  top: -0.5rem;
+  border-radius: 20px;
+  width: 5rem;
+  padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+  border: 1px solid rgba(4, 119, 251, 0.678);
 }
