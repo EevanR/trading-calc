@@ -732,7 +732,7 @@ canvas {
 .panes .ui.tabular.menu {
   color: white;
   border-bottom: none;
-  overflow: visible;
+  overflow: scroll;
 }
 
 .panes .ui.attached.tabular.menu a {
@@ -1099,12 +1099,13 @@ canvas {
 
 .pannel p {
   text-align: left;
-  font-size: 14px;
+  font-size: 12px;
+  margin: 0 1rem;
 }
 
 .pannel-up p {
   text-align: left;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .pannel-up {
@@ -1116,11 +1117,9 @@ canvas {
 }
 
 .pannel-down {
-  padding: 3rem;
+  padding: 2rem 1rem;
   transition: all .3s ease-in-out;
-  height: 130px;
-  /* overflow-x: scroll; */
-
+  height: 90px;
 }
 
 #risk-form {
@@ -1132,6 +1131,7 @@ canvas {
   color: lightgrey;
   font-family: 'Montserrat';
   color: rgb(85, 161, 248);
+  margin-top: -2rem;
 }
 
 #risk-form input {
@@ -1139,7 +1139,7 @@ canvas {
   background: transparent;
   color: lightgrey;
   font-family: 'Montserrat';
-  top: -0.5rem;
+  /* top: -0.5rem; */
   border-radius: 20px;
   width: 5rem;
   padding: 0.5rem 0.5rem 0.5rem 1.5rem;
@@ -1148,4 +1148,26 @@ canvas {
 
 #risk-form input:hover {
   background-color: rgb(14, 34, 75);
+}
+
+.pannel-inner.split {
+  flex-direction: row;
+  overflow-x: scroll;
+}
+
+@media (min-width: 40em) {
+  .pannel-down {
+    padding: 3rem;
+    height: 130px;
+  }
+
+  .pannel p {
+    text-align: left;
+    font-size: 14px;
+    margin: 0 1rem;
+  }
+
+  #risk-form input {
+    margin-left: -1em;
+  }
 }

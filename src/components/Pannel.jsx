@@ -45,7 +45,7 @@ const Pannel = props => {
           </>
         ) : (
           <>
-            <div className="split">
+            <div className="pannel-inner split">
               <p>Account: {props.userAttrs.email}</p>
               {props.stats !== null && props.savedTrades !== null && (
                 <>
