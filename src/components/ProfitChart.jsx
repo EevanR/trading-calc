@@ -5,6 +5,7 @@ import CommissionsChart from "./CommissionsChart";
 import DayOfWeekCharts from "./DayOfWeekCharts";
 import HourlyChart from "./HourlyChart";
 import { getTrades } from "../modules/trades";
+import { getSetups } from "../modules/setup";
 
 const ProfitChart = props => {
   const [profit, setProfit] = useState([])
@@ -125,6 +126,14 @@ const ProfitChart = props => {
       }
     }
     indexExcels()
+
+    const indexSetups = async () => {
+      let response = await getSetups()
+      if (response !== undefined && response.status === 200) {
+        props.setStrategies(response.data)
+      } 
+    }
+    indexSetups()
   }, [])
 
   useEffect(() => {
@@ -207,6 +216,9 @@ const mapDispatchToProps = dispatch => {
     },
     setStats: string => {
       dispatch({ type: "SET_STATS", payload: string });
+    },
+    setStrategies: array => {
+      dispatch({ type: "SET_STRATEGIES", payload: array });
     }
   };
 };
