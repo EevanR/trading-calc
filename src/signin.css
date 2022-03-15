@@ -1106,6 +1106,7 @@ canvas {
 .pannel-up p {
   text-align: left;
   font-size: 12px;
+  margin: 0 1rem;
 }
 
 .pannel-up {
@@ -1165,6 +1166,10 @@ canvas {
     text-align: left;
     font-size: 14px;
     margin: 0 1rem;
+  }
+
+  .pannel-up p {
+    font-size: 14px;
   }
 
   #risk-form input {
