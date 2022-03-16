@@ -38,6 +38,7 @@ const Signin = props => {
     if (response.status === 200) {
       setLoader(false)
       props.setUser(response.data.data)
+      sessionStorage.setItem('user', JSON.stringify(response.data.data))
       setRedirect(true)
     } else {
       setLoader(false)

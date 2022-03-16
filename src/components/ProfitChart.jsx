@@ -134,6 +134,11 @@ const ProfitChart = props => {
       } 
     }
     indexSetups()
+
+    if (sessionStorage.getItem('user') !== null && props.userAttrs === null) {
+      let user = JSON.parse(sessionStorage.getItem('user'))
+      props.setUser(user)
+    }
   }, [])
 
   useEffect(() => {
@@ -148,26 +153,32 @@ const ProfitChart = props => {
         <div className="container-wide">
           <div className="summary-box">
             {props.userAttrs !== null && <h1>Welcome, {props.userAttrs.nickname}</h1>}
-            {props.savedTrades !== null && props.stats !== null &&
-              (<div className="four-column-grid">
-                <div>
-                  <h3>Trade Count</h3> 
-                  <h3>{props.savedTrades.data.length}</h3>
-                </div>
-                <div>
-                  <h3>Win %</h3>
-                  <h3>{((props.stats['wins']/(props.stats['wins']+props.stats['loss']))*100).toFixed(2)}%</h3>
-                </div>
-                <div>
-                  <h3>{grossNet.substring(0, grossNet.indexOf("P"))} Profits</h3>
-                  <h3>${((props.stats['gains'])+(props.stats['negGains'])).toFixed(2)}</h3>
-                </div>
-                <div>
-                  <h3>Average R:R</h3>
-                  <h3>{((props.stats['gains']/props.stats['wins'])/((props.stats['negGains']/props.stats['loss'])*-1)).toFixed(2)} : 1</h3>
-                </div>
-              </div>)
-            }
+            <div className="four-column-grid">
+              <div>
+                <h3>Trade Count</h3> 
+                {props.savedTrades !== null && props.stats !== null ?
+                  <h3>{props.savedTrades.data.length}</h3> : <h3>No Data</h3>
+                }
+              </div>
+              <div>
+                <h3>Win %</h3>
+                {props.savedTrades !== null && props.stats !== null ?
+                  <h3>{((props.stats['wins']/(props.stats['wins']+props.stats['loss']))*100).toFixed(2)}%</h3> : <h3>No Data</h3>
+                }
+              </div>
+              <div>
+                <h3>{grossNet.substring(0, grossNet.indexOf("P"))} Profits</h3>
+                {props.savedTrades !== null && props.stats !== null ?
+                  <h3>${((props.stats['gains'])+(props.stats['negGains'])).toFixed(2)}</h3> : <h3>No Data</h3>
+                }
+              </div>
+              <div>
+                <h3>Average R:R</h3>
+                {props.savedTrades !== null && props.stats !== null ?
+                  <h3>{((props.stats['gains']/props.stats['wins'])/((props.stats['negGains']/props.stats['loss'])*-1)).toFixed(2)} : 1</h3> : <h3>No Data</h3>
+                }
+              </div>
+            </div>
           </div>
           <div className="foreground bg-dark">
             <h2>Profit Chart & Fees</h2>
@@ -219,6 +230,9 @@ const mapDispatchToProps = dispatch => {
     },
     setStrategies: array => {
       dispatch({ type: "SET_STRATEGIES", payload: array });
+    },
+    setUser: data => {
+      dispatch({ type: "SET_USER", payload: data });
     }
   };
 };
