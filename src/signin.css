@@ -26,6 +26,7 @@
 
 html {
   scroll-behavior: smooth;
+  /* overflow-x: hidden; */
 }
 
 body {
@@ -126,15 +127,6 @@ header {
   cursor: pointer;
 }
 
-.bars.icon {
-  position: fixed;
-  top: 2rem;
-  right: 2rem;
-  font-size: 2.5rem;
-  color: rgb(4,119,251);
-  cursor: pointer;
-}
-
 header h1 {
   padding-top: 9rem;
   font-size: 40px;
@@ -189,10 +181,6 @@ header .big.ui.button {
 
   header h1 {
     padding-top: 7rem;
-  }
-
-  .bars.icon {
-    visibility: hidden;
   }
 
   .header-grid .x.icon.icon {
@@ -281,7 +269,7 @@ header .big.ui.button {
 
 .container-wide {
   margin-inline: auto; 
-  width: min(90%, 85rem);
+  width: min(95%, 85rem);
 }
 
 .split {
@@ -300,6 +288,10 @@ header .big.ui.button {
 
   .split > * + * {
     margin-left: 2em;
+  }
+
+  .container-wide {
+    width: min(90%, 85rem);
   }
 }
 
@@ -328,9 +320,22 @@ header .big.ui.button {
   background-color: rgb(4,19,41);
 }
 
+.bg-verydark {
+  background-color: rgb(1, 4, 10);
+}
+
 .red-bold {
   color: rgba(233, 133, 93, 0.719);
-  font-family: 'Montserrat-bold';
+  font-family: 'Montserrat';
+}
+
+.green {
+  color: green;
+  font-family: 'Montserrat';
+}
+
+.orange {
+  color: orange;
 }
 
 .big.ui.button {
@@ -441,6 +446,20 @@ header .big.ui.button {
   margin-bottom: 4rem;
 }
 
+#section-5 img {
+  display: none;
+}
+
+.section-5 .stats-gif {
+  background-image: url("https://media.giphy.com/media/GWeYePrF8gWdGKBFyz/giphy.gif");
+  position: relative;
+  height: 480px;
+  width: 270px;
+  top: 2rem;
+  margin-inline: auto;
+  border-radius: 5px;
+}
+
 @media (min-width: 40em) {
   .section-1 h1{
     padding-top: 90px;
@@ -451,6 +470,7 @@ header .big.ui.button {
   }
 
   #section-5 img {
+    display: inline;
     position: relative;
     max-width: 50rem;
     left: -10rem;
@@ -494,6 +514,11 @@ header .big.ui.button {
 
 .ui.attached.tabular.menu a:hover {
   background-color: rgb(153,232,231);
+  color: white;
+}
+
+.panes .ui.attached.tabular.menu a:hover {
+  background-color: rgb(1, 4, 10);
 }
 
 #signup-form {
@@ -587,7 +612,6 @@ Button#submit.ui.button {
 }
 
 #copyright {
-  margin-left: 10%;
   color: grey;
 }
 
@@ -613,7 +637,7 @@ Button#submit.ui.button {
 /* PANES ROUTE */
 
 .tab {
-  padding: 1rem;
+  padding: 0.1rem;
 }
 
 .tab h2 {
@@ -624,16 +648,30 @@ Button#submit.ui.button {
   color: darksalmon;
 }
 
-.excel {
-  padding: 1rem 1rem 0 1rem;
-}
-
 .excel .ui.button {
   margin: 0rem 2rem 0.5rem 2rem;
 }
 
+.excel {
+  color: rgb(117, 168, 202);
+  position: absolute;
+  right: 2rem;
+  top: 0rem;
+  padding-top: 1rem;
+  visibility: hidden;
+}
+
+.excel h4 {
+  display: inline;
+  margin-right: 3rem;
+  cursor: pointer;
+  border-left: 1px solid rgba(255, 166, 0, 0.63);
+  padding-left: 1rem;
+}
+
 .panes {
   padding-top: 1rem;
+  position: relative;
 }
 
 .panes .ui.attached:not(.message)+.ui.attached.segment:not(.top) {
@@ -641,19 +679,8 @@ Button#submit.ui.button {
   border: none;
 }
 
-.ui.tabular.menu {
-  border-bottom: none;
-  overflow: scroll;
-}
-
 .ui.tabular.menu::-webkit-scrollbar {
   display: none;
-}
-
-.panes .bars.icon {
-  z-index: 2000;
-  position: absolute;
-  top: 2.8rem;
 }
 
 .panes img {
@@ -681,7 +708,7 @@ Button#submit.ui.button {
 }
 
 canvas {
-  margin-bottom: 3rem;
+  margin: 1rem 0;
 }
 
 #graphs {
@@ -690,10 +717,74 @@ canvas {
 
 .chartSmall {
   height: 15rem;
-  margin: 1rem 0;
+  margin: 0rem 0;
+}
+
+.panes .ui.tabular.menu .active.item {
+  background-color: rgb(1, 4, 10);
+  color: rgb(4,119,251);;
+  border: none;
+  font-size: 18px;
+  font-style: italic;
+  font-family: "Montserrat-bold";
+}
+
+.panes .ui.tabular.menu {
+  color: white;
+  border-bottom: none;
+  overflow: scroll;
+}
+
+.panes .ui.attached.tabular.menu a {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.tab h4 {
+  margin-top: 2rem;
+}
+
+.tab .foreground {
+  border-radius: 10px;
+  padding: 2rem 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.summary-box {
+  width: 100%;
+  min-height: 300px;
+  border: 1px solid grey;
+  margin-bottom: 1rem;
+  color: lightgrey;
+  padding: 2rem;
+}
+
+.four-column-grid {
+  position: relative;
+  top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr) minmax(150px, 1fr));
+  grid-gap: 1.5rem 1rem;
+}
+
+.four-column-grid div {
+  padding: 2rem 1rem 1rem 1rem;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 1px rgba(4, 119, 251, 0.28);
 }
 
 @media (min-width: 40em) {
+  .tab .foreground {
+    padding: 2rem;
+  }
+
+  .chartSmall {
+    margin: 1rem 0;
+  }
+
+  canvas {
+    margin-bottom: 3rem;
+  }
+
   .panes .ui.attached:not(.message)+.ui.attached.segment:not(.top) {
     overflow: visible;
     border: none;
@@ -701,13 +792,25 @@ canvas {
   }
 
   .panes .ui.tabular.menu {
-    /* margin-left: 2rem; */
-    border-bottom: 1px solid lightblue;
+    width: 550px;
+    position: relative;
+    margin-inline: auto;
   }
 
   .panes img {
-    width: 70%;
-    margin: auto;
+    width: 60%;
+  }
+
+  .four-column-grid {
+    top: 1.5rem;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 1rem 3%;
+    height: 20px;
+  }
+
+  .four-column-grid div {
+    min-height: 10rem;
+    justify-content: center;
   }
 
   .chartSmall {
@@ -716,14 +819,26 @@ canvas {
   }
   
   .excel {
-    width: 50rem;
-    position: relative;
-    margin-inline: auto;
-    background: transparent;
+    right: 4rem;
+    top: 1.3rem;
+    visibility: visible;
   }
 
-  .excel .ui.button {
-    margin: 1rem;
+  input[type='file'] {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+  }
+
+  .upload-btn {
+    position: relative;
+    font-family: "Montserrat";
+    font-size: 15px;
+    cursor: pointer;
+    border-left: 1px solid rgba(255, 166, 0, 0.63);
+    padding-left: 1rem;
+    margin-right: 3rem;
   }
 }
 
@@ -834,10 +949,9 @@ canvas {
 
 /* GAP STATS TAB */
 
-.gap-stats div div:first-of-type {
+.gap-stats Form {
   width: 100%;
   text-align: center;
-  margin-bottom: 3rem;
 }
 
 #testTicker {
@@ -849,40 +963,95 @@ canvas {
   text-align: right;
 }
 
-.gap-stats h4{
-  margin: 1rem;
+.left-align {
+  text-align: left;
 }
 
-.gap-show-stats.two-column-grid {
-  grid-template-columns: 10rem 1fr;
-  grid-gap: 0rem 0rem;
-  overflow: scroll;
+.gap-stats h4 {
+  margin: 1rem;
+  display: inline;
 }
 
 .gap-stats.two-column-grid h4, .gap-show-stats.two-column-grid h4 {
   margin: 0.2rem 0.5rem;
 }
 
-.two-column-grid.gap-show {
-  grid-template-columns: 15rem 8rem;
+.gap-show h4 {
+  color: rgba(211, 211, 211, 0.753);
 }
 
 #gap-show-arrow {
   margin-top: -0.1rem;
+  color: rgb(4,119,251);
+  float: right;
 }
 
-.gap-show-stats::-webkit-scrollbar {
-  display: none;
-}
-
-.two-column-grid.gap-stats {
-  border-bottom: 1px solid rgba(211, 211, 211, 0.2);
-  border-top: 1px solid rgba(211, 211, 211, 0.2);
-  padding: 1rem;
+.gap-stats .foreground h3 {
+  color: white;
+  border-bottom: 1px solid rgba(211, 211, 211, 0.1);
+  padding-bottom: 1rem;
 }
 
 #gapStatList {
   cursor: pointer;
+  text-align: left;
+  line-height: 2;
+}
+
+.gap-stats-heading {
+  padding: 2rem;
+}
+
+.gap-stats-heading h3 {
+  display: inline;
+  color: white;
+  font-family: "Montserrat-bold";
+}
+
+.gap-stats-heading h1 {
+  display: inline;
+  color: rgb(4,119,251);
+  font-size: 38px;
+  font-style: italic;
+  font-family: "Montserrat";
+}
+
+.deco-line {
+  width: 60%;
+  border: 1px solid rgb(4,119,251);
+  height: 1px;
+  display: inline-block;
+}
+
+#gaptable { 
+  font-family: "Montserrat";
+  border-collapse: collapse;
+  width: 100%;
+  text-align: center;
+}
+
+#gaptable th, #gaptable td { 
+  color: rgb(4,119,251);
+  min-width: 150px;
+}
+
+#gaptable td { 
+  padding-top: 2rem;
+}
+
+#gaptable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  color: white;
+  border-bottom: 1px solid rgba(211, 211, 211, 0.1);;
+}
+
+.foreground.bg-dark.table {
+  overflow-x: scroll;
+}
+
+#gaplist {
+  margin-top: 9rem;
 }
 
 @media (min-width: 40em) {
@@ -899,4 +1068,111 @@ canvas {
 
 .footer {
   padding-bottom: 1rem;
+  color: lightgrey;
+}
+
+.footer p {
+  font-size: 13px;
+}
+
+/* PANNEL */
+
+.bars.icon {
+  position: absolute;
+  bottom: -3.5rem;
+  right: 2rem;
+  color: rgb(4,119,251);
+  z-index: 1;
+  font-size: 2.5rem;
+  cursor: pointer;
+}
+
+.pannel {
+  font-family: 'Montserrat';
+  color: lightgrey;
+  position: relative;
+  top: 0;
+  width: 100%;
+  background-color: rgb(1, 4, 10);
+  padding: 0rem;
+}
+
+.pannel p {
+  text-align: left;
+  font-size: 12px;
+  margin: 0 1rem;
+}
+
+.pannel-up p {
+  text-align: left;
+  font-size: 12px;
+  margin: 0 1rem;
+}
+
+.pannel-up {
+  position: relative;
+  background-color: rgb(1, 4, 10);
+  padding: 0rem;
+  height: 0px;
+  transition: all .5s ease-in-out;
+}
+
+.pannel-down {
+  padding: 2rem 1rem;
+  transition: all .3s ease-in-out;
+  height: 90px;
+}
+
+#risk-form {
+  display: inline-flex;
+}
+
+#risk-form button {
+  background: transparent;
+  color: lightgrey;
+  font-family: 'Montserrat';
+  color: rgb(85, 161, 248);
+  margin-top: -2rem;
+}
+
+#risk-form input {
+  position: relative;
+  background: transparent;
+  color: lightgrey;
+  font-family: 'Montserrat';
+  /* top: -0.5rem; */
+  border-radius: 20px;
+  width: 5rem;
+  padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+  border: 1px solid rgba(4, 119, 251, 0.678);
+}
+
+#risk-form input:hover {
+  background-color: rgb(14, 34, 75);
+}
+
+.pannel-inner.split {
+  flex-direction: row;
+  overflow-x: scroll;
+}
+
+@media (min-width: 40em) {
+  .pannel-down {
+    padding: 3rem;
+    height: 130px;
+  }
+
+  .pannel p {
+    text-align: left;
+    font-size: 14px;
+    margin: 0 1rem;
+  }
+
+  .pannel-up p {
+    font-size: 14px;
+  }
+
+  #risk-form input {
+    margin-left: -1em;
+  }
 }

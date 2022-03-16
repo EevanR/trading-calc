@@ -38,7 +38,7 @@ const DayOfWeekCharts = props => {
     ],
     datasets: [
       {
-        label: 'Combined Daily Avg',
+        label: 'Daily Avg',
         fill: true,
         backgroundColor: colours,
         borderColor: 'rgba(75,192,192,1)',
@@ -110,7 +110,7 @@ const DayOfWeekCharts = props => {
               <Bar
                 data = {barData}
                 options = {barOptions}
-                height={500}
+                height={450}
               />
             </div>
           </div>
@@ -120,7 +120,7 @@ const DayOfWeekCharts = props => {
               <Bar
                 data = {barTwoData}
                 options = {barOptions}
-                height={500}
+                height={450}
               />
             </div>
           </div>

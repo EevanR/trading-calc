@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as XLSX from 'xlsx'
 import { connect } from "react-redux";
 import { sendExcel, destroyExcel, updateExcel } from '../modules/trades';
+import { logout } from "../modules/auth";
 
 const Excel = props => {
-  const [uploadBox, setUploadBox] = useState(["hidden", 0])
-
   let option = "update"
 
   const organizeExcel = async (d, option) => {
@@ -94,7 +93,6 @@ const Excel = props => {
     })
 
     promise.then((d) => {
-      setUploadBox(["hidden", 0])
       switch (true) {
         case d[0]["T/D"] === undefined && props.savedTrades !== null:
           let q1 = window.confirm("Short Fees Detected. Add to or overwrite current DataSet?");
@@ -120,29 +118,29 @@ const Excel = props => {
     })
   }
 
+  const onLogout = async () => {
+    sessionStorage.clear()
+    let response = await logout();
+    if (response.data.success !== true) {
+      alert("SignOut failed unexpectedly")
+    }
+  }
+  
   return (
     <>
-      <div className="excel bg-ivory">
-        <div className="split">
-          <button onClick={() => setUploadBox(["visible", 1])} className="ui button">Upload</button> 
-          <button onClick={() => deleteExcel()} className="ui button">Clear Data</button> 
-          <div className="signin container">
-            <div style={
-                {visibility: `${uploadBox[0]}`, 
-                opacity: `${uploadBox[1]}`}
-                }
-              className="signin-box">
-              <i onClick={() => setUploadBox(["hidden", 0])} className="x icon icon"></i>
-              <input 
-                type="file" 
-                onChange={(e) => {
-                  const file = e.target.files[0]
-                  readExcel(file)
-                }}
-              />
-            </div>
-          </div>
-        </div>
+      <div className="excel bg-dark">
+        <label>
+          <input 
+            type="file" 
+            onChange={(e) => {
+              const file = e.target.files[0]
+              readExcel(file)
+            }}
+          />
+          <span className="upload-btn">Upload</span>
+        </label>
+        <h4 onClick={() => deleteExcel()}>Clear Data</h4>
+        <a href="/"><h4 onClick={() => onLogout()}>Logout</h4></a>
       </div>
     </>
   )

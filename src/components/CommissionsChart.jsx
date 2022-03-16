@@ -45,7 +45,7 @@ const CommissionsChart = props => {
   };
   
   const pieOptions = {
-    maintainAspectRatio: false,
+    maintainAspectRatio: true,
     legend: {
       position: 'left',
       labels: {

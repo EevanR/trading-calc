@@ -31,21 +31,19 @@ const Signin = props => {
   }
 
   const submitSignInHandler = async event => {
+    setSignin(["hidden", -2000, 0])
     event.preventDefault();
     setLoader(true)
     let response = await signIn(event.target.email.value, event.target.password.value)
     if (response.status === 200) {
       setLoader(false)
       props.setUser(response.data.data)
+      sessionStorage.setItem('user', JSON.stringify(response.data.data))
       setRedirect(true)
     } else {
       setLoader(false)
       alert(response)
     }
-  }
-
-  const menuVisibility = () => {
-    menu === "hiddden" ? setMenu("visible") : setMenu("hidden")
   }
 
   const panes = [
@@ -66,7 +64,7 @@ const Signin = props => {
                 <input name="email" type="email" id="email" placeholder="Email"></input>
                 <br/>
                 <input name="password" type="password" id="password" placeholder="Password"></input>
-                <button className="big ui button" id="submit" type="submit" >Sign In</button>
+                <button className="big ui button" id="submit" type="submit">Sign In</button>
               </Form>
             </div>
           </>
@@ -107,7 +105,6 @@ const Signin = props => {
   return (
     <>
       <header className="text-center header-image">
-      {/* <i onClick={() => setMenu("visible")} className="bars icon"></i> */}
         <div className="container container--narrow">
           <div style={{visibility: `${menu}`}} className="header-grid" onClick={() => setMenu("hidden")}>
             <i onClick={() => setMenu("hidden")} className="x icon icon"></i>
@@ -182,11 +179,6 @@ const Signin = props => {
                 }
                 className="signin-box">
                 <Tab panes={panes} />
-                {loader === true && (
-                  <Dimmer active>
-                    <Loader />
-                  </Dimmer>
-                )}
               </div>
             </div>
           </div>
@@ -235,7 +227,7 @@ const Signin = props => {
                 <i className="hourglass outline icon"></i>
               </div>
               <div className="sec-3 white-border">
-                <h4>Hourly Fequency</h4>
+                <h4>Hourly Frequency</h4>
                 <p>Number of Trades by hour of the day</p>
                 <i className="chart bar outline icon"></i>
               </div>
@@ -261,7 +253,7 @@ const Signin = props => {
 
       <section id="section-5" className="container bg-light section-5">
         <h2 className="red-bold">EXTRAS</h2>
-        <h1>GAP STASTITICS</h1>
+        <h1>GAP STATISTICS</h1>
           <p>Turn back the clock
             <br />
             Probablities genereated from up to 20 years of stock history on a desired ticker. 
@@ -299,12 +291,17 @@ const Signin = props => {
               <p>CONTACT US</p>
             </div>
           </div>
-        </div>
-        <div id="copyright">
-          <i className="envelope outline icon"></i>
-          <p >Copyright © TradeLogs 2022. All rights reserved.</p>
+          <div id="copyright">
+            <i className="envelope outline icon"></i>
+            <p >Copyright © TradeLogs 2022. All rights reserved.</p>
+          </div>
         </div>
       </section>
+      {loader === true && (
+        <Dimmer active>
+          <Loader />
+        </Dimmer>
+      )}
     </>
   )
 }

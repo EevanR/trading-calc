@@ -5,6 +5,7 @@ import CommissionsChart from "./CommissionsChart";
 import DayOfWeekCharts from "./DayOfWeekCharts";
 import HourlyChart from "./HourlyChart";
 import { getTrades } from "../modules/trades";
+import { getSetups } from "../modules/setup";
 
 const ProfitChart = props => {
   const [profit, setProfit] = useState([])
@@ -46,8 +47,8 @@ const ProfitChart = props => {
       !dates.includes(date) && dates.push(date)
       
       commissions += (props.savedTrades.data[i]["Commissions"])
-      props.savedTrades.data[i][grossNet] > 0 ? stats['wins']++ && (stats['gains']+=props.savedTrades.data[i][grossNet]) : stats['loss']++ && (stats['negGains']+=props.savedTrades.data[i][grossNet])
-
+      props.savedTrades.data[i][grossNet] > 0 ? (stats['gains']+=props.savedTrades.data[i][grossNet]) && stats['wins']++ : (stats['negGains']+=props.savedTrades.data[i][grossNet]) && stats['loss']++
+      
       for(let int in timeBlocks){
         ((Number(int) <= props.savedTrades.data[i]["TimeStamp"]) && (props.savedTrades.data[i]["TimeStamp"] < Number(int)+0.04167)) && (timeBlocks[int][0] += props.savedTrades.data[i][grossNet]) && (timeBlocks[int][1]++)
       }
@@ -63,7 +64,7 @@ const ProfitChart = props => {
         props.savedTrades.data[i]["Date"] === date && (total += props.savedTrades.data[i][grossNet])
       }
       dailyProfits += total
-      cumulativeGains.push(dailyProfits)
+      cumulativeGains.push(dailyProfits.toFixed(2))
 
       let dayOfWeek = new Date(date).toString().slice(0, 3)
       for (let property in dailyPreformance) {
@@ -100,8 +101,7 @@ const ProfitChart = props => {
     legend: {
       labels: {
         fontColor: "darkgrey",
-        fontSize: 16
-      }
+        fontSize: 16      }
     },
     scales: {
       yAxes: [{
@@ -126,6 +126,19 @@ const ProfitChart = props => {
       }
     }
     indexExcels()
+
+    const indexSetups = async () => {
+      let response = await getSetups()
+      if (response !== undefined && response.status === 200) {
+        props.setStrategies(response.data)
+      } 
+    }
+    indexSetups()
+
+    if (sessionStorage.getItem('user') !== null && props.userAttrs === null) {
+      let user = JSON.parse(sessionStorage.getItem('user'))
+      props.setUser(user)
+    }
   }, [])
 
   useEffect(() => {
@@ -134,13 +147,40 @@ const ProfitChart = props => {
     }
   }, [props.savedTrades, grossNet])  // eslint-disable-line react-hooks/exhaustive-deps
 
-
-
   return (
     <>
-      <section className="bg-dark tab" id="graphs">
+      <section className="bg-verydark tab" id="graphs">
         <div className="container-wide">
-          <div>
+          <div className="summary-box">
+            {props.userAttrs !== null && <h1>Welcome, {props.userAttrs.nickname}</h1>}
+            <div className="four-column-grid">
+              <div>
+                <h3>Trade Count</h3> 
+                {props.savedTrades !== null && props.stats !== null ?
+                  <h3>{props.savedTrades.data.length}</h3> : <h3>No Data</h3>
+                }
+              </div>
+              <div>
+                <h3>Win %</h3>
+                {props.savedTrades !== null && props.stats !== null ?
+                  <h3>{((props.stats['wins']/(props.stats['wins']+props.stats['loss']))*100).toFixed(2)}%</h3> : <h3>No Data</h3>
+                }
+              </div>
+              <div>
+                <h3>{grossNet.substring(0, grossNet.indexOf("P"))} Profits</h3>
+                {props.savedTrades !== null && props.stats !== null ?
+                  <h3>${((props.stats['gains'])+(props.stats['negGains'])).toFixed(2)}</h3> : <h3>No Data</h3>
+                }
+              </div>
+              <div>
+                <h3>Average R:R</h3>
+                {props.savedTrades !== null && props.stats !== null ?
+                  <h3>{((props.stats['gains']/props.stats['wins'])/((props.stats['negGains']/props.stats['loss'])*-1)).toFixed(2)} : 1</h3> : <h3>No Data</h3>
+                }
+              </div>
+            </div>
+          </div>
+          <div className="foreground bg-dark">
             <h2>Profit Chart & Fees</h2>
             <h3><a onClick={() => setGrossNet("GrossProfit")}>Gross</a> || <a onClick={() => setGrossNet("NetProfit")}>Net</a></h3>
             <h4>Cumulative {grossNet.substring(0, grossNet.indexOf("P"))} PnL Growth</h4>
@@ -152,12 +192,16 @@ const ProfitChart = props => {
               />
             </div>
           </div>
-          <CommissionsChart commissions={commissionsTotal} netProfit={profit} grossNet={grossNet.substring(0, grossNet.indexOf("P"))} />
-          <DayOfWeekCharts barData={barData} />
-          <HourlyChart times={timeSegments} grossNet={grossNet.substring(0, grossNet.indexOf("P"))}/>
+          <div className="foreground bg-dark">
+            <CommissionsChart commissions={commissionsTotal} netProfit={profit} grossNet={grossNet.substring(0, grossNet.indexOf("P"))} />
+          </div>
+          <div className="foreground bg-dark">
+            <DayOfWeekCharts barData={barData} />
+            <HourlyChart times={timeSegments} grossNet={grossNet.substring(0, grossNet.indexOf("P"))}/>
+          </div>
         </div>
       </section>
-      <section className="footer bg-secondary">
+      <section className="footer bg-dark">
         <p >Copyright © TradeLogs 2022. All rights reserved.</p>
       </section>
     </>
@@ -183,6 +227,12 @@ const mapDispatchToProps = dispatch => {
     },
     setStats: string => {
       dispatch({ type: "SET_STATS", payload: string });
+    },
+    setStrategies: array => {
+      dispatch({ type: "SET_STRATEGIES", payload: array });
+    },
+    setUser: data => {
+      dispatch({ type: "SET_USER", payload: data });
     }
   };
 };

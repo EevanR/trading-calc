@@ -87,7 +87,7 @@ const HourlyChart = props => {
             <HorizontalBar
               data = {hourlyTotals}
               options = {barOptions}
-              height={500}
+              height={450}
             />
           </div>
         </div>
@@ -97,7 +97,7 @@ const HourlyChart = props => {
             <HorizontalBar
               data = {hourlyFrequency}
               options = {barOptions}
-              height={500}
+              height={450}
             />
           </div>
         </div>
