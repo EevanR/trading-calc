@@ -45,10 +45,6 @@ const Signin = props => {
     }
   }
 
-  const menuVisibility = () => {
-    menu === "hiddden" ? setMenu("visible") : setMenu("hidden")
-  }
-
   const panes = [
     { 
       menuItem: 'SignIn', render: () => (
@@ -108,7 +104,6 @@ const Signin = props => {
   return (
     <>
       <header className="text-center header-image">
-      {/* <i onClick={() => setMenu("visible")} className="bars icon"></i> */}
         <div className="container container--narrow">
           <div style={{visibility: `${menu}`}} className="header-grid" onClick={() => setMenu("hidden")}>
             <i onClick={() => setMenu("hidden")} className="x icon icon"></i>

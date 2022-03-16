@@ -1016,8 +1016,8 @@ canvas {
   font-family: "Montserrat";
 }
 
-.line {
-  width: 60%!important;
+.deco-line {
+  width: 60%;
   border: 1px solid rgb(4,119,251);
   height: 1px;
   display: inline-block;

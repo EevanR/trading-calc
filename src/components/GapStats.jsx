@@ -299,7 +299,7 @@ const GapStats = props => {
               <div className="gap-stats-heading">
                 <h3>STATS</h3>
                 <h1>{chartTicker}</h1>
-                <div className="line"></div>
+                <div className="deco-line"></div>
               </div>
               <div className="two-column-grid gap-stats">
                 <div className="foreground bg-dark">
