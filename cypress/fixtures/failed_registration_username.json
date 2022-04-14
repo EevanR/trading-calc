@@ -1,0 +1,6 @@
+{
+  "errors": {
+    "email":["is not an email"], 
+    "full_messages": ["Email is not an email"]
+  }
+}

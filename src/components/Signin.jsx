@@ -20,6 +20,7 @@ const Signin = props => {
       event.target.passCon.value
     );
     if (response.status === 200) {
+      setSignin(["hidden", -2000, 0])
       setLoader(false)
       props.setUser(response.data.data)
       setRedirect(true)
