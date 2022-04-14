@@ -194,7 +194,7 @@ const ProfitChart = props => {
             </div>
           </div>
           <div className="foreground bg-dark">
-            <WinCurve />
+            <WinCurve date={date}/>
           </div>
           <div className="foreground bg-dark">
             <CommissionsChart commissions={commissionsTotal} netProfit={profit} grossNet={grossNet.substring(0, grossNet.indexOf("P"))} />

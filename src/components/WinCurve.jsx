@@ -2,10 +2,10 @@ import React from 'react';
 import { Line } from 'react-chartjs-2';
 import { connect } from 'react-redux'
 
-const WinCurve = () => {
+const WinCurve = props => {
 
   const lineData = {
-    // labels: date,
+    labels: props.date,
     datasets: [
       {
         label: 'Win %',
