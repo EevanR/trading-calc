@@ -4,6 +4,7 @@ import { Line } from 'react-chartjs-2';
 import CommissionsChart from "./CommissionsChart";
 import DayOfWeekCharts from "./DayOfWeekCharts";
 import HourlyChart from "./HourlyChart";
+import WinCurve from "./WinCurve";
 import { getTrades } from "../modules/trades";
 import { getSetups } from "../modules/setup";
 
@@ -191,6 +192,9 @@ const ProfitChart = props => {
                 height={500}
               />
             </div>
+          </div>
+          <div className="foreground bg-dark">
+            <WinCurve />
           </div>
           <div className="foreground bg-dark">
             <CommissionsChart commissions={commissionsTotal} netProfit={profit} grossNet={grossNet.substring(0, grossNet.indexOf("P"))} />
