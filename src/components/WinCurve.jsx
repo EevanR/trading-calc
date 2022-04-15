@@ -33,6 +33,8 @@ const WinCurve = props => {
     scales: {
       yAxes: [{
         ticks: {
+          max: 100,
+          min:0,
           fontColor: "darkgrey",
           fontSize: 12,
         }
