@@ -3,16 +3,14 @@ describe("User can register", () => {
     cy.viewport(1350, 900);
     cy.server();
     cy.requests()
-  })
 
-  it("can successfully access Register Tab", () => {
     cy.visit("/");
     cy.contains("Sign In").click();
     cy.contains("Register").click();
     cy.get(".signin-box").should("contain", "Register")
   })
 
-  it("user fails to register", () => {
+  it("can fail to register with incorrect email format", () => {
     cy.route({
       method: "POST",
       url: "http://localhost:3000/api/v1/auth",
@@ -31,17 +29,32 @@ describe("User can register", () => {
     })
   })
 
+  it("can fail to register with Username already in use", () => {
+    cy.route({
+      method: "POST",
+      url: "http://localhost:3000/api/v1/auth",
+      response: "fixture:failed_registration_username.json",
+      status: 401
+    })
+    cy.contains("Register").click();
+    cy.get("#email").type("newtrader@mail.com");
+    cy.get("#username").type("NewTrader");
+    cy.get("#password").type("password");
+    cy.get("#passCon").type("password");
+    cy.get("#submit").click();
+
+    cy.on('window:alert', (str) => {
+      expect(str).to.equal(`Please choose another Username`)
+    })
+  })
+
   it("can submit registration", () => {
-    cy.visit("/");
     cy.route({
       method: "POST",
       url: "http://localhost:3000/api/v1/auth",
       response: "fixture:register.json",
       status: 200
     })
-    
-    cy.contains("Sign In").click();
-    cy.contains("Register").click();
 
     cy.get(".form").within(() => {
       cy.get("#email").type("newtrader@mail.com");

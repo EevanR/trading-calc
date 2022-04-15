@@ -1,0 +1,6 @@
+{
+  "errors": {
+    "email":["Please choose another Username"], 
+    "full_messages": ["Please choose another Username"]
+  }
+}

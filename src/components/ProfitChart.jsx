@@ -4,6 +4,7 @@ import { Line } from 'react-chartjs-2';
 import CommissionsChart from "./CommissionsChart";
 import DayOfWeekCharts from "./DayOfWeekCharts";
 import HourlyChart from "./HourlyChart";
+import WinCurve from "./WinCurve";
 import { getTrades } from "../modules/trades";
 import { getSetups } from "../modules/setup";
 
@@ -14,6 +15,7 @@ const ProfitChart = props => {
   const [barData, setBarData] = useState(null)
   const [timeSegments, setTimeSegments] = useState(null)
   const [grossNet, setGrossNet] = useState("GrossProfit")
+  const [winPercentages, setWinPercentages] = useState([])
 
   let dailyPreformance = {
     Mon: [0,[]],
@@ -45,9 +47,7 @@ const ProfitChart = props => {
     for (let i=0; i<props.savedTrades.data.length; i++) {
       let date = props.savedTrades.data[i]["Date"]
       !dates.includes(date) && dates.push(date)
-      
       commissions += (props.savedTrades.data[i]["Commissions"])
-      props.savedTrades.data[i][grossNet] > 0 ? (stats['gains']+=props.savedTrades.data[i][grossNet]) && stats['wins']++ : (stats['negGains']+=props.savedTrades.data[i][grossNet]) && stats['loss']++
       
       for(let int in timeBlocks){
         ((Number(int) <= props.savedTrades.data[i]["TimeStamp"]) && (props.savedTrades.data[i]["TimeStamp"] < Number(int)+0.04167)) && (timeBlocks[int][0] += props.savedTrades.data[i][grossNet]) && (timeBlocks[int][1]++)
@@ -61,8 +61,12 @@ const ProfitChart = props => {
     dates.map(date => {
       let total = 0
       for(let i=0; i<props.savedTrades.data.length; i++) {
-        props.savedTrades.data[i]["Date"] === date && (total += props.savedTrades.data[i][grossNet])
+        if (props.savedTrades.data[i]["Date"] === date ) {
+          props.savedTrades.data[i][grossNet] > 0 ? (stats['gains']+=props.savedTrades.data[i][grossNet]) && stats['wins']++ : (stats['negGains']+=props.savedTrades.data[i][grossNet]) && stats['loss']++
+          total += props.savedTrades.data[i][grossNet]
+        }
       }
+      winPercentages.push(((stats['wins']/(stats['loss']+stats['wins']))*100).toFixed(2))
       dailyProfits += total
       cumulativeGains.push(dailyProfits.toFixed(2))
 
@@ -191,6 +195,9 @@ const ProfitChart = props => {
                 height={500}
               />
             </div>
+          </div>
+          <div className="foreground bg-dark">
+            <WinCurve date={date} winPercentages={winPercentages}/>
           </div>
           <div className="foreground bg-dark">
             <CommissionsChart commissions={commissionsTotal} netProfit={profit} grossNet={grossNet.substring(0, grossNet.indexOf("P"))} />

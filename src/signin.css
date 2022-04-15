@@ -176,7 +176,7 @@ header .big.ui.button {
 
 @media (min-width: 40em) {
   header, section {
-    padding: 6rem 0;
+    padding: 0rem 0;
   }
 
   header h1 {
@@ -1067,7 +1067,7 @@ canvas {
 }
 
 .footer {
-  padding-bottom: 1rem;
+  padding: 3rem;
   color: lightgrey;
 }
 
