@@ -18,7 +18,7 @@ const WinCurve = props => {
         pointBorderWidth: 1,
         pointHoverRadius: 5,
         pointRadius: 4,
-        // data: profit
+        data: props.winPercentages
       }
     ]
   };
