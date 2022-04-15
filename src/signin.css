@@ -75,7 +75,7 @@ a {
 
 header,
 section {
-  padding: 4rem 0;
+  padding: 1rem 0;
 }
 
 header {
@@ -775,6 +775,7 @@ canvas {
 @media (min-width: 40em) {
   .tab .foreground {
     padding: 2rem;
+    margin-left: 1rem;
   }
 
   .chartSmall {

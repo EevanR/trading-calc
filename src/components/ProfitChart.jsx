@@ -5,6 +5,7 @@ import CommissionsChart from "./CommissionsChart";
 import DayOfWeekCharts from "./DayOfWeekCharts";
 import HourlyChart from "./HourlyChart";
 import WinCurve from "./WinCurve";
+import RiskReward from "./RiskReward";
 import { getTrades } from "../modules/trades";
 import { getSetups } from "../modules/setup";
 
@@ -85,7 +86,7 @@ const ProfitChart = props => {
     labels: date,
     datasets: [
       {
-        label: 'PnL Curve',
+        label: 'Profit Curve',
         fill: true,
         lineTension: 0.1,
         backgroundColor: 'rgba(75,192,192,0.4)',
@@ -196,8 +197,13 @@ const ProfitChart = props => {
               />
             </div>
           </div>
-          <div className="foreground bg-dark">
-            <WinCurve date={date} winPercentages={winPercentages}/>
+          <div className="split">
+            <div className="foreground bg-dark">
+              <WinCurve date={date} winPercentages={winPercentages}/>
+            </div>
+            <div className="foreground bg-dark">
+              <RiskReward date={date}/>
+            </div>
           </div>
           <div className="foreground bg-dark">
             <CommissionsChart commissions={commissionsTotal} netProfit={profit} grossNet={grossNet.substring(0, grossNet.indexOf("P"))} />
