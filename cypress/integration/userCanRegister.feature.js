@@ -37,7 +37,7 @@ describe("User can register", () => {
       status: 401
     })
     cy.contains("Register").click();
-    cy.get("#email").type("newtrader@mail");
+    cy.get("#email").type("newtrader@mail.com");
     cy.get("#username").type("NewTrader");
     cy.get("#password").type("password");
     cy.get("#passCon").type("password");

@@ -1,6 +1,6 @@
 {
   "errors": {
-    "email":["is not an email"], 
-    "full_messages": ["Email is not an email"]
+    "email":["Please choose another Username"], 
+    "full_messages": ["Please choose another Username"]
   }
 }
