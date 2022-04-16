@@ -48,15 +48,13 @@ const WinCurve = props => {
   }
 
   return (
-    <section>
-      <div>
-        <Line 
-          data = {lineData}
-          options = {lineOptions}
-          height={450}
-        />
-      </div>
-    </section>
+    <div>
+      <Line 
+        data = {lineData}
+        options = {lineOptions}
+        height={450}
+      />
+    </div>
   )
 
 };

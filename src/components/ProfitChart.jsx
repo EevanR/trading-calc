@@ -60,6 +60,8 @@ const ProfitChart = props => {
     
     let dailyProfits = 0
     let cumulativeGains = []
+    let winData = []
+    let profitData = []
     dates.map(date => {
       let total = 0
       for(let i=0; i<props.savedTrades.data.length; i++) {
@@ -68,8 +70,8 @@ const ProfitChart = props => {
           total += props.savedTrades.data[i][grossNet]
         }
       }
-      profitLoss.push(((stats['gains']/stats['wins'])/((stats['negGains']/stats['loss'])*-1)).toFixed(2))
-      winPercentages.push(((stats['wins']/(stats['loss']+stats['wins']))*100).toFixed(2))
+      profitData.push(((stats['gains']/stats['wins'])/((stats['negGains']/stats['loss'])*-1)).toFixed(2))
+      winData.push(((stats['wins']/(stats['loss']+stats['wins']))*100).toFixed(2))
       dailyProfits += total
       cumulativeGains.push(dailyProfits.toFixed(2))
 
@@ -78,6 +80,8 @@ const ProfitChart = props => {
         dayOfWeek === property && dailyPreformance[dayOfWeek][1].push(total) && dailyPreformance[dayOfWeek][0]++
       }
     })
+    setWinPercentages(winData)
+    setProfitLoss(profitData)
     setDate(dates)
     setProfit(cumulativeGains)
     setBarData(dailyPreformance)
