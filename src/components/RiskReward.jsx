@@ -17,7 +17,7 @@ const RiskReward = props => {
         pointBorderWidth: 1,
         pointHoverRadius: 5,
         pointRadius: 4,
-        // data: props.winPercentages
+        data: props.profitLoss
       }
     ]
   };
