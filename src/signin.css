@@ -176,7 +176,7 @@ header .big.ui.button {
 
 @media (min-width: 40em) {
   header, section {
-    padding: 0rem 0;
+    padding: 6rem 0;
   }
 
   header h1 {
@@ -775,6 +775,7 @@ canvas {
 @media (min-width: 40em) {
   .tab .foreground {
     padding: 2rem;
+    margin-left: 1rem;
   }
 
   .chartSmall {

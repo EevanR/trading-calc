@@ -5,6 +5,7 @@ import CommissionsChart from "./CommissionsChart";
 import DayOfWeekCharts from "./DayOfWeekCharts";
 import HourlyChart from "./HourlyChart";
 import WinCurve from "./WinCurve";
+import ProfitLoss from "./ProfitLoss";
 import { getTrades } from "../modules/trades";
 import { getSetups } from "../modules/setup";
 
@@ -16,6 +17,7 @@ const ProfitChart = props => {
   const [timeSegments, setTimeSegments] = useState(null)
   const [grossNet, setGrossNet] = useState("GrossProfit")
   const [winPercentages, setWinPercentages] = useState([])
+  const [profitLoss, setProfitLoss] = useState([])
 
   let dailyPreformance = {
     Mon: [0,[]],
@@ -58,6 +60,8 @@ const ProfitChart = props => {
     
     let dailyProfits = 0
     let cumulativeGains = []
+    let winData = []
+    let profitData = []
     dates.map(date => {
       let total = 0
       for(let i=0; i<props.savedTrades.data.length; i++) {
@@ -66,7 +70,8 @@ const ProfitChart = props => {
           total += props.savedTrades.data[i][grossNet]
         }
       }
-      winPercentages.push(((stats['wins']/(stats['loss']+stats['wins']))*100).toFixed(2))
+      profitData.push(((stats['gains']/stats['wins'])/((stats['negGains']/stats['loss'])*-1)).toFixed(2))
+      winData.push(((stats['wins']/(stats['loss']+stats['wins']))*100).toFixed(2))
       dailyProfits += total
       cumulativeGains.push(dailyProfits.toFixed(2))
 
@@ -75,6 +80,8 @@ const ProfitChart = props => {
         dayOfWeek === property && dailyPreformance[dayOfWeek][1].push(total) && dailyPreformance[dayOfWeek][0]++
       }
     })
+    setWinPercentages(winData)
+    setProfitLoss(profitData)
     setDate(dates)
     setProfit(cumulativeGains)
     setBarData(dailyPreformance)
@@ -85,7 +92,7 @@ const ProfitChart = props => {
     labels: date,
     datasets: [
       {
-        label: 'PnL Curve',
+        label: 'Profit Curve',
         fill: true,
         lineTension: 0.1,
         backgroundColor: 'rgba(75,192,192,0.4)',
@@ -177,7 +184,7 @@ const ProfitChart = props => {
                 }
               </div>
               <div>
-                <h3>Average R:R</h3>
+                <h3>Avg Win : Avg Loss</h3>
                 {props.savedTrades !== null && props.stats !== null ?
                   <h3>{((props.stats['gains']/props.stats['wins'])/((props.stats['negGains']/props.stats['loss'])*-1)).toFixed(2)} : 1</h3> : <h3>No Data</h3>
                 }
@@ -196,8 +203,13 @@ const ProfitChart = props => {
               />
             </div>
           </div>
-          <div className="foreground bg-dark">
-            <WinCurve date={date} winPercentages={winPercentages}/>
+          <div className="split">
+            <div className="foreground bg-dark">
+              <WinCurve date={date} winPercentages={winPercentages}/>
+            </div>
+            <div className="foreground bg-dark">
+              <ProfitLoss date={date} profitLoss={profitLoss}/>
+            </div>
           </div>
           <div className="foreground bg-dark">
             <CommissionsChart commissions={commissionsTotal} netProfit={profit} grossNet={grossNet.substring(0, grossNet.indexOf("P"))} />
