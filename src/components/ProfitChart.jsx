@@ -5,7 +5,7 @@ import CommissionsChart from "./CommissionsChart";
 import DayOfWeekCharts from "./DayOfWeekCharts";
 import HourlyChart from "./HourlyChart";
 import WinCurve from "./WinCurve";
-import RiskReward from "./RiskReward";
+import ProfitLoss from "./ProfitLoss";
 import { getTrades } from "../modules/trades";
 import { getSetups } from "../modules/setup";
 
@@ -204,7 +204,7 @@ const ProfitChart = props => {
               <WinCurve date={date} winPercentages={winPercentages}/>
             </div>
             <div className="foreground bg-dark">
-              <RiskReward date={date} profitLoss={profitLoss}/>
+              <ProfitLoss date={date} profitLoss={profitLoss}/>
             </div>
           </div>
           <div className="foreground bg-dark">

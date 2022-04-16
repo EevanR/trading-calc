@@ -1,7 +1,7 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 
-const RiskReward = props => {
+const ProfitLoss = props => {
 
   const lineData = {
     labels: props.date,
@@ -59,4 +59,4 @@ const RiskReward = props => {
 
 };
 
-export default RiskReward;
+export default ProfitLoss;
