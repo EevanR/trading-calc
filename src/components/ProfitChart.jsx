@@ -112,18 +112,20 @@ const ProfitChart = props => {
     legend: {
       labels: {
         fontColor: "darkgrey",
-        fontSize: 16      }
+        fontSize: 16      
+      }
     },
     scales: {
       yAxes: [{
         ticks: {
-          fontColor: "darkgrey"
+          fontColor: "darkgrey",
+          fontSize: 12
         }
       }],
       xAxes: [{
         ticks: {
             fontColor: "darkgrey",
-            fontSize: 14,
+            fontSize: 12
         }
       }]
     }

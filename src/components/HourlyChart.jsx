@@ -6,10 +6,12 @@ const HourlyChart = props => {
 
   let totals = []
   let frequency = []
+  let hourlyAvg = []
   if (props.times !== null) {
     for(let int in props.times) {
-      totals.push(props.times[int][0])
+      totals.push((props.times[int][0]).toFixed(2))
       frequency.push(props.times[int][1])
+      hourlyAvg.push((props.times[int][0]/props.times[int][1]).toFixed(2))
     }
   }
 
@@ -55,24 +57,38 @@ const HourlyChart = props => {
     ]
   };
 
+  const hourlyAverages = {
+    labels: timeIntervals,
+    datasets: [
+      {
+        label: 'Interval Average',
+        backgroundColor: colours,
+        borderColor: 'rgba(75,192,192,1)',
+        hoverBackgroundColor: 'rgba(75,192,192)',
+        data: hourlyAvg
+      }
+    ]
+  };
+
   const barOptions = {
     maintainAspectRatio: false,
     legend: {
       labels: {
         fontColor: "darkgrey",
-        fontSize: 16
+        fontSize: 14
       }
     },
     scales: {
       yAxes: [{
         ticks: {
-          fontColor: "darkgrey"
+          fontColor: "darkgrey",
+          fontSize: 12,
         }
       }],
       xAxes: [{
         ticks: {
             fontColor: "darkgrey",
-            fontSize: 14,
+            fontSize: 12,
         }
       }]
     }
@@ -100,6 +116,16 @@ const HourlyChart = props => {
               height={450}
             />
           </div>
+        </div>
+      </div>
+      <div>
+        <h4>Average: Hourly</h4>
+        <div> 
+          <HorizontalBar
+            data = {hourlyAverages}
+            options = {barOptions}
+            height={450}
+          />
         </div>
       </div>
     </section>

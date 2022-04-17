@@ -56,7 +56,6 @@ const WinCurve = props => {
       />
     </div>
   )
-
 };
 
 export default WinCurve;
