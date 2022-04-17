@@ -38,7 +38,7 @@ const ProfitChart = props => {
 
   let dates = []
   let commissions = 0
-  const buildDataArray = () => {
+  const buildDateArray = () => {
     for (let i=0; i<props.savedTrades.data.length; i++) {
       let date = props.savedTrades.data[i]["Date"]
       !dates.includes(date) && dates.push(date)
@@ -49,7 +49,7 @@ const ProfitChart = props => {
 
   const setData = () => {
     buildIntervals()
-    buildDataArray()
+    buildDateArray()
     
     let stats = {
       wins: 0,
