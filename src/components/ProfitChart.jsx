@@ -31,32 +31,32 @@ const ProfitChart = props => {
   const buildIntervals = () => {
     let num = 0.33333
     for (let i=0; i < 9; i++) {
-      timeBlocks[`${Number(num.toFixed(5))}`] = [0, 0]
+      timeBlocks[`${Number(num.toFixed(5))}`] = [0, 0, 0, 0]
       num+=0.04167
     }
   }
 
+  let dates = []
+  let commissions = 0
+  const buildDataArray = () => {
+    for (let i=0; i<props.savedTrades.data.length; i++) {
+      let date = props.savedTrades.data[i]["Date"]
+      !dates.includes(date) && dates.push(date)
+      commissions += (props.savedTrades.data[i]["Commissions"])
+    }
+    setCommissionsTotal(commissions)
+  }
+
   const setData = () => {
     buildIntervals()
-    let dates = []
-    let commissions = 0
+    buildDataArray()
+    
     let stats = {
       wins: 0,
       loss: 0,
       gains: 0,
       negGains: 0
     }
-    for (let i=0; i<props.savedTrades.data.length; i++) {
-      let date = props.savedTrades.data[i]["Date"]
-      !dates.includes(date) && dates.push(date)
-      commissions += (props.savedTrades.data[i]["Commissions"])
-      
-      for(let int in timeBlocks){
-        ((Number(int) <= props.savedTrades.data[i]["TimeStamp"]) && (props.savedTrades.data[i]["TimeStamp"] < Number(int)+0.04167)) && (timeBlocks[int][0] += props.savedTrades.data[i][grossNet]) && (timeBlocks[int][1]++)
-      }
-    }
-    props.setStats(stats)
-    setCommissionsTotal(commissions)
     
     let dailyProfits = 0
     let cumulativeGains = []
@@ -65,9 +65,25 @@ const ProfitChart = props => {
     dates.map(date => {
       let total = 0
       for(let i=0; i<props.savedTrades.data.length; i++) {
-        if (props.savedTrades.data[i]["Date"] === date ) {
-          props.savedTrades.data[i][grossNet] > 0 ? (stats['gains']+=props.savedTrades.data[i][grossNet]) && stats['wins']++ : (stats['negGains']+=props.savedTrades.data[i][grossNet]) && stats['loss']++
-          total += props.savedTrades.data[i][grossNet]
+        switch (true) {
+          case props.savedTrades.data[i]["Date"] === date && props.savedTrades.data[i][grossNet] > 0:
+            stats['gains']+=props.savedTrades.data[i][grossNet]
+            stats['wins']++
+
+            for(let int in timeBlocks) {
+              ((Number(int) <= props.savedTrades.data[i]["TimeStamp"]) && (props.savedTrades.data[i]["TimeStamp"] < Number(int)+0.04167)) && (timeBlocks[int][0] += props.savedTrades.data[i][grossNet]) && (timeBlocks[int][1]++)
+            }
+            total += props.savedTrades.data[i][grossNet]
+            break;
+          case props.savedTrades.data[i]["Date"] === date && props.savedTrades.data[i][grossNet] <= 0:
+            stats['negGains']+=props.savedTrades.data[i][grossNet]
+            stats['loss']++
+
+            for(let int in timeBlocks) {
+              ((Number(int) <= props.savedTrades.data[i]["TimeStamp"]) && (props.savedTrades.data[i]["TimeStamp"] < Number(int)+0.04167)) && (timeBlocks[int][2] += props.savedTrades.data[i][grossNet]) && (timeBlocks[int][3]++)
+            }
+            total += props.savedTrades.data[i][grossNet]
+            break;
         }
       }
       profitData.push(((stats['gains']/stats['wins'])/((stats['negGains']/stats['loss'])*-1)).toFixed(2))
@@ -80,6 +96,7 @@ const ProfitChart = props => {
         dayOfWeek === property && dailyPreformance[dayOfWeek][1].push(total) && dailyPreformance[dayOfWeek][0]++
       }
     })
+    props.setStats(stats)
     setWinPercentages(winData)
     setProfitLoss(profitData)
     setDate(dates)
