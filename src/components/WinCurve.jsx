@@ -2,7 +2,6 @@ import React from 'react';
 import { Line } from 'react-chartjs-2';
 
 const WinCurve = props => {
-
   const lineData = {
     labels: props.date,
     datasets: [
@@ -56,7 +55,6 @@ const WinCurve = props => {
       />
     </div>
   )
-
 };
 
 export default WinCurve;

@@ -6,10 +6,16 @@ const HourlyChart = props => {
 
   let totals = []
   let frequency = []
+  let hourlyAvg = []
+  let winAvg = []
+  let lossAvg = []
   if (props.times !== null) {
     for(let int in props.times) {
-      totals.push(props.times[int][0])
-      frequency.push(props.times[int][1])
+      totals.push((props.times[int][0]+props.times[int][2]).toFixed(2))
+      frequency.push(props.times[int][1]+props.times[int][3])
+      hourlyAvg.push(((props.times[int][0]+props.times[int][2])/(props.times[int][1]+props.times[int][3])).toFixed(2))
+      winAvg.push((props.times[int][0]/props.times[int][1]).toFixed(2))
+      lossAvg.push(((props.times[int][2]/props.times[int][3])*-1).toFixed(2))
     }
   }
 
@@ -55,24 +61,58 @@ const HourlyChart = props => {
     ]
   };
 
+  const hourlyAverage = {
+    labels: timeIntervals,
+    datasets: [
+      {
+        label: 'Interval Trade Average',
+        backgroundColor: colours,
+        borderColor: 'rgba(75,192,192,1)',
+        hoverBackgroundColor: 'rgba(75,192,192)',
+        data: hourlyAvg
+      }
+    ]
+  };
+
+  const winLossAverage = {
+    labels: timeIntervals,
+    datasets: [
+      {
+        label: 'Average Winner',
+        backgroundColor: 'rgba(75,192,192,0.4)',
+        borderColor: 'rgba(75,192,192,1)',
+        hoverBackgroundColor: 'rgba(75,192,192)',
+        data: winAvg
+      },
+      {
+        label: 'Average Loser',
+        backgroundColor: 'rgba(233, 133, 93, 0.719)',
+        borderColor: 'rgba(75,192,192,1)',
+        hoverBackgroundColor: 'rgba(75,192,192)',
+        data: lossAvg
+      }
+    ]
+  };
+
   const barOptions = {
     maintainAspectRatio: false,
     legend: {
       labels: {
         fontColor: "darkgrey",
-        fontSize: 16
+        fontSize: 14
       }
     },
     scales: {
       yAxes: [{
         ticks: {
-          fontColor: "darkgrey"
+          fontColor: "darkgrey",
+          fontSize: 12,
         }
       }],
       xAxes: [{
         ticks: {
             fontColor: "darkgrey",
-            fontSize: 14,
+            fontSize: 12,
         }
       }]
     }
@@ -82,7 +122,7 @@ const HourlyChart = props => {
     <section className="breakdown">
       <div className="split">
         <div>
-          <h4>Trade distribution: Hourly</h4>
+          <h4>Profit distribution: Hourly</h4>
           <div> 
             <HorizontalBar
               data = {hourlyTotals}
@@ -96,6 +136,28 @@ const HourlyChart = props => {
           <div> 
             <HorizontalBar
               data = {hourlyFrequency}
+              options = {barOptions}
+              height={450}
+            />
+          </div>
+        </div>
+      </div>
+      <div className="split">
+        <div>
+          <h4>Average: Hourly</h4>
+          <div> 
+            <HorizontalBar
+              data = {hourlyAverage}
+              options = {barOptions}
+              height={450}
+            />
+          </div>
+        </div>
+        <div>
+          <h4>Avg Winner & Avg Loser: Hourly</h4>
+          <div> 
+            <HorizontalBar
+              data = {winLossAverage}
               options = {barOptions}
               height={450}
             />

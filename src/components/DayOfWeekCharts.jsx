@@ -53,20 +53,21 @@ const DayOfWeekCharts = props => {
     legend: {
       labels: {
         fontColor: "darkgrey",
-        fontSize: 16
+        fontSize: 14
       }
     },
     scales: {
       yAxes: [{
         ticks: {
           fontColor: "darkgrey",
+          fontSize: 12,
           beginAtZero: true
         }
       }],
       xAxes: [{
         ticks: {
             fontColor: "darkgrey",
-            fontSize: 14,
+            fontSize: 12
         }
       }]
     }

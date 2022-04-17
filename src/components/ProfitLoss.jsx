@@ -54,7 +54,6 @@ const ProfitLoss = props => {
       />
     </div>
   )
-
 };
 
 export default ProfitLoss;
