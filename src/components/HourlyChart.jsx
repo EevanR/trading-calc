@@ -1,5 +1,5 @@
 import React from 'react';
-import { HorizontalBar } from 'react-chartjs-2';
+import { HorizontalBar, Bar, Line } from 'react-chartjs-2';
 import { connect } from "react-redux";
 
 const HourlyChart = props => {
@@ -9,6 +9,7 @@ const HourlyChart = props => {
   let hourlyAvg = []
   let winAvg = []
   let lossAvg = []
+  let accuracy = []
   if (props.times !== null) {
     for(let int in props.times) {
       totals.push((props.times[int][0]+props.times[int][2]).toFixed(2))
@@ -16,6 +17,7 @@ const HourlyChart = props => {
       hourlyAvg.push(((props.times[int][0]+props.times[int][2])/(props.times[int][1]+props.times[int][3])).toFixed(2))
       winAvg.push((props.times[int][0]/props.times[int][1]).toFixed(2))
       lossAvg.push(((props.times[int][2]/props.times[int][3])*-1).toFixed(2))
+      accuracy.push(((props.times[int][1]/(props.times[int][1]+props.times[int][3]))*100).toFixed(2))
     }
   }
 
@@ -94,6 +96,20 @@ const HourlyChart = props => {
     ]
   };
 
+  const hourlyAccuracy = {
+    labels: timeIntervals,
+    datasets: [
+      {
+        label: 'Win Accuracy %',
+        fill: false,
+        backgroundColor: 'rgba(75,192,192,0.4)',
+        borderColor: 'rgba(75,192,192,1)',
+        hoverBackgroundColor: 'rgba(75,192,192)',
+        data: accuracy
+      }
+    ]
+  };
+
   const barOptions = {
     maintainAspectRatio: false,
     legend: {
@@ -112,7 +128,7 @@ const HourlyChart = props => {
       xAxes: [{
         ticks: {
             fontColor: "darkgrey",
-            fontSize: 12,
+            fontSize: 12
         }
       }]
     }
@@ -162,6 +178,21 @@ const HourlyChart = props => {
               height={450}
             />
           </div>
+        </div>
+      </div>
+      <div className='split'>
+        <div>
+          <h4>Accuracy: Hourly</h4>
+          <div> 
+            <Bar
+              data = {hourlyAccuracy}
+              options = {barOptions}
+              height={450}
+            />
+          </div>
+        </div>
+        <div>
+          
         </div>
       </div>
     </section>
