@@ -1,5 +1,5 @@
 import React from 'react';
-import { HorizontalBar, Bar, Line } from 'react-chartjs-2';
+import { HorizontalBar, Bar } from 'react-chartjs-2';
 import { connect } from "react-redux";
 
 const HourlyChart = props => {
