@@ -21,17 +21,18 @@ const signIn = async (email, password) => {
       email: email,
       password: password
     });
-    storeAuthCredentials(response, response.data.data.nickname);
+    storeAuthCredentials(response, response.data.data.nickname, response.data.data.role);
     return response;
   } catch (error) {
     return error.response.data.errors[0]
   }
 }
 
-const storeAuthCredentials = ({ headers }, nickname) => {
+const storeAuthCredentials = ({ headers }, nickname, role) => {
   const credentials = {
     uid: headers["uid"],
     nickname: nickname,
+    role: role,
     client: headers["client"],
     access_token: headers["access-token"],
     expiry: headers["expiry"],

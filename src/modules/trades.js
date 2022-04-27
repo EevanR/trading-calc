@@ -44,6 +44,7 @@ const updateExcel = async (data, option, id) => {
 
 const getTrades = async () => {
   let headers = JSON.parse(sessionStorage.getItem("credentials"));
+  debugger
   try {
     const response = await axios.get("/excels", {
       headers: headers
