@@ -50,10 +50,8 @@ const getTrades = async () => {
     const response = await axios.get(`${path}`, {
       headers: headers
     })
-    debugger
     return response
   } catch (error) {
-    debugger
     return error.response;
   }
 }
