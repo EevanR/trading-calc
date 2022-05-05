@@ -152,7 +152,7 @@ const ProfitChart = props => {
     const indexExcels = async () => {
       let response = await getTrades()
       if (response.data !== null) {
-        props.setSavedTrades(response.data[0])
+        props.setSavedTrades(response.data.excels[0])
       }
     }
     indexExcels()

@@ -43,7 +43,7 @@ const Excel = props => {
     typeof(data) === "number" ? option = "shortFees" : option = "trades"
     let response = await sendExcel(data, option)
     if (response.status === 200) {
-      props.setSavedTrades(response.data)
+      props.setSavedTrades(response.data.excel)
     }
   }
 
@@ -51,7 +51,7 @@ const Excel = props => {
     typeof(data) === "number" ? option = "shortFees" : option = "trades"
     let response = await updateExcel(data, option, props.savedTrades.id)
     if (response.status === 200) {
-      props.setSavedTrades(response.data)
+      props.setSavedTrades(response.data.excel)
     }
   }
 

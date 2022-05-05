@@ -287,7 +287,7 @@ header .big.ui.button {
   }
 
   .split > * + * {
-    margin-left: 2em;
+    margin-left: 1em;
   }
 
   .container-wide {
@@ -775,7 +775,6 @@ canvas {
 @media (min-width: 40em) {
   .tab .foreground {
     padding: 2rem;
-    margin-left: 1rem;
   }
 
   .chartSmall {
@@ -1142,6 +1141,7 @@ canvas {
   color: lightgrey;
   font-family: 'Montserrat';
   /* top: -0.5rem; */
+  max-height: 50%;
   border-radius: 20px;
   width: 5rem;
   padding: 0.5rem 0.5rem 0.5rem 1.5rem;
