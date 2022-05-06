@@ -48,7 +48,7 @@ const Pannel = props => {
             <div className="pannel-inner split">
               <div>
                 <p>Account: {props.userAttrs.email}</p>
-                {props.userAttrs.role === "subscriber" ? <p>Subscribed</p> : <p>Limited Profile</p>}
+                {props.userAttrs.role === "subscriber" || props.userAttrs.role === 1 ? <p>Subscribed</p> : <p>Limited Profile</p>}
               </div>
               {props.stats !== null && props.savedTrades !== null && (
                 <>

@@ -45,7 +45,7 @@ const updateExcel = async (data, option, id) => {
 const getTrades = async () => {
   let headers = JSON.parse(sessionStorage.getItem("credentials"));
   let path;
-  {headers.role === "subscriber" ? path = "/admin/excels" : path = "/excels"}
+  {headers.role === "subscriber" || headers.role === 1 ? path = "/admin/excels" : path = "/excels"}
   try {
     const response = await axios.get(`${path}`, {
       headers: headers
