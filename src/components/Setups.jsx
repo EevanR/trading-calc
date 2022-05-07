@@ -77,6 +77,7 @@ const Setups = (props) => {
   const reloadSetups = async () => {
     let response = await getSetups()
     if (response !== undefined && response.status === 200) {
+      debugger
       props.setStrategies(response.data)
     } 
     setEditStrat(false)
@@ -120,6 +121,7 @@ const Setups = (props) => {
 
   let savedStrategies;
   if (props.strategies !== []) {
+    debugger
     savedStrategies = props.strategies.map(strategy => {
       let preReqArray = []
       let preReqs;

@@ -35,6 +35,7 @@ const getSetups = async () => {
     const response = await axios.get("/setups", {
       headers: headers
     })
+    debugger
     return response
   } catch (error) {
     return error.response
