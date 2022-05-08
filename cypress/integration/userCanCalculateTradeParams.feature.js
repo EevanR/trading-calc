@@ -12,10 +12,11 @@ describe("User can calculate trade params on calculator tab", () => {
     });
   })
 
-  it("can successfully navigate to Calculate tab", () => {
+  it("can successfully navigate to Calculate tab with no uploaded data", () => {
     cy.wait(5000)
     cy.contains("Calculator").click({force: true});
 
     cy.get("#title").should("contain", "Trading Position Calculator")
+    cy.get(".setups-inner").should("contain", "No Setups, Add new on strategies tab")
   })
 })
