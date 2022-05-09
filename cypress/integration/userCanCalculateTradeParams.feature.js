@@ -6,6 +6,13 @@ describe("User can calculate trade params on calculator tab", () => {
 
     cy.route({
       method: "GET",
+      url: "http://localhost:3000/api/v1/excels",
+      response: "fixture:excel_test.json",
+      status: 200,
+    });
+
+    cy.route({
+      method: "GET",
       url: "http://localhost:3000/api/v1/setups",
       response: "fixture:empty_setups_array.json",
       status: 200
