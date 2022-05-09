@@ -25,5 +25,9 @@ describe("User can calculate trade params on calculator tab", () => {
     cy.wait(5000)
 
     cy.contains("Calculator").click()
+    cy.get("#setup-dropdown").click()
+    cy.get('.selected > .text').click()
+
+    cy.get(".setups-inner").should("contain", "Strat 1")
   })
 })
