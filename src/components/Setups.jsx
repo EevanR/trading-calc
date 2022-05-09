@@ -119,7 +119,7 @@ const Setups = (props) => {
   }
 
   let savedStrategies;
-  if (props.strategies !== []) {
+  if (props.strategies.length !== undefined) {
     savedStrategies = props.strategies.map(strategy => {
       let preReqArray = []
       let preReqs;
@@ -143,7 +143,7 @@ const Setups = (props) => {
       )
     })
   } else {
-    return <h4>No Saved Strategies</h4>
+    savedStrategies = (<h4>No Saved Strategies</h4>)
   }
 
   return (

@@ -9,7 +9,7 @@ const SetUp = props => {
 
   const indexSetups = () => {
     let setupsNames = []
-    if (props.strategies !== [] ) {
+    if (props.strategies.length != undefined) {
       let key = 1
       let value = 1
       props.strategies.forEach(item => {
@@ -86,7 +86,7 @@ const SetUp = props => {
   return (
     <div className="setups">
       <div className="setups-inner">
-        <div>
+        <div id="setup-dropdown">
           {setupList === "None" ? "No Setups, Add new on strategies tab" : 
             <Dropdown
               placeholder= "Select Setup"
