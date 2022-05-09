@@ -9,7 +9,6 @@ const SetUp = props => {
 
   const indexSetups = () => {
     let setupsNames = []
-    debugger
     if (props.strategies.length != undefined) {
       let key = 1
       let value = 1

@@ -160,7 +160,6 @@ const ProfitChart = props => {
     const indexSetups = async () => {
       let response = await getSetups()
       if (response !== undefined && response.status === 200) {
-        debugger
         props.setStrategies(response.data)
       } 
     }
