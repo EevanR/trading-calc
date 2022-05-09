@@ -19,4 +19,11 @@ describe("User can calculate trade params on calculator tab", () => {
     cy.get("#title").should("contain", "Trading Position Calculator")
     cy.get(".setups-inner").should("contain", "No Setups, Add new on strategies tab")
   })
+
+  it("can successfully see saved strategies", () => {
+    cy.requests()
+    cy.wait(5000)
+
+    cy.contains("Calculator").click()
+  })
 })
