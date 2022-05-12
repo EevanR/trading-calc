@@ -129,6 +129,7 @@ const Excel = props => {
   return (
     <>
       <div className="excel bg-dark">
+        <h4>Subscribe</h4>
         <label>
           <input 
             type="file" 
