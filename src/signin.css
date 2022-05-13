@@ -1177,3 +1177,15 @@ canvas {
     margin-left: -1em;
   }
 }
+
+/* PAYWALL */
+
+.paywall {
+  position: fixed;
+  top: 4rem;
+  left: 40%;
+  height: 400px;
+  width: 300px;
+  background-color: white;
+  padding: 1rem;
+}

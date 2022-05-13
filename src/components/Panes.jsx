@@ -4,6 +4,7 @@ import ProfitChart from "./ProfitChart"
 import GapStats from "./GapStats"
 import Setups from "./Setups"
 import Excel from "./Excel";
+import PayWall from "./PayWall";
 import { Tab } from 'semantic-ui-react'
 import Twitter from "./Twitter";
 import Calculator from "./Calculator";
@@ -15,6 +16,7 @@ const Panes = () => {
       menuItem: 'Overview', render: () => (
         <Tab.Pane>
           <>
+            <PayWall />
             <ProfitChart />
             {/* <Twitter/> */}
           </>
