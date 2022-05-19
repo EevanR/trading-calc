@@ -12,7 +12,9 @@ const PayWall = () => {
           <h5>$14.00 / month</h5>
         </div>
     </div>
-    <form action="https://buy.stripe.com/test_8wMdUz18M5z34sE3cc">
+    <form action="/create-checkout-session" method="POST">
+      {/* Add a hidden field with the lookup_key of your Price */}
+      <input type="hidden" name="monthly" value="monthly" />
       <button id="checkout-and-portal-button" type="submit">
         Checkout
       </button>
