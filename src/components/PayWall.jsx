@@ -37,7 +37,7 @@ const PayWall = () => {
     e.preventDefault();
     let response = await createSession(e.target.lookup_key.value)
     if (response.status === 200) {
-      
+      window.open(response.data.url);
     } else {
       setMessage(response.data.errors[0])
     }
@@ -48,7 +48,7 @@ const PayWall = () => {
       <div>
         <div className="description">
           <h3>TradeLogs Monthly Subscription</h3>
-          <h5>$14.00 / month</h5>
+          <h5>$12.00 / month</h5>
         </div>
     </div>
     <form id="create-checkout-session" onSubmit={checkoutSession}>

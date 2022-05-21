@@ -2,9 +2,8 @@ import axios from "axios";
 
 const createSession = async (lookup_key) => {
   let headers = JSON.parse(sessionStorage.getItem("credentials"));
-  debugger
   try {
-    const response = await axios.post("/excels",
+    const response = await axios.post("/subscriptions",
       {
         lookup_key: lookup_key
       }, 
