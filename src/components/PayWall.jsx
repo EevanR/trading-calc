@@ -1,19 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { createSession } from '../modules/subscription';
+import { loadStripe } from '@stripe/stripe-js';
 
 const PayWall = () => {
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("")
+
+  let stripePromise;
+  const getStripe = () => {
+    if (!stripePromise) {
+      stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISH_KEY)
+    }
+    return stripePromise
+  }
 
   const checkoutSession = async (e) => {
     e.preventDefault();
     let response = await createSession(e.target.lookup_key.value)
     if (response.status === 200) {
-      window.open(response.data.url);
+      redirectToCheckout(response.data.id)
     } else {
       setMessage(response.data.errors[0])
     }
+  } 
+
+  const redirectToCheckout = async (session) => {
+    const stripe = await getStripe()
+    const { error } = await stripe.redirectToCheckout({sessionId: session})
+    console.log("Stripe checkout error", error )
   }
-  
+    
   return (
     <section className="paywall">
       <div>
