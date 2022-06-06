@@ -1204,9 +1204,16 @@ canvas {
 }
 
 .paywall .oval-button-white {
-  padding: 0rem 1rem 1rem 1rem;
+  padding: 0rem .5rem .5rem .5rem;
   line-height: 2;
   border-radius: 50px;
+  cursor: pointer;
+  transition: transform .1s;
+}
+
+.paywall .oval-button-white:hover {
+  transform: scale(1.1);
+  box-shadow: 0 3px 5px 1px rgba(8, 43, 66, 0.25);
 }
 
 #create-checkout-session {
@@ -1216,10 +1223,12 @@ canvas {
 .paywallInner h5 {
   margin: 0 0 1.5rem 0;
   margin: auto auto;
+  font-family: 'Montserrat-Medium';
 }
 
 .paywallInner h3 {
   line-height: 0.5;
+  font-family: 'Montserrat';
 }
 
 .paywall-most-inner {
@@ -1247,7 +1256,7 @@ canvas {
 
 .oval-button-white i {
   position: relative;
-  margin: -1.8rem 0 0 0;
+  margin: -2.3rem 0 0 0;
   top: .8rem;
   font-size: 46px;
   color: rgb(103,114,229);
