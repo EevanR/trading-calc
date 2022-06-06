@@ -19,7 +19,6 @@ const Panes = () => {
       menuItem: 'Overview', render: () => (
         <Tab.Pane>
           <>
-            <PayWall />
             <ProfitChart />
             {/* <Twitter/> */}
           </>
@@ -80,6 +79,7 @@ if (success && sessionId !== '') {
 
   return (
     <>
+      <PayWall />
       <Pannel/>
       <div className="panes bg-dark">
         <div className="two-column-grid">
