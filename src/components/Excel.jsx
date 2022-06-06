@@ -129,7 +129,7 @@ const Excel = props => {
   return (
     <>
       <div className="excel bg-dark">
-        <h4>Subscribe</h4>
+        <h4 onClick={() => props.paywall === "paywall-up" ? props.setPaywall("paywall") : props.setPaywall("paywall-up")}>Subscribe</h4>
         <label>
           <input 
             type="file" 
@@ -151,7 +151,8 @@ const mapStateToProps = state => {
   return {
     savedTrades: state.savedTrades,
     savedFees: state.savedFees,
-    message: state.message
+    message: state.message,
+    paywall: state.paywall
   };
 };
 
@@ -165,6 +166,9 @@ const mapDispatchToProps = dispatch => {
     },
     setMessage: string => {
       dispatch({ type: "SET_MESSAGE", payload: string })
+    },
+    setPaywall: paywall => {
+      dispatch({ type: "SET_PAYWALL", payload: paywall })
     }
   };
 };

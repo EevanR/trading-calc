@@ -57,6 +57,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         stats: action.payload
       };
+    case "SET_PAYWALL":
+      return {
+        ...state,
+        paywall: action.payload
+      };
     default:
       return {
         ...state

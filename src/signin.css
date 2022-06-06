@@ -1180,6 +1180,14 @@ canvas {
 
 /* PAYWALL */
 
+.paywall-up {
+  position: absolute;
+  top: 50%;
+  height: 0;
+  transition: all 1s ease-in-out;
+  opacity: 0;
+}
+
 .paywall {
   position: absolute;
   top: 0rem;
@@ -1190,7 +1198,9 @@ canvas {
   padding: 0;
   display: flex;
   text-align: center;
-  backdrop-filter: blur(15px);
+  backdrop-filter: blur(8px);
+  transition: all 1s ease-in-out;
+  opacity: 1;
 }
 
 .paywallInner {
@@ -1232,6 +1242,7 @@ canvas {
 }
 
 .paywall-most-inner {
+  position: relative;
   background-color: white;
   border-radius: 8px;
   padding: 2rem;
@@ -1260,6 +1271,14 @@ canvas {
   top: .8rem;
   font-size: 46px;
   color: rgb(103,114,229);
+}
+
+.paywall-cancel {
+  position: absolute;
+  color: grey;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
 }
 
 @media (min-width: 40em) {
