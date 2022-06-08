@@ -53,7 +53,7 @@ const PayWall = props => {
               <form id="create-checkout-session" onSubmit={checkoutSession}>
                 <input type="hidden" name="lookup_key" value="monthly" />
                 <button className="oval-button-white" id="checkout-and-portal-button" type="submit">
-                  To <i class="cc stripe icon"></i> Payment
+                  To <i className="cc stripe icon"></i> Payment
                 </button>
               </form>
             </div>

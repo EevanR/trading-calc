@@ -58,24 +58,28 @@ const Panes = () => {
     const query = new URLSearchParams(window.location.search);
 
     if (query.get('success')) {
-      debugger
       setSuccess(true);
       setSessionId(query.get('session_id'));
+      setMessage(
+        "Subscribed!"
+      );
     }
 
     if (query.get('canceled')) {
       setSuccess(false);
       setMessage(
-        "Order canceled -- continue to shop around and checkout when you're ready."
+        "Order canceled"
       );
     }
-  }, [sessionId]);
+  }, []);
 
-if (success && sessionId !== '') {
-  // return <SuccessDisplay sessionId={sessionId} />;
-} else {
-  // return <Message message={message} />;
-}
+  if (!success && message === '') {
+    return null
+  } else if (success && sessionId !== '') {
+    alert(message)
+  } else {
+    alert(message)
+  }
 
   return (
     <>

@@ -129,7 +129,7 @@ const Excel = props => {
   return (
     <>
       <div className="excel bg-dark">
-        <h4 onClick={() => props.paywall === "paywall-up" ? props.setPaywall("paywall") : props.setPaywall("paywall-up")}>Subscribe</h4>
+        {props.userAttrs !== null && props.userAttrs.role === "user" && (<h4 onClick={() => props.paywall === "paywall-up" ? props.setPaywall("paywall") : props.setPaywall("paywall-up")}>Subscribe</h4>)}
         <label>
           <input 
             type="file" 
@@ -152,6 +152,7 @@ const mapStateToProps = state => {
     savedTrades: state.savedTrades,
     savedFees: state.savedFees,
     message: state.message,
+    userAttrs: state.userAttrs,
     paywall: state.paywall
   };
 };
