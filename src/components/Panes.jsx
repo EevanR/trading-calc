@@ -74,7 +74,7 @@ const Panes = () => {
   }, []);
 
   if (!success && message === '') {
-    return null
+    
   } else if (success && sessionId !== '') {
     alert(message)
   } else {
