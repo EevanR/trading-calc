@@ -24,6 +24,16 @@
   src: url('./css_fonts/Montserrat/Montserrat-Medium.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'Montserrat-light';
+  src: url('./css_fonts/Montserrat/Montserrat-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Montserrat-thin';
+  src: url('./css_fonts/Montserrat/Montserrat-Thin.ttf') format('truetype');
+}
+
 html {
   scroll-behavior: smooth;
   overflow: hidden;
@@ -363,6 +373,7 @@ header .big.ui.button {
   border-radius: 25px;
   border: 1px solid black;
   font-size: 16px;
+  cursor: pointer;
 }
 
 .big.ui.button:hover {
@@ -1285,4 +1296,39 @@ canvas {
   .paywall .oval-button-white {
     width: 250px;
   }
+}
+
+/* SUCCESS PAGE */
+
+.success-page {
+  margin-top: 2rem;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  width: 60%;
+  text-align: center;
+  box-shadow: 0 3px 5px 1px rgba(8, 43, 66, 0.25);
+  margin-inline: auto;
+}
+
+.success-page h1 {
+  font-family: 'Montserrat-bold';
+  margin: 2rem;
+  font-size: 36px;
+  color: rgb(103,114,229);
+}
+
+.success-page .box {
+  margin: 2rem 0;
+  margin-inline: auto;
+  width: 50%;
+  padding: 2rem 2rem 0rem 2rem;
+  background-color: rgb(247, 246, 246);
+}
+
+.success-page .two-column-grid {
+  
+}
+
+.success-page p {
+  font-size: 13px;
+  padding-bottom: 1rem;
 }
