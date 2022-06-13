@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Pannel from './Pannel'
 import ProfitChart from "./ProfitChart"
 import GapStats from "./GapStats"
@@ -10,9 +10,6 @@ import Twitter from "./Twitter";
 import Calculator from "./Calculator";
 
 const Panes = () => {
-  let [message, setMessage] = useState('');
-  let [success, setSuccess] = useState(false);
-  let [sessionId, setSessionId] = useState('');
 
   const panes = [
     {
@@ -53,33 +50,6 @@ const Panes = () => {
       )
     }
   ]
-
-  useEffect(() => {
-    const query = new URLSearchParams(window.location.search);
-
-    if (query.get('success')) {
-      setSuccess(true);
-      setSessionId(query.get('session_id'));
-      setMessage(
-        "Subscribed!"
-      );
-    }
-
-    if (query.get('canceled')) {
-      setSuccess(false);
-      setMessage(
-        "Order canceled"
-      );
-    }
-  }, []);
-
-  if (!success && message === '') {
-    
-  } else if (success && sessionId !== '') {
-    alert(message)
-  } else {
-    alert(message)
-  }
 
   return (
     <>

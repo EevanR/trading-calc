@@ -17,4 +17,21 @@ const createSession = async (lookup_key) => {
   }
 }
 
-export { createSession }
+const createPortal = async (session) => {
+  let headers = JSON.parse(sessionStorage.getItem("credentials"));
+  try {
+    const response = await axios.post("/subscriptions",
+      {
+        session_id: session
+      }, 
+      {
+        headers: headers
+      }
+    )
+    return response
+  } catch (error) {
+    return error.response;
+  }
+}
+
+export { createSession, createPortal }

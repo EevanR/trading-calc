@@ -1324,8 +1324,9 @@ canvas {
   background-color: rgb(247, 246, 246);
 }
 
-.success-page .two-column-grid {
-  
+.success-page .oval-button-white {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .success-page p {
