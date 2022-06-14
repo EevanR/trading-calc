@@ -348,6 +348,10 @@ header .big.ui.button {
   color: orange;
 }
 
+.red {
+  color: red;
+}
+
 .big.ui.button {
   background-color: rgb(68,105,129);
   padding: 1.4rem 3rem;
@@ -1332,4 +1336,8 @@ canvas {
 .success-page p {
   font-size: 13px;
   padding-bottom: 1rem;
+}
+
+.four-o-four {
+  padding-top: 2.0rem;
 }
