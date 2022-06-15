@@ -352,6 +352,10 @@ header .big.ui.button {
   color: red;
 }
 
+.light-blue {
+  color: rgb(103,114,229);
+}
+
 .big.ui.button {
   background-color: rgb(68,105,129);
   padding: 1.4rem 3rem;
@@ -1317,7 +1321,6 @@ canvas {
   font-family: 'Montserrat-bold';
   margin: 2rem;
   font-size: 36px;
-  color: rgb(103,114,229);
 }
 
 .success-page .box {

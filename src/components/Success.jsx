@@ -8,6 +8,7 @@ const Success = () => {
   const [success, setSuccess] = useState(false);
   const [sessionId, setSessionId] = useState('');
   const [loader, setLoader] = useState(false)
+  const [params, setParams] = useState(false)
 
   const portalSession = async (e) => {
     e.preventDefault();
@@ -19,18 +20,6 @@ const Success = () => {
       setLoader(false)
     }
   }
-
-  switch (true) {
-    case user !== null && success:
-      
-      break;
-    case user !== null && !success:
-
-      break;
-    default: 
-
-      break;
-  }
   
   let date = Date().slice(0, 15)
   useEffect(() => {
@@ -40,8 +29,8 @@ const Success = () => {
 
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);
-    query.get('success') && setSuccess(true) && setSessionId(query.get('session_id'))
-    query.get('canceled') && setSuccess(false);
+    query.get('success') && setSuccess(true) && setSessionId(query.get('session_id')) && setParams(true)
+    query.get('canceled') && setSuccess(false) && setParams(true)
   }, []);
 
   return (
@@ -62,21 +51,25 @@ const Success = () => {
         </Dimmer>
       ) : (
         <div className="success-page">
-          {user !== null ? (
+          {user !== null && params ? (
             <>
-              {success ? <h1><i className="check circle icon"></i>SUCCESS</h1> : <h1><i className="check circle icon"></i>CANCELLED</h1>}
-              <h4>Your TradeLogs subscription has successfully registered.</h4>
-              <form id="create-portal-session" onSubmit={portalSession}>
-                <input
-                  type="hidden"
-                  id="session-id"
-                  name="session_id"
-                  value={sessionId}
-                />
-                <button className="oval-button-white" id="checkout-and-portal-button" type="submit">
-                  Manage Subscription
-                </button>
-              </form>
+              {success ? (
+                <>
+                  <h1 className="light-blue"><i className="check circle icon"></i>SUCCESS</h1>
+                  <h4>Your TradeLogs subscription has successfully registered.</h4>
+                  <form id="create-portal-session" onSubmit={portalSession}>
+                    <input
+                      type="hidden"
+                      id="session-id"
+                      name="session_id"
+                      value={sessionId}
+                    />
+                    <button className="oval-button-white" id="checkout-and-portal-button" type="submit">
+                      Manage Subscription
+                    </button>
+                  </form>
+                </> 
+              ) : <h1 className="red"><i className="close icon"></i>CANCELED</h1>}
               <div className="box">
                 <div className="two-column-grid">
                   <div>
