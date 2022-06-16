@@ -22,11 +22,10 @@ const PayWall = props => {
     let response = await createSession(e.target.lookup_key.value)
     if (response.status === 200) {
       redirectToCheckout(response.data.id)
-      setLoader(false)
     } else {
       setMessage(response.data.errors[0])
-      setLoader(false)
     }
+    setLoader(false)
   } 
 
   const redirectToCheckout = async (session) => {

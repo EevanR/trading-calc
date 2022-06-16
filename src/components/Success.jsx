@@ -28,9 +28,16 @@ const Success = () => {
   }, [])
 
   useEffect(() => {
-    const query = new URLSearchParams(window.location.search);
-    query.get('success') && setSuccess(true) && setSessionId(query.get('session_id')) && setParams(true)
-    query.get('canceled') && setSuccess(false) && setParams(true)
+    const query = new URLSearchParams(window.location.search)
+    if (query.get('success')) {
+      setSuccess(true)
+      setSessionId(query.get('session_id'))
+      setParams(true)
+    }
+    if (query.get('canceled')) {
+      setSuccess(false)
+      setParams(true)
+    }
   }, []);
 
   return (
