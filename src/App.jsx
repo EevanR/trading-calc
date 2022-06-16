@@ -3,8 +3,7 @@ import Panes from './components/Panes'
 import Signin from './components/Signin'
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "@stripe/stripe-js"
-import Canceled from './components/Canceled';
-import Success from './components/Success';
+import Receipt from './components/Receipt';
 
 const App = () => {
   return (
@@ -14,8 +13,7 @@ const App = () => {
         <Switch>
           <Route exact path="/" component={Signin} />
           <Route exact path="/panes" component={Panes} />
-          <Route exact path="/success" component={Success} />
-          <Route exact path="/canceled" component={Canceled} />
+          <Route exact path="/receipt" component={Receipt} />
         </Switch>
       </BrowserRouter>
       </div>

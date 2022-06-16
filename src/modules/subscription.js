@@ -20,7 +20,7 @@ const createSession = async (lookup_key) => {
 const createPortal = async (session) => {
   let headers = JSON.parse(sessionStorage.getItem("credentials"));
   try {
-    const response = await axios.post("/subscriptions",
+    const response = await axios.post("/stripe_portals",
       {
         session_id: session
       }, 

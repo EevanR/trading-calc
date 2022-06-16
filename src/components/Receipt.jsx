@@ -6,7 +6,7 @@ import { createPortal } from "../modules/subscription";
 const Success = () => {
   const [user, setUser] = useState({})
   const [success, setSuccess] = useState(false);
-  const [sessionId, setSessionId] = useState('');
+  const [sessionId, setSessionId] = useState(null);
   const [loader, setLoader] = useState(false)
   const [params, setParams] = useState(false)
 
@@ -14,7 +14,7 @@ const Success = () => {
     e.preventDefault();
     let response = await createPortal(e.target.session_id.value)
     if (response.status === 200) {
-      // redirectToCheckout(response.data.id)
+      redirectToCheckout(response.data.url)
       setLoader(false)
     } else {
       setLoader(false)
@@ -29,9 +29,9 @@ const Success = () => {
 
   useEffect(() => {
     const query = new URLSearchParams(window.location.search)
-    if (query.get('success')) {
-      setSuccess(true)
+    if (query.get('success') && query.get('session_id')) {
       setSessionId(query.get('session_id'))
+      setSuccess(true)
       setParams(true)
     }
     if (query.get('canceled')) {
