@@ -13,12 +13,13 @@ const Success = () => {
   const portalSession = async (e) => {
     e.preventDefault();
     let response = await createPortal(e.target.session_id.value)
-    if (response.status === 200) {
-      redirectToCheckout(response.data.url)
-      setLoader(false)
-    } else {
-      setLoader(false)
-    }
+    debugger
+    // if (response.status === 200) {
+    //   redirectToCheckout(response.data.url)
+    //   setLoader(false)
+    // } else {
+    //   setLoader(false)
+    // }
   }
   
   let date = Date().slice(0, 15)

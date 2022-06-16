@@ -3,6 +3,7 @@ import * as XLSX from 'xlsx'
 import { connect } from "react-redux";
 import { sendExcel, destroyExcel, updateExcel } from '../modules/trades';
 import { logout } from "../modules/auth";
+import { createPortal } from "../modules/subscription";
 
 const Excel = props => {
   let option = "update"
@@ -125,11 +126,32 @@ const Excel = props => {
       alert("SignOut failed unexpectedly")
     }
   }
+
+  const portalSession = async () => {
+    let response = await createPortal()
+  }
+
+  let subscribe;
+  if (props.userAttrs !== null && props.userAttrs.role === "subscriber") {
+    subscribe = (
+      <>
+        <h4 onClick={() => portalSession()}>
+          Manage Subscription
+        </h4>
+      </>
+    )
+  } else {
+    subscribe = (
+      <>
+        <h4 onClick={() => props.paywall === "paywall-up" ? props.setPaywall("paywall") : props.setPaywall("paywall-up")}>Subscribe</h4>
+      </>
+    )
+  }
   
   return (
     <>
       <div className="excel bg-dark">
-        {props.userAttrs !== null && props.userAttrs.role === "user" && (<h4 onClick={() => props.paywall === "paywall-up" ? props.setPaywall("paywall") : props.setPaywall("paywall-up")}>Subscribe</h4>)}
+        {subscribe}
         <label>
           <input 
             type="file" 
