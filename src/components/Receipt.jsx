@@ -13,13 +13,11 @@ const Success = () => {
   const portalSession = async (e) => {
     e.preventDefault();
     let response = await createPortal(e.target.session_id.value)
-    debugger
-    // if (response.status === 200) {
-    //   redirectToCheckout(response.data.url)
-    //   setLoader(false)
-    // } else {
-    //   setLoader(false)
-    // }
+    if (response.status === 200) {
+      window.location.href = response.data;
+    } else {
+      alert("Unable to navigate to Stripe Billing Management")
+    }
   }
   
   let date = Date().slice(0, 15)

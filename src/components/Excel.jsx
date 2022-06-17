@@ -129,6 +129,11 @@ const Excel = props => {
 
   const portalSession = async () => {
     let response = await createPortal()
+    if (response.status === 200) {
+      window.location.href = response.data;
+    } else {
+      alert("Unable to navigate to Stripe Billing Management")
+    }
   }
 
   let subscribe;
