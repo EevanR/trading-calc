@@ -57,7 +57,7 @@ const Success = () => {
         </Dimmer>
       ) : (
         <div className="success-page">
-          {user !== null && params ? (
+          {params ? (
             <>
               {success ? (
                 <>
@@ -90,7 +90,7 @@ const Success = () => {
                     <p className="right-align">{date}</p>
                     {success ? <p className="right-align green">Success</p> :  <p className="right-align red">Canceled</p>}
                     <p className="right-align">Monthly</p>
-                    <p className="right-align">$12.00</p>
+                    <p className="right-align">$16.00</p>
                   </div>
                 </div>
               </div>

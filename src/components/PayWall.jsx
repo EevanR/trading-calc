@@ -24,13 +24,14 @@ const PayWall = props => {
       redirectToCheckout(response.data.id)
     } else {
       setMessage(response.data.errors[0])
+      setLoader(false)
     }
-    setLoader(false)
   } 
 
   const redirectToCheckout = async (session) => {
     const stripe = await getStripe()
     const { error } = await stripe.redirectToCheckout({sessionId: session})
+    setLoader(false)
     console.log("Stripe checkout error", error ) //display this alert probably
   }
     
