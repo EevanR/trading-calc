@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Pannel from './Pannel'
 import ProfitChart from "./ProfitChart"
 import GapStats from "./GapStats"
@@ -8,8 +8,10 @@ import PayWall from "./PayWall";
 import { Tab } from 'semantic-ui-react'
 import Twitter from "./Twitter";
 import Calculator from "./Calculator";
+import { showUser } from "../modules/auth";
+import { connect } from "react-redux";
 
-const Panes = () => {
+const Panes = props => {
 
   const panes = [
     {
@@ -51,6 +53,20 @@ const Panes = () => {
     }
   ]
 
+  useEffect(() => {
+    let user = JSON.parse(sessionStorage.getItem('user'))
+
+    const checkUserStatus = async (user_id) => {
+      let response = await showUser(user_id)
+      if (response.status === 200) {
+        props.setUser(response.data)
+      } else {
+        console.log("No user logged into server")
+      }
+    }
+    checkUserStatus(user.id)
+  }, [])
+
   return (
     <>
       <PayWall />
@@ -70,4 +86,12 @@ const Panes = () => {
   );
 };
 
-export default Panes;
+const mapDispatchToProps = dispatch => {
+  return {
+    setUser: data => {
+      dispatch({ type: "SET_USER", payload: data });
+    }
+  }
+};
+
+export default connect(null, mapDispatchToProps)(Panes);
