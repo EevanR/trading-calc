@@ -159,13 +159,14 @@ const Excel = props => {
         {subscribe}
         <label>
           <input 
+            id="file-uplaod-button"
             type="file" 
             onChange={(e) => {
               const file = e.target.files[0]
               readExcel(file)
             }}
           />
-          <span className="upload-btn">Upload</span>
+          <span className="upload-btn"><h4>Upload</h4></span>
         </label>
         <h4 onClick={() => deleteExcel()}>Clear Data</h4>
         <a href="/"><h4 onClick={() => onLogout()}>Logout</h4></a>

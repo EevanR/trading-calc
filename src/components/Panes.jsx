@@ -72,8 +72,8 @@ const Panes = props => {
       <PayWall />
       <Pannel/>
       <div className="panes bg-dark">
-        <div className="two-column-grid">
-          <div>
+        <div className="split">
+          <div className="logo">
             <a href="/"><img src="/TradeLogs.png"  alt="TradeLogs Logo"/></a>
           </div>
           <div>

@@ -279,7 +279,7 @@ header .big.ui.button {
 
 .container-wide {
   margin-inline: auto; 
-  width: min(95%, 85rem);
+  width: min(100%, 85rem);
 }
 
 .split {
@@ -667,27 +667,6 @@ Button#submit.ui.button {
   color: darksalmon;
 }
 
-.excel .ui.button {
-  margin: 0rem 2rem 0.5rem 2rem;
-}
-
-.excel {
-  color: rgb(117, 168, 202);
-  position: absolute;
-  right: 2rem;
-  top: 0rem;
-  padding-top: 1rem;
-  visibility: hidden;
-}
-
-.excel h4 {
-  display: inline;
-  margin-right: 3rem;
-  cursor: pointer;
-  border-left: 1px solid rgba(255, 166, 0, 0.63);
-  padding-left: 1rem;
-}
-
 .panes {
   padding-top: 1rem;
   position: relative;
@@ -703,7 +682,9 @@ Button#submit.ui.button {
 }
 
 .panes img {
-  width: 90%;
+  margin-top: -1rem;
+  margin-left: -1.5rem;
+  width: 55%;
 }
 
 .ui.button {
@@ -770,11 +751,10 @@ canvas {
 
 .summary-box {
   width: 100%;
-  min-height: 300px;
   border: 1px solid grey;
   margin-bottom: 1rem;
   color: lightgrey;
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .four-column-grid {
@@ -783,6 +763,7 @@ canvas {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr) minmax(150px, 1fr));
   grid-gap: 1.5rem 1rem;
+  margin-bottom: 1rem;
 }
 
 .four-column-grid div {
@@ -792,6 +773,10 @@ canvas {
 }
 
 @media (min-width: 40em) {
+  .summary-box {
+    min-height: 280px;
+  }
+
   .tab .foreground {
     padding: 2rem;
   }
@@ -817,7 +802,9 @@ canvas {
   }
 
   .panes img {
-    width: 60%;
+    position: relative;
+    top: -1rem;
+    width: 55%;
   }
 
   .four-column-grid {
@@ -836,28 +823,13 @@ canvas {
     height: 20rem;
     margin: 2rem 0;
   }
-  
-  .excel {
-    right: 4rem;
-    top: 1.3rem;
-    visibility: visible;
-  }
+
 
   input[type='file'] {
     width: 0;
     height: 0;
     overflow: hidden;
     opacity: 0;
-  }
-
-  .upload-btn {
-    position: relative;
-    font-family: "Montserrat";
-    font-size: 15px;
-    cursor: pointer;
-    border-left: 1px solid rgba(255, 166, 0, 0.63);
-    padding-left: 1rem;
-    margin-right: 3rem;
   }
 }
 
@@ -881,6 +853,41 @@ canvas {
 
 .panes .ui.attached:not(.message)+.ui.attached.segment:not(.top) input {
   border-radius: 0;
+}
+
+/* EXCEL  */
+#file-uplaod-button {
+  display: none;
+}
+
+.excel {
+  padding: 0 0 0rem 0.5rem;
+}
+
+.excel h4 {
+  display: inline;
+  margin-right: 1rem;
+  cursor: pointer;
+  border-left: 1px solid rgba(255, 166, 0, 0.63);
+  padding-left: 0.3rem;
+  color: rgb(117, 168, 202);
+  font-size: 13px;
+}
+
+@media (min-width: 40em) {
+  .excel h4 {
+    margin-right: 2rem;
+    cursor: pointer;
+    padding-left: 0.5rem;
+    font-size: 15px;
+  }
+  
+  .excel {
+    position: relative;
+    text-align: right;
+    right: 6rem;
+    top: 1.3rem;
+  }
 }
 
 /* Calc Tab */
@@ -1137,7 +1144,7 @@ canvas {
 }
 
 .pannel-down {
-  padding: 2rem 1rem;
+  padding: 1rem 0rem;
   transition: all .3s ease-in-out;
   height: 90px;
 }
@@ -1201,9 +1208,9 @@ canvas {
 
 .paywall-up {
   position: absolute;
-  top: 50%;
+  right: 0;
+  top: -30rem;
   height: 0;
-  transition: all 1s ease-in-out;
   opacity: 0;
 }
 
