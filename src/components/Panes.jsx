@@ -54,17 +54,19 @@ const Panes = props => {
   ]
 
   useEffect(() => {
-    let user = JSON.parse(sessionStorage.getItem('user'))
+    if ( props.userAttrs === null ) {
+      let user = JSON.parse(sessionStorage.getItem('user'))
 
-    const checkUserStatus = async (user_id) => {
-      let response = await showUser(user_id)
-      if (response.status === 200) {
-        props.setUser(response.data)
-      } else {
-        console.log("No user logged into server")
+      const checkUserStatus = async (user_id) => {
+        let response = await showUser(user_id)
+        if (response.status === 200) {
+          props.setUser(response.data)
+        } else {
+          console.log("No user logged into server")
+        }
       }
+      checkUserStatus(user.id)
     }
-    checkUserStatus(user.id)
   }, [])
 
   return (
@@ -86,6 +88,12 @@ const Panes = props => {
   );
 };
 
+const mapStateToProps = state => {
+  return {
+    userAttrs: state.userAttrs
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     setUser: data => {
@@ -94,4 +102,4 @@ const mapDispatchToProps = dispatch => {
   }
 };
 
-export default connect(null, mapDispatchToProps)(Panes);
+export default connect(mapStateToProps, mapDispatchToProps)(Panes);
