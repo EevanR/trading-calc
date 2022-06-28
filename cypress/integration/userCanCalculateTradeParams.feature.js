@@ -10,13 +10,6 @@ describe("User can calculate trade params on calculator tab", () => {
       response: "fixture:excel_test.json",
       status: 200,
     });
-
-    cy.route({
-      method: "GET",
-      url: "http://localhost:3000/api/v1/setups",
-      response: "fixture:empty_setups_array.json",
-      status: 200
-    });
   })
 
   it("can successfully navigate to Calculate tab with no uploaded data", () => {
@@ -28,6 +21,13 @@ describe("User can calculate trade params on calculator tab", () => {
   })
 
   it("can successfully see saved strategies", () => {
+    cy.route({
+      method: "GET",
+      url: "http://localhost:3000/api/v1/setups",
+      response: "fixture:index_strategies.json",
+      status: 200
+    });
+
     cy.requests()
     cy.wait(5000)
 

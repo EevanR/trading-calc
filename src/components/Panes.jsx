@@ -10,6 +10,7 @@ import Twitter from "./Twitter";
 import Calculator from "./Calculator";
 import { showUser } from "../modules/auth";
 import { connect } from "react-redux";
+import { getSetups } from "../modules/setup";
 
 const Panes = props => {
 
@@ -67,6 +68,14 @@ const Panes = props => {
       }
       checkUserStatus(user.id)
     }
+
+    const loadSetups = async () => {
+      let response = await getSetups()
+      if (response !== undefined && response.status === 200) {
+        props.setStrategies(response.data)
+      } 
+    }
+    loadSetups()
   }, [])
 
   return (
@@ -98,6 +107,9 @@ const mapDispatchToProps = dispatch => {
   return {
     setUser: data => {
       dispatch({ type: "SET_USER", payload: data });
+    },
+    setStrategies: array => {
+      dispatch({ type: "SET_STRATEGIES", payload: array });
     }
   }
 };
