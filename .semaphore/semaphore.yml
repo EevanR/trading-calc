@@ -30,6 +30,7 @@ blocks:
       jobs:
         - name: Client Tests
           commands:
+            - sem-version cypress 3.8.3
             - checkout
             - cache restore client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),client-node-modules-$SEMAPHORE_GIT_BRANCH,client-node-modules-master
             - yarn add cypress
