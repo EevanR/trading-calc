@@ -9,6 +9,7 @@ const initialState = {
   strategies: [],
   gapSearches: [],
   savedFees: null,
-  stats: null
+  stats: null,
+  paywall: "paywall-up"
 };
 export default initialState;

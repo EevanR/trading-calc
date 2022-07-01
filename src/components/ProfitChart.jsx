@@ -7,7 +7,6 @@ import HourlyChart from "./HourlyChart";
 import WinCurve from "./WinCurve";
 import ProfitLoss from "./ProfitLoss";
 import { getTrades } from "../modules/trades";
-import { getSetups } from "../modules/setup";
 
 const ProfitChart = props => {
   const [profit, setProfit] = useState([])
@@ -157,14 +156,6 @@ const ProfitChart = props => {
     }
     indexExcels()
 
-    const indexSetups = async () => {
-      let response = await getSetups()
-      if (response !== undefined && response.status === 200) {
-        props.setStrategies(response.data)
-      } 
-    }
-    indexSetups()
-
     if (sessionStorage.getItem('user') !== null && props.userAttrs === null) {
       let user = JSON.parse(sessionStorage.getItem('user'))
       props.setUser(user)
@@ -265,9 +256,6 @@ const mapDispatchToProps = dispatch => {
     },
     setStats: string => {
       dispatch({ type: "SET_STATS", payload: string });
-    },
-    setStrategies: array => {
-      dispatch({ type: "SET_STRATEGIES", payload: array });
     },
     setUser: data => {
       dispatch({ type: "SET_USER", payload: data });

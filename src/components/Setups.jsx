@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { saveStrategy, deleteSetup, getSetups, updateSetup } from "../modules/setup";
 import { connect } from "react-redux";
 import ItemsCarousel from 'react-items-carousel'
@@ -145,6 +145,11 @@ const Setups = (props) => {
   } else {
     savedStrategies = (<h4>No Saved Strategies</h4>)
   }
+
+  useEffect(() => {
+    reloadSetups()
+  }, [])
+  
 
   return (
     <>

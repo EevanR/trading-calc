@@ -3,6 +3,7 @@ import * as XLSX from 'xlsx'
 import { connect } from "react-redux";
 import { sendExcel, destroyExcel, updateExcel } from '../modules/trades';
 import { logout } from "../modules/auth";
+import { createPortal } from "../modules/subscription";
 
 const Excel = props => {
   let option = "update"
@@ -125,19 +126,47 @@ const Excel = props => {
       alert("SignOut failed unexpectedly")
     }
   }
+
+  const portalSession = async () => {
+    let response = await createPortal()
+    if (response.status === 200) {
+      window.location.href = response.data;
+    } else {
+      alert("Unable to navigate to Stripe Billing Management")
+    }
+  }
+
+  let subscribe;
+  if (props.userAttrs !== null && props.userAttrs.role === "subscriber") {
+    subscribe = (
+      <>
+        <h4 onClick={() => portalSession()}>
+          Manage Subscription
+        </h4>
+      </>
+    )
+  } else {
+    subscribe = (
+      <>
+        <h4 onClick={() => props.paywall === "paywall-up" ? props.setPaywall("paywall") : props.setPaywall("paywall-up")}>Subscribe</h4>
+      </>
+    )
+  }
   
   return (
     <>
       <div className="excel bg-dark">
+        {subscribe}
         <label>
           <input 
+            id="file-uplaod-button"
             type="file" 
             onChange={(e) => {
               const file = e.target.files[0]
               readExcel(file)
             }}
           />
-          <span className="upload-btn">Upload</span>
+          <span className="upload-btn"><h4>Upload</h4></span>
         </label>
         <h4 onClick={() => deleteExcel()}>Clear Data</h4>
         <a href="/"><h4 onClick={() => onLogout()}>Logout</h4></a>
@@ -150,7 +179,9 @@ const mapStateToProps = state => {
   return {
     savedTrades: state.savedTrades,
     savedFees: state.savedFees,
-    message: state.message
+    message: state.message,
+    userAttrs: state.userAttrs,
+    paywall: state.paywall
   };
 };
 
@@ -164,6 +195,9 @@ const mapDispatchToProps = dispatch => {
     },
     setMessage: string => {
       dispatch({ type: "SET_MESSAGE", payload: string })
+    },
+    setPaywall: paywall => {
+      dispatch({ type: "SET_PAYWALL", payload: paywall })
     }
   };
 };

@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Pannel from './Pannel'
 import ProfitChart from "./ProfitChart"
 import GapStats from "./GapStats"
 import Setups from "./Setups"
 import Excel from "./Excel";
+import PayWall from "./PayWall";
 import { Tab } from 'semantic-ui-react'
 import Twitter from "./Twitter";
 import Calculator from "./Calculator";
+import { showUser } from "../modules/auth";
+import { connect } from "react-redux";
+import { getSetups } from "../modules/setup";
 
-const Panes = () => {
+const Panes = props => {
 
   const panes = [
     {
@@ -50,12 +54,37 @@ const Panes = () => {
     }
   ]
 
+  useEffect(() => {
+    if ( props.userAttrs === null ) {
+      let user = JSON.parse(sessionStorage.getItem('user'))
+
+      const checkUserStatus = async (user_id) => {
+        let response = await showUser(user_id)
+        if (response.status === 200) {
+          props.setUser(response.data)
+        } else {
+          console.log("No user logged into server")
+        }
+      }
+      checkUserStatus(user.id)
+    }
+
+    const loadSetups = async () => {
+      let response = await getSetups()
+      if (response !== undefined && response.status === 200) {
+        props.setStrategies(response.data)
+      } 
+    }
+    loadSetups()
+  }, [])
+
   return (
     <>
+      <PayWall />
       <Pannel/>
       <div className="panes bg-dark">
-        <div className="two-column-grid">
-          <div>
+        <div className="split">
+          <div className="logo">
             <a href="/"><img src="/TradeLogs.png"  alt="TradeLogs Logo"/></a>
           </div>
           <div>
@@ -68,4 +97,21 @@ const Panes = () => {
   );
 };
 
-export default Panes;
+const mapStateToProps = state => {
+  return {
+    userAttrs: state.userAttrs
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setUser: data => {
+      dispatch({ type: "SET_USER", payload: data });
+    },
+    setStrategies: array => {
+      dispatch({ type: "SET_STRATEGIES", payload: array });
+    }
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Panes);

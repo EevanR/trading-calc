@@ -9,7 +9,7 @@ const SetUp = props => {
 
   const indexSetups = () => {
     let setupsNames = []
-    if (props.strategies.length != undefined) {
+    if (props.strategies.length !== undefined && props.strategies.length !== 0 ) {
       let key = 1
       let value = 1
       props.strategies.forEach(item => {
