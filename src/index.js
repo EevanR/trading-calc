@@ -9,6 +9,7 @@ import configureStore from "./state/store/configureStore";
 import axios from "axios";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_BASEURL
+// axios.defaults.baseURL = "https://trading-calc-api.herokuapp.com/api/v1"
 
 const store = configureStore();
 
