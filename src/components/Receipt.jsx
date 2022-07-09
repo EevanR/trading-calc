@@ -20,10 +20,6 @@ const Success = () => {
   }
 
   let date = Date().slice(0, 15)
-  useEffect(() => {
-    let storage = JSON.parse(sessionStorage.getItem('user'))
-    setUser(storage)
-  }, [])
 
   useEffect(() => {
     const query = new URLSearchParams(window.location.search)
@@ -90,7 +86,7 @@ const Success = () => {
                   <p className="left-align">Payment Amount</p>
                 </div>
                 <div>
-                  <p className="right-align">{user.email}</p>
+                  {user !== null ? <p className="right-align">{user.email}</p> : <p>N/A</p>}
                   <p className="right-align">{date}</p>
                   {success ? <p className="right-align green">Success</p> :  <p className="right-align red">Canceled</p>}
                   <p className="right-align">Monthly</p>
