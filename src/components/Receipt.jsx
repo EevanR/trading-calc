@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Dimmer, Loader } from 'semantic-ui-react'
 import { createPortal } from "../modules/subscription";
+import { showUser } from "../modules/auth";
 
 const Success = () => {
   const [user, setUser] = useState({})
   const [success, setSuccess] = useState(false);
   const [sessionId, setSessionId] = useState(null);
-  const [loader, setLoader] = useState(false)
   const [params, setParams] = useState(false)
 
   const portalSession = async (e) => {
@@ -19,7 +18,7 @@ const Success = () => {
       alert("Unable to navigate to Stripe Billing Management")
     }
   }
-  
+
   let date = Date().slice(0, 15)
   useEffect(() => {
     let storage = JSON.parse(sessionStorage.getItem('user'))
@@ -37,6 +36,16 @@ const Success = () => {
       setSuccess(false)
       setParams(true)
     }
+
+    const checkUserStatus = async (session_id) => {
+      let response = await showUser(session_id)
+      if (response.status === 200) {
+        setUser(response.data)
+      } else {
+        console.log("No user logged into server")
+      }
+    }
+    checkUserStatus(`ses=${query.get('session_id')}`)
   }, []);
 
   return (
