@@ -1318,7 +1318,7 @@ canvas {
 .success-page {
   margin-top: 2rem;
   padding: 0.5rem 1rem 0.5rem 1rem;
-  width: 60%;
+  width: 95%;
   text-align: center;
   box-shadow: 0 3px 5px 1px rgba(8, 43, 66, 0.25);
   margin-inline: auto;
@@ -1327,13 +1327,13 @@ canvas {
 .success-page h1 {
   font-family: 'Montserrat-bold';
   margin: 2rem;
-  font-size: 36px;
+  font-size: 2rem;
 }
 
 .success-page .box {
   margin: 2rem 0;
   margin-inline: auto;
-  width: 50%;
+  width: 90%;
   padding: 2rem 2rem 0rem 2rem;
   background-color: rgb(247, 246, 246);
 }
@@ -1350,4 +1350,14 @@ canvas {
 
 .four-o-four {
   padding-top: 2.0rem;
+}
+
+@media (min-width: 40em) {
+  .success-page {
+    max-width: 800px;
+  }
+  
+  .success-page .box {
+    max-width: 500px;
+  }
 }
