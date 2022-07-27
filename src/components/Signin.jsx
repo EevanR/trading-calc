@@ -279,7 +279,7 @@ const Signin = props => {
             </div>
             <div>
               <h4>ABOUT US</h4>
-              <p>TERMS OF SERVICE</p>
+              <a href='/terms'><p>TERMS OF SERVICE</p></a>
               <p>FAQ</p>
               <p>PRIVACY POLICY</p>
             </div>

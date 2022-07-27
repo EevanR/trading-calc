@@ -4,6 +4,7 @@ import Signin from './components/Signin'
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "@stripe/stripe-js"
 import Receipt from './components/Receipt';
+import Terms from './components/Terms';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
           <Route exact path="/" component={Signin} />
           <Route exact path="/panes" component={Panes} />
           <Route exact path="/receipt" component={Receipt} />
+          <Route exact path="/terms" component={Terms} />
         </Switch>
       </BrowserRouter>
       </div>
