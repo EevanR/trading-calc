@@ -668,7 +668,7 @@ Button#submit.ui.button {
 }
 
 .panes {
-  padding-top: 1rem;
+  padding-top: 3rem;
   position: relative;
 }
 
@@ -1360,4 +1360,20 @@ canvas {
   .success-page .box {
     max-width: 500px;
   }
+}
+
+
+/* TERMS OF SERVICE */
+
+.terms h3, .terms p {
+  text-align: left;
+}
+
+.terms h3 {
+  font-family: "Montserrat-bold";
+}
+
+.terms p {
+  font-size: 15px;
+  line-height: 1.5;
 }
