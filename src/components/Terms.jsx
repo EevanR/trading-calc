@@ -208,11 +208,10 @@ const Terms = () => {
         <h3>Governing Law</h3>
         <p>
           Any disputes arising out of or relating to the Terms, the Privacy Policy, use of our website, or our 
-          products or services offered on our website will be resolved in accordance with the laws of the Province 
-          of British Columbia without regard to its conflict of law rules. Any disputes, actions or proceedings 
-          relating to the Terms or your access to or use of our website must be brought before the courts of the 
-          Province of British Columbia in the City of Richmond, British Columbia and you irrevocably consent to the
-          exclusive jurisdiction and venue of such courts.
+          products or services offered on our website will be resolved in accordance with the laws of Sweden. Any dispute, 
+          controversy or claim arising out of or in connection with this Agreement shall be settled by a Swedish court of 
+          general jurisdiction and the Stockholm District Court (Sw. Stockholms tingsrätt) shall be the court of first 
+          instance.
         </p>
   
         <h3>Questions or Concerns</h3>
