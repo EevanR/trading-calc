@@ -41,8 +41,8 @@ const Terms = () => {
           security features or to gain unauthorized access to our systems.
         </p>
         <p>
-          You agree to provide us with accurate personal information, such as your email address, mailing 
-          address and other contact details in order to complete your order or contact you as needed. You agree
+          You agree to provide us with accurate personal information, such as your email address, and other contact 
+          details in order to complete your order or contact you as needed. You agree
           to promptly update your account and information. You authorize us to collect and use this information to 
           contact you in accordance with our Privacy Policy.
         </p>   
@@ -68,16 +68,12 @@ const Terms = () => {
         </p>
         <p>
           Prices for our products are subject to change, without notice. Unless otherwise indicated, prices displayed
-          on our website are quoted in Canadian dollars.
+          on our website are quoted in American dollars.
         </p>
         <p>
           We reserve the right, in our sole discretion, to refuse orders, including without limitation, orders that 
           appear to be placed by distributors or resellers. If we believe that you have made a false or fraudulent
           order, we will be entitled to cancel the order and inform the relevant authorities.
-        </p>
-        <p>
-          We do not guarantee the accuracy of the colour or design of the products on our website. We have made 
-          efforts to ensure the colour and design of our products are displayed as accurately as possible on our website.
         </p>
   
         <h3>Links to Third-Party Websites</h3>

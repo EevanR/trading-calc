@@ -111,7 +111,7 @@ const Signin = props => {
             <i onClick={() => setMenu("hidden")} className="x icon icon"></i>
             <div className="border-right">
               <div>
-                <a href="#section-1">
+                <a href="#section-1" >
                   <h4>PROFIT CHART</h4>
                   <p>Gross or Net</p>
                   <i className="angle down icon"></i>
