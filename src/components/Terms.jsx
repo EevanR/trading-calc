@@ -67,7 +67,7 @@ const Terms = () => {
           any person, household, geographic region or jurisdiction.
         </p>
         <p>
-          Prices for our products are subject to change, without notice. Unless otherwise indicated, prices displayed
+          Prices for our products and services are subject to change, without notice. Unless otherwise indicated, prices displayed
           on our website are quoted in American dollars.
         </p>
         <p>
@@ -75,6 +75,35 @@ const Terms = () => {
           appear to be placed by distributors or resellers. If we believe that you have made a false or fraudulent
           order, we will be entitled to cancel the order and inform the relevant authorities.
         </p>
+
+        <h3>Accuracy of Billing and Account Information</h3>
+        <p>
+          We reserve the right to refuse any order you place with us. We may, in our sole discretion, limit or cancel 
+          quantities purchased per person, per household or per order. These restrictions may include orders placed by 
+          or under the same customer account, the same credit card, and/or orders that use the same billing and/or shipping
+          address. In the event that we make a change to or cancel an order, we may attempt to notify you by contacting
+          the e‑mail and/or billing address/phone number provided at the time the order was made. We reserve the right 
+          to limit or prohibit orders that, in our sole judgment, appear to be placed by dealers, resellers or
+          distributors.
+        </p>
+        <p>
+          You agree to provide current, complete and accurate purchase and account information for all purchases made 
+          at our store. You agree to promptly update your account and other information, including your email address 
+          and credit card numbers and expiration dates, so that we can complete your transactions and contact you as
+          needed.
+        </p>
+
+        <h3>
+          Create a TradeLogs account
+        </h3>
+        <p>
+          You may need to create a TradeLogs account in order to use all or part of the TradeLogs service. Your username
+          and password are for personal use only and must be kept confidential. You understand that you are responsible
+          for all use (including unauthorized use) of your username and password. Notify our customer service team 
+          immediately if your username or password is lost or stolen or if you believe your account has been accessed
+          by unauthorized persons.
+        </p>
+        <p>TradeLogs may withdraw or require you to change your username for no particular reason.</p>
   
         <h3>Links to Third-Party Websites</h3>
         <p>
@@ -153,7 +182,7 @@ const Terms = () => {
           In no event will we, or our affiliates, our or their respective content or service providers, or any of 
           our or their respective directors, officers, agents, contractors, suppliers or employees be liable to you
           for any direct, indirect, special, incidental, consequential, exemplary or punitive damages, losses or
-          causes of action, or lost revenue, lost profits, lost business or sales, or any other type of damage,
+          causes of action, or lost revenue, lost profits, lost savings, lost business or sales, or any other type of damage,
           whether based in contract or tort (including negligence), strict liability or otherwise, arising from 
           your use of, or the inability to use, or the performance of, our website or the content or material or 
           functionality through our website, even if we are advised of the possibility of such damages.
