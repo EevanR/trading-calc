@@ -15,6 +15,7 @@ const Terms = () => {
         </div>
       </div>
       <section className='container terms'>
+        <h1>Terms Of Service</h1>
         <h3>Introduction</h3>
         <p>
           This website is operated by TradeLogs. The terms “we”, “us”, and “our” refer to TradeLogs 
@@ -242,7 +243,7 @@ const Terms = () => {
         <h3>Questions or Concerns</h3>
         <p>Please send all questions, comments and feedback to us at info@trade-logs.com.</p>
       </section>
-      <section className="section-6 bg-secondary">
+      <section className="section-6 bg-dark">
         <div className="container-wide">
           <div className="split">
             <div>
@@ -258,7 +259,7 @@ const Terms = () => {
             </div>
             <div>
               <h4>QUICK LINKS</h4>
-              <p>HOW TO</p>
+              <a href='/howto'><p>HOW TO</p></a>
             </div>
             <div>
               <h4>CONNECT</h4>

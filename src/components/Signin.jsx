@@ -285,7 +285,7 @@ const Signin = props => {
             </div>
             <div>
               <h4>QUICK LINKS</h4>
-              <p>HOW TO</p>
+              <a href='/howto'><p>HOW TO</p></a>
             </div>
             <div>
               <h4>CONNECT</h4>

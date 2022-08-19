@@ -5,19 +5,28 @@ const HowTo = () => {
   return (
     <>
       <div className="panes bg-dark">
-        <div className="two-column-grid">
-          <div>
-            <a href="/"><img src="/TradeLogs.png"  alt="TradeLogs Logo"/></a>
-          </div>
-          <div>
-  
-          </div>
+        <div>
+          <a href="/"><img src="/TradeLogs.png"  alt="TradeLogs Logo"/></a>
         </div>
       </div>
-      <section className='container'>
+      <section className='container terms'>
+        <h1>How To</h1>
+        <h3>Get Started</h3>
+        <p>Register account and log in</p>
 
+        <h3>Dashboard</h3>
+        <p>Welcome to TradeLogs! Once logged in, familiarize yourself with the dashboard and the various secion tabs.</p>
+        <p>Clicking the TradeLogs Logo at the top left of the page will take you back to the Sign in page, logging you out.</p>
+
+        <h3>Upload Trades</h3>
+        <p>Currently Supported Brokers: TradeZero </p>
+        <p>
+          1. Log in to your TradeZero account
+          <br />
+          2. Head over to Account Summary
+        </p>
       </section>
-      <section className="section-6 bg-secondary">
+      <section className="section-6 bg-dark">
         <div className="container-wide">
           <div className="split">
             <div>
@@ -33,7 +42,7 @@ const HowTo = () => {
             </div>
             <div>
               <h4>QUICK LINKS</h4>
-              <p>HOW TO</p>
+              <a href='/howto'><p>HOW TO</p></a>
             </div>
             <div>
               <h4>CONNECT</h4>
