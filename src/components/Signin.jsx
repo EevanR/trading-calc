@@ -257,7 +257,7 @@ const Signin = props => {
         <h1>GAP STATISTICS</h1>
           <p>Turn back the clock
             <br />
-            Probablities genereated from up to 20 years of stock history on a desired ticker. 
+            Probabilities generated from up to 20 years of stock history on a desired ticker. 
           </p>
         <div className="container split">
           <div>
