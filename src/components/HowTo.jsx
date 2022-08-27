@@ -20,26 +20,31 @@ const HowTo = () => {
 
         <h3>Upload Trades</h3>
         <p>Currently Supported Brokers: TradeZero </p>
-        <p>
-          1. Log in to your TradeZero account
-          <br />
-          2. Head over to Account Overview
-          <br />
-          3. Scroll down and select the heading "Trades".
-          <br />
-          4. Select the desired date range.
-          <br />
-          5. Click the Excel symbol to download the file.
-          <br />
-          6. Open the file, and select the file menu dropdown.
-          <br />
-          7. Select "Save as" and re-save as "Excel Workbook (.xlsx)".
-          <br />
-          8. Return to www.trade-logs.com, Sign in, and upload the newly saved .xlsx file.
-        </p>
-
+        <p>1. Log in to your TradeZero account</p>
+        <p>2. Head over to Account Overview</p>
+        <img src="../images/TZAcountOverview.png" alt="Acount Overview" />
+        <br />
+        <p>3. Scroll down and select the heading "Trades".</p>
+        <img src="../images/TZTrades.png" alt="Trades overview" />
+        <br />
+        <p>4. Select the desired date range.</p>
+        <img src="../images/TZDates.png" alt="dates Overview" />
+        <br />
+        <p>5. Click the Excel symbol to download the file.</p>
+        <img src="../images/TZDownload.png" alt="Download example" />
+        <br />
+        <p>6. Open the file, select the file dropdown and select 'Save as'.</p>
+        <img src="../images/ExcelSaveAs.png" alt="File Save As" />
+        <br />
+        <p>7. Select "Save as" and re-save as "Excel Workbook (.xlsx)".</p>
+        <img src="../images/ExcelXlsx.png" alt="File Save As .xlsx" />
+        <br />
+        <p>8. Return to www.trade-logs.com, Sign in, and upload the newly saved .xlsx file.</p>
+        <img src="../images/Uploadfile.png" alt="Tradelogs upload" />
+        <br />
         <h3>Upload Software and Locate Fees</h3>
         <p>Repeat steps for Upload Trades. Except go to your "Cash Journal" tab instead of your "Trades" tab.</p>
+        <img src="../images/TZCashJournal.png" alt="Cash Journal" />
       </section>
       <section className="section-6 bg-dark">
         <div className="container-wide">
