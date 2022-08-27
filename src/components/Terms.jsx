@@ -5,13 +5,8 @@ const Terms = () => {
   return (
     <>
       <div className="panes bg-dark">
-        <div className="two-column-grid">
-          <div>
-            <a href="/"><img src="/TradeLogs.png"  alt="TradeLogs Logo"/></a>
-          </div>
-          <div>
-  
-          </div>
+        <div>
+          <a href="/"><img src="/TradeLogs.png"  alt="TradeLogs Logo"/></a>
         </div>
       </div>
       <section className='container terms'>
