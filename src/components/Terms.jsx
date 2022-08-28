@@ -4,17 +4,13 @@ const Terms = () => {
   
   return (
     <>
-      <div className="panes bg-dark">
-        <div className="two-column-grid">
-          <div>
-            <a href="/"><img src="/TradeLogs.png"  alt="TradeLogs Logo"/></a>
-          </div>
-          <div>
-  
-          </div>
+      <div className="panes bg-secondary">
+        <div>
+          <a href="/"><img src="/TradeLogs.png"  alt="TradeLogs Logo"/></a>
         </div>
       </div>
       <section className='container terms'>
+        <h1>Terms Of Service</h1>
         <h3>Introduction</h3>
         <p>
           This website is operated by TradeLogs. The terms “we”, “us”, and “our” refer to TradeLogs 
@@ -258,7 +254,7 @@ const Terms = () => {
             </div>
             <div>
               <h4>QUICK LINKS</h4>
-              <p>HOW TO</p>
+              <a href='/howto'><p>HOW TO</p></a>
             </div>
             <div>
               <h4>CONNECT</h4>

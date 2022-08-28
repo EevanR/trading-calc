@@ -5,6 +5,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "@stripe/stripe-js"
 import Receipt from './components/Receipt';
 import Terms from './components/Terms';
+import HowTo from './components/HowTo';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
           <Route exact path="/panes" component={Panes} />
           <Route exact path="/receipt" component={Receipt} />
           <Route exact path="/terms" component={Terms} />
+          <Route exact path="/howto" component={HowTo} />
         </Switch>
       </BrowserRouter>
       </div>

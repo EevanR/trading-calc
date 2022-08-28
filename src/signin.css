@@ -579,6 +579,10 @@ Button#submit.ui.button {
   color: rgb(153,232,231);
 }
 
+.section-6 {
+  padding: 1rem;
+}
+
 /* SIGN IN BOX DESKTOP SCREEN */
 @media (min-width: 40em) {
   .signin-box {
@@ -614,7 +618,12 @@ Button#submit.ui.button {
   .signin-box h2 {
     margin-bottom: 0;
   }
+
+  .section-6 {
+    padding: 6rem 0;
+  }
 }
+
 
 .section-6 p, .section-6 h4 {
   color: lightgrey;
@@ -642,9 +651,9 @@ Button#submit.ui.button {
 
 .section-6 #logo {
   position: relative;
-  top: -2rem;
+  top: -1rem;
   left: -3.5rem;
-  max-width: 25rem;
+  max-width: 20rem;
 }
 
 @media (min-width: 40em) {
@@ -682,7 +691,7 @@ Button#submit.ui.button {
 }
 
 .panes img {
-  margin-top: -1rem;
+  margin-top: -2rem;
   margin-left: -1.5rem;
   width: 55%;
 }
@@ -803,7 +812,11 @@ canvas {
 
   .panes img {
     position: relative;
-    top: -1rem;
+    top: -0.5rem;
+    width: 25%;
+  }
+
+  .dashboard img {
     width: 55%;
   }
 
