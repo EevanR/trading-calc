@@ -4,7 +4,7 @@ const HowTo = () => {
 
   return (
     <>
-      <div className="panes bg-dark">
+      <div className="panes bg-secondary">
         <div>
           <a href="/"><img src="/TradeLogs.png"  alt="TradeLogs Logo"/></a>
         </div>
@@ -36,7 +36,7 @@ const HowTo = () => {
         <p>6. Open the file, select the file dropdown and select 'Save as'.</p>
         <img src="../images/ExcelSaveAs.png" alt="File Save As" />
         <br />
-        <p>7. Select "Save as" and re-save as "Excel Workbook (.xlsx)".</p>
+        <p>7. Re-save as "Excel Workbook (.xlsx)".</p>
         <img src="../images/ExcelXlsx.png" alt="File Save As .xlsx" />
         <br />
         <p>8. Return to www.trade-logs.com, Sign in, and upload the newly saved .xlsx file.</p>
@@ -46,7 +46,7 @@ const HowTo = () => {
         <p>Repeat steps for Upload Trades. Except go to your "Cash Journal" tab instead of your "Trades" tab.</p>
         <img src="../images/TZCashJournal.png" alt="Cash Journal" />
       </section>
-      <section className="section-6 bg-dark">
+      <section className="section-6 bg-secondary">
         <div className="container-wide">
           <div className="split">
             <div>

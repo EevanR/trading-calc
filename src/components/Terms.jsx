@@ -4,7 +4,7 @@ const Terms = () => {
   
   return (
     <>
-      <div className="panes bg-dark">
+      <div className="panes bg-secondary">
         <div>
           <a href="/"><img src="/TradeLogs.png"  alt="TradeLogs Logo"/></a>
         </div>
@@ -238,7 +238,7 @@ const Terms = () => {
         <h3>Questions or Concerns</h3>
         <p>Please send all questions, comments and feedback to us at info@trade-logs.com.</p>
       </section>
-      <section className="section-6 bg-dark">
+      <section className="section-6 bg-secondary">
         <div className="container-wide">
           <div className="split">
             <div>
