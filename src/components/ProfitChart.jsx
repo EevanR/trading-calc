@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Line } from 'react-chartjs-2';
+import { Line, Bar } from 'react-chartjs-2';
 import CommissionsChart from "./CommissionsChart";
 import DayOfWeekCharts from "./DayOfWeekCharts";
 import HourlyChart from "./HourlyChart";
@@ -17,6 +17,7 @@ const ProfitChart = props => {
   const [grossNet, setGrossNet] = useState("GrossProfit")
   const [winPercentages, setWinPercentages] = useState([])
   const [profitLoss, setProfitLoss] = useState([])
+  const [profitChart, setProfitChart] = useState("line")
 
   let dailyPreformance = {
     Mon: [0,[]],
@@ -205,12 +206,22 @@ const ProfitChart = props => {
             <h2>Profit Chart & Fees</h2>
             <h3><a onClick={() => setGrossNet("GrossProfit")}>Gross</a> || <a onClick={() => setGrossNet("NetProfit")}>Net</a></h3>
             <h4>Cumulative {grossNet.substring(0, grossNet.indexOf("P"))} PnL Growth</h4>
+            <h4 onClick={() => setProfitChart("line")}>Line</h4>
+            <h4 onClick={() => setProfitChart("bar")}> Bar</h4>
             <div>
-              <Line 
-                data = {lineData}
-                options = {lineOptions}
-                height={500}
-              />
+              {profitChart === "line" ? (
+                <Line 
+                  data = {lineData}
+                  options = {lineOptions}
+                  height={500}
+                />
+              ) : (
+                <Bar 
+                  data = {lineData}
+                  options = {lineOptions}
+                  height={500}
+                />
+              )}
             </div>
           </div>
           <div className="split">
