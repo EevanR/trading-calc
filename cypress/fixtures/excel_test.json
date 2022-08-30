@@ -6,31 +6,121 @@
       "user_id": 1,
       "data": [
         {
-          "Commissions": 3.069,
-          "Date": "08/23/2021",
-          "GrossProfit": 5.219999999999999,
-          "NetProfit": 2.1304348000000033,
+          "Commissions": 2.046,
+          "Date": "08/22/2021",
+          "GrossProfit": 21.17,
+          "NetProfit": 19.11,
           "ShareCount": 0,
           "Ticker": "VVOS",
-          "TimeStamp": 0.39618055555555554
+          "TimeStamp": 0.41
         },
         {
-          "Commissions": 5.114999999999999,
+          "Commissions": 3.069,
           "Date": "08/23/2021",
-          "GrossProfit": 7.653599999999983,
-          "NetProfit": 2.496904399999991,
+          "GrossProfit": 5.21,
+          "NetProfit": 2.13,
           "ShareCount": 0,
-          "Ticker": "VVOS",
-          "TimeStamp": 0.40618055555555554
+          "Ticker": "TOPS",
+          "TimeStamp": 0.39
+        },
+        {
+          "Commissions": 5.11,
+          "Date": "08/23/2021",
+          "GrossProfit": 7.65,
+          "NetProfit": 2.49,
+          "ShareCount": 0,
+          "Ticker": "SHIP",
+          "TimeStamp": 0.40
         },
         {
           "Commissions": 2.046,
           "Date": "08/23/2021",
-          "GrossProfit": 11.178000000000011,
-          "NetProfit": 9.111434799999998,
+          "GrossProfit": 11.17,
+          "NetProfit": 9.11,
           "ShareCount": 0,
-          "Ticker": "VVOS",
-          "TimeStamp": 0.41818055555555554
+          "Ticker": "DRYS",
+          "TimeStamp": 0.41
+        },
+        {
+          "Commissions": 3.069,
+          "Date": "08/24/2021",
+          "GrossProfit": 15.21,
+          "NetProfit": 12.13,
+          "ShareCount": 0,
+          "Ticker": "VCEL",
+          "TimeStamp": 0.39
+        },
+        {
+          "Commissions": 5.11,
+          "Date": "08/25/2021",
+          "GrossProfit": -7.65,
+          "NetProfit": -12.49,
+          "ShareCount": 0,
+          "Ticker": "MAC",
+          "TimeStamp": 0.40
+        },
+        {
+          "Commissions": 2.046,
+          "Date": "08/26/2021",
+          "GrossProfit": 11.17,
+          "NetProfit": 9.11,
+          "ShareCount": 0,
+          "Ticker": "AKIN",
+          "TimeStamp": 0.41
+        },
+        {
+          "Commissions": 3.069,
+          "Date": "08/26/2021",
+          "GrossProfit": 5.21,
+          "NetProfit": 2.13,
+          "ShareCount": 0,
+          "Ticker": "MCER",
+          "TimeStamp": 0.39
+        },
+        {
+          "Commissions": 5.11,
+          "Date": "08/27/2021",
+          "GrossProfit": 17.65,
+          "NetProfit": 12.49,
+          "ShareCount": 0,
+          "Ticker": "ATER",
+          "TimeStamp": 0.40
+        },
+        {
+          "Commissions": 2.046,
+          "Date": "08/28/2021",
+          "GrossProfit": 31.17,
+          "NetProfit": 29.11,
+          "ShareCount": 0,
+          "Ticker": "DNAA",
+          "TimeStamp": 0.41
+        },
+        {
+          "Commissions": 3.069,
+          "Date": "09/01/2021",
+          "GrossProfit": 5.21,
+          "NetProfit": 2.13,
+          "ShareCount": 0,
+          "Ticker": "ACER",
+          "TimeStamp": 0.39
+        },
+        {
+          "Commissions": 5.11,
+          "Date": "09/02/2021",
+          "GrossProfit": -7.65,
+          "NetProfit": -12.49,
+          "ShareCount": 0,
+          "Ticker": "NERV",
+          "TimeStamp": 0.40
+        },
+        {
+          "Commissions": 2.046,
+          "Date": "09/03/2021",
+          "GrossProfit": 11.17,
+          "NetProfit": 9.11,
+          "ShareCount": 0,
+          "Ticker": "IMT",
+          "TimeStamp": 0.41
         }
       ]
     }

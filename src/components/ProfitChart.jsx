@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Line, Bar } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 import CommissionsChart from "./CommissionsChart";
 import DayOfWeekCharts from "./DayOfWeekCharts";
 import HourlyChart from "./HourlyChart";

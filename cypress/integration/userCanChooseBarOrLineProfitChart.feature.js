@@ -3,13 +3,16 @@ describe("User can switch between line and bar chart for equity curve", () => {
     cy.viewport(1450, 1000);
     cy.server()
     cy.login();
+
+    cy.route({
+      method: "GET",
+      url: "http://localhost:3000/api/v1/excels",
+      response: "fixture:excel_test.json",
+      status: 200,
+    });
   })
 
-  // it("can successfully navigate to Calculate tab with no uploaded data", () => {
-  //   cy.wait(5000)
-  //   cy.contains("Calculator").click({force: true});
-
-  //   cy.get("#title").should("contain", "Trading Position Calculator")
-  //   cy.get(".setups-inner").should("contain", "No Setups, Add new on strategies tab")
-  // })
+  it("can navigate to Overview tab", () => {
+    cy.get(".summary-box").should("contain", "Welcome, TraderZero")
+  })
 })
