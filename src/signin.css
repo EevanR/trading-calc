@@ -781,6 +781,40 @@ canvas {
   box-shadow: 0px 0px 10px 1px rgba(4, 119, 251, 0.28);
 }
 
+.equityCurve {
+  display: inline-flex;
+}
+
+.equityCurve div {
+  margin-right: 1rem;
+  border-radius:  1px solid;
+  background-color: rgb(24, 55, 79);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  height: 85px;
+  width: 100px;
+}
+
+.equityCurve p {
+  color: lightgrey;
+  margin-top: 0.5rem;
+  font-size: 13px;
+}
+
+i.icon.outline {
+  color: lightgrey;
+  font-size: 2rem;
+  margin-inline: auto;
+  width: 100%;
+}
+
+i.icon.line.graph {
+  color: lightgrey;
+  font-size: 2rem;
+  margin-inline: auto;
+  width: 100%;
+}
+
 @media (min-width: 40em) {
   .summary-box {
     min-height: 280px;

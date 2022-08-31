@@ -7,6 +7,7 @@ import HourlyChart from "./HourlyChart";
 import WinCurve from "./WinCurve";
 import ProfitLoss from "./ProfitLoss";
 import { getTrades } from "../modules/trades";
+import { Icon } from 'semantic-ui-react';
 
 const ProfitChart = props => {
   const [profit, setProfit] = useState([])
@@ -203,11 +204,23 @@ const ProfitChart = props => {
             </div>
           </div>
           <div className="foreground bg-dark">
-            <h2>Profit Chart & Fees</h2>
-            <h3><a onClick={() => setGrossNet("GrossProfit")}>Gross</a> || <a onClick={() => setGrossNet("NetProfit")}>Net</a></h3>
+            <div className="split">
+              <div>
+                <h2 className="left-align">Profit Curve</h2>
+                <h3 className="left-align"><a onClick={() => setGrossNet("GrossProfit")}>Gross</a> || <a onClick={() => setGrossNet("NetProfit")}>Net</a></h3>
+              </div>
+              <div className="equityCurve">
+                <div onClick={() => setProfitChart("line")}>
+                  <Icon className="equityCurveIcon" name='line graph' />
+                  <p>Line Chart</p>
+                </div>
+                <div onClick={() => setProfitChart("bar")}>
+                  <Icon className="equityCurveIcon" name='chart bar outline' />
+                  <p> Bar Chart</p>
+                </div>
+              </div>
+            </div>
             <h4>Cumulative {grossNet.substring(0, grossNet.indexOf("P"))} PnL Growth</h4>
-            <h4 onClick={() => setProfitChart("line")}>Line</h4>
-            <h4 onClick={() => setProfitChart("bar")}> Bar</h4>
             <div>
               {profitChart === "line" ? (
                 <Line 
