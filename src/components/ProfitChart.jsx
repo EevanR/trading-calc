@@ -208,17 +208,17 @@ const ProfitChart = props => {
               <h3 className="left-align">Profit Curve</h3>
               {/* <h3 className="left-align"><a onClick={() => setGrossNet("GrossProfit")}>Gross</a> || <a onClick={() => setGrossNet("NetProfit")}>Net</a></h3> */}
               <div className="equityCurveButtons">
-                <div onClick={() => setProfitChart("line")}>
-                  <Icon className="equityCurveIcon" name='line graph' />
+                <div className={profitChart === "line" && "equityButtonActive"} onClick={() => setProfitChart("line")}>
+                  <Icon name='line graph' />
                   <p>Line Chart</p>
                 </div>
-                <div onClick={() => setProfitChart("bar")}>
-                  <Icon className="equityCurveIcon" name='chart bar outline' />
+                <div className={profitChart === "bar" && "equityButtonActive"} onClick={() => setProfitChart("bar")}>
+                  <Icon name='chart bar outline' />
                   <p> Bar Chart</p>
                 </div>
               </div>
             </div>
-            <h4 className="border-top">Cumulative {grossNet.substring(0, grossNet.indexOf("P"))} PnL Growth</h4>
+            <h4 className="equity border-top">Cumulative {grossNet.substring(0, grossNet.indexOf("P"))} PnL Growth</h4>
             <div>
               {profitChart === "line" ? (
                 <Line 

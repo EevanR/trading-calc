@@ -104,9 +104,9 @@ const DayOfWeekCharts = props => {
   return (
     <section className="breakdown">
       <h3 className='left-align'>Breakdown</h3>
-        <div className="split">
+        <div className="split border-top">
           <div>
-            <h4 className="border-top">PnL Average: Day of the Week</h4>
+            <h4>PnL Average: Day of the Week</h4>
             <div> 
               <Bar
                 data = {barData}

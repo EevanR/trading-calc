@@ -716,6 +716,7 @@ Button#submit.ui.button {
 .breakdown h3 {
   color: rgb(4,119,251);
   margin-bottom: 0;
+  padding-bottom: 1rem;
 }
 
 canvas {
@@ -750,13 +751,9 @@ canvas {
   background-color: rgba(0, 0, 0, 0);
 }
 
-.tab h4 {
-  margin-top: 1rem;
-}
-
 .tab .foreground {
   border-radius: 10px;
-  padding: 1rem 0.5rem;
+  padding: 2rem 0.5rem;
   margin-bottom: 1rem;
 }
 
@@ -787,6 +784,10 @@ canvas {
   display: inline-flex;
 }
 
+.equity {
+  margin-top: 1rem;
+}
+
 .equityCurve {
   width: 100%;
   display: inline-flex;
@@ -802,6 +803,7 @@ canvas {
 .equityCurveButtons {
   position: absolute;
   right: 0rem;
+  color: lightgrey;
 }
 
 .equityCurveButtons div {
@@ -810,26 +812,23 @@ canvas {
   background-color: rgb(24, 55, 79);
   border-radius: 5px;
   width: 90px;
+  cursor: pointer;
 }
 
 .equityCurveButtons p {
-  color: lightgrey;
   margin: 0.5rem;
   font-size: 13px;
 }
 
-.equityCurveButtons i.icon.outline {
-  color: lightgrey;
+.equityCurveButtons i.icon {
   font-size: 2rem;
   margin-inline: auto;
   width: 100%;
 }
 
-.equityCurveButtons i.icon.line.graph {
-  color: lightgrey;
-  font-size: 2rem;
-  margin-inline: auto;
-  width: 100%;
+.equityButtonActive {
+  border: 1px solid rgb(4,119,251);
+  color: rgb(4,119,251);
 }
 
 @media (min-width: 40em) {
