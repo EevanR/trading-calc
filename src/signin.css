@@ -785,8 +785,8 @@ canvas {
   display: inline-flex;
 }
 
-.equity {
-  margin-top: 1rem;
+.equity h4 {
+  width: 50%;
 }
 
 .equityCurve {
@@ -795,15 +795,13 @@ canvas {
   height: 70px;
 }
 
-.equityCurve h3 {
-  position: relative;
-  bottom: -3.4rem;
+.equity h3 {
   color: rgb(4,119,251);
 }
 
 .equityCurveButtons {
   position: relative;
-  top: -3rem;
+  top: -2.2rem;
   float: right;
   color: lightgrey;
 }
@@ -835,20 +833,8 @@ canvas {
 
 @media (min-width: 40em) {
   
-
   /* .equityCurveButtons {
-    position: absolute;
-    right: 10rem;
-    color: lightgrey;
-  }
-
-  .equityCurveButtons div {
-    margin-right: 1rem;
-    border-radius:  1px solid;
-    background-color: rgb(24, 55, 79);
-    border-radius: 5px;
-    width: 90px;
-    cursor: pointer;
+    top: -2rem;
   } */
 
   .summary-box {
