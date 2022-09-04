@@ -224,7 +224,7 @@ const ProfitChart = props => {
                 <Line 
                   data = {lineData}
                   options = {lineOptions}
-                  height={450}
+                  height={500}
                 />
               ) : (
                 <Bar 

@@ -184,6 +184,10 @@ header .big.ui.button {
   background-position: left -300px top -100px;
 }
 
+.section-2 h2 {
+  margin-bottom: 1rem;
+}
+
 .section-3 img {
   padding: 3rem 0;
 }
