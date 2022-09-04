@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Line } from 'react-chartjs-2';
+import { Line, Bar } from 'react-chartjs-2';
 import CommissionsChart from "./CommissionsChart";
 import DayOfWeekCharts from "./DayOfWeekCharts";
 import HourlyChart from "./HourlyChart";
 import WinCurve from "./WinCurve";
 import ProfitLoss from "./ProfitLoss";
 import { getTrades } from "../modules/trades";
+import { Icon } from 'semantic-ui-react';
 
 const ProfitChart = props => {
   const [profit, setProfit] = useState([])
@@ -17,6 +18,7 @@ const ProfitChart = props => {
   const [grossNet, setGrossNet] = useState("GrossProfit")
   const [winPercentages, setWinPercentages] = useState([])
   const [profitLoss, setProfitLoss] = useState([])
+  const [profitChart, setProfitChart] = useState("line")
 
   let dailyPreformance = {
     Mon: [0,[]],
@@ -201,16 +203,36 @@ const ProfitChart = props => {
               </div>
             </div>
           </div>
-          <div className="foreground bg-dark">
-            <h2>Profit Chart & Fees</h2>
-            <h3><a onClick={() => setGrossNet("GrossProfit")}>Gross</a> || <a onClick={() => setGrossNet("NetProfit")}>Net</a></h3>
-            <h4>Cumulative {grossNet.substring(0, grossNet.indexOf("P"))} PnL Growth</h4>
+          <div className="foreground bg-dark equity">
+            <h3 className="left-align">Profit Curve</h3>
+            <h3 className="left-align"><a onClick={() => setGrossNet("GrossProfit")}>Gross</a> || <a onClick={() => setGrossNet("NetProfit")}>Net</a></h3>
+            <div className="border-top equityCurve">
+              <h4>Cumulative {grossNet.substring(0, grossNet.indexOf("P"))} PnL</h4>
+              <div className="equityCurveButtons">
+                <div className={profitChart === "line" && "equityButtonActive"} onClick={() => setProfitChart("line")}>
+                  <Icon name='line graph' />
+                  <p>Line Chart</p>
+                </div>
+                <div className={profitChart === "bar" && "equityButtonActive"} onClick={() => setProfitChart("bar")}>
+                  <Icon name='chart bar outline' />
+                  <p> Bar Chart</p>
+                </div>
+              </div>
+            </div>
             <div>
-              <Line 
-                data = {lineData}
-                options = {lineOptions}
-                height={500}
-              />
+              {profitChart === "line" ? (
+                <Line 
+                  data = {lineData}
+                  options = {lineOptions}
+                  height={500}
+                />
+              ) : (
+                <Bar 
+                  data = {lineData}
+                  options = {lineOptions}
+                  height={500}
+                />
+              )}
             </div>
           </div>
           <div className="split">

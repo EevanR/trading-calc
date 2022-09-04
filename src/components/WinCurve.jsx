@@ -6,7 +6,7 @@ const WinCurve = props => {
     labels: props.date,
     datasets: [
       {
-        label: 'Win %',
+        label: 'Cumulative Win %',
         fill: false,
         lineTension: 0.1,
         backgroundColor: 'rgba(75,192,192,0.4)',
