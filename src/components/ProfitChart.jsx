@@ -56,7 +56,9 @@ const ProfitChart = props => {
       wins: 0,
       loss: 0,
       gains: 0,
-      negGains: 0
+      negGains: 0,
+      largestWin: 0,
+      largestLoss: 0
     }
     
     let dailyProfits = 0
@@ -70,11 +72,11 @@ const ProfitChart = props => {
           case props.savedTrades.data[i]["Date"] === date && props.savedTrades.data[i][grossNet] > 0:
             stats['gains']+=props.savedTrades.data[i][grossNet]
             stats['wins']++
-
             for(let int in timeBlocks) {
               ((Number(int) <= props.savedTrades.data[i]["TimeStamp"]) && (props.savedTrades.data[i]["TimeStamp"] < Number(int)+0.04167)) && (timeBlocks[int][0] += props.savedTrades.data[i][grossNet]) && (timeBlocks[int][1]++)
             }
             total += props.savedTrades.data[i][grossNet]
+            if (props.savedTrades.data[i][grossNet] > stats['largestWin']) stats['largestWin'] = props.savedTrades.data[i][grossNet]
             break;
           case props.savedTrades.data[i]["Date"] === date && props.savedTrades.data[i][grossNet] <= 0:
             stats['negGains']+=props.savedTrades.data[i][grossNet]
@@ -84,6 +86,7 @@ const ProfitChart = props => {
               ((Number(int) <= props.savedTrades.data[i]["TimeStamp"]) && (props.savedTrades.data[i]["TimeStamp"] < Number(int)+0.04167)) && (timeBlocks[int][2] += props.savedTrades.data[i][grossNet]) && (timeBlocks[int][3]++)
             }
             total += props.savedTrades.data[i][grossNet]
+            if (props.savedTrades.data[i][grossNet] < stats['largestLoss']) stats['largestLoss'] = props.savedTrades.data[i][grossNet]
             break;
         }
       }
@@ -104,6 +107,7 @@ const ProfitChart = props => {
     setProfit(cumulativeGains)
     setBarData(dailyPreformance)
     setTimeSegments(timeBlocks) 
+    debugger
   }
   
   const lineData = {

@@ -87,6 +87,14 @@ const Pannel = props => {
                 </Dimmer>
               )}
             </div>
+            <div>
+            {props.stats !== null && (
+              <>
+                <p>{props.stats['largestWin']}</p>
+                <p>{props.stats['largestLoss']}</p>
+              </>
+            )}
+            </div>
           </>
         )}
       </div>
