@@ -107,7 +107,6 @@ const ProfitChart = props => {
     setProfit(cumulativeGains)
     setBarData(dailyPreformance)
     setTimeSegments(timeBlocks) 
-    debugger
   }
   
   const lineData = {

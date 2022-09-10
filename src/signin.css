@@ -724,6 +724,10 @@ Button#submit.ui.button {
   padding-bottom: 1rem;
 }
 
+.commissions h4 {
+  margin: 0;
+}
+
 canvas {
   margin: 1rem 0;
 }

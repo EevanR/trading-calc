@@ -57,8 +57,9 @@ const CommissionsChart = props => {
 
 
   return (
-    <section className="breakdown tab">
-      <h4>PnL vs Commissions: Equity Curve</h4>
+    <section className="breakdown tab commissions">
+      <h3 className="left-align">Trading Fees</h3>
+      <h4 className="border-top">PnL / Commissions / Locate Fees </h4>
       <div className="split">
         <div className="chartSmall"> 
           <Doughnut
