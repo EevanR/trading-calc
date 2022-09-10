@@ -61,16 +61,18 @@ const CommissionsChart = props => {
       <h3 className="left-align">Trading Fees</h3>
       <h4 className="border-top">PnL / Commissions / Locate Fees </h4>
       <div className="split">
-        <div className="chartSmall"> 
+        <div> 
           <Doughnut
             data = {pieData}
             options = {pieOptions}
+            height={150}
           />
         </div>
-        <div className="chartSmall"> 
+        <div> 
           <Doughnut
             data = {pieData2}
             options = {pieOptions}
+            height={150}
           />
         </div>
       </div>

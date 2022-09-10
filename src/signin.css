@@ -736,11 +736,6 @@ canvas {
   padding-top: 2rem;
 }
 
-.chartSmall {
-  height: 15rem;
-  margin: 0rem 0;
-}
-
 .panes .ui.tabular.menu .active.item {
   background-color: rgb(1, 4, 10);
   color: rgb(4,119,251);
@@ -853,10 +848,6 @@ canvas {
     padding: 2rem;
   }
 
-  .chartSmall {
-    margin: 1rem 0;
-  }
-
   canvas {
     margin-bottom: 3rem;
   }
@@ -894,12 +885,6 @@ canvas {
     min-height: 10rem;
     justify-content: center;
   }
-
-  .chartSmall {
-    height: 20rem;
-    margin: 2rem 0;
-  }
-
 
   input[type='file'] {
     width: 0;
