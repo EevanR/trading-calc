@@ -7,7 +7,7 @@ const ProfitLoss = props => {
     labels: props.date,
     datasets: [
       {
-        label: 'Average Profit : Average Loss Ratio',
+        label: 'R:R Ratio',
         fill: false,
         lineTension: 0.1,
         backgroundColor: 'rgba(75,192,192,0.4)',

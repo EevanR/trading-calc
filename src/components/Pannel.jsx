@@ -50,42 +50,58 @@ const Pannel = props => {
                 <p>Account: {props.userAttrs.email}</p>
                 {props.userAttrs.role === "subscriber" || props.userAttrs.role === 1 ? <p>Subscribed</p> : <p>Limited Profile</p>}
               </div>
-              {props.stats !== null && props.savedTrades !== null && (
-                <>
-                  <p>Trades Won</p>
-                  <i id="gap-show-arrow" className="angle double right icon"></i>
-                  <p>{props.stats['wins']}</p>
-                  <p>Trades Loss</p>
-                  <i id="gap-show-arrow" className="angle double right icon"></i>
-                  <p>{props.stats['loss']}</p>
-                  <p>Profit/Loss Ratio</p>
-                  <i id="gap-show-arrow" className="angle double right icon"></i>
-                  <p>{((props.stats['gains']/props.stats['negGains'])*-1).toFixed(2)}</p>
-                  <p>Average Win</p>
-                  <i id="gap-show-arrow" className="angle double right icon"></i>
-                  <p className="green">${(props.stats['gains']/props.stats['wins']).toFixed(2)}</p>
-                  <p>Average Loss</p>
-                  <i id="gap-show-arrow" className="angle double right icon"></i>
-                  <p className="red-bold">${(props.stats['negGains']/props.stats['loss']).toFixed(2)}</p>
-                </>
-              )}
-              <p>Risk / trade:</p>
-              <form id="risk-form" onSubmit={setRisk}>
-                <input 
-                  required 
-                  type='float' 
-                  placeholder={`${props.userAttrs.risk * 100} %`} 
-                  name="risk"
-                  value={riskValue}
-                  onClick= {clickHandler}
-                />
-                <button className="ui button">update</button>
-              </form>
-              {loader === true && (
-                <Dimmer active>
-                  <Loader />
-                </Dimmer>
-              )}
+              <div>
+                <div className="pannel-inner split">
+                  {props.stats !== null && props.savedTrades !== null && (
+                    <>
+                      <p>Trades Won</p>
+                      <i id="gap-show-arrow" className="angle double right icon"></i>
+                      <p>{props.stats['wins']}</p>
+                      <p>Trades Loss</p>
+                      <i id="gap-show-arrow" className="angle double right icon"></i>
+                      <p>{props.stats['loss']}</p>
+                      <p>Profit/Loss Ratio</p>
+                      <i id="gap-show-arrow" className="angle double right icon"></i>
+                      <p>{((props.stats['gains']/props.stats['negGains'])*-1).toFixed(2)}</p>
+                      <p>Average Win</p>
+                      <i id="gap-show-arrow" className="angle double right icon"></i>
+                      <p className="green">${(props.stats['gains']/props.stats['wins']).toFixed(2)}</p>
+                      <p>Average Loss</p>
+                      <i id="gap-show-arrow" className="angle double right icon"></i>
+                      <p className="red-bold">${(props.stats['negGains']/props.stats['loss']).toFixed(2)}</p>
+                    </>
+                  )}
+                  <p>Risk / trade:</p>
+                  <form id="risk-form" onSubmit={setRisk}>
+                    <input 
+                      required 
+                      type='float' 
+                      placeholder={`${props.userAttrs.risk * 100} %`} 
+                      name="risk"
+                      value={riskValue}
+                      onClick= {clickHandler}
+                    />
+                    <button className="ui button">update</button>
+                  </form>
+                  {loader === true && (
+                    <Dimmer active>
+                      <Loader />
+                    </Dimmer>
+                  )}
+                </div>
+                <div className="border-top">
+                  {props.stats !== null && (
+                    <div className="pannel-inner split">
+                      <p>Largest Win</p>
+                      <i id="gap-show-arrow" className="angle double right icon green"></i>
+                      <p>${props.stats['largestWin'].toFixed(2)}</p>
+                      <p>Largest Loss</p>
+                      <i id="gap-show-arrow" className="angle double right icon red"></i>
+                      <p>${props.stats['largestLoss'].toFixed(2)}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           </>
         )}

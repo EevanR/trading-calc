@@ -724,17 +724,16 @@ Button#submit.ui.button {
   padding-bottom: 1rem;
 }
 
+.commissions h4 {
+  margin: 0;
+}
+
 canvas {
   margin: 1rem 0;
 }
 
 #graphs {
   padding-top: 2rem;
-}
-
-.chartSmall {
-  height: 15rem;
-  margin: 0rem 0;
 }
 
 .panes .ui.tabular.menu .active.item {
@@ -849,10 +848,6 @@ canvas {
     padding: 2rem;
   }
 
-  .chartSmall {
-    margin: 1rem 0;
-  }
-
   canvas {
     margin-bottom: 3rem;
   }
@@ -890,12 +885,6 @@ canvas {
     min-height: 10rem;
     justify-content: center;
   }
-
-  .chartSmall {
-    height: 20rem;
-    margin: 2rem 0;
-  }
-
 
   input[type='file'] {
     width: 0;
@@ -1079,7 +1068,7 @@ canvas {
 }
 
 #gap-show-arrow {
-  margin-top: -0.1rem;
+  margin-top: -0.3rem;
   color: rgb(4,119,251);
   float: right;
 }
@@ -1177,8 +1166,8 @@ canvas {
 
 .bars.icon {
   position: absolute;
-  bottom: -4.5rem;
-  right: 2rem;
+  bottom: -3.5rem;
+  right: 1rem;
   color: rgb(4,119,251);
   z-index: 1;
   font-size: 2.5rem;
@@ -1207,6 +1196,11 @@ canvas {
   margin: 0 1rem;
 }
 
+.pannel-inner .border-top {
+  padding-top: .8rem;
+  margin-top: .8rem;
+}
+
 .pannel-up {
   position: relative;
   background-color: rgb(1, 4, 10);
@@ -1218,7 +1212,7 @@ canvas {
 .pannel-down {
   padding: 1rem 0rem;
   transition: all .3s ease-in-out;
-  height: 90px;
+  height: 110px;
 }
 
 #risk-form {
@@ -1238,7 +1232,6 @@ canvas {
   background: transparent;
   color: lightgrey;
   font-family: 'Montserrat';
-  /* top: -0.5rem; */
   max-height: 50%;
   border-radius: 20px;
   width: 5rem;
@@ -1255,10 +1248,18 @@ canvas {
   overflow-x: scroll;
 }
 
+.pannel-inner.split ::-webkit-scrollbar {
+  display: none;
+}
+
+.pannel .split > * {
+  flex-basis: auto;
+}
+
 @media (min-width: 40em) {
   .pannel-down {
     padding: 3rem;
-    height: 130px;
+    height: 160px;
   }
 
   .pannel p {
@@ -1273,6 +1274,10 @@ canvas {
 
   #risk-form input {
     margin-left: -1em;
+  }
+
+  .bars.icon {
+    bottom: -4.2rem;;
   }
 }
 
