@@ -89,10 +89,14 @@ const Pannel = props => {
             </div>
             <div>
             {props.stats !== null && (
-              <>
-                <p>{props.stats['largestWin']}</p>
-                <p>{props.stats['largestLoss']}</p>
-              </>
+              <div className="pannel-inner split">
+                <p>Largest Win</p>
+                <i id="gap-show-arrow" className="angle double right icon"></i>
+                <p>${props.stats['largestWin'].toFixed(2)}</p>
+                <p>Largest Loss</p>
+                <i id="gap-show-arrow" className="angle double right icon"></i>
+                <p>${props.stats['largestLoss'].toFixed(2)}</p>
+              </div>
             )}
             </div>
           </>

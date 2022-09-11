@@ -1166,8 +1166,8 @@ canvas {
 
 .bars.icon {
   position: absolute;
-  bottom: -4.5rem;
-  right: 2rem;
+  bottom: -3.5rem;
+  right: 1rem;
   color: rgb(4,119,251);
   z-index: 1;
   font-size: 2.5rem;
@@ -1207,7 +1207,7 @@ canvas {
 .pannel-down {
   padding: 1rem 0rem;
   transition: all .3s ease-in-out;
-  height: 90px;
+  height: 110px;
 }
 
 #risk-form {
@@ -1247,7 +1247,7 @@ canvas {
 @media (min-width: 40em) {
   .pannel-down {
     padding: 3rem;
-    height: 130px;
+    height: 160px;
   }
 
   .pannel p {
@@ -1262,6 +1262,10 @@ canvas {
 
   #risk-form input {
     margin-left: -1em;
+  }
+
+  .bars.icon {
+    bottom: -4.2rem;;
   }
 }
 
