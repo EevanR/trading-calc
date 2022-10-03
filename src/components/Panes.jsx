@@ -11,6 +11,7 @@ import Calculator from "./Calculator";
 import { showUser } from "../modules/auth";
 import { connect } from "react-redux";
 import { getSetups } from "../modules/setup";
+import Trades from "./Trades";
 
 const Panes = props => {
 
@@ -48,6 +49,15 @@ const Panes = props => {
         <Tab.Pane>
           <>
             <GapStats />
+          </>
+        </Tab.Pane>
+      )
+    },
+    {
+      menuItem: 'My Traded Stocks', render: () => (
+        <Tab.Pane>
+          <>
+            <Trades/>
           </>
         </Tab.Pane>
       )
