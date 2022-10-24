@@ -1454,3 +1454,9 @@ canvas {
   font-size: 15px;
   line-height: 1.5;
 }
+
+/* TRADES */
+
+.trades {
+  min-height: 100vh;
+}
