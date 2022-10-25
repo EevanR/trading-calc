@@ -5,10 +5,10 @@ const Trades = props => {
   
   let tradeHistory;
   if (props.savedTrades !== null) {
-    tradeHistory = props.savedTrades.map(entry => {
+    tradeHistory = props.savedTrades.data.map(entry => {
       return (
         <>
-        
+          <p>{entry.Ticker}</p>
         </>
       )
     })
@@ -24,7 +24,7 @@ const Trades = props => {
             <h3 className="left-align">Preformance</h3>
             <h4 className="left-align">Ticker List</h4>
             <div className="border-top">
-
+              {tradeHistory}
             </div>
           </div>
         </div>
