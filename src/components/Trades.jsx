@@ -5,13 +5,15 @@ const Trades = props => {
   
   let tradeHistory;
   if (props.savedTrades !== null) {
-    tradeHistory = props.savedTrades.data.map(entry => {
-      return (
-        <>
-          <p>{entry.Ticker}</p>
-        </>
-      )
-    })
+    let history = {}
+    for (let i=0; i<props.savedTrades.data.length; i++) { 
+      let group = props.savedTrades.data[i]['Ticker']
+      if (history[group] === undefined ) {
+        history[group] = [props.savedTrades.data[i]]
+      } else {
+        history[group].push(props.savedTrades.data[i])
+      }
+    }
   } else {
     tradeHistory = "No Trade History"
   }
