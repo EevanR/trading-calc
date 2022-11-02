@@ -1,22 +1,41 @@
-import React from 'react';
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 const Trades = props => {
-  
-  let tradeHistory;
-  if (props.savedTrades !== null) {
-    let history = {}
+
+  const getGroups = () => {
+    let summary = {}
     for (let i=0; i<props.savedTrades.data.length; i++) { 
-      let group = props.savedTrades.data[i]['Ticker']
-      if (history[group] === undefined ) {
-        history[group] = [props.savedTrades.data[i]]
+      let ticker = props.savedTrades.data[i]['Ticker']
+      if (summary[ticker] === undefined ) {
+        summary[ticker] = ticker
+        summary["trades"] = 1
+        props.savedTrades.data[i]["GrossProfit"] > 0 ? (summary["wins"] = 1) && (summary["successPercent"] = "100%") : (summary["wins"] = 0) && (summary["successPercent"] = "0%") 
+        summary["pnl"] = props.savedTrades.data[i]["GrossProfit"]
       } else {
-        history[group].push(props.savedTrades.data[i])
+        
       }
     }
-  } else {
-    tradeHistory = "No Trade History"
+    
+    getStats(summary)
   }
+
+  let tradeHistory;
+  const getStats = (history) => {
+    for (let key in history) {
+      return (
+        <div>
+
+        </div>
+      )
+    }
+  }
+
+  useEffect(() => {
+    if (props.savedTrades !== null) {
+      getGroups()
+    }
+  }, [])
 
   return (
     <div>
@@ -26,7 +45,7 @@ const Trades = props => {
             <h3 className="left-align">Preformance</h3>
             <h4 className="left-align">Ticker List</h4>
             <div className="border-top">
-              {tradeHistory}
+              <p>{tradeHistory}</p>
             </div>
           </div>
         </div>
