@@ -8,21 +8,25 @@ const Trades = props => {
     for (let i=0; i<props.savedTrades.data.length; i++) { 
       let ticker = props.savedTrades.data[i]['Ticker']
       if (summary[ticker] === undefined ) {
-        summary[ticker] = ticker
-        summary["trades"] = 1
-        props.savedTrades.data[i]["GrossProfit"] > 0 ? (summary["wins"] = 1) && (summary["successPercent"] = "100%") : (summary["wins"] = 0) && (summary["successPercent"] = "0%") 
-        summary["pnl"] = props.savedTrades.data[i]["GrossProfit"]
+        let details = {}
+        details['trades'] = 1
+        props.savedTrades.data[i]["GrossProfit"] > 0 ? (details["wins"] = 1) && (details["successPercent"] = 1) : (details["wins"] = 0) && (details["successPercent"] = 0) 
+        details["pnl"] = props.savedTrades.data[i]["GrossProfit"]
+
+        summary[ticker] = details
       } else {
-        
+        summary[ticker].trades++
+        summary[ticker].pnl = summary[ticker].pnl + props.savedTrades.data[i]["GrossProfit"]
+        props.savedTrades.data[i]["GrossProfit"] > 0 && summary[ticker].wins++
+        summary[ticker].successPercent = (summary[ticker].wins/summary[ticker].trades)
       }
     }
-    
     getStats(summary)
   }
 
   let tradeHistory;
-  const getStats = (history) => {
-    for (let key in history) {
+  const getStats = (summary) => {
+    for (let key in summary) {
       return (
         <div>
 
