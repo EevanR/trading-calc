@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 const Trades = props => {
+  const [tradesArray, setTradesArray] = useState([])
 
   const getGroups = () => {
     let summary = {}
@@ -9,10 +10,10 @@ const Trades = props => {
       let ticker = props.savedTrades.data[i]['Ticker']
       if (summary[ticker] === undefined ) {
         let details = {}
+        details['ticker'] = ticker
         details['trades'] = 1
         props.savedTrades.data[i]["GrossProfit"] > 0 ? (details["wins"] = 1) && (details["successPercent"] = 1) : (details["wins"] = 0) && (details["successPercent"] = 0) 
         details["pnl"] = props.savedTrades.data[i]["GrossProfit"]
-
         summary[ticker] = details
       } else {
         summary[ticker].trades++
@@ -21,18 +22,15 @@ const Trades = props => {
         summary[ticker].successPercent = (summary[ticker].wins/summary[ticker].trades)
       }
     }
-    getStats(summary)
+    buildArray(summary)
   }
 
-  let tradeHistory;
-  const getStats = (summary) => {
+  const buildArray = (summary) => {
+    let list = [] 
     for (let key in summary) {
-      return (
-        <div>
-
-        </div>
-      )
+      list.push(summary[key])
     }
+    setTradesArray(list)
   }
 
   useEffect(() => {
@@ -42,22 +40,27 @@ const Trades = props => {
   }, [])
 
   return (
-    <div>
+    <>
       <section className="bg-verydark trades" id="graphs">
         <div className="container-wide">
-          <div className="foreground bg-dark equity">
+          <div className="foreground bg-dark">
             <h3 className="left-align">Preformance</h3>
-            <h4 className="left-align">Ticker List</h4>
-            <div className="border-top">
-              <p>{tradeHistory}</p>
-            </div>
+            <h4 className="left-align border-top">Ticker List</h4>
+            {tradesArray.map(entry => {
+              return (
+                <div>
+                  <p>{entry.ticker}</p>
+                  <p>{entry.trades}</p>
+                </div>
+              )
+            })}
           </div>
         </div>
       </section>
       <section className="footer bg-dark">
         <p >Copyright © TradeLogs 2022. All rights reserved.</p>
       </section>
-    </div>
+    </>
   )
 };
 
