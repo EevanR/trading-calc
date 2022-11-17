@@ -1457,7 +1457,9 @@ canvas {
 
 /* TRADES */
 
-.trades {
-  min-height: 100vh;
+.trades p {
+  text-align: left;
+  font-size: 13px;
+  color: lightgrey;
 }
 

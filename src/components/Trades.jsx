@@ -48,9 +48,12 @@ const Trades = props => {
             <h4 className="left-align border-top">Ticker List</h4>
             {tradesArray.map(entry => {
               return (
-                <div>
+                <div className="trades">
                   <p>{entry.ticker}</p>
                   <p>{entry.trades}</p>
+                  <p>{(entry.pnl).toFixed(2)}</p>
+                  <p>{entry.wins}</p>
+                  <p>Win %: {((entry.wins/entry.trades).toFixed(2))*100}</p>
                 </div>
               )
             })}
