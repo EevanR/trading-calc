@@ -11,15 +11,17 @@ const Trades = props => {
       if (summary[ticker] === undefined ) {
         let details = {}
         details['ticker'] = ticker
-        details['trades'] = 1
+        details['count'] = 1
         props.savedTrades.data[i]["GrossProfit"] > 0 ? (details["wins"] = 1) && (details["successPercent"] = 1) : (details["wins"] = 0) && (details["successPercent"] = 0) 
         details["pnl"] = props.savedTrades.data[i]["GrossProfit"]
+        details['trades'] = [{date: props.savedTrades.data[i]['Date'], profit: props.savedTrades.data[i]["GrossProfit"]}]
         summary[ticker] = details
       } else {
-        summary[ticker].trades++
+        summary[ticker].count++
         summary[ticker].pnl = summary[ticker].pnl + props.savedTrades.data[i]["GrossProfit"]
         props.savedTrades.data[i]["GrossProfit"] > 0 && summary[ticker].wins++
-        summary[ticker].successPercent = (summary[ticker].wins/summary[ticker].trades)
+        summary[ticker].successPercent = (summary[ticker].wins/summary[ticker].count)
+        summary[ticker].trades.push({date: props.savedTrades.data[i]['Date'], profit: props.savedTrades.data[i]["GrossProfit"]})
       }
     }
     buildArray(summary)
@@ -45,15 +47,25 @@ const Trades = props => {
         <div className="container-wide">
           <div className="foreground bg-dark">
             <h3 className="left-align">Preformance</h3>
-            <h4 className="left-align border-top">Ticker List</h4>
             {tradesArray.map(entry => {
+              debugger
               return (
                 <div className="trades">
-                  <p>{entry.ticker}</p>
-                  <p>{entry.trades}</p>
-                  <p>{(entry.pnl).toFixed(2)}</p>
-                  <p>{entry.wins}</p>
-                  <p>Win %: {((entry.wins/entry.trades).toFixed(2))*100}</p>
+                  <h4 className="border-top">{entry.ticker}</h4><i className="angle down icon"></i>
+                  <p>Total Profits: ${(entry.pnl).toFixed(2)}</p>
+                  <p>Trade Count: {entry.count}</p>
+                  <p>Wins: {entry.wins}</p>
+                  <p>Win %: {((entry.wins/entry.count).toFixed(2))*100}</p>
+                  <h4>Breakdown</h4>
+                  {entry.trades.map(trade => {
+                    debugger
+                    return (
+                      <>
+                        <p>{trade.date}</p>
+                        <p>${trade.profit.toFixed(2)}</p>
+                      </>
+                    )
+                  })}
                 </div>
               )
             })}

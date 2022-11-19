@@ -1461,5 +1461,13 @@ canvas {
   text-align: left;
   font-size: 13px;
   color: lightgrey;
+  margin-bottom: 1rem;
+}
+
+.trades i {
+  position: relative;
+  color: white;
+  float: right;
+  top: -2rem;
 }
 
