@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { Form } from 'semantic-ui-react'
 
 const Trades = props => {
   const [tradesArray, setTradesArray] = useState([])
@@ -35,6 +36,10 @@ const Trades = props => {
     setTradesArray(list)
   }
 
+  const searchHistory = () => {
+
+  }
+
   useEffect(() => {
     if (props.savedTrades !== null) {
       getGroups()
@@ -46,9 +51,11 @@ const Trades = props => {
       <section className="bg-verydark trades" id="graphs">
         <div className="container-wide">
           <div className="foreground bg-dark">
-            <h3 className="left-align">Preformance</h3>
-            {tradesArray.map(entry => {
-              debugger
+          <Form onSubmit={searchHistory}>
+            <input placeholder="Ticker" required type='text' name="ticker" id="ticker"/>
+            <button className="ui button" id="loadChart" type="submit">Search</button>
+          </Form>            
+          {tradesArray.map(entry => {
               return (
                 <div className="trades">
                   <h4 className="border-top">{entry.ticker}</h4><i className="angle down icon"></i>
