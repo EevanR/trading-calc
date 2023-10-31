@@ -45,7 +45,7 @@ const Panes = props => {
       )
     },
     {
-      menuItem: 'Historic Gap Stats', render: () => (
+      menuItem: 'Gap Stats', render: () => (
         <Tab.Pane>
           <>
             <GapStats />
@@ -54,7 +54,7 @@ const Panes = props => {
       )
     },
     {
-      menuItem: 'My Traded Stocks', render: () => (
+      menuItem: 'Trade History', render: () => (
         <Tab.Pane>
           <>
             <Trades/>
