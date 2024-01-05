@@ -10,7 +10,8 @@ describe("User can get gap stats", () => {
     cy.contains("Gap Stats").click();
     cy.route({
       method: "GET",
-      url: "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&month=2009-01&outputsize=full&apikey=demo",
+      url: "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY**",
+      response: "fixture:intraday_fiveMinute.json",
       status: 200
     });
     cy.route({

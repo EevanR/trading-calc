@@ -32,105 +32,116 @@ const GapStats = props => {
       day2UpDown: [0, 0, 0, 0] // [Up count, Down count, Up Avg, Down Avg]
     }
 
-    const sortIntraDay = (results) => {
-      debugger
-      let newArray = results["data"].reverse()
-      let pv = 0
-      let cumulatieVolume = 0
-      let pricesTimes = {
+    const sortIntraDay = (intraData) => {
+      
+      const newArray = intraData.reverse();
+      let pv = 0;
+      let cumulativeVolume = 0;
+    
+      const pricesTimes = {
         PreMark: [],
         Main: [],
         VWAP: [],
         Labels: [],
         SMA: []
-      }
-      let smaArray = []
-      for (let i=2; i<newArray.length-1; i++) {
-        let time = newArray[i][0].substring(11, 16).split(":")
-        let decimalTime = ((Number(time[0]) * 60) + Number(time[1]))/1440
-        let date = newArray[i][0].substring(0, 10)
-        if (date === mostRecentGapDate) {
-          decimalTime <= 0.398333333 ? (pricesTimes['PreMark'].push(newArray[i][4]) && pricesTimes['Main'].push(newArray[i][4])) : pricesTimes['Main'].push(newArray[i][4])
-          pricesTimes['Labels'].push(newArray[i][0].substring(11, 16))
-          //VWAP CALCULATION
-          pv += ((Number(newArray[i][2])+Number(newArray[i][3])+Number(newArray[i][4]))/3)*Number(newArray[i][5])
-          cumulatieVolume += Number(newArray[i][5])
-          pricesTimes['VWAP'].push(pv/cumulatieVolume)
-
-          //SMA CALCULATION
-          smaArray.length < 50 && smaArray.push(Number(newArray[i][4]))
-          if (smaArray.length === 50) {
-            let value = (smaArray.reduce((a, b) => a + b, 0))/50
-            pricesTimes['SMA'].push(value)
-            smaArray.shift()
-          } else {
-            pricesTimes['SMA'].push(null)
-          }
+      };
+    
+      const smaArray = [];
+    
+      for (let i = 2; i < newArray.length - 1; i++) {
+        const time = newArray[i][0];
+        const isBeforeMarketOpen = time < "09:30:00";
+        const currentPrice = newArray[i][1]['4. close'];
+  
+        if (isBeforeMarketOpen) {
+          pricesTimes['PreMark'].push(currentPrice);
+          pricesTimes['Main'].push(currentPrice);
+        } else {
+          pricesTimes['Main'].push(currentPrice);
+        }
+  
+        pricesTimes['Labels'].push(time);
+  
+        // VWAP CALCULATION
+        
+        pv += ((Number(newArray[i][1]['2. high']) + Number(newArray[i][1]['3. low']) + Number(currentPrice)) / 3) * Number(newArray[i][1]['5. volume']);
+        cumulativeVolume += Number(newArray[i][1]['5. volume']);
+        pricesTimes['VWAP'].push(pv / cumulativeVolume);
+  
+        // SMA CALCULATION
+        
+        if (smaArray.length < 50) {
+          smaArray.push(currentPrice);
+        } else {
+          const value = smaArray.reduce((a, b) => a + b, 0) / 50;
+          pricesTimes['SMA'].push(value);
+          smaArray.shift();
         }
       }
-      setIntraPrices([pricesTimes['PreMark'], pricesTimes['Main'], pricesTimes['VWAP'], pricesTimes['SMA']])
-      setIntraTimes(pricesTimes['Labels'])
-      setSearches(pricesTimes)
-    }
+    
+      setIntraPrices([pricesTimes['PreMark'], pricesTimes['Main'], pricesTimes['VWAP'], pricesTimes['SMA']]);
+      setIntraTimes(pricesTimes['Labels']);
+      setSearches(pricesTimes);
+    };
+    
 
-    const fiveMinData = async (t, month, year, day) => {
-      let data = await getFiveMinData(t, month, year) 
+    const fiveMinData = async (t, recentDateArray, mostRecentGapDate) => {
+      let data = await getFiveMinData(t, recentDateArray) 
       if (data.status === 200) {
-        debugger
+        let intraData = []
         for (let key in data.data['Time Series (5min)']) {
-          if (key.includes("2024-01-04")) {
-              console.log(key, data.data['Time Series (5min)'][key])
+          if (key.includes(mostRecentGapDate)) {
+            const time = key.split(" ")[1];
+            intraData.push([time, data.data['Time Series (5min)'][key]])
           }
         }
-        // sortIntraDay(data)
+      sortIntraDay(intraData)
       } else {
-
+        alert("Problem retrieving data");
       }
-    }
-
-    const findGapDateSlice = (date) => {
-      let recentDate = date.split("-")
-      let month = recentDate[1]
-      let year = recentDate[0]
-      let day = recentDate[2]
-      fiveMinData(t, month, year, day)
     }
 
     const tickerDataReceived = () => {
-      for (let i=1; i < newArray.length; i++) {
-        let variables = {
+      for (let i = 1; i < newArray.length; i++) {
+        const variables = {
           open: Number(newArray[i][1]["1. open"]),
-          currentDayClose:  Number(newArray[i][1]["4. close"]),
+          currentDayClose: Number(newArray[i][1]["4. close"]),
           highOfDay: Number(newArray[i][1]["2. high"]),
           volume: Number(newArray[i][1]["5. volume"]),
-          previousDayClose: Number(newArray[i-1][1]["4. close"])
-        }
-        variables['gapPercent'] = ((variables.open - variables.previousDayClose)/variables.previousDayClose)*100
-
-        if ((variables['gapPercent'] > 19) && (variables.volume > 900000)) {
-          mostRecentGapDate = newArray[i][0]
-          variables['closeBelowOpen'] = (variables.open > variables.currentDayClose ? "true" : "false")
-          if (newArray[i+1] !== undefined) {
-            let nextDayOpen = Number(newArray[i+1][1]["1. open"])
-            variables['day2'] = ((nextDayOpen - variables.currentDayClose)/variables.currentDayClose) * 100
-            variables["day2"] > 0 ? (grouped['day2UpDown'][2] += variables['day2']) && grouped['day2UpDown'][0]++ : (grouped['day2UpDown'][3] += variables['day2']) && (grouped['day2UpDown'][1]++)
+          previousDayClose: Number(newArray[i - 1][1]["4. close"]),
+        };
+    
+        variables.gapPercent = ((variables.open - variables.previousDayClose) / variables.previousDayClose) * 100;
+    
+        if (variables.gapPercent > 19 && variables.volume > 900000) {
+          mostRecentGapDate = newArray[i][0];
+          variables.closeBelowOpen = variables.open > variables.currentDayClose;
+    
+          if (newArray[i + 1] !== undefined) {
+            const nextDayOpen = Number(newArray[i + 1][1]["1. open"]);
+            variables.day2 = ((nextDayOpen - variables.currentDayClose) / variables.currentDayClose) * 100;
+            variables.day2 > 0 ? (grouped.day2UpDown[2] += variables.day2) && grouped.day2UpDown[0]++ : (grouped.day2UpDown[3] += variables.day2) && (grouped.day2UpDown[1]++);
           }
-
-          grouped['gapCount']++
-          grouped['gapPercents'] += ((variables.open - variables.previousDayClose)/variables.previousDayClose)*100
-          grouped['spikes'] += ((variables.highOfDay-variables.open)/variables.open)*100
-          grouped['ranges'] += (variables.highOfDay - Number(newArray[i][1]["3. low"]))
-          if (variables['closeBelowOpen'] === "false") {
-            grouped['closesOpen'][0]++
-            grouped['closesOpen'][2] += ((variables.currentDayClose - variables.open)/variables.open)*100
+    
+          grouped.gapCount++;
+          grouped.gapPercents += variables.gapPercent;
+          grouped.spikes += ((variables.highOfDay - variables.open) / variables.open) * 100;
+          grouped.ranges += variables.highOfDay - Number(newArray[i][1]["3. low"]);
+    
+          if (!variables.closeBelowOpen) {
+            grouped.closesOpen[0]++;
+            grouped.closesOpen[2] += ((variables.currentDayClose - variables.open) / variables.open) * 100;
           } else {
-            grouped['closesOpen'][1]++
-            grouped['closesOpen'][3] += ((variables.currentDayClose - variables.open)/variables.open)*100
+            grouped.closesOpen[1]++;
+            grouped.closesOpen[3] += ((variables.currentDayClose - variables.open) / variables.open) * 100;
           }
         }
       }
+
       setChartDate(mostRecentGapDate)
-      findGapDateSlice(mostRecentGapDate)
+
+      const recentDateArray = mostRecentGapDate.split("-")
+      fiveMinData(t, recentDateArray, mostRecentGapDate)
     }
 
     if (response2.data["Time Series (Daily)"]) {
