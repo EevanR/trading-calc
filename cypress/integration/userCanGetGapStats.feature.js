@@ -1,17 +1,16 @@
 describe("User can get gap stats", () => {
   beforeEach(() => {
-    cy.viewport(1350, 900)
+    cy.viewport(1350, 1200)
     cy.server();
     cy.login();
     cy.requests();
   });
 
   it("successfully submit ticker", () => {
-    cy.contains("Historic Gap Stats").click();
+    cy.contains("Gap Stats").click();
     cy.route({
       method: "GET",
-      url: "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY**",
-      response: "fixture:intraday_hourly.json",
+      url: "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&month=2009-01&outputsize=full&apikey=demo",
       status: 200
     });
     cy.route({

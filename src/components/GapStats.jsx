@@ -33,6 +33,7 @@ const GapStats = props => {
     }
 
     const sortIntraDay = (results) => {
+      debugger
       let newArray = results["data"].reverse()
       let pv = 0
       let cumulatieVolume = 0
@@ -72,22 +73,16 @@ const GapStats = props => {
       setSearches(pricesTimes)
     }
 
-    // const papa = (month, years) => {
-    //   debugger
-    //   let apiKey = process.env.REACT_APP_ALPHA_VANTAGE_API
-    //   let url = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${t}&interval=5min&month=${years}-${month}&outputsize=full&extended_hours=true&apikey=${apiKey}`
-    //   Papa.parse(url, {
-    //     download: true,
-    //     complete: function(results) {
-    //       sortIntraDay(results)
-    //     }
-    //   })
-    // }
-
-    const fiveMinData = async (t, month, year) => {
+    const fiveMinData = async (t, month, year, day) => {
       let data = await getFiveMinData(t, month, year) 
       if (data.status === 200) {
-        sortIntraDay(data)
+        debugger
+        for (let key in data.data['Time Series (5min)']) {
+          if (key.includes("2024-01-04")) {
+              console.log(key, data.data['Time Series (5min)'][key])
+          }
+        }
+        // sortIntraDay(data)
       } else {
 
       }
@@ -97,8 +92,8 @@ const GapStats = props => {
       let recentDate = date.split("-")
       let month = recentDate[1]
       let year = recentDate[0]
-      fiveMinData(t, month, year)
-      // papa(monthsBack, years)
+      let day = recentDate[2]
+      fiveMinData(t, month, year, day)
     }
 
     const tickerDataReceived = () => {
