@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { getGapData } from "../modules/backtest";
+import { getGapData, getFiveMinData } from "../modules/backtest";
 import { Line } from 'react-chartjs-2';
 import { connect } from "react-redux";
 import Papa from 'papaparse';
@@ -72,31 +72,33 @@ const GapStats = props => {
       setSearches(pricesTimes)
     }
 
-    const papa = (month, years) => {
-      let apiKey = process.env.REACT_APP_ALPHA_VANTAGE_API
-      let demo ="https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY_EXTENDED&symbol=IBM&interval=15min&slice=year1month1&apikey=demo"
-      let url = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY_EXTENDED&symbol=${t}&interval=5min&slice=year${years}month${month}&apikey=${apiKey}`
-      Papa.parse(url, {
-        download: true,
-        complete: function(results) {
-          sortIntraDay(results)
-        }
-      })
+    // const papa = (month, years) => {
+    //   debugger
+    //   let apiKey = process.env.REACT_APP_ALPHA_VANTAGE_API
+    //   let url = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${t}&interval=5min&month=${years}-${month}&outputsize=full&extended_hours=true&apikey=${apiKey}`
+    //   Papa.parse(url, {
+    //     download: true,
+    //     complete: function(results) {
+    //       sortIntraDay(results)
+    //     }
+    //   })
+    // }
+
+    const fiveMinData = async (t, month, year) => {
+      let data = await getFiveMinData(t, month, year) 
+      if (data.status === 200) {
+        sortIntraDay(data)
+      } else {
+
+      }
     }
 
     const findGapDateSlice = (date) => {
-      let recentDate = date.split("-").reverse()
-      recentDate = recentDate.join("/")
-      recentDate = new Date(date)
-      let gapDateEpoch = recentDate.getTime()/1000.0
-      let currentDateEpoch = Math.floor(new Date().getTime()/1000.0)
-      let monthsBack = (Math.floor((currentDateEpoch - gapDateEpoch)/2592000)+1)
-      let years = 1
-      if (monthsBack >= 12) {
-        monthsBack = Math.floor(monthsBack-12)
-        years += 1
-      }
-      papa(monthsBack, years)
+      let recentDate = date.split("-")
+      let month = recentDate[1]
+      let year = recentDate[0]
+      fiveMinData(t, month, year)
+      // papa(monthsBack, years)
     }
 
     const tickerDataReceived = () => {
