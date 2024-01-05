@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { getGapData, getFiveMinData } from "../modules/backtest";
 import { Line } from 'react-chartjs-2';
 import { connect } from "react-redux";
-import Papa from 'papaparse';
 import { Form } from 'semantic-ui-react'
 
 const GapStats = props => {
