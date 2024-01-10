@@ -12,14 +12,14 @@ const Trades = ({ savedTrades }) => {
   };
 
   const searchTrades = (ticker) => {
-    debugger
     let newArray = [];
     for (let i = 0; i < savedTrades.data.length; i++) {
       if (savedTrades.data[i]['Ticker'] === ticker.toUpperCase()) {
         newArray.push(savedTrades.data[i]);
       }
     }
-    debugger;
+    debugger
+    setTradesArray(newArray)
   };
 
   useEffect(() => {
@@ -39,6 +39,16 @@ const Trades = ({ savedTrades }) => {
             </Form>
           </div>
         </div>
+        {tradesArray.length > 0 && (
+          <div>
+            <h2>New Array Contents:</h2>
+            <p>
+              {tradesArray.map((item, index) => (
+                <li key={index}>{item.Ticker}</li>
+              ))}
+            </p>
+          </div>
+        )}
       </section>
       <section className="footer bg-dark">
         <p>Copyright © TradeLogs 2022. All rights reserved.</p>
