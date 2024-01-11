@@ -23,6 +23,7 @@ const Trades = ({ savedTrades }) => {
       (accumulator, trade) => {
         const grossProfit = Number(trade.GrossProfit.toFixed(2));
         if (grossProfit < 0) {
+          debugger
           accumulator.Wins++;
           accumulator.PnL += grossProfit;
           accumulator.Largest = Math.max(accumulator.Largest, grossProfit);
