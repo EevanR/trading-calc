@@ -4,30 +4,31 @@ import { Form } from 'semantic-ui-react'
 
 const Trades = ({ savedTrades }) => {
   const [tradesArray, setTradesArray] = useState([]);
-  const [stats, setStats] = useState({ Wins: 0, PnL: 0, Largest: 0 });
+  const [stats, setStats] = useState({ Wins: 0, PnL: 0, Largest: 0, Smallest: 0 });
 
   const searchHistory = (e) => {
     e.preventDefault();
-    const ticker = e.target.ticker.value;
-    searchTrades(ticker);
-  };
-
-  const searchTrades = (ticker) => {
-    const newArray = savedTrades.data.filter((trade) => trade.Ticker === ticker.toUpperCase());
-    setTradesArray(newArray);
-    findStats(newArray);
+    const ticker = (e.target.ticker.value).toUpperCase();
+    const newArray = savedTrades.data.filter((trade) => trade.Ticker === ticker);
+    if (newArray.length !== 0) {
+      setTradesArray(newArray);
+      findStats(newArray);
+    } else {
+      alert(`No trade history for ${ticker}!`)
+      setTradesArray([])
+    }
   };
 
   const findStats = (trades) => {
     const newStats = trades.reduce(
       (accumulator, trade) => {
         const grossProfit = Number(trade.GrossProfit.toFixed(2));
-        if (grossProfit < 0) {
-          debugger
+        if (grossProfit > 0) {
           accumulator.Wins++;
           accumulator.PnL += grossProfit;
           accumulator.Largest = Math.max(accumulator.Largest, grossProfit);
         } else {
+          accumulator.PnL += grossProfit;
           accumulator.Smallest = Math.min(accumulator.Smallest, grossProfit);
         }
         return accumulator;
@@ -61,7 +62,7 @@ const Trades = ({ savedTrades }) => {
               <br />
               Largest Winning Trade: ${stats.Largest}
               <br />
-              Largst Losing Trade: ${stats.Smallest}
+              Largest Losing Trade: ${stats.Smallest}
             </p>
           </div>
         )}
