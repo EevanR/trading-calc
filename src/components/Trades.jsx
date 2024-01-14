@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Form } from 'semantic-ui-react'
 
@@ -14,8 +14,8 @@ const Trades = ({ savedTrades }) => {
       setTradesArray(newArray);
       findStats(newArray);
     } else {
-      alert(`No trade history for ${ticker}!`)
-      setTradesArray([])
+      alert(`No trade history for ${ticker}!`);
+      setTradesArray([]);
     }
   };
 
