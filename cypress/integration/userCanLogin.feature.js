@@ -25,6 +25,6 @@ describe("User can log in", () => {
   cy.get("#email").type("trader@mail.com");
   cy.get("#password").type("password");
   cy.get("#submit").click();
-    cy.contains("Profit Chart")
+    cy.contains("Profit Curve")
   });
 });
