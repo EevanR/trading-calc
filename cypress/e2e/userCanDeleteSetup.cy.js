@@ -1,36 +1,30 @@
 describe("User can delete a setup", () => {
-  beforeEach(() => {
-    cy.viewport(1450, 1000);
-    cy.server()
-    cy.requests();
-  })
 
   it("can successfully delete a setup", () => {
     cy.login();
+    cy.requests();
 
-    cy.contains("Strategies").click();
-    cy.route({
-      method: "DELETE",
-      url: "http://localhost:3000/api/v1/setups/**",
-      response: "fixture:delete_setup_success.json",
+    cy.intercept('DELETE', 'http://localhost:3000/api/v1/setups/**', {
+      fixture: 'delete_setup_success.json',
       headers: {
-        uid: "trader@mail.com"
+        uid: 'trader@mail.com'
       },
-      status: 200
-    })
+      statusCode: 200
+    });
+    cy.contains("Strategies").click();
+    cy.get("#setup1").within(() => {
+      cy.get("#1").click({force: true})
+    });
+    cy.get("#result-message").should("contain", '"Strat 1" Deleted')
 
-    cy.route({
-      method: "GET",
-      url: "http://localhost:3000/api/v1/setups",
-      response: "fixture:reload_strat.json",
-      status: 200,
-    })
+    cy.contains("Overview").click();
 
-    // cy.get("#setup1").within(() => {
-    //   cy.get("#1").click({force: true})
-    // })
+    cy.intercept('GET', 'http://localhost:3000/api/v1/setups', {
+      fixture: 'reload_strat.json',
+      statusCode: 200
+    });
+    cy.contains("Strategies").click();
 
-    // cy.get("#result-message").should("contain", '"Strat 1" Deleted')
-    // cy.get("#setup1").should('not.be.visible')
+    cy.get("#setup1").should('not.exist')
   })
 })
