@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const getFiveMinData = async ticker => {
+const getFiveMinData = async (ticker, date) => {
   try {
     const response = await axios({
       method: "GET",
@@ -9,6 +9,7 @@ const getFiveMinData = async ticker => {
         function: "TIME_SERIES_INTRADAY",
         symbol: ticker,
         interval: "5min",
+        month: `${date[0]}-${date[1]}`,
         outputsize: "full",
         apikey: process.env.REACT_APP_ALPHA_VANTAGE_API
       }

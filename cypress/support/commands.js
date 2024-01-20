@@ -1,16 +1,16 @@
 
 Cypress.Commands.add("login", () => {
-  cy.visit("/");
-  cy.route({
-    method: "POST",
-    url: "http://localhost:3000/api/v1/auth/sign_in",
-    response: "fixture:login.json",
+  cy.intercept('POST', 'http://localhost:3000/api/v1/auth/sign_in', {
+    fixture: 'login.json',
     headers: {
-      uid: "trader@mail.com"
+      uid: 'trader@mail.com'
     },
-    status: 200,
-    delay: 1000
+    statusCode: 200,
+    delayMs: 1000
   });
+
+  cy.visit("/");
+
   cy.contains("Sign In").click()
   cy.get("#email").type("trader@mail.com");
   cy.get("#password").type("password");
@@ -18,28 +18,23 @@ Cypress.Commands.add("login", () => {
 });
 
 Cypress.Commands.add("requests", () => {
-  cy.route({
-    method: "GET",
-    url: "http://localhost:3000/api/v1/tweets",
-    response: "fixture:index_tweets.json",
-    status: 200
-  })
-  cy.route({
-    method: "GET",
-    url: "http://localhost:3000/api/v1/trades",
-    response: "fixture:saved_trades.json",
-    status: 200
+  cy.intercept('GET', "http://localhost:3000/api/v1/tweets", {
+  fixture: 'index_tweets.json',
+  statusCode: 200
   });
-  cy.route({
-    method: "GET",
-    url: "http://localhost:3000/api/v1/setups",
-    response: "fixture:index_strategies.json",
-    status: 200,
+
+  cy.intercept('GET', "http://localhost:3000/api/v1/trades", {
+  fixture: 'saved_trades.json',
+  statusCode: 200
   });
-  cy.route({
-    method: "GET",
-    url: "http://localhost:3000/api/v1/excels",
-    response: "fixture:excel_test.json",
-    status: 200,
+
+  cy.intercept('GET', "http://localhost:3000/api/v1/setups", {
+  fixture: 'index_strategies.json',
+  statusCode: 200
+  });
+
+  cy.intercept('GET', "http://localhost:3000/api/v1/excels", {
+  fixture: 'excel_test.json',
+  statusCode: 200
   });
 });

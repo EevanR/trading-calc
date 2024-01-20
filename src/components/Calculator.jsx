@@ -90,7 +90,7 @@ const Calculator = props => {
                   />
                 </div>
                 <div className="field">
-                  <label>Upper Line</label>
+                  <label>Entry Price</label>
                   <input
                     required
                     type="text"

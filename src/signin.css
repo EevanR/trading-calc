@@ -859,7 +859,7 @@ canvas {
   }
 
   .panes .ui.tabular.menu {
-    width: 550px;
+    width: 700px;
     position: relative;
     margin-inline: auto;
   }
@@ -1454,3 +1454,20 @@ canvas {
   font-size: 15px;
   line-height: 1.5;
 }
+
+/* TRADES */
+
+.trades p {
+  text-align: left;
+  font-size: 13px;
+  color: lightgrey;
+  margin-bottom: 1rem;
+}
+
+.trades i {
+  position: relative;
+  color: white;
+  float: right;
+  top: -2rem;
+}
+

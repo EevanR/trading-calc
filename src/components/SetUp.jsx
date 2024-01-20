@@ -63,25 +63,19 @@ const SetUp = props => {
     indexSetups()
   }, [props.setUp]);
 
-  let setUp;
-  if (chooseSetUp !== []) {
-    setUp = (
-      <>
-        {chooseSetUp.map(checkbox => {
-          return (
-            <Checkbox key={checkbox.id}
-              onClick={() => onClickHandler(checkbox.id, checkbox.label, checkbox.checked)}
-              id={checkbox.id} 
-              label={checkbox.label} 
-              checked={checkbox.checked} 
-            />
-          )
-        })}
-      </>
-    )
-  } else {
-    setUp = (<div></div>)
-  }
+  const setUp = chooseSetUp.length > 0 ? (
+  <>
+    {chooseSetUp.map(checkbox => (
+      <Checkbox
+        key={checkbox.id}
+        onClick={() => onClickHandler(checkbox.id, checkbox.label, checkbox.checked)}
+        id={checkbox.id}
+        label={checkbox.label}
+        checked={checkbox.checked}
+      />
+    ))}
+  </>
+) : <div></div>;
 
   return (
     <div className="setups">
