@@ -1,19 +1,14 @@
 describe("User can calculate trade params on calculator tab", () => {
   beforeEach(() => {
-    cy.viewport(1450, 1000);
-    cy.server()
     cy.login();
-
-    cy.route({
-      method: "GET",
-      url: "http://localhost:3000/api/v1/excels",
-      response: "fixture:excel_test.json",
-      status: 200,
-    });
   })
 
   it("can successfully navigate to Calculate tab with no uploaded data", () => {
-    cy.wait(5000)
+    cy.intercept('GET', 'http://localhost:3000/api/v1/excels', {
+      fixture: 'excel_test.json',
+      statusCode: 200
+    });
+
     cy.contains("Calculator").click({force: true});
 
     cy.get("#title").should("contain", "Trading Position Calculator")
@@ -21,15 +16,7 @@ describe("User can calculate trade params on calculator tab", () => {
   })
 
   it("can successfully see saved strategies", () => {
-    cy.route({
-      method: "GET",
-      url: "http://localhost:3000/api/v1/setups",
-      response: "fixture:index_strategies.json",
-      status: 200
-    });
-
-    cy.requests()
-    cy.wait(5000)
+    cy.requests();
 
     cy.contains("Calculator").click()
     cy.get("#setup-dropdown").click()
